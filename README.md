@@ -1,8 +1,51 @@
-# React + Vite
+# Hermes - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyecto #Hermes para la agencia de viajes #ParcheTravels
 
-Currently, two official plugins are available:
+[Parche Travels](https://www.facebook.com/profile.php?id=61558957825128)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Colaborar
+
+Crear fork del repositorio:
+[Hermes Frontend](https://github.com/jfelipeq14/hermes-react)
+
+Clonar el repositorio (debe tener tu nombre de usuario:
+
+    git clone https://github.com/username/hermes-react
+
+Crear la rama con tu nombre + caracteristica o componente:
+
+    git checkout -b username/auth
+
+Realizar los cambios necesarios.
+
+Subir los cambios:
+
+    git add .
+    git commit -m "mensaje del commit"
+    git push origin nombreRama
+
+Realizar el pull request explicando que hizo en sus cambios (corregir errores, agregar funcionalidad, modificar componentes y demás).
+
+Avisar sobre los cambios y esperar la review.
+
+Obtener los cambios en el repositorio: Ir a su repositorio de github y actualizar su rama develop.
+
+Obtener cambios en el proyecto local:
+
+    git fetch origin develop
+    git pull origin develop
+
+Cambiar de rama para realizar la siguiente tarea (cada tarea necesita su rama):
+
+    git checkout develop
+    git checkout -b username/task
+
+Repetir el proceso.
+
+## Hermesianos
+
+[Alan](https://github.com/Andrey0108)
+[Brayan](https://github.com/Bryan0813)
+[Camila](https://github.com/)
+[Felipe](https://github.com/jfelipeq14)
