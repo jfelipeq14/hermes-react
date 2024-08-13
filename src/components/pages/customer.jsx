@@ -26,7 +26,7 @@ export default function rowomer() {
           <header className="d-flex justify-content-between align-items-end my-2">
             <div className="form-group">
               <label htmlFor="identification" className="form-label">
-                Cedula:{" "}
+                Cedula:
               </label>
               <input type="text" id="identification" className="form-control" />
             </div>
