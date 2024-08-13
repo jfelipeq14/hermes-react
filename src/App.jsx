@@ -1,4 +1,3 @@
-
 import Role from "./components/pages/role";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Customer from './components/pages/customer'
