@@ -42,10 +42,10 @@ export default function Navbar() {
             <li className="nav-item">
               <NavLink
                 style={navigationActive}
-                to="customers"
+                to="role"
                 className={"nav-link"}
               >
-                Customers
+                Role
               </NavLink>
             </li>
           </ul>

@@ -1,36 +1,64 @@
 export default function Role() {
-//   const array = [
-//     "Dashboard",
-//     "Gestión de roles",
-//     "Gestión de servicios",
-//     "Gestión de usuarios",
-//     "Gestión de reservas",
-
-
-//   ];
-
-const array = [
+  const array = [
     {
-        dashboard: true,
-        role: true,
-        users: true,
-        services: true,
-        packages: true,
-        programingPackages: true,
-        customers: true,
-        reservations: true,
-        pay: true
-
+      nombre: "dashboard",
+      active: true,
     },
+    {
+      nombre: "role",
+      active: true,
+    },
+    {
+      nombre: "users",
+      active: true,
+    },
+    {
+      nombre: "services",
+      active: true,
+    },
+    {
+      nombre: "packages",
+      active: true,
+    },
+    {
+      nombre: "programingPackages",
+      active: true,
+    },
+    {
+      nombre: "customers",
+      active: true,
+    },
+    {
+      nombre: "reservations",
+      active: true,
+    },
+    {
+      nombre: "pay",
+      active: true,
+    },
+  ];
 
-]
+  const permisos = [
+    {
+      nombre: "create",
+    },
+    {
+      nombre: "read",
+    },
+    {
+      nombre: "update",
+    },
+    {
+      nombre: "delete",
+    },
+  ];
 
   return (
-    <div className="row">
+    <div className="row p-5">
       <section className="col-sm-12 col-md-6">
         <form>
           <fieldset>
-            <legend className="border-2 border-bottom">Roles</legend>
+            <legend>Roles</legend>
             <header>
               <input
                 type="search"
@@ -38,71 +66,65 @@ const array = [
                 className="form-control"
               />
             </header>
-            <table>
+            <table className="table table-striped">
               <thead>
                 <tr>
                   <th>Nombre</th>
                   <th>acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                {/* agregar el contenido del array en la tabla */}
-                
-              </tbody>
+              <tbody>{/* agregar el contenido del array en la tabla */}</tbody>
             </table>
           </fieldset>
         </form>
       </section>
-      <section className="col-sm-12 col-md-6">
+      <fieldset className="col-sm-12 col-md-6">
+        <legend>Permisos</legend>
+
         <form>
-          <fieldset>
-            <legend className="border-2 border-bottom">Permisos</legend>
-            <div className="">
-              <label htmlFor="role">Rol:</label>
-              <input
-                id="role"
-                placeholder="Administrador"
-                className="form-control"
-              />
-            </div>
-
-            <div className="mt-4 border rounded-lg overflow-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr>
-                    <th className="px-4 py-2 border-b">Permiso</th>
-                    <th className="px-4 py-2 border-b">Opciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {array.map((permiso, index) => (
-                    <tr key={index} className="border-b">
-                      <td className="px-4 py-3">{permiso}</td>
-                      <td className="px-4 py-3">
-                        <div className="flex space-x-2">
-                          {[...Array(5)].map((_, idx) => (
-                            <input
-                              key={idx}
-                              className="form-check-input"
-                              type="checkbox"
-                              id={`flexCheckDefault${idx}`}
-                            />
-                          ))}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="flex ">
-              <button className="btn btn-primary">Guardar</button>
-              <button className="btn btn-primary">Limpiar</button>
-            </div>
-          </fieldset>
+          <div className="form-group">
+            <label htmlFor="role">Rol:</label>
+            <input
+              id="role"
+              placeholder="Administrador"
+              className="form-control"
+            />
+          </div>
         </form>
-      </section>
+
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Permiso</th>
+              {permisos.map((permiso, index) => {
+                <th key={index}>{permiso.nombre}</th>;
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {array.map((row, index) => (
+              <tr key={index}>
+                <td className="px-4 py-3">{row.nombre}</td>
+                {[...Array(5)].map((_, idx) => (
+                  <td className="px-4 py-3">
+                    <input
+                      key={idx}
+                      className="form-check-input"
+                      type="checkbox"
+                      id={`flexCheckDefault${idx}`}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="buttons">
+          <button className="btn btn-primary">Guardar</button>
+          <button className="btn btn-primary">Limpiar</button>
+        </div>
+      </fieldset>
     </div>
   );
 }
