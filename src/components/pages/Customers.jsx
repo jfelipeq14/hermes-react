@@ -1,4 +1,4 @@
-export default function rowomer() {
+export default function Customers() {
   const customer = [
     {
       cedula: "899",
@@ -22,7 +22,7 @@ export default function rowomer() {
     <section className="row">
       <form className="col-sm-12 col-md-7">
         <fieldset>
-          <legend className="border-2 border-bottom">Clientes</legend>
+          <legend>Clientes</legend>
           <header className="d-flex justify-content-between align-items-end my-2">
             <div className="form-group">
               <label htmlFor="identification" className="form-label">
@@ -60,7 +60,7 @@ export default function rowomer() {
       </form>
       <article className="col-sm-12 col-md-5">
         <fieldset>
-          <legend className="border-2 border-bottom">Reservas</legend>
+          <legend>Reservas</legend>
           <header className="d-flex justify-content-end align-items-end">
             <div className="btn-group">
               <button className="btn btn-primary">Crear</button>
