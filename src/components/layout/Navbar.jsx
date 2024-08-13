@@ -1,7 +1,4 @@
-import {
-  // BrowserRouter as Router,
-  NavLink,
-} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const navigationActive = ({ isActive }) => {
@@ -42,10 +39,19 @@ export default function Navbar() {
             <li className="nav-item">
               <NavLink
                 style={navigationActive}
-                to="customers"
+                to="role"
                 className={"nav-link"}
               >
-                Customers
+                Role
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                style={navigationActive}
+                to="menu"
+                className={"nav-link"}
+              >
+                Menu
               </NavLink>
             </li>
           </ul>

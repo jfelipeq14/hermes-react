@@ -40,7 +40,6 @@ export default function Reservations() {
     { country: "Islas Sandwich del Sur", prefix: "+500" },
   ];
 
-
   return (
     <div className="row">
       <fieldset className="col-sm-12 col-md-4">
