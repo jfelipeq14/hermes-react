@@ -2,9 +2,7 @@
 export default function Footer() {
 
     return (
-     <div className="cointainer">
-      
-     </div>
+     <footer className="cointainer"></footer>
     )
   }
   

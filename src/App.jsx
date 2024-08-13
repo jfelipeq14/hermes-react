@@ -1,18 +1,19 @@
-import Role from "./components/pages/role";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Footer from './layout/footer'
-import Navbar from './layout/navbar'
-import Customers from './components/pages/Customers'
+import Navbar from "./components/layout/Navbar";
+import Role from "./components/pages/role";
+import Customers from "./components/pages/Customers";
+import PageNotFound from "./components/PageNotFound";
 
 export default function App() {
   return (
-    <div className="container">
-
+    <Router>
       <Navbar/>
-      <Customers/>
-      <Role/>
-      <Footer/>
-    </div>
-  )
+      <Routes>
+        <Route exact path="/customers" element={<Customers />} />
+        <Route path="/role" element={<Role />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </Router>
+  );
 }
