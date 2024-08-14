@@ -1,3 +1,5 @@
+import { PencilIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
+
 export default function Role() {
   const array = [
     {
@@ -40,18 +42,37 @@ export default function Role() {
 
   const permisos = [
     {
-      nombre: "create",
+      nombre: "Crear",
     },
     {
-      nombre: "read",
+      nombre: "Ver",
     },
     {
-      nombre: "update",
+      nombre: "Editar",
     },
     {
-      nombre: "delete",
+      nombre: "Eliminar",
+    },
+    {
+      nombre: "Cambio de estado",
+    },
+    {
+      nombre: "Buscar",
     },
   ];
+
+  const array2 = [
+    {
+      nombre: "Administrador",
+    },
+    {
+      nombre:"Cliente"
+    }
+  ];
+
+  const acciones = [{
+    nombre:"acciones"
+  }];
 
   return (
     <div className="row p-5">
@@ -67,13 +88,47 @@ export default function Role() {
               />
             </header>
             <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>acciones</th>
-                </tr>
-              </thead>
-              <tbody>{/* agregar el contenido del array en la tabla */}</tbody>
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    {acciones.map((permiso, index) => (
+                      <th key={index}>{permiso.nombre}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {array2.map((row, index) => (
+                    <tr key={index}>
+                      <td className="px-4 py-3">{row.nombre}</td>
+                      {acciones.map((_, idx) => (
+                        <td className="px-4 py-3" key={idx}>
+                          <PencilSquareIcon width={25}
+                          type="button" />
+                           <TrashIcon width={25}
+                          type="button" />
+                           <PencilIcon width={25}
+                          type="button" />
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <tbody>
+                {/* agregar el contenido del array en la tabla */}
+                <form>
+                  <div className="form-group">
+                    <label htmlFor="role">Roles:</label>
+                    <input
+                      id="role"
+                      placeholder="Administrador"
+                      className="form-control"
+                    />
+                  </div>
+                </form>
+              </tbody>
             </table>
           </fieldset>
         </form>
@@ -95,23 +150,22 @@ export default function Role() {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Permiso</th>
-              {permisos.map((permiso, index) => {
-                <th key={index}>{permiso.nombre}</th>;
-              })}
+              <th>Nombre</th>
+              {permisos.map((permiso, index) => (
+                <th key={index}>{permiso.nombre}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
             {array.map((row, index) => (
               <tr key={index}>
                 <td className="px-4 py-3">{row.nombre}</td>
-                {[...Array(5)].map((_, idx) => (
-                  <td className="px-4 py-3">
+                {permisos.map((_, idx) => (
+                  <td className="px-4 py-3" key={idx}>
                     <input
-                      key={idx}
                       className="form-check-input"
                       type="checkbox"
-                      id={`flexCheckDefault${idx}`}
+                      id={`permiso${index}-${idx}`}
                     />
                   </td>
                 ))}
