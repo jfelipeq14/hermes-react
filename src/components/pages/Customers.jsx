@@ -1,6 +1,11 @@
-import { EyeIcon, PencilSquareIcon } from "@heroicons/react/16/solid";
+import {
+  EyeIcon,
+  PencilSquareIcon,
+  PlusCircleIcon,
+} from "@heroicons/react/16/solid";
 import { administrator } from "../../routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
+import { NavLink } from "react-router-dom";
 
 export default function Customers() {
   const customer = [
@@ -30,15 +35,14 @@ export default function Customers() {
         {
           nombre: "Pesca",
           valor: 500000,
-          cantidad: 1
+          cantidad: 1,
         },
         {
           nombre: "Lancha",
           valor: 70000,
-          cantidad: 1
+          cantidad: 1,
         },
       ],
-      
     },
   ];
 
@@ -72,7 +76,15 @@ export default function Customers() {
                 />
               </div>
               <div className="btn-group">
-                <button className="btn btn-primary">Crear</button>
+                <NavLink
+                  to="customers"
+                  className={
+                    "btn btn-primary d-flex align-items-center justify-content-center gap-2"
+                  }
+                >
+                  <PlusCircleIcon width={20} />
+                  Crear
+                </NavLink>
               </div>
             </header>
             <table className="table table-striped my-2">
@@ -88,8 +100,8 @@ export default function Customers() {
                 {customer.map((row) => (
                   <tr key={row.email}>
                     <td className="d-flex">
-                      <EyeIcon color="blue" width={25}/>
-                      <PencilSquareIcon color="black" width={25}/>
+                      <EyeIcon width={20} />
+                      <PencilSquareIcon width={20} />
                     </td>
                     <td>{row.cedula}</td>
                     <td>{row.nombres}</td>
@@ -104,8 +116,16 @@ export default function Customers() {
           <fieldset className="col-sm-12 col-md-6">
             <legend>Reservas</legend>
             <header className="d-flex justify-content-end align-items-end">
-              <div className="btn-group">
-                <button className="btn btn-primary">Crear</button>
+              <div className="buttons">
+                <NavLink
+                  to="customers"
+                  className={
+                    "btn btn-primary d-flex align-items-center justify-content-center gap-2"
+                  }
+                >
+                  <PlusCircleIcon width={20} />
+                  Crear
+                </NavLink>
               </div>
             </header>
             <table className="table table-striped my-2">
@@ -120,8 +140,8 @@ export default function Customers() {
                 {reservations.map((row) => (
                   <tr key={row.paquete}>
                     <td className="d-flex">
-                      <EyeIcon color="blue" width={25}/>
-                      <PencilSquareIcon color="black" width={25}/>
+                      <EyeIcon width={20} />
+                      <PencilSquareIcon width={20} />
                     </td>
                     <td>{row.paquete}</td>
                     <td>{row.valor}</td>
