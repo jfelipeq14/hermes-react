@@ -1,4 +1,4 @@
-export default function Package({ address, name, date, price, services = [] }) {
+export default function Package({ address, name, date, price, services }) {
   const formatter = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
@@ -14,11 +14,8 @@ export default function Package({ address, name, date, price, services = [] }) {
   });
 
   return (
-    <div className="card my-4">
-      <div
-        className="card-img-top h-32 bg-cover bg-center"
-        style={{ backgroundImage: "url('https://picsum.photos/300/150')" }}
-      >
+    <div className="card col-sm-12 col-md-4">
+      <div className="card-img-top bg-center">
         <p className="p-1 bg-light bg-opacity-75 rounded shadow-lg position-absolute bottom-0 end-0 m-2">
           {address}
         </p>
@@ -27,18 +24,14 @@ export default function Package({ address, name, date, price, services = [] }) {
         <p className="card-title text-muted">{name}</p>
         <p className="card-text">{formattedDate}</p>
       </div>
-      <div className="card-footer d-flex border-top">
-        <article className="flex-grow-1 px-2">
+      <div className="d-flex justify-content-between">
           <ul className="list-unstyled">
             {/* Realiza un map de los servicios que se incluyan como un item de la lista */}
             {services.map((service, index) => (
               <li key={index}>{service}</li>
             ))}
           </ul>
-        </article>
-        <article className="ms-auto p-4">
-          <strong>{formattedPrice}</strong>
-        </article>
+        <strong>{formattedPrice}</strong>
       </div>
     </div>
   );
