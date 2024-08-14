@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Page from "./components/pages/Page";
 // import Menu from "./components/pages/Menu";
-import Role from "./components/pages/role";
+import Role from "./components/pages/Role";
 import Customers from "./components/pages/Customers";
 import PageNotFound from "./components/PageNotFound";
 

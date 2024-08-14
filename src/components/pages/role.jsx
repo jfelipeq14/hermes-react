@@ -1,7 +1,7 @@
 import { PencilIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 
 export default function Role() {
-  const array = [
+  const permisos = [
     {
       nombre: "dashboard",
       active: true,
@@ -40,7 +40,7 @@ export default function Role() {
     },
   ];
 
-  const permisos = [
+  const privilegios = [
     {
       nombre: "Crear",
     },
@@ -61,7 +61,7 @@ export default function Role() {
     },
   ];
 
-  const array2 = [
+  const nameRol = [
     {
       nombre: "Administrador",
     },
@@ -98,7 +98,7 @@ export default function Role() {
                   </tr>
                 </thead>
                 <tbody>
-                  {array2.map((row, index) => (
+                  {nameRol.map((row, index) => (
                     <tr key={index}>
                       <td className="px-4 py-3">{row.nombre}</td>
                       {acciones.map((_, idx) => (
@@ -117,7 +117,7 @@ export default function Role() {
               </table>
 
               <tbody>
-                {/* agregar el contenido del array en la tabla */}
+                {/* agregar el contenido del privilegios en la tabla */}
                 <form>
                   <div className="form-group">
                     <label htmlFor="role">Roles:</label>
@@ -151,16 +151,16 @@ export default function Role() {
           <thead>
             <tr>
               <th>Nombre</th>
-              {permisos.map((permiso, index) => (
+              {privilegios.map((permiso, index) => (
                 <th key={index}>{permiso.nombre}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {array.map((row, index) => (
+            {permisos.map((row, index) => (
               <tr key={index}>
                 <td className="px-4 py-3">{row.nombre}</td>
-                {permisos.map((_, idx) => (
+                {privilegios.map((_, idx) => (
                   <td className="px-4 py-3" key={idx}>
                     <input
                       className="form-check-input"
