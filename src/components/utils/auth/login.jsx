@@ -1,43 +1,66 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import SimpleAlert from "../Alerts";
 
 export default function Login({ isOpen, form, clickModal }) {
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
+  const [showAlert, setShowAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    email: form.email,
+    password: form.password,
+  });
 
   const toggleModal = () => {
     setModalIsOpen(!isOpen);
     clickModal(!isOpen);
   };
 
+  const clickAlert = () => {
+    setShowAlert(!showAlert);
+  };
+
   const validateForm = () => {
     // validar que los campos no estén vacíos
-    form.email === "" || form.password === ""
-      ? alert("Los campos no pueden estar vacíos")
-      : console.log("Formulario válido");
-    // validar que el email tenga un formato correcto
-    form.email.includes("@") && form.email.includes(".")
-      ? console.log("Email válido")
-      : alert("Email inválido");
-    // validar que el password tenga al menos 6 caracteres
-    form.password.length >= 6
-      ? console.log("Password válido")
-      : alert("Password debe tener al menos 6 caracteres");
+    if (formData.email === "" || formData.password === "") {
+      setMessage("Los campos no pueden estar vacíos");
+      setShowAlert(true);
+      return;
+    }
+    if (!formData.email.includes("@") && !formData.email.includes(".")) {
+      setMessage("El formato del email es incorrecto");
+      setShowAlert(true);
+      return;
+    }
+    if (formData.password.length < 6) {
+      setMessage("La contraseña debe tener al menos 6 caracteres");
+      setShowAlert(true);
+      return;
+    }
+    setMessage("Formulario enviado correctamente");
+    setShowAlert(true);
+    setTimeout(() => {
+      clickModal(!isOpen);
+    }, 3000);
   };
 
   return (
     <Modal show={modalIsOpen} onHide={toggleModal}>
       <Modal.Body>
-        {/* agregar formulario de login con los campos email y password */}
         <form>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email
             </label>
-            <input type="email" className="form-control" value={form.email} />
-            <div id="emailHelp" className="form-text">
-              We`ll never share your email with anyone else.
-            </div>
+            <input
+              type="email"
+              className="form-control"
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              value={formData.email}
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="form-label">
@@ -46,24 +69,32 @@ export default function Login({ isOpen, form, clickModal }) {
             <input
               type="password"
               className="form-control"
-              value={form.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+              value={formData.password}
             />
           </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            <label className="form-check-label" htmlFor="exampleCheck1">
-              Check me out
-            </label>
-          </div>
-          <Button variant="primary" onClick={validateForm}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              validateForm();
+            }}
+          >
             Submit
           </Button>
         </form>
       </Modal.Body>
+      {showAlert ? (
+        <SimpleAlert
+          show={showAlert}
+          variant="success"
+          message={message}
+          clickAlert={clickAlert}
+        />
+      ) : (
+        ""
+      )}
     </Modal>
   );
 }
