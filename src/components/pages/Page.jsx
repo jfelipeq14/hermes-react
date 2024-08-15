@@ -1,9 +1,7 @@
-import Navbar from "../layout/Navbar";
 import Package from "../utils/Package";
 import Footer from "../layout/Footer";
 
 import {
-  // BrowserRouter as Router,
   NavLink,
 } from "react-router-dom";
 
@@ -63,15 +61,15 @@ export default function Page() {
   return (
     <div className="container">
       <div className="row">
-        <Navbar />
         <main className="row col-sm-12 col-md-10">
           <section className="col-sm-12 mx-auto my-5">
             <header className="text-center">
               <h2 className="fw-bold fs-4">Paquetes</h2>
             </header>
-            <article className="row row-cols-1 row-cols-md-4 g-4">
+            <article className="row g-4">
               {packages.map((pkg) => {
                 return (
+                  // eslint-disable-next-line react/jsx-key
                   <Package
                     address={pkg.address}
                     name={pkg.name}

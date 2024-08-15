@@ -6,10 +6,12 @@ import Role from "./components/pages/role";
 import Customers from "./components/pages/Customers";
 import Reservations from "./components/pages/Reservations";
 import PageNotFound from "./components/PageNotFound";
+import Navbar from "./components/layout/Navbar";
 
 export default function App() {
   return (
     <Router>
+      <Navbar/>
       <Routes>
         
         <Route exact path="/" element={<Page />} />
