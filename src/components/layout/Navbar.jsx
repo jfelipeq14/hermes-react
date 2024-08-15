@@ -1,13 +1,6 @@
 import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
-  const navigationActive = ({ isActive }) => {
-    return {
-      color: isActive ? "white" : "black",
-      textDecoration: "none",
-    };
-  };
-
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -29,7 +22,6 @@ export default function Navbar() {
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink
-                style={navigationActive}
                 to="customers"
                 className={"nav-link"}
               >
@@ -38,7 +30,6 @@ export default function Navbar() {
             </li>
             <li className="nav-item">
               <NavLink
-                style={navigationActive}
                 to="role"
                 className={"nav-link"}
               >
@@ -47,7 +38,6 @@ export default function Navbar() {
             </li>
             <li className="nav-item">
               <NavLink
-                style={navigationActive}
                 to="menu"
                 className={"nav-link"}
               >
