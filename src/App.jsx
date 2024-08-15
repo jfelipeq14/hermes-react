@@ -1,23 +1,23 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 
-import Page from "./components/pages/Page";
-import Menu from "./components/pages/Menu";
-import Role from "./components/pages/Role";
-import Customers from "./components/pages/Customers";
-import PageNotFound from "./components/PageNotFound";
-import Navbar from "./components/layout/Navbar";
+import Home from "./pages/home/Home";
+import PageNotFound from "./pages/PageNotFound";
+import Navbar from "./pages/layout/Navbar";
 
 export default function App() {
   return (
-    <Router>
-      <Navbar/>
+    <BrowserRouter>
+      <Navbar>
+        <li className="nav-item">
+          <Link to="customers" className={"nav-link"}>
+            Customers
+          </Link>
+        </li>
+      </Navbar>
       <Routes>
-        <Route exact path="/" element={<Page />} />
-        <Route exact path="/menu" element={<Menu />} />
-        <Route exact path="/customers" element={<Customers />} />
-        <Route path="/role" element={<Role />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route exact path="/" element={<Home />} />
+        <Route path="*" element={<PageNotFound />} /> 
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }

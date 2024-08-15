@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import SimpleAlert from "../Alerts";
+import SimpleAlert from "../../../components/Alerts";
 
 export default function Login({ isOpen, form, clickModal }) {
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
@@ -48,7 +48,7 @@ export default function Login({ isOpen, form, clickModal }) {
   return (
     <Modal show={modalIsOpen} onHide={toggleModal}>
       <Modal.Body>
-        <form>
+        <form onSubmit={validateForm()}>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email
@@ -76,10 +76,7 @@ export default function Login({ isOpen, form, clickModal }) {
             />
           </div>
           <Button
-            variant="primary"
-            onClick={() => {
-              validateForm();
-            }}
+            
           >
             Submit
           </Button>
