@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import HermesLogo from "../utils/HermesLogo";
-import Login from "../utils/auth/Login";
+import HermesLogo from "../../components/HermesLogo";
+import Login from "../home/auth/Login";
 
-export default function Navbar() {
+// eslint-disable-next-line react/prop-types
+export default function Navbar({children}) {
   const form = {
     email: "",
     password: "",
@@ -32,16 +33,7 @@ export default function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink to="customers" className={"nav-link"}>
-                  Customers
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="role" className={"nav-link"}>
-                  Role
-                </NavLink>
-              </li>
+              {children}
               <li className="nav-item">
                 <button
                   type="button"
@@ -51,17 +43,6 @@ export default function Navbar() {
                   }}
                 >
                   Ingresar
-                </button>
-              </li>
-              <li className="nav-item">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => {
-                    clickModal();
-                  }}
-                >
-                  Registrarse
                 </button>
               </li>
             </ul>

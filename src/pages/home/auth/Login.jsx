@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import SimpleAlert from "../Alerts";
+import SimpleAlert from "../../../components/Alerts";
 
 export default function Login({ isOpen, form, clickModal }) {
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);

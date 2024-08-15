@@ -1,4 +1,4 @@
-import Package from "../utils/Package";
+import Package from "../../components/Package";
 import Footer from "../layout/Footer";
 
 import {
