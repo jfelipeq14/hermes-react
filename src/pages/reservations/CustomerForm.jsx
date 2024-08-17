@@ -1,12 +1,15 @@
 import { Customer } from "../../models/customer";
+import { documentTypes } from "../../utilies/documentTypes";
+import { phonePrefixes } from "../../utilies/phonePrefixes";
 
 // eslint-disable-next-line react/prop-types
-export default function CustomerForm({ handleSubmit }) {
+export default function CustomerForm() {
   const customer = new Customer();
 
-  const documentTypes = [];
-  const phonePrefixes = [];
-  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(customer);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -29,9 +32,14 @@ export default function CustomerForm({ handleSubmit }) {
         <div className="row">
           <div className="col-sm-12 col-md-6">
             <label htmlFor="firstName">Nombre nombre:</label>
-            <input type="text" className="form-control" value={customer.name} onChange={(event)=>{
-              customer.name =event.target.value
-            }} />
+            <input
+              type="text"
+              className="form-control"
+              value={customer.name}
+              onChange={(event) => {
+                customer.name = event.target.value;
+              }}
+            />
           </div>
           <div className="col-sm-12 col-md-6">
             <label htmlFor="secondName">Segundo nombre:</label>
