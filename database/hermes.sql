@@ -239,7 +239,6 @@ CREATE TABLE reserve_companions(
     phone VARCHAR(15),
     sex CHAR,
     bloodType VARCHAR(3),
-    RH CHAR,
     eps VARCHAR(60),
     healthPosition VARCHAR(60),
     
@@ -249,7 +248,7 @@ CREATE TABLE reserve_companions(
     CONSTRAINT chk_lastNameCompanion CHECK (lastName ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
     CONSTRAINT chk_phoneCompanion CHECK (phone ~ '^\+?[0-9]{1,3}[0-9]{6,}$'),
     CONSTRAINT chk_sexCompanion CHECK (sex ~ '^[hm]$'),
-    CONSTRAINT chk_bloodTypeCompanion CHECK (bloodType ~ '^^[a-z]{1,2}$'),
+    CONSTRAINT chk_bloodTypeCompanion CHECK (bloodType ~ '^(A|B|AB|O)+[+|-]$'),
     CONSTRAINT chk_epsCompanion CHECK (eps ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
     CONSTRAINT chk_healthPositionCompanion CHECK (healthPosition ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$')
 );

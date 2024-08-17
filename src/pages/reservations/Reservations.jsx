@@ -1,14 +1,15 @@
 import CustomerForm from "./CustomerForm";
 
 export default function Reservations() {
-  
-
   return (
-    <div className="row">
-      <fieldset className="col-sm-12 col-md-4">
-        <legend>Datos personales</legend>
+    <div className="row g-3">
+      <div className="col-4">
         <CustomerForm/>
-      </fieldset>
+      </div>
+      <div className="col">
+        {/* crear tabla para los acompañantes de la reserva */}
+
+      </div>
     </div>
   );
 }
