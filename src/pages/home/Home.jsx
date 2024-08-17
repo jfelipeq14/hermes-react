@@ -1,61 +1,55 @@
 import Package from "../../components/Package";
 import Footer from "../layout/Footer";
 
-import {
-  NavLink,
-} from "react-router-dom";
+import { NavLink } from "react-router-dom";
+// import { getPackages } from "./service/home.service";
+
+// const packages = getPackages()
+//   .then((data) => {
+//     return data;
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
 
 const packages = [
   {
     address: "Calle 123 # 123 - 123",
     name: "Paquete 1",
-    date: "01/01/2024",
+    date: "2021-09-30",
     price: 1000000,
-    services: ["Servicio 1", "Servicio 2", "Servicio 3"],
+    services: ["servicio 1", "servicio 2", "servicio 3"],
   },
   {
     address: "Calle 123 # 123 - 123",
     name: "Paquete 2",
-    date: "01/01/2024",
+    date: "2021-09-30",
     price: 1000000,
-    services: ["Servicio 1", "Servicio 2", "Servicio 3"],
+    services: ["servicio 1", "servicio 2", "servicio 3"],
   },
   {
     address: "Calle 123 # 123 - 123",
     name: "Paquete 3",
-    date: "01/01/2024",
+    date: "2021-09-30",
     price: 1000000,
-    services: ["Servicio 1", "Servicio 2", "Servicio 3"],
+    services: ["servicio 1", "servicio 2", "servicio 3"],
   },
   {
     address: "Calle 123 # 123 - 123",
     name: "Paquete 4",
-    date: "01/01/2024",
+    date: "2021-09-30",
     price: 1000000,
-    services: ["Servicio 1", "Servicio 2", "Servicio 3"],
+    services: ["servicio 1", "servicio 2", "servicio 3"],
   },
   {
     address: "Calle 123 # 123 - 123",
     name: "Paquete 5",
-    date: "01/01/2024",
+    date: "2021-09-30",
     price: 1000000,
-    services: ["Servicio 1", "Servicio 2", "Servicio 3"],
-  },
-  {
-    address: "Calle 123 # 123 - 123",
-    name: "Paquete 6",
-    date: "01/01/2024",
-    price: 1000000,
-    services: ["Servicio 1", "Servicio 2", "Servicio 3"],
-  },
-  {
-    address: "Calle 123 # 123 - 123",
-    name: "Paquete 7",
-    date: "01/01/2024",
-    price: 1000000,
-    services: ["Servicio 1", "Servicio 2", "Servicio 3"],
+    services: ["servicio 1", "servicio 2", "servicio 3"],
   },
 ];
+
 
 export default function Page() {
   return (
