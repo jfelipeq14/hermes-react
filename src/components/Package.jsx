@@ -1,18 +1,7 @@
-export default function Package({ address, name, date, price, services }) {
-  const formatter = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-  });
-  const formattedPrice = formatter.format(price);
+import { formattedDate } from "../utilies/formattedDate";
+import { formattedPrice } from "../utilies/formattedPrice";
 
-  // formatear la fecha para que quede más legible para el usuario
-  const formattedDate = new Date(date).toLocaleDateString("es-CO", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
+export default function Package({ address, name, date, price, services = [] }) {
   return (
     <div className="card col-sm-12 col-md-4">
       <div className="card-img-top bg-center">
@@ -22,16 +11,16 @@ export default function Package({ address, name, date, price, services }) {
       </div>
       <div className="card-body d-flex justify-content-between">
         <p className="card-title text-muted">{name}</p>
-        <p className="card-text">{formattedDate}</p>
+        <p className="card-text">{formattedDate(date)}</p>
       </div>
       <div className="d-flex justify-content-between">
-          <ul className="list-unstyled">
-            {/* Realiza un map de los servicios que se incluyan como un item de la lista */}
-            {services.map((service, index) => (
-              <li key={index}>{service}</li>
-            ))}
-          </ul>
-        <strong>{formattedPrice}</strong>
+        <ul className="list-unstyled">
+          {/* Realiza un map de los servicios que se incluyan como un item de la lista */}
+          {services.map((service, index) => (
+            <li key={index}>{service}</li>
+          ))}
+        </ul>
+        <strong>{formattedPrice.format(price)}</strong>
       </div>
     </div>
   );
