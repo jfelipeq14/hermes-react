@@ -7,6 +7,8 @@ export class Customer {
     this.name = ""
     this.lastName = ""
     this.phone = ""
+    this.dateOfBirth = new Date()
+    this.age = 0
     this.address = ""
     this.country = ""
     this.departament = ""

@@ -3,8 +3,8 @@ import {
   PencilSquareIcon,
   PlusCircleIcon,
 } from "@heroicons/react/16/solid";
-import { administrator } from "../../routes";
-import Sidebar, { SidebarItem } from "../layout/Sidebar";
+import { administrator } from "../utilies/routes";
+import Sidebar, { SidebarItem } from "./layout/Sidebar";
 import { NavLink } from "react-router-dom";
 
 export default function Customers() {
