@@ -11,7 +11,6 @@ export default function CustomerForm() {
 
   const [customer, setCustomer] = useState(formCustomer);
   const [user, setUser] = useState(formUser);
-  const [error, setError] = useState(false);
   const [validated, setValidated] = useState(false);
 
   const handleChangeCustomer = (e) => {
@@ -30,45 +29,83 @@ export default function CustomerForm() {
       event.preventDefault();
       event.stopPropagation();
     }
-
     setValidated(true);
   };
-
-  // const PintarError = () => (
-  //   <div className="alert alert-danger">Todos los campos obligatorios</div>
-  // );
 
   return (
     <div className="container">
       {/* {error && <PintarError />} */}
-      <Form noValidate validated={validated} onSubmit={handleSubmit} className="row g-3">
-        <div className="form-group my-2">
-          <label htmlFor="identification" className="col-12">
-            Cedula:
-          </label>
-          <div className="d-flex justify-content-around">
-            <select
-              className="form-select"
-              name="documentType"
-              value={customer.documentType}
-              onChange={handleChangeCustomer}
-              required
-            >
-              <option selected>Seleccione</option>
-              {documentTypes.map((documentType) => (
-                <option key={documentType}>{documentType}</option>
-              ))}
-            </select>
-            <input
-              type="text"
-              className="form-control"
-              name="identification"
-              value={customer.identification}
-              onChange={handleChangeCustomer}
-              required
-            />
-            <button className="btn btn-primary">🔍</button>
+      <Form
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+        className="row g-3"
+      >
+        {/* cedula */}
+        <div className="col-12">
+          <div className="row">
+            <label htmlFor="identification" className="form-label">
+              Cedula:
+            </label>
+            <div className="col-5">
+              <select
+                className="form-select"
+                name="documentType"
+                value={customer.documentType}
+                onChange={handleChangeCustomer}
+                required
+              >
+                <option selected>Seleccione</option>
+                {documentTypes.map((documentType) => (
+                  <option key={documentType}>{documentType}</option>
+                ))}
+              </select>
+              <div className="valid-feedback">
+                <small>Todo bien!</small>
+              </div>
+              <div className="invalid-feedback">
+                <small className="text-danger">Campo obligatorio</small>
+              </div>
+            </div>
+            <div className="col-5">
+              <input
+                type="text"
+                className="form-control"
+                name="identification"
+                value={customer.identification}
+                onChange={handleChangeCustomer}
+                required
+              />
+              <div className="valid-feedback">
+                <small>Todo bien!</small>
+              </div>
+              <div className="invalid-feedback">
+                <small className="text-danger">Campo obligatorio</small>
+              </div>
+            </div>
+            <div className="col-2">
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  console.log("buscar cliente");
+                }}
+              >
+                🔍
+              </button>
+            </div>
           </div>
+        </div>
+        {/* nombres */}
+        <div className="col-12">
+          <label htmlFor="name">Nombres:</label>
+          <input
+            type="text"
+            className="form-control"
+            name="name"
+            value={customer.name}
+            onChange={handleChangeCustomer}
+            required
+          />
           <div className="valid-feedback">
             <small>Todo bien!</small>
           </div>
@@ -76,42 +113,22 @@ export default function CustomerForm() {
             <small className="text-danger">Campo obligatorio</small>
           </div>
         </div>
-        <div className="form-group my-2">
-          <div className="row">
-            <div className="col-sm-12 col-md-6">
-              <label htmlFor="name">Nombres:</label>
-              <input
-                type="text"
-                className="form-control"
-                name="name"
-                value={customer.name}
-                onChange={handleChangeCustomer}
-                required
-              />
-              <div className="valid-feedback">
-                <small>Todo bien!</small>
-              </div>
-              <div className="invalid-feedback">
-                <small className="text-danger">Campo obligatorio</small>
-              </div>
-            </div>
-            <div className="col-sm-12 col-md-6">
-              <label htmlFor="lastName">Apellidos:</label>
-              <input
-                type="text"
-                className="form-control"
-                name="lastName"
-                value={customer.lastName}
-                onChange={handleChangeCustomer}
-                required
-              />
-              <div className="valid-feedback">
-                <small>Todo bien!</small>
-              </div>
-              <div className="invalid-feedback">
-                <small className="text-danger">Campo obligatorio</small>
-              </div>
-            </div>
+        {/* Apellidos */}
+        <div className="col-12">
+          <label htmlFor="lastName">Apellidos:</label>
+          <input
+            type="text"
+            className="form-control"
+            name="lastName"
+            value={customer.lastName}
+            onChange={handleChangeCustomer}
+            required
+          />
+          <div className="valid-feedback">
+            <small>Todo bien!</small>
+          </div>
+          <div className="invalid-feedback">
+            <small className="text-danger">Campo obligatorio</small>
           </div>
         </div>
         <div className="form-group my-2">
