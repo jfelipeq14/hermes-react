@@ -20,7 +20,7 @@ export default function Package({ address, name, date, price, services = [] }) {
             <li key={index}>{service}</li>
           ))}
         </ul>
-        <strong>{formattedPrice.format(price)}</strong>
+        <strong>{formattedPrice(price)}</strong>
       </div>
     </div>
   );

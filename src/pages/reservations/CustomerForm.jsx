@@ -3,8 +3,8 @@ import { Customer } from "../../models/customer.model";
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 import { User } from "../../models/user.model";
+import { Form } from "react-bootstrap";
 
-// eslint-disable-next-line react/prop-types
 export default function CustomerForm() {
   const formCustomer = new Customer();
   const formUser = new User();
@@ -12,6 +12,7 @@ export default function CustomerForm() {
   const [customer, setCustomer] = useState(formCustomer);
   const [user, setUser] = useState(formUser);
   const [error, setError] = useState(false);
+  const [validated, setValidated] = useState(false);
 
   const handleChangeCustomer = (e) => {
     const { name, value, checked, type } = e.target;
@@ -23,29 +24,24 @@ export default function CustomerForm() {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // pequeña validación
-    if (!customer.documentType.trim() || !customer.identification.trim()) {
-      console.log("campos vacíos");
-      setError(true);
-      return;
-    } else {
-      setError(false);
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
     }
 
-    // Enviar todo a un array!
+    setValidated(true);
   };
 
-  const PintarError = () => (
-    <div className="alert alert-danger">Todos los campos obligatorios</div>
-  );
+  // const PintarError = () => (
+  //   <div className="alert alert-danger">Todos los campos obligatorios</div>
+  // );
 
   return (
     <div className="container">
-      {error && <PintarError />}
-      <form onSubmit={handleSubmit}>
+      {/* {error && <PintarError />} */}
+      <Form noValidate validated={validated} onSubmit={handleSubmit} className="row g-3">
         <div className="form-group my-2">
           <label htmlFor="identification" className="col-12">
             Cedula:
@@ -56,6 +52,7 @@ export default function CustomerForm() {
               name="documentType"
               value={customer.documentType}
               onChange={handleChangeCustomer}
+              required
             >
               <option selected>Seleccione</option>
               {documentTypes.map((documentType) => (
@@ -65,10 +62,18 @@ export default function CustomerForm() {
             <input
               type="text"
               className="form-control"
+              name="identification"
               value={customer.identification}
               onChange={handleChangeCustomer}
+              required
             />
             <button className="btn btn-primary">🔍</button>
+          </div>
+          <div className="valid-feedback">
+            <small>Todo bien!</small>
+          </div>
+          <div className="invalid-feedback">
+            <small className="text-danger">Campo obligatorio</small>
           </div>
         </div>
         <div className="form-group my-2">
@@ -78,18 +83,34 @@ export default function CustomerForm() {
               <input
                 type="text"
                 className="form-control"
+                name="name"
                 value={customer.name}
                 onChange={handleChangeCustomer}
+                required
               />
+              <div className="valid-feedback">
+                <small>Todo bien!</small>
+              </div>
+              <div className="invalid-feedback">
+                <small className="text-danger">Campo obligatorio</small>
+              </div>
             </div>
             <div className="col-sm-12 col-md-6">
               <label htmlFor="lastName">Apellidos:</label>
               <input
                 type="text"
                 className="form-control"
+                name="lastName"
                 value={customer.lastName}
                 onChange={handleChangeCustomer}
+                required
               />
+              <div className="valid-feedback">
+                <small>Todo bien!</small>
+              </div>
+              <div className="invalid-feedback">
+                <small className="text-danger">Campo obligatorio</small>
+              </div>
             </div>
           </div>
         </div>
@@ -98,8 +119,8 @@ export default function CustomerForm() {
             Celular:
           </label>
           <div className="row">
-            <div className="col-sm-12 col-md-6">
-              <select className="form-select">
+            <div className="d-flex justify-content-around">
+              <select className="form-select" name="phonePrefix">
                 <option selected>Seleccione</option>
                 {phonePrefixes.map((phonePrefix) => (
                   <option
@@ -107,11 +128,10 @@ export default function CustomerForm() {
                   >{`${phonePrefix.country} (${phonePrefix.prefix})`}</option>
                 ))}
               </select>
-            </div>
-            <div className="col-sm-12 col-md-6">
               <input
                 type="text"
                 className="form-control"
+                name="phone"
                 value={customer.phone}
                 onChange={handleChangeCustomer}
               />
@@ -125,6 +145,7 @@ export default function CustomerForm() {
               <input
                 type="date"
                 className="form-control"
+                name="dateOfBirth"
                 value={customer.dateOfBirth}
                 onChange={handleChangeCustomer}
               />
@@ -148,6 +169,7 @@ export default function CustomerForm() {
               <input
                 type="email"
                 className="form-control"
+                name="email"
                 value={user.email}
                 onChange={handleChangeUser}
               />
@@ -157,6 +179,7 @@ export default function CustomerForm() {
               <input
                 type="email"
                 className="form-control"
+                name="emailConfirmation"
                 value={user.email}
                 onChange={(e) => {
                   if (user.email === e.target.value) {
@@ -217,7 +240,7 @@ export default function CustomerForm() {
             Limpiar
           </button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }
