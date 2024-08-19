@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 
 export default function SimpleAlert({
   variant = "primary",
+  title = "Título",
   message = "Mensaje",
   show = true,
   clickAlert,
@@ -18,13 +20,20 @@ export default function SimpleAlert({
     return null;
   }
   return (
-    <Alert
-      className="m-1"
-      variant={variant}
-      onClose={toggleAlert}
-      dismissible
-    >
-      <p>{message}</p>
-    </Alert>
+    <>
+      <Alert show={show} variant={variant}>
+        <Alert.Heading>{title}</Alert.Heading>
+        <p>
+          {message}
+        </p>
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={toggleAlert} variant={`outline-${variant}`}>
+            Close
+          </Button>
+        </div>
+      </Alert>
+    </>
+    
   );
 }

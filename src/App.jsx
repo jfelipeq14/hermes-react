@@ -20,7 +20,7 @@ export default function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/customers" element={<Customers />} />
         <Route exact path="/reservations" element={<Reservations />} />
-        <Route path="*" element={<PageNotFound />} /> 
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );
