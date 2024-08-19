@@ -2,15 +2,15 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import SimpleAlert from "../../../components/Alerts";
+import { User } from "../../../models/user.model";
+import { messages } from "../../../utilies/messages";
 
 export default function Login({ isOpen, form, clickModal }) {
+  const user = new User();
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [showAlert, setShowAlert] = useState(false);
-  const [message, setMessage] = useState("");
-  const [formData, setFormData] = useState({
-    email: form.email,
-    password: form.password,
-  });
+  const [message, setMessage] = useState(messages);
+  const [formData, setFormData] = useState(user);
 
   const toggleModal = () => {
     setModalIsOpen(!isOpen);
@@ -24,7 +24,7 @@ export default function Login({ isOpen, form, clickModal }) {
   const validateForm = () => {
     // validar que los campos no estén vacíos
     if (formData.email === "" || formData.password === "") {
-      setMessage("Los campos no pueden estar vacíos");
+      setMessage(messages.error.emptyFields);
       setShowAlert(true);
       return;
     }
@@ -75,17 +75,14 @@ export default function Login({ isOpen, form, clickModal }) {
               value={formData.password}
             />
           </div>
-          <Button
-            
-          >
-            Submit
-          </Button>
+          <Button>Submit</Button>
         </form>
       </Modal.Body>
       {showAlert ? (
         <SimpleAlert
           show={showAlert}
           variant="success"
+          title="Titulo"
           message={message}
           clickAlert={clickAlert}
         />

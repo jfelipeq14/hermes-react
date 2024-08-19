@@ -7,7 +7,7 @@ export class Customer {
     this.name = ""
     this.lastName = ""
     this.phone = ""
-    this.dateOfBirth = new Date()
+    this.dateOfBirth = ""
     this.age = 0
     this.address = ""
     this.country = ""
@@ -17,6 +17,6 @@ export class Customer {
     this.bloodType = ""
     this.eps = ""
     this.healthPosition = ""
-    this.state = null
+    this.state = false
     }
 }

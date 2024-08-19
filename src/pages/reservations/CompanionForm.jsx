@@ -1,26 +1,18 @@
 import { useState } from "react";
-import { Customer } from "../../models/customer.model";
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 import { User } from "../../models/user.model";
 import { Form } from "react-bootstrap";
+import { Companion } from "../../models/companion.model";
 
-export default function CustomerForm() {
-  const formCustomer = new Customer();
-  const formUser = new User();
-
-  const [customer, setCustomer] = useState(formCustomer);
-  const [user, setUser] = useState(formUser);
+export default function CompanionForm() {
+  const formCompanion = new Companion();
+  const [customer, setCompanion] = useState(formCompanion);
   const [validated, setValidated] = useState(false);
 
-  const handleChangeCustomer = (e) => {
+  const handleChangeCompanion = (e) => {
     const { name, value, checked, type } = e.target;
-    setCustomer({ ...customer, [name]: type === "checkbox" ? checked : value });
-  };
-
-  const handleChangeUser = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setCompanion({ ...customer, [name]: type === "checkbox" ? checked : value });
   };
 
   const handleSubmit = (event) => {
@@ -33,7 +25,7 @@ export default function CustomerForm() {
   };
 
   return (
-    <fieldset className="p-2">
+    <fieldset>
       <legend>Datos personales</legend>
 
       <Form
@@ -48,29 +40,13 @@ export default function CustomerForm() {
             <label htmlFor="identification" className="form-label">
               Cedula:
             </label>
-            <div className="col-5">
-              <select
-                className="form-select"
-                name="documentType"
-                value={customer.documentType}
-                onChange={handleChangeCustomer}
-                required
-              >
-                {documentTypes.map((documentType) => (
-                  <option key={documentType}>{documentType}</option>
-                ))}
-              </select>
-              <small className="valid-feedback">Todo bien!</small>
-              <small className="invalid-feedback">Campo obligatorio</small>
-            </div>
-            <div className="col-5">
+            <div className="col-10">
               <input
                 type="text"
                 className="form-control"
                 name="identification"
                 value={customer.identification}
-                onChange={handleChangeCustomer}
-                pattern="^[a-z0-9]{6,}$"
+                onChange={handleChangeCompanion}
                 required
               />
               <small className="valid-feedback">Todo bien!</small>
@@ -96,8 +72,7 @@ export default function CustomerForm() {
             className="form-control"
             name="name"
             value={customer.name}
-            onChange={handleChangeCustomer}
-            pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+            onChange={handleChangeCompanion}
             required
           />
           <small className="valid-feedback">Todo bien!</small>
@@ -111,8 +86,7 @@ export default function CustomerForm() {
             className="form-control"
             name="lastName"
             value={customer.lastName}
-            onChange={handleChangeCustomer}
-            pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+            onChange={handleChangeCompanion}
             required
           />
           <small className="valid-feedback">Todo bien!</small>
@@ -141,8 +115,7 @@ export default function CustomerForm() {
                 className="form-control"
                 name="phone"
                 value={customer.phone}
-                onChange={handleChangeCustomer}
-                pattern="^\+?[0-9]{1,3}[0-9]{6,}$"
+                onChange={handleChangeCompanion}
                 required
               />
               <small className="valid-feedback">Todo bien!</small>
@@ -158,7 +131,7 @@ export default function CustomerForm() {
             className="form-control"
             name="dateOfBirth"
             value={customer.dateOfBirth}
-            onChange={handleChangeCustomer}
+            onChange={handleChangeCompanion}
             required
           />
           <small className="valid-feedback">Todo bien!</small>
@@ -183,14 +156,13 @@ export default function CustomerForm() {
             name="email"
             value={user.email}
             onChange={handleChangeUser}
-            pattern="^[a-z0-9.!#$%&*+/=?^_`{|}~-]+@[a-z0-9-]+\.[a-z0-9.]{2,}$"
             required
           />
           <small className="valid-feedback">Todo bien!</small>
           <small className="invalid-feedback">Campo obligatorio</small>
         </div>
         <div className="col-6">
-          <label htmlFor="emailConfirmation">Confir,. correo:</label>
+          <label htmlFor="emailConfirmation">Conf. correo:</label>
           <input
             type="email"
             className="form-control"
@@ -201,7 +173,6 @@ export default function CustomerForm() {
                 return;
               }
             }}
-            pattern="^[a-z0-9.!#$%&*+/=?^_`{|}~-]+@[a-z0-9-]+\.[a-z0-9.]{2,}$"
             required
           />
           <small className="valid-feedback">Todo bien!</small>
@@ -222,7 +193,7 @@ export default function CustomerForm() {
           <small className="invalid-feedback">Campo obligatorio</small>
         </div>
         <div className="col-6">
-          <label htmlFor="passwordConfirmation">Confirm. contraseña:</label>
+          <label htmlFor="passwordConfirmation">Conf. contraseña:</label>
           <input
             type="password"
             className="form-control"
@@ -244,7 +215,7 @@ export default function CustomerForm() {
             type="checkbox"
             name="travel"
             value={false}
-            onChange={handleChangeCustomer}
+            onChange={handleChangeCompanion}
           />
           <label className="form-check-label" htmlFor="travel">
             El cliente está incluido en el viaje
