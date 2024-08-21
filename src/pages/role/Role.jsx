@@ -1,13 +1,14 @@
-// import { Permissions } from "../models/role/permissions.model";
-import { RolePrivilege } from "../models/role/rolePrivilege.model";
-import { Role } from "../models/role/role.model";
-// import { Privileges } from "../models/role/privileges.model";npm run
+import { RolePrivilege } from "../../models/role/rolePrivilege.model";
+import { Role } from "../../models/role/role.model";
+import SimpleAlert from "../../components/Alerts";
+import { messages } from "../../utilies/messages";
 import { useState } from "react";
 import {
   PencilIcon,
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/16/solid";
+import { variants } from "../../utilies/variants";
 
 export default function RolePage() {
   const permissions = [
@@ -51,18 +52,21 @@ export default function RolePage() {
 
   const formRole = new Role();
   const formRolPrivilege = new RolePrivilege();
-  // const formPrivileges = new Privileges();
-  // const formPermissions = new Permissions();
 
   const [role, setRole] = useState(formRole);
   const [rolePrivilege, setRolePrivilege] = useState(formRolPrivilege);
-  // const [privileges, setPrivileges] = useState(formPrivileges);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validar que haya seleccionado al menos un privilegio
     if (rolePrivilege.id_privilege === 0) {
-      alert("Seleccione al menos un privilegio");
+      setMessage(messages.error.emptyFields);
+      setVariant(variant.error);
+      setShowAlert(true);
+      return;
+    }else{
+      setMessage(messages.success.formSent);
+      setVariant(variant.correct);
+      setShowAlert(true);
       return;
     }
   };
@@ -80,14 +84,12 @@ export default function RolePage() {
     });
   };
 
-  // const handleChangePrivileges = (e) => {
-  //   const { name, value, checked, type } = e.target;
-  //   setPrivileges({
-  //     ...privileges,
-  //     [name]: type === "checkbox" ? checked : value,
-  //   });
-  //   console.log(e.target);
-  // };
+  const [message, setMessage] = useState(messages);
+  const [variant, setVariant] = useState(variants);
+  const [showAlert, setShowAlert] = useState(false);
+  const clickAlert = () => {
+    setShowAlert(!showAlert);
+  };
 
   return (
     <div className="row p-5">
@@ -206,6 +208,17 @@ export default function RolePage() {
               Limpiar
             </button>
           </div>
+          {showAlert ? (
+            <SimpleAlert
+              show={showAlert}
+              variant={variant}
+              title="Titulo"
+              message={message}
+              clickAlert={clickAlert}
+            />
+          ) : (
+            ""
+          )}
         </form>
       </fieldset>
     </div>
