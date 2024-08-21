@@ -77,7 +77,7 @@ export default function Customers() {
               </div>
               <div className="btn-group">
                 <NavLink
-                  to="customers"
+                  to="/reservations"
                   className={
                     "btn btn-primary d-flex align-items-center justify-content-center gap-2"
                   }
@@ -118,7 +118,7 @@ export default function Customers() {
             <header className="d-flex justify-content-end align-items-end">
               <div className="buttons">
                 <NavLink
-                  to="customers"
+                  to="/reservations"
                   className={
                     "btn btn-primary d-flex align-items-center justify-content-center gap-2"
                   }
