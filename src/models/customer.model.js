@@ -17,6 +17,6 @@ export class Customer {
     this.bloodType = ""
     this.eps = ""
     this.healthPosition = ""
-    this.state = false
+    this.state = true
     }
 }
