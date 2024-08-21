@@ -4,6 +4,6 @@ export class User {
     this.id_role = 0;
     this.email = "";
     this.password = "";
-    this.state = false;
+    this.state = true;
   }
 }

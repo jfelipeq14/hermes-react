@@ -27,12 +27,12 @@ export default function RolePage() {
     {
       id_privilege: 1,
       name: "Crear",
-      id_permission: 0,
+      id_permission: 2,
     },
     {
       id_privilege: 2,
       name: "Ver",
-      id_permission: 0,
+      id_permission: 1,
     },
   ];
 
@@ -58,23 +58,26 @@ export default function RolePage() {
   const [rolePrivilege, setRolePrivilege] = useState(formRolPrivilege);
   // const [privileges, setPrivileges] = useState(formPrivileges);
 
-  const handleSubmit = (event) => {
-    console.log(event);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Validar que haya seleccionado al menos un privilegio
+    if (rolePrivilege.id_privilege === 0) {
+      alert("Seleccione al menos un privilegio");
+      return;
+    }
   };
 
   const handleChangeRole = (e) => {
     const { name, value, checked, type } = e.target;
     setRole({ ...role, [name]: type === "checkbox" ? checked : value });
-    console.log(e.target);
   };
 
   const handleChangePrivilege = (e) => {
-    const { name, value, checked, type } = e.target;
+    const { name, value } = e.target;
     setRolePrivilege({
       ...rolePrivilege,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: parseInt(value),
     });
-    console.log(e.target);
   };
 
   // const handleChangePrivileges = (e) => {
@@ -141,7 +144,7 @@ export default function RolePage() {
       <fieldset className="col-sm-12 col-md-6">
         <legend>permissions</legend>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="role">Rol:</label>
             <input
@@ -153,59 +156,57 @@ export default function RolePage() {
               required
             />
           </div>
-          <table onSubmit={handleSubmit} className="table table-striped">
+          <table className="table table-striped">
             <thead>
               <tr>
                 <th>Nombre</th>
-                {privilegios.map((permiso, index) => {
-                  if (permiso.state) {
-                    <th key={index}>{permiso.nombre}</th>;
+                {privilegios.map((privilege) => {
+                  if (privilege.id_permission !== 0) {
+                    return (
+                      <th key={privilege.id_privilege}>{privilege.name}</th>
+                    );
                   }
                 })}
               </tr>
             </thead>
             <tbody>
-              {permissions.map((permission) => (
-                <tr key={permission.id_permission}>
-                  <td className="px-4 py-3">{permission.name}</td>
+              {privilegios.map((privilege) => (
+                <tr key={privilege.id_permission}>
+                  <td className="px-4 py-3">
+                    {
+                      permissions.find(
+                        (p) => p.id_permission === privilege.id_permission
+                      ).name
+                    }
+                  </td>
                   {privilegios.map((privilege) => {
                     if (privilege.id_permission !== 0) {
-                      return (<td className="px-4 py-3" key={privilege.id_privilege}>
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          name="privilege"
-                          value={rolePrivilege.id_privilege}
-                          onChange={handleChangePrivilege}
-                          checked
-                        />
-                      </td>)
-                    }else{
-                      return (<td className="px-4 py-3" key={privilege.id_privilege}>
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          name="privilege"
-                          value={rolePrivilege.id_privilege}
-                          onChange={handleChangePrivilege}
-                        />
-                      </td>)
+                      return (
+                        <td className="px-4 py-3" key={privilege.id_privilege}>
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            name="id_privilege"
+                            value={privilege.id_privilege}
+                            onChange={handleChangePrivilege}
+                          />
+                        </td>
+                      );
                     }
                   })}
                 </tr>
               ))}
             </tbody>
           </table>
+          <div className="buttons">
+            <button type="submit" className="btn btn-primary">
+              Guardar
+            </button>
+            <button type="reset" className="btn btn-primary">
+              Limpiar
+            </button>
+          </div>
         </form>
-
-        <div className="buttons">
-          <button type="submit" className="btn btn-primary">
-            Guardar
-          </button>
-          <button type="reset" className="btn btn-primary">
-            Limpiar
-          </button>
-        </div>
       </fieldset>
     </div>
   );
