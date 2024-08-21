@@ -2,17 +2,26 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import HermesLogo from "../../components/HermesLogo";
 import Login from "../home/auth/Login";
+import Register from "../home/auth/Register";
+import { logout } from "../../utilies/authUtils"; // Asegúrate de que la ruta sea correcta
 
-// eslint-disable-next-line react/prop-types
-export default function Navbar({children}) {
-  const form = {
-    email: "",
-    password: "",
+export default function Navbar({ children, onLogout }) {
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openRegisterModal, setOpenRegisterModal] = useState(false);
+
+  const toggleLoginModal = () => {
+    setOpenLoginModal(!openLoginModal);
   };
-  const [openModal, setOpenModal] = useState(false);
-  const clickModal = () => {
-    setOpenModal(!openModal);
+
+  const toggleRegisterModal = () => {
+    setOpenRegisterModal(!openRegisterModal);
   };
+
+  const handleLogout = () => {
+    logout(); // Llama a la función de cierre de sesión
+    onLogout(); // Llama a la función pasada como prop para manejar el estado en el componente superior
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -38,18 +47,36 @@ export default function Navbar({children}) {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={() => {
-                    setOpenModal(!openModal);
-                  }}
+                  onClick={toggleLoginModal}
                 >
                   Ingresar
+                </button>
+              </li>
+              <li className="nav-item">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={toggleRegisterModal}
+                >
+                  Registrarse
+                </button>
+              </li>
+              <li className="nav-item">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={handleLogout}
+                >
+                  Cerrar Sesión
                 </button>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-      {openModal ? <Login isOpen={openModal} form={form} clickModal={clickModal}/> : ""}
+      {openLoginModal && <Login isOpen={openLoginModal} clickModal={toggleLoginModal} />}
+      {openRegisterModal && <Register isOpen={openRegisterModal} clickModal={toggleRegisterModal} />}
     </>
   );
 }
+
