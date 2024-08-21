@@ -8,6 +8,7 @@ import {
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/16/solid";
+import { variants } from "../../utilies/variants";
 
 export default function RolePage() {
   const permissions = [
@@ -59,6 +60,12 @@ export default function RolePage() {
     e.preventDefault();
     if (rolePrivilege.id_privilege === 0) {
       setMessage(messages.error.emptyFields);
+      setVariant(variant.error);
+      setShowAlert(true);
+      return;
+    }else{
+      setMessage(messages.success.formSent);
+      setVariant(variant.correct);
       setShowAlert(true);
       return;
     }
@@ -78,6 +85,7 @@ export default function RolePage() {
   };
 
   const [message, setMessage] = useState(messages);
+  const [variant, setVariant] = useState(variants);
   const [showAlert, setShowAlert] = useState(false);
   const clickAlert = () => {
     setShowAlert(!showAlert);
@@ -203,7 +211,7 @@ export default function RolePage() {
           {showAlert ? (
             <SimpleAlert
               show={showAlert}
-              variant="danger"
+              variant={variant}
               title="Titulo"
               message={message}
               clickAlert={clickAlert}
