@@ -1,78 +1,90 @@
-import { PencilIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
+// import { Permissions } from "../models/role/permissions.model";
+import { RolePrivilege } from "../models/role/rolePrivilege.model";
+import { Role } from "../models/role/role.model";
+// import { Privileges } from "../models/role/privileges.model";npm run
+import { useState } from "react";
+import {
+  PencilIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/16/solid";
 
-export default function Role() {
-  const permisos = [
+export default function RolePage() {
+  const permissions = [
     {
-      nombre: "dashboard",
-      active: true,
+      id_permission: 1,
+      name: "Dashboard",
+      state: true,
     },
     {
-      nombre: "role",
-      active: true,
-    },
-    {
-      nombre: "users",
-      active: true,
-    },
-    {
-      nombre: "services",
-      active: true,
-    },
-    {
-      nombre: "packages",
-      active: true,
-    },
-    {
-      nombre: "programingPackages",
-      active: true,
-    },
-    {
-      nombre: "customers",
-      active: true,
-    },
-    {
-      nombre: "reservations",
-      active: true,
-    },
-    {
-      nombre: "pay",
-      active: true,
+      id_permission: 2,
+      name: "Role",
+      state: true,
     },
   ];
 
   const privilegios = [
     {
-      nombre: "Crear",
+      id_privilege: 1,
+      name: "Crear",
+      id_permission: 0,
     },
     {
-      nombre: "Ver",
-    },
-    {
-      nombre: "Editar",
-    },
-    {
-      nombre: "Eliminar",
-    },
-    {
-      nombre: "Cambio de estado",
-    },
-    {
-      nombre: "Buscar",
+      id_privilege: 2,
+      name: "Ver",
+      id_permission: 0,
     },
   ];
 
   const nameRol = [
     {
-      nombre: "Administrador",
+      id_role: 1,
+      name: "Aministrador",
+      state: true,
     },
     {
-      nombre:"Cliente"
-    }
+      id_role: 2,
+      name: "Cliente",
+      state: true,
+    },
   ];
 
-  const acciones = [{
-    nombre:"acciones"
-  }];
+  const formRole = new Role();
+  const formRolPrivilege = new RolePrivilege();
+  // const formPrivileges = new Privileges();
+  // const formPermissions = new Permissions();
+
+  const [role, setRole] = useState(formRole);
+  const [rolePrivilege, setRolePrivilege] = useState(formRolPrivilege);
+  // const [privileges, setPrivileges] = useState(formPrivileges);
+
+  const handleSubmit = (event) => {
+    console.log(event);
+  };
+
+  const handleChangeRole = (e) => {
+    const { name, value, checked, type } = e.target;
+    setRole({ ...role, [name]: type === "checkbox" ? checked : value });
+    console.log(e.target);
+  };
+
+  const handleChangePrivilege = (e) => {
+    const { name, value, checked, type } = e.target;
+    setRolePrivilege({
+      ...rolePrivilege,
+      [name]: type === "checkbox" ? checked : value,
+    });
+    console.log(e.target);
+  };
+
+  // const handleChangePrivileges = (e) => {
+  //   const { name, value, checked, type } = e.target;
+  //   setPrivileges({
+  //     ...privileges,
+  //     [name]: type === "checkbox" ? checked : value,
+  //   });
+  //   console.log(e.target);
+  // };
 
   return (
     <div className="row p-5">
@@ -92,25 +104,18 @@ export default function Role() {
                 <thead>
                   <tr>
                     <th>Nombre</th>
-                    {acciones.map((permiso, index) => (
-                      <th key={index}>{permiso.nombre}</th>
-                    ))}
+                    <th>acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {nameRol.map((row, index) => (
-                    <tr key={index}>
-                      <td className="px-4 py-3">{row.nombre}</td>
-                      {acciones.map((_, idx) => (
-                        <td className="px-4 py-3" key={idx}>
-                          <PencilSquareIcon width={25}
-                          type="button" />
-                           <TrashIcon width={25}
-                          type="button" />
-                           <PencilIcon width={25}
-                          type="button" />
-                        </td>
-                      ))}
+                  {nameRol.map((row) => (
+                    <tr key={row.id_role}>
+                      <td className="px-4 py-3">{row.name}</td>
+                      <td className="px-4 py-3" key={row.id_role}>
+                        <PencilSquareIcon width={25} type="button" />
+                        <TrashIcon width={25} type="button" />
+                        <PencilIcon width={25} type="button" />
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -134,49 +139,72 @@ export default function Role() {
         </form>
       </section>
       <fieldset className="col-sm-12 col-md-6">
-        <legend>Permisos</legend>
+        <legend>permissions</legend>
 
         <form>
           <div className="form-group">
             <label htmlFor="role">Rol:</label>
             <input
-              id="role"
-              placeholder="Administrador"
               className="form-control"
+              name="name"
+              value={role.name}
+              onChange={handleChangeRole}
+              pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+              required
             />
           </div>
+          <table onSubmit={handleSubmit} className="table table-striped">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                {privilegios.map((permiso, index) => {
+                  if (permiso.state) {
+                    <th key={index}>{permiso.nombre}</th>;
+                  }
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {permissions.map((permission) => (
+                <tr key={permission.id_permission}>
+                  <td className="px-4 py-3">{permission.name}</td>
+                  {privilegios.map((privilege) => {
+                    if (privilege.id_permission !== 0) {
+                      return (<td className="px-4 py-3" key={privilege.id_privilege}>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="privilege"
+                          value={rolePrivilege.id_privilege}
+                          onChange={handleChangePrivilege}
+                          checked
+                        />
+                      </td>)
+                    }else{
+                      return (<td className="px-4 py-3" key={privilege.id_privilege}>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="privilege"
+                          value={rolePrivilege.id_privilege}
+                          onChange={handleChangePrivilege}
+                        />
+                      </td>)
+                    }
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </form>
 
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              {privilegios.map((permiso, index) => (
-                <th key={index}>{permiso.nombre}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {permisos.map((row, index) => (
-              <tr key={index}>
-                <td className="px-4 py-3">{row.nombre}</td>
-                {privilegios.map((_, idx) => (
-                  <td className="px-4 py-3" key={idx}>
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id={`permiso${index}-${idx}`}
-                    />
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
         <div className="buttons">
-          <button className="btn btn-primary">Guardar</button>
-          <button className="btn btn-primary">Limpiar</button>
+          <button type="submit" className="btn btn-primary">
+            Guardar
+          </button>
+          <button type="reset" className="btn btn-primary">
+            Limpiar
+          </button>
         </div>
       </fieldset>
     </div>
