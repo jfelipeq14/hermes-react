@@ -11,6 +11,9 @@
     "changes": "npm i && git fetch origin develop && git pull origin develop"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
     "@heroicons/react": "^2.1.5",
     "axios": "1.7.4",
     "bootstrap": "^5.3.3",
