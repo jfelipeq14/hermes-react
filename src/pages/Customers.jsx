@@ -15,7 +15,7 @@ export default function Customers() {
       celular: "687",
       correo: "jf@gmail.com",
       reservas: 4,
-      state: true
+      state: true,
     },
     {
       cedula: "008",
@@ -23,7 +23,7 @@ export default function Customers() {
       celular: "567",
       correo: "jg@gmail.com",
       reservas: 5,
-      state: false
+      state: false,
     },
   ];
 
@@ -54,9 +54,10 @@ export default function Customers() {
         {administrator.map((link) => {
           return (
             <SidebarItem
-              key={link.href}
-              icon={<link.icon />}
-              text={link.name}
+              key={link.name}
+              name={link.name}
+              href={link.href}
+              icon={<link.icon width={30} />}
             />
           );
         })}
@@ -67,7 +68,6 @@ export default function Customers() {
             <legend>Clientes</legend>
             <header className="d-flex justify-content-between align-items-end my-2">
               <div className="form-group">
-                
                 <input
                   type="text"
                   id="identification"

@@ -1,27 +1,39 @@
+import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export default function Sidebar({ children }) {
+  const [open, setOpen] = useState(true);
+  const ref = useRef(null);
+  // useClickAway(ref, () => setOpen(false))
+  const toggleSidebar = () => setOpen((prev) => !prev);
+
   return (
-    <aside className="container col-1">
-      <NavLink
-        to="/"
-        className="text-decoration-none d-flex align-items-center"
-      >
-        <img src="../../assets/hermes.svg" alt="" />
-        <span className="fs-4 mx-auto">Hermes</span>
-      </NavLink>
-      <ul className="nav nav-pills flex-column gap-2 mx-auto my-4">
-        {children}
-      </ul>
-    </aside>
+    <div className="col-1">
+      <div className="row flex-nowrap">
+        <div className="col-auto px-0">
+          <div className="d-flex flex-column align-items-start min-vh-100">
+            <ul
+              className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+              id="menu"
+            >
+              {children}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
-export function SidebarItem({ icon, text }) {
+export function SidebarItem({ name, href, icon }) {
   return (
     <li className="nav-item">
-      <span>{icon}</span>
-      <span>{text}</span>
+      <NavLink to={href} className="nav-link">
+        <div className="d-flex">
+          <div className="d-none d-md-inline px-0">{name}</div>
+          <div className="float-end">{icon}</div>
+        </div>
+      </NavLink>
     </li>
   );
 }
