@@ -15,6 +15,7 @@ export default function Customers() {
       celular: "687",
       correo: "jf@gmail.com",
       reservas: 4,
+      state: true
     },
     {
       cedula: "008",
@@ -22,6 +23,7 @@ export default function Customers() {
       celular: "567",
       correo: "jg@gmail.com",
       reservas: 5,
+      state: false
     },
   ];
 
@@ -65,14 +67,13 @@ export default function Customers() {
             <legend>Clientes</legend>
             <header className="d-flex justify-content-between align-items-end my-2">
               <div className="form-group">
-                <label htmlFor="identification" className="form-label">
-                  Cedula:
-                </label>
+                
                 <input
                   type="text"
                   id="identification"
                   className="form-control"
                   onChange={(e) => console.log(e.target.value)}
+                  placeholder="Buscar"
                 />
               </div>
               <div className="btn-group">
