@@ -6,6 +6,10 @@ import Navbar from "./pages/layout/Navbar";
 import Customers from "./pages/Customers";
 import Role from "./pages/role/Role";
 import Reservations from "./pages/reservations/Reservations";
+import Menu from "./pages/Menu";
+import EditProfile from "./pages/home/auth/EditProfile";
+
+
 
 export default function App() {
   return (
@@ -27,6 +31,10 @@ export default function App() {
         <Route exact path="/customers" element={<Customers />} />
         <Route exact path="/role" element={<Role />} />
         <Route exact path="/reservations" element={<Reservations />} />
+        <Route exact path="/Menu" element={<Menu />} />
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/EditProfile" element={<EditProfile />} />
+       
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
