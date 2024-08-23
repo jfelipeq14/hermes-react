@@ -7,6 +7,8 @@ import Customers from "./pages/Customers";
 import Role from "./pages/role/Role";
 import Reservations from "./pages/reservations/Reservations";
 
+import Services from "./pages/Services";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -21,13 +23,20 @@ export default function App() {
             Role
           </Link>
         </li>
+        <li className="nav-item">
+          <Link to="services" className={"nav-link"}>
+            Services
+          </Link>
+        </li>
       </Navbar>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/customers" element={<Customers />} />
         <Route exact path="/role" element={<Role />} />
         <Route exact path="/reservations" element={<Reservations />} />
+        <Route exact path="/services" element={<Services />} />
         <Route path="*" element={<PageNotFound />} />
+        
       </Routes>
     </BrowserRouter>
   );
