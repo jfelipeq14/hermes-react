@@ -6,13 +6,13 @@ import Register from "../home/auth/Register";
 import { Button } from "react-bootstrap";
 import { FaSignOutAlt, FaUserEdit } from "react-icons/fa"; // Asegúrate de tener react-icons instalado
 
-export default function Navbar({ children, onLogout }) {
+export default function Navbar({ children, authenticated }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("¿Seguro que quieres cerrar sesión?");
     if (confirmLogout) {
-      localStorage.removeItem("token");
+      setUser(false)
       navigate("/");
     }
   };
@@ -20,7 +20,7 @@ export default function Navbar({ children, onLogout }) {
   const handleEditProfile = () => {
     navigate("/EditProfile"); // Cambia esto a la ruta de tu página de edición de perfil
   };
-  const user = false
+  const [user, setUser] = useState(true);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
 
@@ -93,7 +93,11 @@ export default function Navbar({ children, onLogout }) {
         </div>
       </nav>
       {openLoginModal && (
-        <Login isOpen={openLoginModal} clickModal={toggleLoginModal} />
+        <Login
+          isOpen={openLoginModal}
+          clickModal={toggleLoginModal}
+          userAuthenticated={user}
+        />
       )}
       {openRegisterModal && (
         <Register isOpen={openRegisterModal} clickModal={toggleRegisterModal} />

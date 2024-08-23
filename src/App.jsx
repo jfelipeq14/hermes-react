@@ -7,7 +7,7 @@ import Customers from "./pages/Customers";
 import Role from "./pages/role/Role";
 import Reservations from "./pages/reservations/Reservations";
 import Menu from "./pages/Menu";
-import EditProfile from "./pages/home/auth/EditProfile";
+import EditProfile from "./pages/user/EditProfile";
 
 
 

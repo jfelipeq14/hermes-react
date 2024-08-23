@@ -6,7 +6,7 @@ import SimpleAlert from "../../../components/Alerts";
 import { User } from "../../../models/user.model";
 import { messages } from "../../../utilies/messages";
 
-export default function Login({ isOpen, clickModal }) {
+export default function Login({ isOpen, clickModal, userAuthenticated }) {
   const user = new User();
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [showAlert, setShowAlert] = useState(false);
@@ -18,6 +18,7 @@ export default function Login({ isOpen, clickModal }) {
   const [verificationCode, setVerificationCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [userState, setUserState] = useState(userAuthenticated)
 
   const navigate = useNavigate(); // Crea una instancia de useNavigate
 
@@ -60,6 +61,7 @@ export default function Login({ isOpen, clickModal }) {
     }
 
     setModalIsOpen(!modalIsOpen);
+    setUserState(!userAuthenticated)
     
 
     // Redirige a editar perfil
