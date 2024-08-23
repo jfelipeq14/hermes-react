@@ -1,4 +1,4 @@
-export const variants ={
-    error:"danger",
-    correct :"success"
-}
+export const variants = {
+  error: "danger",
+  correct: "success",
+};

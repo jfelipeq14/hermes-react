@@ -8,7 +8,7 @@ import {
   import { NavLink } from "react-router-dom";
   
   export default function Packages() {
-    const customer = [
+    const packages = [
       {
         nombres: "Cartagena",
         fechaInscripcion: "24/08/2024",
@@ -27,7 +27,7 @@ import {
       },
     ];
   
-    const reservations = [
+    const service = [
       {
         nombre: "Visita Muralla ",
         valor: 45000,
@@ -71,7 +71,7 @@ import {
                 </div>
                 <div className="btn-group">
                   <NavLink
-                    to="customers"
+                    to="/create-packages"
                     className={
                       "btn btn-primary d-flex align-items-center justify-content-center gap-2"
                     }
@@ -92,7 +92,7 @@ import {
                   <th scope="col">Estado</th>
                 </thead>
                 <tbody>
-                  {customer.map((row) => (
+                  {packages.map((row) => (
                     <tr key={row.email}>
                       <td className="d-flex">
                         <EyeIcon width={20} />
@@ -114,7 +114,7 @@ import {
               <header className="d-flex justify-content-end align-items-end">
                 <div className="buttons">
                   <NavLink
-                    to="customers"
+                    to="packages"
                     className={
                       "btn btn-primary d-flex align-items-center justify-content-center gap-2"
                     }
@@ -131,7 +131,7 @@ import {
                   <th scope="col">Cantidad</th>
                 </thead>
                 <tbody>
-                  {reservations.map((row) => (
+                  {service.map((row) => (
                     <tr key={row.paquete}>
                       <td>{row.nombre}</td>
                       <td>{row.valor}</td>

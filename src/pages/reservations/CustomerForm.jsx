@@ -4,14 +4,23 @@ import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 import { User } from "../../models/user.model";
 import { Form } from "react-bootstrap";
+import { messages } from "../../utilies/messages";
+import { variants } from "../../utilies/variants";
+import SimpleAlert from "../../components/Alerts";
 
 export default function CustomerForm() {
   const formCustomer = new Customer();
   const formUser = new User();
-
   const [customer, setCustomer] = useState(formCustomer);
   const [user, setUser] = useState(formUser);
   const [validated, setValidated] = useState(false);
+
+  const [message, setMessage] = useState(messages);
+  const [variant, setVariant] = useState(variants);
+  const [showAlert, setShowAlert] = useState(false);
+  const clickAlert = () => {
+    setShowAlert(!showAlert);
+  };
 
   const handleChangeCustomer = (e) => {
     const { name, value, checked, type } = e.target;
@@ -23,25 +32,46 @@ export default function CustomerForm() {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.currentTarget.checkValidity());
+
+    if (!e.currentTarget.checkValidity()) {
+      e.stopPropagation();
+
+      setMessage(messages.error.emptyFields);
+      setVariant(variant.error);
+      setShowAlert(true);
     }
+
     setValidated(true);
   };
+
+  var start = new Date();
+  start.setFullYear(start.getFullYear() - 18);
+  var limitDate = start.toISOString().split("T")[0];
+  console.log(limitDate);
 
   return (
     <fieldset className="p-2">
       <legend>Datos personales</legend>
-
       <Form
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
         className="row g-2"
       >
+        {showAlert ? (
+          <SimpleAlert
+            show={showAlert}
+            variant={variant}
+            title="Titulo"
+            message={message}
+            clickAlert={clickAlert}
+          />
+        ) : (
+          ""
+        )}
         {/* identificacion */}
         <div className="col-12">
           <div className="row">
@@ -118,18 +148,21 @@ export default function CustomerForm() {
           <small className="valid-feedback">Todo bien!</small>
           <small className="invalid-feedback">Campo obligatorio</small>
         </div>
-        {/* celular */}
+        {/* celular: Agregar el prefijo en el input de phone */}
         <div className="col-12">
           <label htmlFor="phone" className="col-12">
             Celular:
           </label>
           <div className="row">
             <div className="col-5">
-              <select className="form-select" name="phonePrefix" required>
+              <select
+                className="form-select"
+                name="phone"
+                onChange={handleChangeCustomer}
+                required
+              >
                 {phonePrefixes.map((phonePrefix) => (
-                  <option
-                    key={phonePrefix.prefix}
-                  >{`(${phonePrefix.prefix}) - ${phonePrefix.country}`}</option>
+                  <option key={phonePrefix.prefix}>{phonePrefix.prefix}</option>
                 ))}
               </select>
               <small className="valid-feedback">Todo bien!</small>
@@ -142,7 +175,7 @@ export default function CustomerForm() {
                 name="phone"
                 value={customer.phone}
                 onChange={handleChangeCustomer}
-                pattern="^\+?[0-9]{1,3}[0-9]{6,}$"
+                pattern="^\+?[0-9]{1,3}[0-9]{7,}$"
                 required
               />
               <small className="valid-feedback">Todo bien!</small>
@@ -159,6 +192,7 @@ export default function CustomerForm() {
             name="dateOfBirth"
             value={customer.dateOfBirth}
             onChange={handleChangeCustomer}
+            max={limitDate}
             required
           />
           <small className="valid-feedback">Todo bien!</small>
@@ -190,7 +224,7 @@ export default function CustomerForm() {
           <small className="invalid-feedback">Campo obligatorio</small>
         </div>
         <div className="col-6">
-          <label htmlFor="emailConfirmation">Confir,. correo:</label>
+          <label htmlFor="emailConfirmation">Confir. correo:</label>
           <input
             type="email"
             className="form-control"

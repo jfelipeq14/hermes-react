@@ -7,6 +7,8 @@ import Customers from "./pages/Customers";
 import Role from "./pages/role/Role";
 import Reservations from "./pages/reservations/Reservations";
 import Packages from "./pages/packages/Packages";
+import CreatePackages from "./pages/packages/CreatePackages";
+
 
 export default function App() {
   return (
@@ -33,6 +35,7 @@ export default function App() {
         <Route exact path="/customers" element={<Customers />} />
         <Route exact path="/role" element={<Role />} />
         <Route exact path="/packages" element={<Packages />} />
+        <Route exact path="/create-packages" element={<CreatePackages />} />
         <Route exact path="/reservations" element={<Reservations />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
