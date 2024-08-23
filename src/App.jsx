@@ -11,6 +11,8 @@ import EditProfile from "./pages/home/auth/EditProfile";
 
 
 
+import Services from "./pages/Services";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -25,17 +27,23 @@ export default function App() {
             Role
           </Link>
         </li>
+        <li className="nav-item">
+          <Link to="services" className={"nav-link"}>
+            Services
+          </Link>
+        </li>
       </Navbar>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/customers" element={<Customers />} />
         <Route exact path="/role" element={<Role />} />
         <Route exact path="/reservations" element={<Reservations />} />
-        <Route exact path="/Menu" element={<Menu />} />
-        <Route exact path="/home" element={<Home />} />
-        <Route exact path="/EditProfile" element={<EditProfile />} />
+        <Route exact path="/menu" element={<Menu />} />
+        <Route exact path="/edit-profile" element={<EditProfile />} />
        
+        <Route exact path="/services" element={<Services />} />
         <Route path="*" element={<PageNotFound />} />
+        
       </Routes>
     </BrowserRouter>
   );

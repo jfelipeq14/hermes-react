@@ -37,6 +37,7 @@ export default function RolePage() {
                   <tr>
                     <th>Nombre</th>
                     <th>acciones</th>
+                    <th>Estado</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -46,14 +47,13 @@ export default function RolePage() {
                       <td className="px-4 py-3" key={row.id_role}>
                         <PencilSquareIcon width={25} type="button" />
                         <TrashIcon width={25} type="button" />
-                        <div className="form-check form-switch d-inline">
+                        <div className=" form-switch d-inline">
                           <input 
                             className="form-check-input"
                             type="checkbox"
                             role="switch"
                             // onChange={}
                           />
-                          
                         </div>
                       </td>
                     </tr>

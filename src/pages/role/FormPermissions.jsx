@@ -5,66 +5,62 @@ import { messages } from "../../utilies/messages";
 import { useState } from "react";
 import { variants } from "../../utilies/variants";
 
-
 export default function FormPermissions() {
+  const permissions = [
+    {
+      id_permission: 1,
+      name: "Dashboard",
+      state: true,
+    },
+    {
+      id_permission: 2,
+      name: "Gestion de Roles",
+      state: true,
+    },
+    {
+      id_permission: 3,
+      name: "Gestion de Servicios",
+      state: true,
+    },
+    {
+      id_permission: 4,
+      name: "Gestion de Usuarios",
+      state: true,
+    },
+    {
+      id_permission: 5,
+      name: "Gestion de Reservas",
+      state: true,
+    },
+  ];
 
-    const permissions = [
-        {
-          id_permission: 1,
-          name: "Dashboard",
-          state: true,
-        },
-        {
-          id_permission: 2,
-          name: "Gestion de Roles",
-          state: true,
-        },
-        {
-          id_permission: 3,
-          name: "Gestion de Servicios",
-          state: true,
-        },
-        {
-          id_permission: 4,
-          name: "Gestion de Usuarios",
-          state: true,
-        },
-        {
-          id_permission: 5,
-          name: "Gestion de Reservas",
-          state: true,
-        },
-      ];
-    
-      const privilegios = [
-        {
-          id_privilege: 1,
-          name: "Crear",
-          id_permission: 1,
-        },
-        {
-          id_privilege: 2,
-          name: "Ver",
-          id_permission: 2,
-        },
-        {
-          id_privilege: 3,
-          name: "Editar",
-          id_permission: 3,
-        },
-        {
-          id_privilege: 4,
-          name: "Eliminar",
-          id_permission: 4,
-        },
-        {
-          id_privilege: 5,
-          name: "Cambiar estado",
-          id_permission: 5,
-        },
-      ];
-
-
+  const privilegios = [
+    {
+      id_privilege: 1,
+      name: "Crear",
+      id_permission: 1,
+    },
+    {
+      id_privilege: 2,
+      name: "Ver",
+      id_permission: 2,
+    },
+    {
+      id_privilege: 3,
+      name: "Editar",
+      id_permission: 3,
+    },
+    {
+      id_privilege: 4,
+      name: "Eliminar",
+      id_permission: 4,
+    },
+    {
+      id_privilege: 5,
+      name: "Cambiar estado",
+      id_permission: 5,
+    },
+  ];
 
   const formRole = new Role();
   const formRolPrivilege = new RolePrivilege();
