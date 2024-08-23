@@ -10,7 +10,6 @@ export default function RolePage() {
       id_role: 1,
       name: "Aministrador",
       state: true,
-      hola:"hellos"
     },
     {
       id_role: 2,
