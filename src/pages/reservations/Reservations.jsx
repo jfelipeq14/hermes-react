@@ -8,7 +8,6 @@ export default function Reservations() {
       </div>
       <div className="col">
         {/* crear tabla para los acompañantes de la reserva */}
-
       </div>
     </div>
   );

@@ -1,103 +1,262 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { useState } from "react";
+import { Customer } from "../../models/customer.model";
+import { messages } from "../../utilies/messages";
+import { variants } from "../../utilies/variants";
+import { Form } from "react-bootstrap";
+import { documentTypes } from "../../utilies/documentTypes";
+import SimpleAlert from "../../components/Alerts";
+import { phonePrefixes } from "../../utilies/phonePrefixes";
+import { administrator } from "../../utilies/routes";
+import Sidebar, { SidebarItem } from "../layout/Sidebar";
 
 export default function EditProfile({ isOpen, clickModal }) {
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [celular, setCelular] = useState("");
-  const [tipoIdentificacion, setTipoIdentificacion] = useState("Cédula de Ciudadanía");
-  const [error, setError] = useState("");
+  const formCustomer = new Customer();
+  const [customer, setCustomer] = useState(formCustomer);
+  const [validated, setValidated] = useState(false);
 
-  const handleUpdate = (e) => {
+  const [message, setMessage] = useState(messages);
+  const [variant, setVariant] = useState(variants);
+  const [showAlert, setShowAlert] = useState(false);
+  const clickAlert = () => {
+    setShowAlert(!showAlert);
+  };
+
+  const handleChangeCustomer = (e) => {
+    const { name, value, checked, type } = e.target;
+    setCustomer({ ...customer, [name]: type === "checkbox" ? checked : value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError(""); // Reiniciar el error
 
-    // Validaciones
-    if (!nombre || !apellido || !correo || !celular) {
-      setError("Todos los campos son obligatorios");
-      return;
+    if (!e.currentTarget.checkValidity()) {
+      e.stopPropagation();
+
+      setMessage(messages.error.emptyFields);
+      setVariant(variant.error);
+      setShowAlert(true);
     }
 
-    // Lógica de actualización aquí
-    console.log("Perfil actualizado con:", { nombre, apellido, correo, celular, tipoIdentificacion });
+    setValidated(true);
+
     clickModal(); // Cierra el formulario después de la actualización
   };
 
+  var start = new Date();
+  start.setFullYear(start.getFullYear() - 18);
+  var limitDate = start.toISOString().split("T")[0];
+
   return (
-    <div className={`modal ${isOpen ? 'd-block' : 'd-none'}`} tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Editar Perfil</h5>
-            <button type="button" className="btn-close" onClick={clickModal}></button>
+    <div className="row">
+      <Sidebar>
+        {administrator.map((link) => {
+          return (
+            <SidebarItem
+              key={link.name}
+              name={link.name}
+              href={link.href}
+              icon={<link.icon width={30} />}
+            />
+          );
+        })}
+      </Sidebar>
+      <main className="col-sm-11">
+        <Form
+          noValidate
+          validated={validated}
+          onSubmit={handleSubmit}
+          className="row g-2"
+        >
+          {showAlert ? (
+            <SimpleAlert
+              show={showAlert}
+              variant={variant}
+              title="Titulo"
+              message={message}
+              clickAlert={clickAlert}
+            />
+          ) : (
+            ""
+          )}
+          <div className="row">
+            <fieldset className="col-sm-12 col-md-6">
+              <legend>Datos personales</legend>
+              <div className="row">
+                {/* identificacion */}
+                <div className="col-12">
+                  <div className="row">
+                    <label htmlFor="identification" className="form-label">
+                      Cedula:
+                    </label>
+                    <div className="col-5">
+                      <select
+                        className="form-select"
+                        name="documentType"
+                        value={customer.documentType}
+                        onChange={handleChangeCustomer}
+                        required
+                      >
+                        {documentTypes.map((documentType) => (
+                          <option key={documentType}>{documentType}</option>
+                        ))}
+                      </select>
+                      <small className="valid-feedback">Todo bien!</small>
+                      <small className="invalid-feedback">
+                        Campo obligatorio
+                      </small>
+                    </div>
+                    <div className="col-5">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="identification"
+                        value={customer.identification}
+                        onChange={handleChangeCustomer}
+                        pattern="^[a-z0-9]{6,}$"
+                        required
+                      />
+                      <small className="valid-feedback">Todo bien!</small>
+                      <small className="invalid-feedback">
+                        Campo obligatorio
+                      </small>
+                    </div>
+                    <div className="col-2">
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                          console.log("buscar cliente");
+                        }}
+                      >
+                        🔍
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {/* nombres */}
+                <div className="col-12">
+                  <label htmlFor="name">Nombres:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="name"
+                    value={customer.name}
+                    onChange={handleChangeCustomer}
+                    pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+                    required
+                  />
+                  <small className="valid-feedback">Todo bien!</small>
+                  <small className="invalid-feedback">Campo obligatorio</small>
+                </div>
+                {/* Apellidos */}
+                <div className="col-12">
+                  <label htmlFor="lastName">Apellidos:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="lastName"
+                    value={customer.lastName}
+                    onChange={handleChangeCustomer}
+                    pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+                    required
+                  />
+                  <small className="valid-feedback">Todo bien!</small>
+                  <small className="invalid-feedback">Campo obligatorio</small>
+                </div>
+                {/* celular: Agregar el prefijo en el input de phone */}
+                <div className="col-12">
+                  <label htmlFor="phone" className="col-12">
+                    Celular:
+                  </label>
+                  <div className="row">
+                    <div className="col-5">
+                      <select
+                        className="form-select"
+                        name="phone"
+                        onChange={handleChangeCustomer}
+                        required
+                      >
+                        {phonePrefixes.map((phonePrefix) => (
+                          <option key={phonePrefix.prefix}>
+                            {phonePrefix.prefix}
+                          </option>
+                        ))}
+                      </select>
+                      <small className="valid-feedback">Todo bien!</small>
+                      <small className="invalid-feedback">
+                        Campo obligatorio
+                      </small>
+                    </div>
+                    <div className="col-7">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="phone"
+                        value={customer.phone}
+                        onChange={handleChangeCustomer}
+                        pattern="^\+?[0-9]{1,3}[0-9]{7,}$"
+                        required
+                      />
+                      <small className="valid-feedback">Todo bien!</small>
+                      <small className="invalid-feedback">
+                        Campo obligatorio
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                {/* edad */}
+                <div className="col-6">
+                  <label htmlFor="birthDate">Fecha de nacimiento:</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    name="dateOfBirth"
+                    value={customer.dateOfBirth}
+                    onChange={handleChangeCustomer}
+                    max={limitDate}
+                    required
+                  />
+                  <small className="valid-feedback">Todo bien!</small>
+                  <small className="invalid-feedback">Campo obligatorio</small>
+                </div>
+                <div className="col-6">
+                  <label htmlFor="age">Edad:</label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    name="age"
+                    value={customer.age}
+                    readOnly
+                  />
+                </div>
+                {/* correo */}
+                <div className="col-6">
+                  <label htmlFor="email">Correo:</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    name="email"
+                    value={customer.email}
+                    onChange={handleChangeCustomer}
+                    pattern="^[a-z0-9.!#$%&*+/=?^_`{|}~-]+@[a-z0-9-]+\.[a-z0-9.]{2,}$"
+                    required
+                  />
+                  <small className="valid-feedback">Todo bien!</small>
+                  <small className="invalid-feedback">Campo obligatorio</small>
+                </div>
+              </div>
+            </fieldset>
           </div>
-          <div className="modal-body">
-            {error && <div className="alert alert-danger">{error}</div>}
-            <form onSubmit={handleUpdate}>
-              <div className="mb-3">
-                <label htmlFor="nombre" className="form-label">Nombre</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="nombre"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="apellido" className="form-label">Apellido</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="apellido"
-                  value={apellido}
-                  onChange={(e) => setApellido(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="correo" className="form-label">Correo</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="correo"
-                  value={correo}
-                  onChange={(e) => setCorreo(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="celular" className="form-label">Celular</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="celular"
-                  value={celular}
-                  onChange={(e) => setCelular(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="tipoIdentificacion" className="form-label">Tipo de identificación</label>
-                <select
-                  className="form-select"
-                  id="tipoIdentificacion"
-                  value={tipoIdentificacion}
-                  onChange={(e) => setTipoIdentificacion(e.target.value)}
-                >
-                  <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
-                  <option value="Pasaporte">Pasaporte</option>
-                  <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                </select>
-              </div>
-              <Button type="submit" variant="primary">Guardar Cambios</Button>
-              <Button variant="secondary" onClick={clickModal} style={{ marginLeft: '10px' }}>Cancelar</Button>
-            </form>
+
+          <div className="buttons">
+            <button type="submit" className="btn btn-primary">
+              Crear
+            </button>
+            <button type="reset" className="btn btn-secondary">
+              Limpiar
+            </button>
           </div>
-        </div>
-      </div>
+        </Form>
+      </main>
     </div>
   );
 }

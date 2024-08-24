@@ -6,7 +6,7 @@ import SimpleAlert from "../../../components/Alerts";
 import { User } from "../../../models/user.model";
 import { messages } from "../../../utilies/messages";
 
-export default function Login({ isOpen, clickModal, userAuthenticated }) {
+export default function Login({ isOpen, clickModal, handleLogin }) {
   const user = new User();
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [showAlert, setShowAlert] = useState(false);
@@ -18,7 +18,6 @@ export default function Login({ isOpen, clickModal, userAuthenticated }) {
   const [verificationCode, setVerificationCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [userState, setUserState] = useState(userAuthenticated)
 
   const navigate = useNavigate(); // Crea una instancia de useNavigate
 
@@ -61,9 +60,7 @@ export default function Login({ isOpen, clickModal, userAuthenticated }) {
     }
 
     setModalIsOpen(!modalIsOpen);
-    setUserState(!userAuthenticated)
-    
-
+    handleLogin()
     // Redirige a editar perfil
     navigate("/Menu");
   };
@@ -111,6 +108,7 @@ export default function Login({ isOpen, clickModal, userAuthenticated }) {
 
   return (
     <>
+      {/* Iniciar sesion */}
       <Modal show={modalIsOpen} onHide={toggleModal}>
         <Modal.Header>
           <Modal.Title>Iniciar Sesión</Modal.Title>
@@ -121,27 +119,37 @@ export default function Login({ isOpen, clickModal, userAuthenticated }) {
         <Modal.Body>
           <form onSubmit={validateForm}>
             <div className="mb-3">
-              <label htmlFor="email" className="form-label">Correo electrónico</label>
+              <label htmlFor="email" className="form-label">
+                Correo electrónico
+              </label>
               <input
                 type="email"
                 className="form-control"
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 value={formData.email}
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">Contraseña</label>
+              <label htmlFor="password" className="form-label">
+                Contraseña
+              </label>
               <input
                 type="password"
                 className="form-control"
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
                 value={formData.password}
               />
             </div>
             <Button type="submit">Ingresar</Button>
           </form>
           <p>
-            <a href="#" onClick={toggleResetModal}>Olvidé mi contraseña</a>
+            <a href="#" onClick={toggleResetModal}>
+              Olvidé mi contraseña
+            </a>
           </p>
         </Modal.Body>
         {showAlert && (
@@ -159,14 +167,20 @@ export default function Login({ isOpen, clickModal, userAuthenticated }) {
       <Modal show={showResetModal} onHide={toggleResetModal}>
         <Modal.Header>
           <Modal.Title>Recuperar Contraseña</Modal.Title>
-          <Button variant="close" onClick={toggleResetModal} aria-label="Cerrar">
+          <Button
+            variant="close"
+            onClick={toggleResetModal}
+            aria-label="Cerrar"
+          >
             <span aria-hidden="true">&times;</span>
           </Button>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleResetPassword}>
             <div className="mb-3">
-              <label htmlFor="resetEmail" className="form-label">Correo electrónico</label>
+              <label htmlFor="resetEmail" className="form-label">
+                Correo electrónico
+              </label>
               <input
                 type="email"
                 className="form-control"
@@ -190,7 +204,9 @@ export default function Login({ isOpen, clickModal, userAuthenticated }) {
         <Modal.Body>
           <form onSubmit={handleVerifyCode}>
             <div className="mb-3">
-              <label htmlFor="verificationCode" className="form-label">Código</label>
+              <label htmlFor="verificationCode" className="form-label">
+                Código
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -204,7 +220,10 @@ export default function Login({ isOpen, clickModal, userAuthenticated }) {
       </Modal>
 
       {/* Modal para cambiar la contraseña */}
-      <Modal show={showCodeModal && verificationCode === "123456"} onHide={toggleCodeModal}>
+      <Modal
+        show={showCodeModal && verificationCode === "123456"}
+        onHide={toggleCodeModal}
+      >
         <Modal.Header>
           <Modal.Title>Cambiar Contraseña</Modal.Title>
           <Button variant="close" onClick={toggleCodeModal} aria-label="Cerrar">
@@ -214,7 +233,9 @@ export default function Login({ isOpen, clickModal, userAuthenticated }) {
         <Modal.Body>
           <form onSubmit={handleChangePassword}>
             <div className="mb-3">
-              <label htmlFor="newPassword" className="form-label">Nueva Contraseña</label>
+              <label htmlFor="newPassword" className="form-label">
+                Nueva Contraseña
+              </label>
               <input
                 type="password"
                 className="form-control"
@@ -223,7 +244,9 @@ export default function Login({ isOpen, clickModal, userAuthenticated }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="confirmPassword" className="form-label">Confirmar Contraseña</label>
+              <label htmlFor="confirmPassword" className="form-label">
+                Confirmar Contraseña
+              </label>
               <input
                 type="password"
                 className="form-control"

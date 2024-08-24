@@ -34,7 +34,6 @@ export default function CustomerForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget.checkValidity());
 
     if (!e.currentTarget.checkValidity()) {
       e.stopPropagation();
