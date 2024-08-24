@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import SimpleAlert from "../../../components/Alerts";
 import { User } from "../../../models/user.model";
 import { messages } from "../../../utilies/messages";
 
-export default function Login({ isOpen, clickModal }) {
+export default function Login({ isOpen, clickModal, userAuthenticated }) {
   const user = new User();
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [showAlert, setShowAlert] = useState(false);
@@ -17,6 +18,9 @@ export default function Login({ isOpen, clickModal }) {
   const [verificationCode, setVerificationCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [userState, setUserState] = useState(userAuthenticated)
+
+  const navigate = useNavigate(); // Crea una instancia de useNavigate
 
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
@@ -56,16 +60,16 @@ export default function Login({ isOpen, clickModal }) {
       return;
     }
 
-    setMessage("Formulario enviado correctamente");
-    setShowAlert(true);
-    setTimeout(() => {
-      clickModal(!modalIsOpen);
-    }, 3000);
+    setModalIsOpen(!modalIsOpen);
+    setUserState(!userAuthenticated)
+    
+
+    // Redirige a editar perfil
+    navigate("/Menu");
   };
 
   const handleResetPassword = (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para enviar el email de restablecimiento
     setMessage("Instrucciones enviadas a tu correo.");
     setShowAlert(true);
     setTimeout(() => {
@@ -76,8 +80,7 @@ export default function Login({ isOpen, clickModal }) {
 
   const handleVerifyCode = (e) => {
     e.preventDefault();
-    // Lógica para verificar el código
-    if (verificationCode === "123456") { // Cambia esto por la lógica real
+    if (verificationCode === "123456") {
       setMessage("Código verificado. Ahora puedes restablecer tu contraseña.");
       setShowAlert(true);
     } else {
@@ -103,42 +106,39 @@ export default function Login({ isOpen, clickModal }) {
 
     setMessage("Contraseña restablecida correctamente.");
     setShowAlert(true);
-    // Aquí puedes agregar la lógica para actualizar la contraseña
     toggleCodeModal();
   };
 
   return (
     <>
       <Modal show={modalIsOpen} onHide={toggleModal}>
+        <Modal.Header>
+          <Modal.Title>Iniciar Sesión</Modal.Title>
+          <Button variant="close" onClick={toggleModal} aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </Button>
+        </Modal.Header>
         <Modal.Body>
           <form onSubmit={validateForm}>
             <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
+              <label htmlFor="email" className="form-label">Correo electrónico</label>
               <input
                 type="email"
                 className="form-control"
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 value={formData.email}
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
+              <label htmlFor="password" className="form-label">Contraseña</label>
               <input
                 type="password"
                 className="form-control"
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 value={formData.password}
               />
             </div>
-            <Button type="submit">Submit</Button>
+            <Button type="submit">Ingresar</Button>
           </form>
           <p>
             <a href="#" onClick={toggleResetModal}>Olvidé mi contraseña</a>
@@ -148,7 +148,7 @@ export default function Login({ isOpen, clickModal }) {
           <SimpleAlert
             show={showAlert}
             variant="success"
-            title="Titulo"
+            title="Título"
             message={message}
             clickAlert={clickAlert}
           />
@@ -157,13 +157,16 @@ export default function Login({ isOpen, clickModal }) {
 
       {/* Modal para restablecer contraseña */}
       <Modal show={showResetModal} onHide={toggleResetModal}>
+        <Modal.Header>
+          <Modal.Title>Recuperar Contraseña</Modal.Title>
+          <Button variant="close" onClick={toggleResetModal} aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </Button>
+        </Modal.Header>
         <Modal.Body>
-          <h5>Recuperar Contraseña</h5>
           <form onSubmit={handleResetPassword}>
             <div className="mb-3">
-              <label htmlFor="resetEmail" className="form-label">
-                Email
-              </label>
+              <label htmlFor="resetEmail" className="form-label">Correo electrónico</label>
               <input
                 type="email"
                 className="form-control"
@@ -178,13 +181,16 @@ export default function Login({ isOpen, clickModal }) {
 
       {/* Modal para ingresar el código de verificación */}
       <Modal show={showCodeModal} onHide={toggleCodeModal}>
+        <Modal.Header>
+          <Modal.Title>Ingresa el código de verificación</Modal.Title>
+          <Button variant="close" onClick={toggleCodeModal} aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </Button>
+        </Modal.Header>
         <Modal.Body>
-          <h5>Ingresa el código de verificación</h5>
           <form onSubmit={handleVerifyCode}>
             <div className="mb-3">
-              <label htmlFor="verificationCode" className="form-label">
-                Código
-              </label>
+              <label htmlFor="verificationCode" className="form-label">Código</label>
               <input
                 type="text"
                 className="form-control"
@@ -199,13 +205,16 @@ export default function Login({ isOpen, clickModal }) {
 
       {/* Modal para cambiar la contraseña */}
       <Modal show={showCodeModal && verificationCode === "123456"} onHide={toggleCodeModal}>
+        <Modal.Header>
+          <Modal.Title>Cambiar Contraseña</Modal.Title>
+          <Button variant="close" onClick={toggleCodeModal} aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </Button>
+        </Modal.Header>
         <Modal.Body>
-          <h5>Cambiar Contraseña</h5>
           <form onSubmit={handleChangePassword}>
             <div className="mb-3">
-              <label htmlFor="newPassword" className="form-label">
-                Nueva Contraseña
-              </label>
+              <label htmlFor="newPassword" className="form-label">Nueva Contraseña</label>
               <input
                 type="password"
                 className="form-control"
@@ -214,9 +223,7 @@ export default function Login({ isOpen, clickModal }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="confirmPassword" className="form-label">
-                Confirmar Contraseña
-              </label>
+              <label htmlFor="confirmPassword" className="form-label">Confirmar Contraseña</label>
               <input
                 type="password"
                 className="form-control"
