@@ -3,26 +3,28 @@ import { NavLink, useNavigate } from "react-router-dom";
 import HermesLogo from "../../components/HermesLogo";
 import Login from "../home/auth/Login";
 import Register from "../home/auth/Register";
-import { Button } from "react-bootstrap";
-import { FaSignOutAlt, FaUserEdit } from "react-icons/fa"; // Asegúrate de tener react-icons instalado
+import {
+  ArrowRightEndOnRectangleIcon,
+  UserCircleIcon,
+} from "@heroicons/react/16/solid";
 
-export default function Navbar({ children, authenticated }) {
+export default function Navbar({ children }) {
   const navigate = useNavigate();
+  const [user, setUser] = useState(false);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const [openRegisterModal, setOpenRegisterModal] = useState(false);
+
+  const handleLogin = () => {
+    setUser(!user);
+  };
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("¿Seguro que quieres cerrar sesión?");
     if (confirmLogout) {
-      setUser(false)
+      setUser(!user);
       navigate("/");
     }
   };
-
-  const handleEditProfile = () => {
-    navigate("/EditProfile"); // Cambia esto a la ruta de tu página de edición de perfil
-  };
-  const [user, setUser] = useState(true);
-  const [openLoginModal, setOpenLoginModal] = useState(false);
-  const [openRegisterModal, setOpenRegisterModal] = useState(false);
 
   const toggleLoginModal = () => {
     setOpenLoginModal(!openLoginModal);
@@ -36,7 +38,7 @@ export default function Navbar({ children, authenticated }) {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <NavLink to="/" className={"nav-brand"}>
+          <NavLink to="/" className="nav-brand">
             <HermesLogo />
           </NavLink>
           <button
@@ -75,18 +77,18 @@ export default function Navbar({ children, authenticated }) {
                   </li>
                 </>
               ) : (
-                <>
-                  <Button
-                    variant="primary"
-                    onClick={handleEditProfile}
-                    className="me-2"
-                  >
-                    <FaUserEdit /> Perfil
-                  </Button>
-                  <Button variant="danger" onClick={handleLogout}>
-                    <FaSignOutAlt /> Cerrar Sesión
-                  </Button>
-                </>
+                <li className="nav-item d-flex align-items-center">
+                  <UserCircleIcon
+                    width={25}
+                    onClick={() => {
+                      navigate("/edit-profile");
+                    }}
+                  />
+                  <ArrowRightEndOnRectangleIcon
+                    width={25}
+                    onClick={handleLogout}
+                  />
+                </li>
               )}
             </ul>
           </div>
@@ -96,7 +98,7 @@ export default function Navbar({ children, authenticated }) {
         <Login
           isOpen={openLoginModal}
           clickModal={toggleLoginModal}
-          userAuthenticated={user}
+          handleLogin={handleLogin}
         />
       )}
       {openRegisterModal && (
