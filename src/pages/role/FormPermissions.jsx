@@ -1,9 +1,9 @@
-import SimpleAlert from "../../components/Alerts";
 import { RolePrivilege } from "../../models/role/rolePrivilege.model";
 import { Role } from "../../models/role/role.model";
 import { messages } from "../../utilies/messages";
 import { useState } from "react";
-import { variants } from "../../utilies/variants";
+import { titles } from "../../utilies/titles";
+import Alerts from "../../components/Alerts";
 
 export default function FormPermissions() {
   const permissions = [
@@ -72,12 +72,12 @@ export default function FormPermissions() {
     e.preventDefault();
     if (rolePrivilege.id_privilege === 0) {
       setMessage(messages.error.emptyFields);
-      setVariant(variant.error);
+      setTitle(title.error);
       setShowAlert(true);
       return;
     } else {
       setMessage(messages.success.formSent);
-      setVariant(variant.correct);
+      setTitle(title.correct);
       setShowAlert(true);
       return;
     }
@@ -97,7 +97,7 @@ export default function FormPermissions() {
   };
 
   const [message, setMessage] = useState(messages);
-  const [variant, setVariant] = useState(variants);
+  const [title, setTitle] = useState(titles);
   const [showAlert, setShowAlert] = useState(false);
   const clickAlert = () => {
     setShowAlert(!showAlert);
@@ -164,17 +164,14 @@ export default function FormPermissions() {
           Limpiar
         </button>
       </div>
-      {showAlert ? (
-        <SimpleAlert
-          show={showAlert}
-          variant={variant}
-          title="Titulo"
-          message={message}
-          clickAlert={clickAlert}
-        />
-      ) : (
-        ""
-      )}
+      {showAlert && (
+              <Alerts
+              message={message}
+              title={title}
+              clickAlert={clickAlert}
+              handleChange={()=>null}
+              />
+            )}
     </form>
   );
 }
