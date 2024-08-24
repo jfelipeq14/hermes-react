@@ -5,8 +5,8 @@ import { phonePrefixes } from "../../utilies/phonePrefixes";
 import { User } from "../../models/user.model";
 import { Form } from "react-bootstrap";
 import { messages } from "../../utilies/messages";
-import { variants } from "../../utilies/variants";
-import SimpleAlert from "../../components/Alerts";
+import { titles } from "../../utilies/titles";
+import Alerts from "../../components/Alerts";
 
 export default function CustomerForm() {
   const formCustomer = new Customer();
@@ -16,7 +16,7 @@ export default function CustomerForm() {
   const [validated, setValidated] = useState(false);
 
   const [message, setMessage] = useState(messages);
-  const [variant, setVariant] = useState(variants);
+  const [title, setTitle] = useState(titles);
   const [showAlert, setShowAlert] = useState(false);
   const clickAlert = () => {
     setShowAlert(!showAlert);
@@ -39,7 +39,7 @@ export default function CustomerForm() {
       e.stopPropagation();
 
       setMessage(messages.error.emptyFields);
-      setVariant(variant.error);
+      setTitle(title.error);
       setShowAlert(true);
     }
 
@@ -60,17 +60,14 @@ export default function CustomerForm() {
         onSubmit={handleSubmit}
         className="row g-2"
       >
-        {showAlert ? (
-          <SimpleAlert
-            show={showAlert}
-            variant={variant}
-            title="Titulo"
-            message={message}
-            clickAlert={clickAlert}
-          />
-        ) : (
-          ""
-        )}
+        {showAlert && (
+              <Alerts
+              message={message}
+              title={title}
+              clickAlert={clickAlert}
+              handleChange={()=>null}
+              />
+            )}
         {/* identificacion */}
         <div className="col-12">
           <div className="row">

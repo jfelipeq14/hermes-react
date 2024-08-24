@@ -3,6 +3,8 @@ export const messages = {
     exito: "Rol creado exitosamente",
     eliminado: "Rol eliminado exitosamente",
     actualizado: "Rol actualizado exitosamente",
+    cambioEstado: "El rol cambio de estado",
+    confirmar: "Confirmar"
   },
   error: {
     emptyFields: "Los campos no pueden estar vacíos",

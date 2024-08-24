@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Customer } from "../../models/customer.model";
 import { messages } from "../../utilies/messages";
-import { variants } from "../../utilies/variants";
+import { titles } from "../../utilies/titles";
 import { Form } from "react-bootstrap";
 import { documentTypes } from "../../utilies/documentTypes";
-import SimpleAlert from "../../components/Alerts";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
+import Alerts from "../../components/Alerts";
 
 export default function EditProfile({ isOpen, clickModal }) {
   const formCustomer = new Customer();
@@ -15,7 +15,7 @@ export default function EditProfile({ isOpen, clickModal }) {
   const [validated, setValidated] = useState(false);
 
   const [message, setMessage] = useState(messages);
-  const [variant, setVariant] = useState(variants);
+  const [title, setTitle] = useState(titles);
   const [showAlert, setShowAlert] = useState(false);
   const clickAlert = () => {
     setShowAlert(!showAlert);
@@ -33,7 +33,7 @@ export default function EditProfile({ isOpen, clickModal }) {
       e.stopPropagation();
 
       setMessage(messages.error.emptyFields);
-      setVariant(variant.error);
+      setTitle(title.error);
       setShowAlert(true);
     }
 
@@ -68,16 +68,13 @@ export default function EditProfile({ isOpen, clickModal }) {
             onSubmit={handleSubmit}
             className="row g-2"
           >
-            {showAlert ? (
-              <SimpleAlert
-                show={showAlert}
-                variant={variant}
-                title="Titulo"
-                message={message}
-                clickAlert={clickAlert}
+            {showAlert && (
+              <Alerts
+              message={message}
+              title={title}
+              clickAlert={clickAlert}
+              handleChange={()=>null}
               />
-            ) : (
-              ""
             )}
             <div className="row">
               <fieldset className="col-sm-12 col-md-6">
