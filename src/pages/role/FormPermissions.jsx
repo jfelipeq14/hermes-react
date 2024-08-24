@@ -3,7 +3,6 @@ import { Role } from "../../models/role/role.model";
 import { messages } from "../../utilies/messages";
 import { useState } from "react";
 import { titles } from "../../utilies/titles";
-import Alerts from "../../components/Alerts";
 
 export default function FormPermissions() {
   const permissions = [
@@ -164,14 +163,6 @@ export default function FormPermissions() {
           Limpiar
         </button>
       </div>
-      {showAlert && (
-              <Alerts
-              message={message}
-              title={title}
-              clickAlert={clickAlert}
-              handleChange={()=>null}
-              />
-            )}
     </form>
   );
 }

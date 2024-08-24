@@ -2,14 +2,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Importa useNavigate
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import SimpleAlert from "../../../components/Alerts";
 import { User } from "../../../models/user.model";
 import { messages } from "../../../utilies/messages";
 
 export default function Login({ isOpen, clickModal, handleLogin }) {
   const user = new User();
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
-  const [showAlert, setShowAlert] = useState(false);
   const [message, setMessage] = useState(messages);
   const [formData, setFormData] = useState(user);
   const [showResetModal, setShowResetModal] = useState(false);
@@ -32,10 +30,6 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
 
   const toggleCodeModal = () => {
     setShowCodeModal(!showCodeModal);
-  };
-
-  const clickAlert = () => {
-    setShowAlert(!showAlert);
   };
 
   const validateForm = (e) => {
@@ -152,15 +146,6 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
             </a>
           </p>
         </Modal.Body>
-        {showAlert && (
-          <SimpleAlert
-            show={showAlert}
-            variant="success"
-            title="Título"
-            message={message}
-            clickAlert={clickAlert}
-          />
-        )}
       </Modal>
 
       {/* Modal para restablecer contraseña */}

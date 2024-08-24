@@ -6,7 +6,6 @@ import { User } from "../../models/user.model";
 import { Form } from "react-bootstrap";
 import { messages } from "../../utilies/messages";
 import { titles } from "../../utilies/titles";
-import Alerts from "../../components/Alerts";
 
 export default function CustomerForm() {
   const formCustomer = new Customer();

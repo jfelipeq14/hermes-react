@@ -7,7 +7,6 @@ import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
-import Alerts from "../../components/Alerts";
 
 export default function EditProfile({ isOpen, clickModal }) {
   const formCustomer = new Customer();
