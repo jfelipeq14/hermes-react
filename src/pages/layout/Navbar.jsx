@@ -38,7 +38,7 @@ export default function Navbar({ children }) {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <NavLink to="/" className={"nav-brand"}>
+          <NavLink to="/" className="nav-brand">
             <HermesLogo />
           </NavLink>
           <button

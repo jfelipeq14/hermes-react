@@ -50,12 +50,11 @@ const packages = [
   },
 ];
 
-
 export default function Page() {
   return (
-    <div className="container">
-      <div className="row">
-        <main className="row col-sm-12 col-md-10">
+    <>
+      <main className="container p-5">
+        <div className="row">
           <section className="col-sm-12 mx-auto my-5">
             <header className="text-center">
               <h2 className="fw-bold fs-4">Paquetes</h2>
@@ -185,9 +184,9 @@ export default function Page() {
               </section>
             </article>
           </section>
-        </main>
-        <Footer />
-      </div>
-    </div>
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
