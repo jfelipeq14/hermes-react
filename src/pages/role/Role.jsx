@@ -1,12 +1,9 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import FormPermissions from "./FormPermissions";
-import { messages } from "../../utilies/messages";
-import { titles } from "../../utilies/titles";
-import { useState } from "react";
-import Alerts from "../../components/Alerts";
+import swal from "sweetalert";
 
 export default function RolePage() {
-  const nameRol = [
+  const roles = [
     {
       id_role: 1,
       name: "Aministrador",
@@ -19,24 +16,21 @@ export default function RolePage() {
     },
   ];
 
-  const [role, setRole] = useState(nameRol);
-  const [message, setMessage] = useState(messages);
-  const [title, setTitle] = useState(titles);
-  const [showAlert, setShowAlert] = useState(false);
-
-  const clickAlert = () => {
-    setShowAlert(!showAlert);
-  };
-
-  const handleChange = (e, confirm) => {
-    console.log(e.target.checked);
-    if (confirm && e.target.checked) {
-      const { name, value, checked, type } = e.target;
-      setRole({ ...role, [name]: type === "checkbox" ? checked : value });
-      setMessage(message.roles.confirmar);
-      setTitle(title.roles.confirmar);
-      setShowAlert(true);
-    }
+  const handleChange = (e) => {
+    const state = e.target.checked;
+    swal({
+      title: "¿Estás seguro?",
+      text: "Si desactivas este rol, los usuarios que lo tengan asignado no podrán acceder a la plataforma",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        e.target.checked = state ? true : false;
+      }else{
+        e.target.checked = state ? false : true;
+      }
+    });
   };
 
   return (
@@ -52,14 +46,6 @@ export default function RolePage() {
                 className="form-control"
               />
             </header>
-            {showAlert && (
-              <Alerts
-              message={message}
-              title={title}
-              clickAlert={clickAlert}
-              handleChange={handleChange}
-              />
-            )}
             <table className="table table-striped">
               <table className="table table-striped">
                 <thead>
@@ -70,24 +56,24 @@ export default function RolePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {nameRol.map((row) => (
-                    <tr key={row.id_role}>
-                      <td className="px-4 py-3">{row.name}</td>
-                      <td className="px-4 py-3" key={row.id_role}>
+                  {roles.map((rol) => (
+                    <tr key={rol.id_role}>
+                      <td className="px-4 py-3">{rol.name}</td>
+                      <td className="px-4 py-3" key={rol.id_role}>
                         <PencilSquareIcon width={25} type="button" />
                         <TrashIcon width={25} type="button" />
                         <div className=" form-switch d-inline">
                           <input
-                            value={row.state}
-                            name="state"
                             className="form-check-input"
                             type="checkbox"
                             role="switch"
+                            name="state"
+                            checked={rol.state}
                             onChange={handleChange}
-
                           />
                         </div>
                       </td>
+                      <td>{rol.state}</td>
                     </tr>
                   ))}
                 </tbody>
