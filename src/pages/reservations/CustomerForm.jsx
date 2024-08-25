@@ -4,26 +4,39 @@ import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 import { User } from "../../models/user.model";
 import { Form } from "react-bootstrap";
-import { messages } from "../../utilies/messages";
-import { titles } from "../../utilies/titles";
+import swal from "sweetalert";
 
 export default function CustomerForm() {
-  const formCustomer = new Customer();
-  const formUser = new User();
-  const [customer, setCustomer] = useState(formCustomer);
-  const [user, setUser] = useState(formUser);
-  const [validated, setValidated] = useState(false);
-
-  const [message, setMessage] = useState(messages);
-  const [title, setTitle] = useState(titles);
-  const [showAlert, setShowAlert] = useState(false);
-  const clickAlert = () => {
-    setShowAlert(!showAlert);
-  };
+  let formCustomer = new Customer();
+  let formUser = new User();
+  let [customer, setCustomer] = useState(formCustomer);
+  let [user, setUser] = useState(formUser);
+  let [validated, setValidated] = useState(false);
 
   const handleChangeCustomer = (e) => {
-    const { name, value, checked, type } = e.target;
-    setCustomer({ ...customer, [name]: type === "checkbox" ? checked : value });
+    let { name, value, checked, type } = e.target;
+    setCustomer({
+      ...customer,
+      [name]: type === "checkbox" ? checked : value,
+    });
+    if (name === "dateOfBirth") {
+      let birthDate = new Date(value);
+      let today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      let monthDifference = today.getMonth() - birthDate.getMonth();
+      let dayDifference = today.getDate() - birthDate.getDate();
+
+      // Ajustar la edad si el cumpleaños aún no ha ocurrido este año
+      if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+        age--;
+      }
+
+      setCustomer({
+        ...customer,
+        dateOfBirth: value,
+        age: age,
+      });
+    }
   };
 
   const handleChangeUser = (e) => {
@@ -32,14 +45,22 @@ export default function CustomerForm() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
     if (!e.currentTarget.checkValidity()) {
+      e.preventDefault();
       e.stopPropagation();
-
-      setMessage(messages.error.emptyFields);
-      setTitle(title.error);
-      setShowAlert(true);
+    } else {
+      swal({
+        title: "¿Quieres registrarte con estos datos?",
+        text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((confirm) => {
+        if (confirm) {
+          setCustomer(new Customer());
+          setUser(new User());
+        }
+      });
     }
 
     setValidated(true);
@@ -48,7 +69,6 @@ export default function CustomerForm() {
   var start = new Date();
   start.setFullYear(start.getFullYear() - 18);
   var limitDate = start.toISOString().split("T")[0];
-  console.log(limitDate);
 
   return (
     <fieldset className="p-2">
@@ -59,14 +79,6 @@ export default function CustomerForm() {
         onSubmit={handleSubmit}
         className="row g-2"
       >
-        {showAlert && (
-              <Alerts
-              message={message}
-              title={title}
-              clickAlert={clickAlert}
-              handleChange={()=>null}
-              />
-            )}
         {/* identificacion */}
         <div className="col-12">
           <div className="row">
