@@ -1,8 +1,7 @@
 import { RolePrivilege } from "../../models/role/rolePrivilege.model";
 import { Role } from "../../models/role/role.model";
-import { messages } from "../../utilies/messages";
 import { useState } from "react";
-import { titles } from "../../utilies/titles";
+import swal from "sweetalert";
 
 export default function FormPermissions() {
   const permissions = [
@@ -69,17 +68,39 @@ export default function FormPermissions() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (rolePrivilege.id_privilege === 0) {
-      setMessage(messages.error.emptyFields);
-      setTitle(title.error);
-      setShowAlert(true);
-      return;
+    if (!e.currentTarget.checkValidity()) {
+      e.stopPropagation();
     } else {
-      setMessage(messages.success.formSent);
-      setTitle(title.correct);
-      setShowAlert(true);
-      return;
+      swal({
+        title: "¿Quieres otorgar estos privilegios?",
+        text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((confirm) => {
+        if (confirm) {
+          setRolePrivilege(new RolePrivilege());
+          setRole(new Role());
+          swal({
+            title: "Enviado",
+            text: "Los datos fueron enviados correctamente",
+            icon: "success",
+            timer: 2000,
+            buttons: false,
+          });
+        } else {
+          swal({
+            title: "Cancelado",
+            text: "Los datos no se han enviado",
+            icon: "error",
+            timer: 2000,
+            buttons: false,
+          });
+        }
+      });
     }
+
+    e.preventDefault(true);
   };
 
   const handleChangeRole = (e) => {
@@ -93,13 +114,6 @@ export default function FormPermissions() {
       ...rolePrivilege,
       [name]: parseInt(value),
     });
-  };
-
-  const [message, setMessage] = useState(messages);
-  const [title, setTitle] = useState(titles);
-  const [showAlert, setShowAlert] = useState(false);
-  const clickAlert = () => {
-    setShowAlert(!showAlert);
   };
 
   return (
@@ -156,7 +170,11 @@ export default function FormPermissions() {
         </tbody>
       </table>
       <div className="buttons">
-        <button type="submit" className="btn btn-primary">
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={handleSubmit}
+        >
           Guardar
         </button>
         <button type="reset" className="btn btn-primary">
