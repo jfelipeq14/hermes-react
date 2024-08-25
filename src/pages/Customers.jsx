@@ -10,24 +10,49 @@ import { NavLink } from "react-router-dom";
 export default function Customers() {
   const customer = [
     {
-      cedula: "899",
-      nombres: "Juan Goleador",
-      celular: "687",
-      correo: "jf@gmail.com",
-      reservas: 4,
+      id_customer: 1,
+      id_user: 3,
+      documentType: "CC",
+      identification: "899213",
+      name: "Juan",
+      lastName: "Quintero",
+      phone: "+573001234567",
+      dateOfBirth: "2001-09-21",
+      age: 22,
+      address: "cl 9a",
+      country: "Col",
+      departament: "Ant",
+      municipality: "Med",
+      sex: "h",
+      bloodType: "o+",
+      eps: "Sura",
+      healthPosition: "Monterrey",
       state: true,
-    },
-    {
-      cedula: "008",
-      nombres: "Juan Guti",
-      celular: "567",
-      correo: "jg@gmail.com",
-      reservas: 5,
-      state: false,
+      reservas: [
+        {
+          id_reserva: 1,
+          paquete: "Cartagena Fam",
+          valor: 670000,
+          fecha: "12/12/12",
+          estado: "e",
+          servicios: [
+            {
+              nombre: "Pesca",
+              valor: 500000,
+              cantidad: 1,
+            },
+            {
+              nombre: "Lancha",
+              valor: 70000,
+              cantidad: 1,
+            },
+          ],
+        },
+      ],
     },
   ];
 
-  const reservations = [
+  const reserve = [
     {
       paquete: "Cartagena Fam",
       valor: 670000,
@@ -76,39 +101,49 @@ export default function Customers() {
                   placeholder="Buscar"
                 />
               </div>
-              <div className="btn-group">
-                <NavLink
-                  to="/reservations"
-                  className={
-                    "btn btn-primary d-flex align-items-center justify-content-center gap-2"
-                  }
-                >
-                  <PlusCircleIcon width={20} />
-                  Crear
-                </NavLink>
-              </div>
+              <NavLink
+                to={{ pathname: "/reserve" }}
+                state={{ identification: null }}
+                className={
+                  "btn btn-primary d-flex align-items-center justify-content-center gap-2"
+                }
+              >
+                <PlusCircleIcon width={20} />
+                Crear
+              </NavLink>
             </header>
             <table className="table table-striped my-2">
               <thead>
                 <th scope="col">Acciones</th>
-                <th scope="col">Cedula</th>
+                <th scope="col">Identificacion</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Celular</th>
-                <th scope="col">Correo</th>
+                <th scope="col">Estado</th>
                 <th scope="col">Reservas</th>
               </thead>
               <tbody>
                 {customer.map((row) => (
-                  <tr key={row.email}>
+                  <tr key={row.id_customer}>
                     <td className="d-flex">
-                      <EyeIcon width={20} />
-                      <PencilSquareIcon width={20} />
+                      <EyeIcon
+                        width={20}
+                        onClick={() => console.log(row.id_customer)}
+                      />
+                      <NavLink
+                        to={{ pathname: "/reserve" }}
+                        state={{ identification: row.identification }}
+                        className="text-white"
+                      >
+                        <PencilSquareIcon width={20} />
+                      </NavLink>
                     </td>
-                    <td>{row.cedula}</td>
-                    <td>{row.nombres}</td>
-                    <td>{row.celular}</td>
-                    <td>{row.correo}</td>
-                    <td>{row.reservas}</td>
+                    <td>{row.identification}</td>
+                    <td>
+                      {row.name.trim()} {row.lastName.trim()}
+                    </td>
+                    <td>{row.phone}</td>
+                    <td>{row.state}</td>
+                    <td>{row.reservas.length}</td>
                   </tr>
                 ))}
               </tbody>
@@ -117,17 +152,15 @@ export default function Customers() {
           <fieldset className="col-sm-12 col-md-6">
             <legend>Reservas</legend>
             <header className="d-flex justify-content-end align-items-end">
-              <div className="buttons">
-                <NavLink
-                  to="/reservations"
-                  className={
-                    "btn btn-primary d-flex align-items-center justify-content-center gap-2"
-                  }
-                >
-                  <PlusCircleIcon width={20} />
-                  Crear
-                </NavLink>
-              </div>
+              <NavLink
+                to="/reserve"
+                className={
+                  "btn btn-primary d-flex align-items-center justify-content-center gap-2"
+                }
+              >
+                <PlusCircleIcon width={20} />
+                Crear
+              </NavLink>
             </header>
             <table className="table table-striped my-2">
               <thead>
@@ -138,7 +171,7 @@ export default function Customers() {
                 <th scope="col">Estado</th>
               </thead>
               <tbody>
-                {reservations.map((row) => (
+                {reserve.map((row) => (
                   <tr key={row.paquete}>
                     <td className="d-flex">
                       <EyeIcon width={20} />

@@ -6,12 +6,45 @@ import { User } from "../../models/user.model";
 import { Form } from "react-bootstrap";
 import swal from "sweetalert";
 
-export default function CustomerForm() {
+const customers = [
+  {
+    id_customer: 1,
+    id_user: 3,
+    documentType: "CC",
+    identification: "899213",
+    name: "Juan",
+    lastName: "Quintero",
+    phone: "+573001234567",
+    dateOfBirth: "2001-09-21",
+    age: 22,
+    address: "cl 9a",
+    country: "Col",
+    departament: "Ant",
+    municipality: "Med",
+    sex: "h",
+    bloodType: "o+",
+    eps: "Sura",
+    healthPosition: "Monterrey",
+    state: true,
+  },
+];
+
+export default function CustomerForm({ identification }) {
   let formCustomer = new Customer();
+  if (identification) formCustomer.identification = identification;
   let formUser = new User();
   let [customer, setCustomer] = useState(formCustomer);
   let [user, setUser] = useState(formUser);
   let [validated, setValidated] = useState(false);
+
+  const onClickSearch = () => {
+    let customer = customers.find(
+      (customer) => customer.identification === identification
+    );
+    if (customer) {
+      setCustomer(customer);
+    }
+  };
 
   const handleChangeCustomer = (e) => {
     let { name, value, checked, type } = e.target;
@@ -45,8 +78,8 @@ export default function CustomerForm() {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     if (!e.currentTarget.checkValidity()) {
-      e.preventDefault();
       e.stopPropagation();
     } else {
       swal({
@@ -59,6 +92,21 @@ export default function CustomerForm() {
         if (confirm) {
           setCustomer(new Customer());
           setUser(new User());
+          swal({
+            title: "Enviado",
+            text: "Los datos fueron enviados correctamente",
+            icon: "success",
+            timer: 2000,
+            buttons: false,
+          });
+        } else {
+          swal({
+            title: "Cancelado",
+            text: "Los datos no se han enviado",
+            icon: "error",
+            timer: 2000,
+            buttons: false,
+          });
         }
       });
     }
@@ -93,6 +141,7 @@ export default function CustomerForm() {
                 onChange={handleChangeCustomer}
                 required
               >
+                <option selected>Selecciona</option>
                 {documentTypes.map((documentType) => (
                   <option key={documentType}>{documentType}</option>
                 ))}
@@ -114,12 +163,7 @@ export default function CustomerForm() {
               <small className="invalid-feedback">Campo obligatorio</small>
             </div>
             <div className="col-2">
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  console.log("buscar cliente");
-                }}
-              >
+              <button className="btn btn-primary" onClick={onClickSearch}>
                 🔍
               </button>
             </div>
@@ -168,6 +212,7 @@ export default function CustomerForm() {
                 onChange={handleChangeCustomer}
                 required
               >
+                <option selected>Selecciona</option>
                 {phonePrefixes.map((phonePrefix) => (
                   <option key={phonePrefix.prefix}>{phonePrefix.prefix}</option>
                 ))}

@@ -5,7 +5,7 @@ import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./pages/layout/Navbar";
 import Customers from "./pages/Customers";
 import Role from "./pages/role/Role";
-import Reservations from "./pages/reservations/Reservations";
+import Reserve from "./pages/reserve/Reserve";
 import Menu from "./pages/Menu";
 import EditProfile from "./pages/user/EditProfile";
 import Services from "./pages/Services";
@@ -34,7 +34,7 @@ export default function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/customers" element={<Customers />} />
         <Route exact path="/role" element={<Role />} />
-        <Route exact path="/reservations" element={<Reservations />} />
+        <Route exact path="/reserve" element={<Reserve />} />
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/edit-profile" element={<EditProfile />} />
         <Route exact path="/services" element={<Services />} />
