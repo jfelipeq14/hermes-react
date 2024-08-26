@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import HermesLogo from "../../components/HermesLogo";
 import Login from "../home/auth/Login";
@@ -15,13 +15,13 @@ export default function Navbar({ children }) {
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
 
   const handleLogin = () => {
-    setUser(!user);
+    setUser(true); // Cambia a true al iniciar sesión
   };
 
   const handleLogout = () => {
     const confirmLogout = window.confirm("¿Seguro que quieres cerrar sesión?");
     if (confirmLogout) {
-      setUser(!user);
+      setUser(false);
       navigate("/");
     }
   };
@@ -102,7 +102,11 @@ export default function Navbar({ children }) {
         />
       )}
       {openRegisterModal && (
-        <Register isOpen={openRegisterModal} clickModal={toggleRegisterModal} />
+        <Register
+          isOpen={openRegisterModal}
+          clickModal={toggleRegisterModal}
+          handleLogin={handleLogin} // Asegúrate de pasar el mismo manejador para el registro
+        />
       )}
     </>
   );
