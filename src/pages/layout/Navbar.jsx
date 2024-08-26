@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import HermesLogo from "../../components/HermesLogo";
 import Login from "../home/auth/Login";
@@ -36,7 +36,7 @@ export default function Navbar({ children }) {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <NavLink to="/" className="nav-brand">
             <HermesLogo />
@@ -56,36 +56,34 @@ export default function Navbar({ children }) {
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {children}
               {!user ? (
-                <>
-                  <li className="nav-item">
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={toggleLoginModal}
-                    >
-                      Ingresar
-                    </button>
-                  </li>
-                  <li className="nav-item">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={toggleRegisterModal}
-                    >
-                      Registrarse
-                    </button>
-                  </li>
-                </>
-              ) : (
                 <li className="nav-item d-flex align-items-center">
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary mx-1"
+                    onClick={toggleLoginModal}
+                  >
+                    Ingresar
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary mx-1"
+                    onClick={toggleRegisterModal}
+                  >
+                    Registrarse
+                  </button>
+                </li>
+              ) : (
+                <li className="nav-item d-flex g-3 align-items-center">
                   <UserCircleIcon
                     width={25}
+                    className="btn"
                     onClick={() => {
                       navigate("/edit-profile");
                     }}
                   />
                   <ArrowRightEndOnRectangleIcon
                     width={25}
+                    className="btn"
                     onClick={handleLogout}
                   />
                 </li>

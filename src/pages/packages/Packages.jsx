@@ -46,42 +46,43 @@ export default function Packs() {
         {administrator.map((link) => {
           return (
             <SidebarItem
-              key={link.href}
-              icon={<link.icon />}
-              text={link.name}
+              key={link.name}
+              name={link.name}
+              href={link.href}
+              icon={<link.icon width={30} />}
             />
           );
         })}
       </Sidebar>
       <main className="col-11">
-        <div className="row p-5">
+        <div className="row p-2">
           <fieldset className="col-sm-12 col-md-7">
             <legend>Paquetes</legend>
-            <header className="d-flex justify-content-between align-items-end my-2">
-              <div className="form-group">
-                <label htmlFor="identification" className="form-label">
-                  Buscar:
-                </label>
+            <header className="row">
+              <div className="col-6">
                 <input
                   type="text"
                   id="identification"
                   className="form-control"
+                  placeholder="Buscar"
                   onChange={(e) => console.log(e.target.value)}
                 />
               </div>
-              <div className="btn-group">
-                <NavLink
-                  to="/create-packs"
-                  className={
-                    "btn btn-primary d-flex align-items-center justify-content-center gap-2"
-                  }
-                >
-                  <PlusCircleIcon width={20} />
-                  Crear
-                </NavLink>
+              <div className="col-6">
+                <div className="buttons float-end">
+                  <NavLink
+                    to="/create-packs"
+                    className={
+                      "btn btn-primary d-flex align-items-center justify-content-center gap-2"
+                    }
+                  >
+                    <PlusCircleIcon width={25} />
+                    Crear
+                  </NavLink>
+                </div>
               </div>
             </header>
-            <table className="table table-striped my-2">
+            <table className="table table-striped">
               <thead>
                 <th scope="col">Acciones</th>
                 <th scope="col">Nombre</th>
@@ -95,8 +96,12 @@ export default function Packs() {
                 {packs.map((pack) => (
                   <tr key={pack.email}>
                     <td className="d-flex">
-                      <EyeIcon width={20} />
-                      <PencilSquareIcon width={20} />
+                      <button className="btn m-0 p-0">
+                        <EyeIcon width={25} />
+                      </button>
+                      <button className="btn m-0 p-0">
+                        <PencilSquareIcon width={25} />
+                      </button>
                     </td>
                     <td>{pack.nombres}</td>
                     <td>{pack.fechaInscripcion}</td>
@@ -109,19 +114,21 @@ export default function Packs() {
               </tbody>
             </table>
           </fieldset>
-          <fieldset className="col-sm-11 col-md-5">
+          <fieldset className="col-sm-12 col-md-5">
             <legend>Servicios</legend>
-            <header className="d-flex justify-content-end align-items-end">
-              <div className="buttons">
-                <NavLink
-                  to="packs"
-                  className={
-                    "btn btn-primary d-flex align-items-center justify-content-center gap-2"
-                  }
-                >
-                  <PlusCircleIcon width={20} />
-                  Crear
-                </NavLink>
+            <header className="row">
+              <div className="col">
+                <div className="buttons float-end">
+                  <NavLink
+                    to="packs"
+                    className={
+                      "btn btn-primary d-flex align-items-center justify-content-center gap-2"
+                    }
+                  >
+                    <PlusCircleIcon width={25} />
+                    Crear
+                  </NavLink>
+                </div>
               </div>
             </header>
             <table className="table table-striped my-2">

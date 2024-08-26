@@ -6,6 +6,7 @@ import {
 import { administrator } from "../utilies/routes";
 import Sidebar, { SidebarItem } from "./layout/Sidebar";
 import { NavLink } from "react-router-dom";
+import { BiSearch } from "react-icons/bi";
 
 export default function Customers() {
   const customer = [
@@ -88,30 +89,33 @@ export default function Customers() {
         })}
       </Sidebar>
       <main className="col-11">
-        <div className="row p-5">
+        <div className="row p-2">
           <fieldset className="col-sm-12 col-md-6">
             <legend>Clientes</legend>
-            <header className="d-flex justify-content-between align-items-end my-2">
-              <div className="form-group">
+            <NavLink
+              to={{ pathname: "/reserve" }}
+              state={{ identification: 0 }}
+              className="btn btn-primary float-end"
+            >
+              <PlusCircleIcon width={25} />
+              Crear
+            </NavLink>
+            <form className="row">
+              <div className="col-6">
                 <input
-                  type="text"
+                  type="search"
                   id="identification"
                   className="form-control"
-                  onChange={(e) => console.log(e.target.value)}
                   placeholder="Buscar"
+                  onChange={(e) => console.log(e.target.value)}
                 />
               </div>
-              <NavLink
-                to={{ pathname: "/reserve" }}
-                state={{ identification: null }}
-                className={
-                  "btn btn-primary d-flex align-items-center justify-content-center gap-2"
-                }
-              >
-                <PlusCircleIcon width={20} />
-                Crear
-              </NavLink>
-            </header>
+              <div className="col-6">
+                <button type="submit" className="btn">
+                  <BiSearch />
+                </button>
+              </div>
+            </form>
             <table className="table table-striped my-2">
               <thead>
                 <th scope="col">Acciones</th>
@@ -125,16 +129,18 @@ export default function Customers() {
                 {customer.map((row) => (
                   <tr key={row.id_customer}>
                     <td className="d-flex">
-                      <EyeIcon
-                        width={20}
-                        onClick={() => console.log(row.id_customer)}
-                      />
+                      <button className="btn m-0 p-0">
+                        <EyeIcon
+                          width={25}
+                          onClick={() => console.log(row.id_customer)}
+                        />
+                      </button>
                       <NavLink
                         to={{ pathname: "/reserve" }}
                         state={{ identification: row.identification }}
-                        className="text-white"
+                        className="btn m-0 p-0"
                       >
-                        <PencilSquareIcon width={20} />
+                        <PencilSquareIcon width={25} />
                       </NavLink>
                     </td>
                     <td>{row.identification}</td>
@@ -151,17 +157,10 @@ export default function Customers() {
           </fieldset>
           <fieldset className="col-sm-12 col-md-6">
             <legend>Reservas</legend>
-            <header className="d-flex justify-content-end align-items-end">
-              <NavLink
-                to="/reserve"
-                className={
-                  "btn btn-primary d-flex align-items-center justify-content-center gap-2"
-                }
-              >
-                <PlusCircleIcon width={20} />
-                Crear
-              </NavLink>
-            </header>
+            <NavLink to="/reserve" className="btn btn-primary float-end">
+              <PlusCircleIcon width={25} />
+              Crear
+            </NavLink>
             <table className="table table-striped my-2">
               <thead>
                 <th scope="col">Acciones</th>
@@ -174,8 +173,12 @@ export default function Customers() {
                 {reserve.map((row) => (
                   <tr key={row.paquete}>
                     <td className="d-flex">
-                      <EyeIcon width={20} />
-                      <PencilSquareIcon width={20} />
+                      <button className="btn m-0 p-0">
+                        <EyeIcon width={25} />
+                      </button>
+                      <button className="btn m-0 p-0">
+                        <PencilSquareIcon width={25} />
+                      </button>
                     </td>
                     <td>{row.paquete}</td>
                     <td>{row.valor}</td>

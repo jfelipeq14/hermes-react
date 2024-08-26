@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { Eye, EyeSlash } from 'react-bootstrap-icons'; // Asegúrate de tener react-bootstrap-icons instalado
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/16/solid';
 
 export default function Register({ isOpen, clickModal }) {
   const navigate = useNavigate(); // Inicializa useNavigate
@@ -137,7 +137,7 @@ export default function Register({ isOpen, clickModal }) {
                 required
               />
               <span className="input-group-text" onClick={() => setMostrarContraseña(!mostrarContraseña)}>
-                {mostrarContraseña ? <EyeSlash /> : <Eye />}
+                {mostrarContraseña ? <EyeSlashIcon /> : <EyeIcon />}
               </span>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function Register({ isOpen, clickModal }) {
                 required
               />
               <span className="input-group-text" onClick={() => setMostrarConfirmarContraseña(!mostrarConfirmarContraseña)}>
-                {mostrarConfirmarContraseña ? <EyeSlash /> : <Eye />}
+                {mostrarConfirmarContraseña ? <EyeSlashIcon /> : <EyeIcon />}
               </span>
             </div>
           </div>

@@ -6,34 +6,34 @@ import Navbar from "./pages/layout/Navbar";
 import Customers from "./pages/Customers";
 import Role from "./pages/role/Role";
 import Reserve from "./pages/reserve/Reserve";
-import Reservations from "./pages/reservations/Reservations";
+import Reservations from "./pages/reserve/Reservations";
 import Packages from "./pages/packages/Packages";
 import CreatePackages from "./pages/packages/CreatePackages";
-
 import Menu from "./pages/Menu";
 import EditProfile from "./pages/user/EditProfile";
 import Services from "./pages/Services";
-import Reservas from "./pages/reservas/Reservas";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Navbar>
         <li className="nav-item">
-          <Link to="customers" className={"nav-link"}>
+          <Link to="customers" className="nav-link">
             Customers
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="role" className={"nav-link"}>
+          <Link to="role" className="nav-link">
             Role
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="packages" className={"nav-link"}>
-            packages
-            </Link>
-          <Link to="services" className={"nav-link"}>
+          <Link to="packages" className="nav-link">
+            Packages
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="services" className="nav-link">
             Services
           </Link>
         </li>
@@ -46,12 +46,10 @@ export default function App() {
         <Route exact path="/packages" element={<Packages />} />
         <Route exact path="/create-packages" element={<CreatePackages />} />
         <Route exact path="/reservations" element={<Reservations />} />
-        <Route exact path="/reservas" element={<Reservas />} />
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/edit-profile" element={<EditProfile />} />
         <Route exact path="/services" element={<Services />} />
         <Route path="*" element={<PageNotFound />} />
-        
       </Routes>
     </BrowserRouter>
   );

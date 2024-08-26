@@ -18,8 +18,8 @@ export default function Menu() {
         })}
       </Sidebar>
       <main className="col-11">
-        <div className="container w-75">
-          <div className="d-flex flex-wrap justify-content-between align-items-center">
+        <div className="container text-center">
+          <div className="d-flex flex-wrap justify-content-around align-items-center">
             {administrator.map((admin) => (
               <CardMenu
                 key={admin.name}
