@@ -3,6 +3,8 @@ export class Package {
     this.id_package = 0;
     this.name = "";
     this.destination = "";
+    this.image = "";
+    this.services = []
     this.price = "";
     this.status = "";
   }
