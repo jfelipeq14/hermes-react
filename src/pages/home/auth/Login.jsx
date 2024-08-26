@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { useNavigate } from "react-router-dom"; 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { User } from "../../../models/user.model";
-import { messages } from "../../../utilies/messages";
 
 export default function Login({ isOpen, clickModal, handleLogin }) {
   const user = new User();
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
-  const [message, setMessage] = useState(messages);
+  const [messages, setMessages] = useState([]);
   const [formData, setFormData] = useState(user);
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
@@ -17,7 +16,7 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const navigate = useNavigate(); // Crea una instancia de useNavigate
+  const navigate = useNavigate();
 
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
@@ -34,75 +33,76 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
 
   const validateForm = (e) => {
     e.preventDefault();
+    const errors = [];
 
     if (formData.email === "" || formData.password === "") {
-      setMessage(messages.error.emptyFields);
-      setShowAlert(true);
-      return;
+      errors.push("Los campos no pueden estar vacíos.");
     }
 
     if (!formData.email.includes("@") || !formData.email.includes(".")) {
-      setMessage("El formato del email es incorrecto");
-      setShowAlert(true);
+      errors.push("El formato del email es incorrecto.");
+    }
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      errors.push("La contraseña debe tener al menos 8 caracteres, incluir letras, números y un carácter especial.");
+    }
+
+    if (errors.length > 0) {
+      setMessages(errors);
       return;
     }
 
-    if (formData.password.length < 6) {
-      setMessage("La contraseña debe tener al menos 6 caracteres");
-      setShowAlert(true);
-      return;
-    }
-
-    setModalIsOpen(!modalIsOpen);
-    handleLogin()
-    // Redirige a editar perfil
-    navigate("/Menu");
+    setMessages(["Inicio de sesión exitoso."]);
+    handleLogin();
+    setModalIsOpen(false); // Cierra el modal
+    navigate("/Menu"); // Redirige a Menu
   };
 
   const handleResetPassword = (e) => {
     e.preventDefault();
-    setMessage("Instrucciones enviadas a tu correo.");
-    setShowAlert(true);
+    setMessages(["Código enviado a tu correo."]);
     setTimeout(() => {
       toggleResetModal();
-      toggleCodeModal();
+      setShowCodeModal(true);
     }, 3000);
   };
 
   const handleVerifyCode = (e) => {
     e.preventDefault();
     if (verificationCode === "123456") {
-      setMessage("Código verificado. Ahora puedes restablecer tu contraseña.");
-      setShowAlert(true);
+      setMessages(["Código verificado. Ahora puedes restablecer tu contraseña."]);
+      toggleCodeModal();
     } else {
-      setMessage("Código incorrecto. Intenta nuevamente.");
-      setShowAlert(true);
+      setMessages(["Código incorrecto. Intenta nuevamente."]);
     }
   };
 
   const handleChangePassword = (e) => {
     e.preventDefault();
+    const errors = [];
 
-    if (newPassword.length < 6) {
-      setMessage("La nueva contraseña debe tener al menos 6 caracteres.");
-      setShowAlert(true);
-      return;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(newPassword)) {
+      errors.push("La nueva contraseña debe tener al menos 8 caracteres, incluir letras, números y un carácter especial.");
     }
 
     if (newPassword !== confirmPassword) {
-      setMessage("Las contraseñas no coinciden.");
-      setShowAlert(true);
+      errors.push("Las contraseñas no coinciden.");
+    }
+
+    if (errors.length > 0) {
+      setMessages(errors);
       return;
     }
 
-    setMessage("Contraseña restablecida correctamente.");
-    setShowAlert(true);
+    setMessages(["Contraseña restablecida correctamente."]);
     toggleCodeModal();
   };
 
   return (
     <>
-      {/* Iniciar sesion */}
+      {/* Iniciar sesión */}
       <Modal show={modalIsOpen} onHide={toggleModal}>
         <Modal.Header>
           <Modal.Title>Iniciar Sesión</Modal.Title>
@@ -113,37 +113,36 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
         <Modal.Body>
           <form onSubmit={validateForm}>
             <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Correo electrónico
-              </label>
+              <label htmlFor="email" className="form-label">Correo electrónico</label>
               <input
                 type="email"
                 className="form-control"
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 value={formData.email}
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                Contraseña
-              </label>
+              <label htmlFor="password" className="form-label">Contraseña</label>
               <input
                 type="password"
                 className="form-control"
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 value={formData.password}
               />
             </div>
+            {messages.length > 0 && (
+              <div className={`alert ${messages[0].includes("correctamente") || messages[0].includes("enviadas") ? "alert-success" : "alert-danger"}`}>
+                <ul>
+                  {messages.map((msg, index) => (
+                    <li key={index}>{msg}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <Button type="submit">Ingresar</Button>
           </form>
           <p>
-            <a href="#" onClick={toggleResetModal}>
-              Olvidé mi contraseña
-            </a>
+            <a href="#" onClick={toggleResetModal}>Olvidé mi contraseña</a>
           </p>
         </Modal.Body>
       </Modal>
@@ -152,20 +151,14 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
       <Modal show={showResetModal} onHide={toggleResetModal}>
         <Modal.Header>
           <Modal.Title>Recuperar Contraseña</Modal.Title>
-          <Button
-            variant="close"
-            onClick={toggleResetModal}
-            aria-label="Cerrar"
-          >
+          <Button variant="close" onClick={toggleResetModal} aria-label="Cerrar">
             <span aria-hidden="true">&times;</span>
           </Button>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleResetPassword}>
             <div className="mb-3">
-              <label htmlFor="resetEmail" className="form-label">
-                Correo electrónico
-              </label>
+              <label htmlFor="resetEmail" className="form-label">Correo electrónico</label>
               <input
                 type="email"
                 className="form-control"
@@ -189,9 +182,7 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
         <Modal.Body>
           <form onSubmit={handleVerifyCode}>
             <div className="mb-3">
-              <label htmlFor="verificationCode" className="form-label">
-                Código
-              </label>
+              <label htmlFor="verificationCode" className="form-label">Código</label>
               <input
                 type="text"
                 className="form-control"
@@ -205,10 +196,7 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
       </Modal>
 
       {/* Modal para cambiar la contraseña */}
-      <Modal
-        show={showCodeModal && verificationCode === "123456"}
-        onHide={toggleCodeModal}
-      >
+      <Modal show={showCodeModal && verificationCode === "123456"} onHide={toggleCodeModal}>
         <Modal.Header>
           <Modal.Title>Cambiar Contraseña</Modal.Title>
           <Button variant="close" onClick={toggleCodeModal} aria-label="Cerrar">
@@ -218,9 +206,7 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
         <Modal.Body>
           <form onSubmit={handleChangePassword}>
             <div className="mb-3">
-              <label htmlFor="newPassword" className="form-label">
-                Nueva Contraseña
-              </label>
+              <label htmlFor="newPassword" className="form-label">Nueva Contraseña</label>
               <input
                 type="password"
                 className="form-control"
@@ -229,9 +215,7 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="confirmPassword" className="form-label">
-                Confirmar Contraseña
-              </label>
+              <label htmlFor="confirmPassword" className="form-label">Confirmar Contraseña</label>
               <input
                 type="password"
                 className="form-control"
@@ -239,6 +223,15 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
                 value={confirmPassword}
               />
             </div>
+            {messages.length > 0 && (
+              <div className={`alert ${messages[0].includes("correctamente") || messages[0].includes("enviadas") ? "alert-success" : "alert-danger"}`}>
+                <ul>
+                  {messages.map((msg, index) => (
+                    <li key={index}>{msg}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <Button type="submit">Restablecer Contraseña</Button>
           </form>
         </Modal.Body>
