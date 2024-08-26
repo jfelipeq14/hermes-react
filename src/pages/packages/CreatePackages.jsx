@@ -1,35 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Package } from "../../models/package.model";
 import { Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { PlusCircleIcon } from "@heroicons/react/16/solid";
+import { PlusCircleIcon, TrashIcon } from "@heroicons/react/16/solid";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import { administrator } from "../../utilies/routes";
 
-export default function CustomerForm() {
+export default function PackForm() {
   const formPackage = new Package();
-  const service = [
+  // const formService = new Service();
+  const services = [
     {
-      acciones: "Eliminar",
+      idService: 1,
       nombre: "Pesca",
-      categoria:"Entretenimiento",
+      categoria: "Entretenimiento",
       valor: 50000,
       cantidad: 1,
     },
     {
-      acciones: "Eliminar",
+      idService: 2,
       nombre: "Lancha",
-      categoria:"Transporte",
+      categoria: "Transporte",
       valor: 70000,
       cantidad: 1,
     },
   ];
 
+  const packs = [];
   const [pack, setPackage] = useState(formPackage);
   const [validated, setValidated] = useState(false);
-  // const service = [];
+  const [servicePackData, setServicePackData] = useState([]);
+  let idService;
 
-  const handleChangeCustomer = (e) => {
+  useEffect(() => {}, [servicePackData]);
+
+  const handleChangePack = (e) => {
     const { name, value, checked, type } = e.target;
     setPackage({ ...pack, [name]: type === "checkbox" ? checked : value });
   };
@@ -41,6 +46,11 @@ export default function CustomerForm() {
       event.stopPropagation();
     }
     setValidated(true);
+  };
+
+  const onClickService = () => {
+    const serviceFound = services.find((s) => s.idService === idService);
+    setServicePackData([...servicePackData, serviceFound]);
   };
 
   return (
@@ -73,7 +83,7 @@ export default function CustomerForm() {
               className="form-control"
               name="name"
               value={pack.name}
-              onChange={handleChangeCustomer}
+              onChange={handleChangePack}
               pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
               required
             />
@@ -88,7 +98,7 @@ export default function CustomerForm() {
               className="form-control"
               name="destination"
               value={pack.destination}
-              onChange={handleChangeCustomer}
+              onChange={handleChangePack}
               pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
               required
             />
@@ -107,7 +117,7 @@ export default function CustomerForm() {
                   className="form-control"
                   name="image"
                   value={pack.image}
-                  onChange={handleChangeCustomer}
+                  onChange={handleChangePack}
                   pattern="^\+?[0-9]{1,3}[0-9]{6,}$"
                   required
                 />
@@ -119,6 +129,7 @@ export default function CustomerForm() {
               </div>
             </div>
           </div>
+          {/* servicios */}
           <div className="col-12">
             <label htmlFor="image" className="col-12">
               Servicios:
@@ -127,13 +138,14 @@ export default function CustomerForm() {
               <div className="col-6">
                 <select
                   className="form-select"
-                  name="documentType"
-                  value={pack.services}
-                  onChange={handleChangeCustomer}
+                  name="services"
+                  onChange={(e) => {
+                    idService = e.target.options.selectedIndex + 1;
+                  }}
                   required
                 >
-                  {service.map((serviceItem) => (
-                    <option key={serviceItem.nombre}>{serviceItem.nombre}</option>
+                  {services.map((service) => (
+                    <option key={service.idService}>{service.nombre}</option>
                   ))}
                 </select>
                 <small className="valid-feedback">Todo bien!</small>
@@ -143,17 +155,21 @@ export default function CustomerForm() {
                 <input
                   type="text"
                   className="form-control"
-                  name="image"
-                  value={pack.image}
-                  onChange={handleChangeCustomer}
-                  pattern="^\+?[0-9]{1,3}[0-9]{6,}$"
-                  required
+                  name="value"
+                  onChange={handleChangePack}
+                  readOnly
                 />
                 <small className="valid-feedback">Todo bien!</small>
                 <small className="invalid-feedback">Campo obligatorio</small>
               </div>
               <div className="col-6 my-2">
-                <button className="btn btn-primary">Cargar</button>
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  onClick={onClickService}
+                >
+                  Cargar
+                </button>
               </div>
               {/* Precio */}
               <div className="col-12">
@@ -163,7 +179,7 @@ export default function CustomerForm() {
                   className="form-control"
                   name="name"
                   value={pack.name}
-                  onChange={handleChangeCustomer}
+                  onChange={handleChangePack}
                   pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
                   required
                 />
@@ -216,11 +232,11 @@ export default function CustomerForm() {
               className="form-select"
               name="documentType"
               value={pack.services}
-              onChange={handleChangeCustomer}
+              onChange={handleChangePack}
               required
             >
-              {service.map((serviceItem) => (
-                <option key={serviceItem.nombre}>{serviceItem.nombre}</option>
+              {packs.map((pack) => (
+                <option key={pack.id}>{pack.nombre}</option>
               ))}
             </select>
             <small className="valid-feedback">Todo bien!</small>
@@ -249,13 +265,17 @@ export default function CustomerForm() {
             <th scope="col">Cantidad</th>
           </thead>
           <tbody>
-            {service.map((row) => (
-              <tr key={row.paquete}>
-                <td>{row.acciones}</td>
-                <td>{row.nombre}</td>
-                <td>{row.categoria}</td>
-                <td>{row.valor}</td>
-                <td>{row.cantidad}</td>
+            {servicePackData.map((service) => (
+              <tr key={service.id}>
+                <td>
+                  <button className="btn">
+                    <TrashIcon width={20} />
+                  </button>
+                </td>
+                <td>{service.nombre}</td>
+                <td>{service.categoria}</td>
+                <td>{service.valor}</td>
+                <td>{service.cantidad}</td>
               </tr>
             ))}
           </tbody>
