@@ -8,10 +8,10 @@ export default function Sidebar({ children }) {
   const toggleSidebar = () => setOpen((prev) => !prev);
 
   return (
-    <div className="col-1">
+    <div className="col-1 position-static">
       <div className="row flex-nowrap">
         <div className="col-auto px-0">
-          <div className="d-flex flex-column align-items-start min-vh-100">
+          <div className="d-flex flex-column align-items-start">
             <ul
               className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
               id="menu"

@@ -1,13 +1,30 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import HermesLogo from "../../components/HermesLogo";
 import Login from "../home/auth/Login";
 import Register from "../home/auth/Register";
-import { logout } from "../../utilies/authUtils"; // Asegúrate de que la ruta sea correcta
+import {
+  ArrowRightEndOnRectangleIcon,
+  UserCircleIcon,
+} from "@heroicons/react/16/solid";
 
-export default function Navbar({ children, onLogout }) {
+export default function Navbar({ children }) {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
+
+  const handleLogin = () => {
+    setUser(!user);
+  };
+
+  const handleLogout = () => {
+    const confirmLogout = window.confirm("¿Seguro que quieres cerrar sesión?");
+    if (confirmLogout) {
+      setUser(!user);
+      navigate("/");
+    }
+  };
 
   const toggleLoginModal = () => {
     setOpenLoginModal(!openLoginModal);
@@ -17,16 +34,11 @@ export default function Navbar({ children, onLogout }) {
     setOpenRegisterModal(!openRegisterModal);
   };
 
-  const handleLogout = () => {
-    logout(); // Llama a la función de cierre de sesión
-    onLogout(); // Llama a la función pasada como prop para manejar el estado en el componente superior
-  };
-
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <NavLink to="/" className={"nav-brand"}>
+          <NavLink to="/" className="nav-brand">
             <HermesLogo />
           </NavLink>
           <button
@@ -43,40 +55,55 @@ export default function Navbar({ children, onLogout }) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {children}
-              <li className="nav-item">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={toggleLoginModal}
-                >
-                  Ingresar
-                </button>
-              </li>
-              <li className="nav-item">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={toggleRegisterModal}
-                >
-                  Registrarse
-                </button>
-              </li>
-              <li className="nav-item">
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={handleLogout}
-                >
-                  Cerrar Sesión
-                </button>
-              </li>
+              {!user ? (
+                <>
+                  <li className="nav-item">
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={toggleLoginModal}
+                    >
+                      Ingresar
+                    </button>
+                  </li>
+                  <li className="nav-item">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={toggleRegisterModal}
+                    >
+                      Registrarse
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <li className="nav-item d-flex align-items-center">
+                  <UserCircleIcon
+                    width={25}
+                    onClick={() => {
+                      navigate("/edit-profile");
+                    }}
+                  />
+                  <ArrowRightEndOnRectangleIcon
+                    width={25}
+                    onClick={handleLogout}
+                  />
+                </li>
+              )}
             </ul>
           </div>
         </div>
       </nav>
-      {openLoginModal && <Login isOpen={openLoginModal} clickModal={toggleLoginModal} />}
-      {openRegisterModal && <Register isOpen={openRegisterModal} clickModal={toggleRegisterModal} />}
+      {openLoginModal && (
+        <Login
+          isOpen={openLoginModal}
+          clickModal={toggleLoginModal}
+          handleLogin={handleLogin}
+        />
+      )}
+      {openRegisterModal && (
+        <Register isOpen={openRegisterModal} clickModal={toggleRegisterModal} />
+      )}
     </>
   );
 }
-

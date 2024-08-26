@@ -1,70 +1,65 @@
-import SimpleAlert from "../../components/Alerts";
 import { RolePrivilege } from "../../models/role/rolePrivilege.model";
 import { Role } from "../../models/role/role.model";
 import { messages } from "../../utilies/messages";
 import { useState } from "react";
-import { variants } from "../../utilies/variants";
-
+import { titles } from "../../utilies/titles";
 
 export default function FormPermissions() {
+  const permissions = [
+    {
+      id_permission: 1,
+      name: "Dashboard",
+      state: true,
+    },
+    {
+      id_permission: 2,
+      name: "Gestion de Roles",
+      state: true,
+    },
+    {
+      id_permission: 3,
+      name: "Gestion de Servicios",
+      state: true,
+    },
+    {
+      id_permission: 4,
+      name: "Gestion de Usuarios",
+      state: true,
+    },
+    {
+      id_permission: 5,
+      name: "Gestion de Reservas",
+      state: true,
+    },
+  ];
 
-    const permissions = [
-        {
-          id_permission: 1,
-          name: "Dashboard",
-          state: true,
-        },
-        {
-          id_permission: 2,
-          name: "Gestion de Roles",
-          state: true,
-        },
-        {
-          id_permission: 3,
-          name: "Gestion de Servicios",
-          state: true,
-        },
-        {
-          id_permission: 4,
-          name: "Gestion de Usuarios",
-          state: true,
-        },
-        {
-          id_permission: 5,
-          name: "Gestion de Reservas",
-          state: true,
-        },
-      ];
-    
-      const privilegios = [
-        {
-          id_privilege: 1,
-          name: "Crear",
-          id_permission: 1,
-        },
-        {
-          id_privilege: 2,
-          name: "Ver",
-          id_permission: 2,
-        },
-        {
-          id_privilege: 3,
-          name: "Editar",
-          id_permission: 3,
-        },
-        {
-          id_privilege: 4,
-          name: "Eliminar",
-          id_permission: 4,
-        },
-        {
-          id_privilege: 5,
-          name: "Cambiar estado",
-          id_permission: 5,
-        },
-      ];
-
-
+  const privilegios = [
+    {
+      id_privilege: 1,
+      name: "Crear",
+      id_permission: 1,
+    },
+    {
+      id_privilege: 2,
+      name: "Ver",
+      id_permission: 2,
+    },
+    {
+      id_privilege: 3,
+      name: "Editar",
+      id_permission: 3,
+    },
+    {
+      id_privilege: 4,
+      name: "Eliminar",
+      id_permission: 4,
+    },
+    {
+      id_privilege: 5,
+      name: "Cambiar estado",
+      id_permission: 5,
+    },
+  ];
 
   const formRole = new Role();
   const formRolPrivilege = new RolePrivilege();
@@ -76,12 +71,12 @@ export default function FormPermissions() {
     e.preventDefault();
     if (rolePrivilege.id_privilege === 0) {
       setMessage(messages.error.emptyFields);
-      setVariant(variant.error);
+      setTitle(title.error);
       setShowAlert(true);
       return;
     } else {
       setMessage(messages.success.formSent);
-      setVariant(variant.correct);
+      setTitle(title.correct);
       setShowAlert(true);
       return;
     }
@@ -101,7 +96,7 @@ export default function FormPermissions() {
   };
 
   const [message, setMessage] = useState(messages);
-  const [variant, setVariant] = useState(variants);
+  const [title, setTitle] = useState(titles);
   const [showAlert, setShowAlert] = useState(false);
   const clickAlert = () => {
     setShowAlert(!showAlert);
@@ -168,17 +163,6 @@ export default function FormPermissions() {
           Limpiar
         </button>
       </div>
-      {showAlert ? (
-        <SimpleAlert
-          show={showAlert}
-          variant={variant}
-          title="Titulo"
-          message={message}
-          clickAlert={clickAlert}
-        />
-      ) : (
-        ""
-      )}
     </form>
   );
 }

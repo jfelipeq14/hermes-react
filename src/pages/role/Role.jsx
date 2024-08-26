@@ -1,11 +1,9 @@
-import {
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/16/solid";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import FormPermissions from "./FormPermissions";
+import swal from "sweetalert";
 
 export default function RolePage() {
-  const nameRol = [
+  const roles = [
     {
       id_role: 1,
       name: "Aministrador",
@@ -17,6 +15,23 @@ export default function RolePage() {
       state: true,
     },
   ];
+
+  const handleChange = (e) => {
+    const state = e.target.checked;
+    swal({
+      title: "¿Estás seguro?",
+      text: "Si desactivas este rol, los usuarios que lo tengan asignado no podrán acceder a la plataforma",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        e.target.checked = state ? true : false;
+      }else{
+        e.target.checked = state ? false : true;
+      }
+    });
+  };
 
   return (
     <div className="row p-5">
@@ -37,25 +52,28 @@ export default function RolePage() {
                   <tr>
                     <th>Nombre</th>
                     <th>acciones</th>
+                    <th>Estado</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {nameRol.map((row) => (
-                    <tr key={row.id_role}>
-                      <td className="px-4 py-3">{row.name}</td>
-                      <td className="px-4 py-3" key={row.id_role}>
+                  {roles.map((rol) => (
+                    <tr key={rol.id_role}>
+                      <td className="px-4 py-3">{rol.name}</td>
+                      <td className="px-4 py-3" key={rol.id_role}>
                         <PencilSquareIcon width={25} type="button" />
                         <TrashIcon width={25} type="button" />
-                        <div className="form-check form-switch d-inline">
-                          <input 
+                        <div className=" form-switch d-inline">
+                          <input
                             className="form-check-input"
                             type="checkbox"
                             role="switch"
-                            // onChange={}
+                            name="state"
+                            checked={rol.state}
+                            onChange={handleChange}
                           />
-                          
                         </div>
                       </td>
+                      <td>{rol.state}</td>
                     </tr>
                   ))}
                 </tbody>
