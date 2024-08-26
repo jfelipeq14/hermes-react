@@ -4,26 +4,72 @@ import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 import { User } from "../../models/user.model";
 import { Form } from "react-bootstrap";
-import { messages } from "../../utilies/messages";
-import { titles } from "../../utilies/titles";
+import swal from "sweetalert";
 
-export default function CustomerForm() {
-  const formCustomer = new Customer();
-  const formUser = new User();
-  const [customer, setCustomer] = useState(formCustomer);
-  const [user, setUser] = useState(formUser);
-  const [validated, setValidated] = useState(false);
+const customers = [
+  {
+    id_customer: 1,
+    id_user: 3,
+    documentType: "CC",
+    identification: "899213",
+    name: "Juan",
+    lastName: "Quintero",
+    phone: "+573001234567",
+    dateOfBirth: "2001-09-21",
+    age: 22,
+    address: "cl 9a",
+    country: "Col",
+    departament: "Ant",
+    municipality: "Med",
+    sex: "h",
+    bloodType: "o+",
+    eps: "Sura",
+    healthPosition: "Monterrey",
+    state: true,
+  },
+];
 
-  const [message, setMessage] = useState(messages);
-  const [title, setTitle] = useState(titles);
-  const [showAlert, setShowAlert] = useState(false);
-  const clickAlert = () => {
-    setShowAlert(!showAlert);
+export default function CustomerForm({ identification }) {
+  let formCustomer = new Customer();
+  if (identification) formCustomer.identification = identification;
+  let formUser = new User();
+  let [customer, setCustomer] = useState(formCustomer);
+  let [user, setUser] = useState(formUser);
+  let [validated, setValidated] = useState(false);
+
+  const onClickSearch = () => {
+    let customer = customers.find(
+      (customer) => customer.identification === identification
+    );
+    if (customer) {
+      setCustomer(customer);
+    }
   };
 
   const handleChangeCustomer = (e) => {
-    const { name, value, checked, type } = e.target;
-    setCustomer({ ...customer, [name]: type === "checkbox" ? checked : value });
+    let { name, value, checked, type } = e.target;
+    setCustomer({
+      ...customer,
+      [name]: type === "checkbox" ? checked : value,
+    });
+    if (name === "dateOfBirth") {
+      let birthDate = new Date(value);
+      let today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      let monthDifference = today.getMonth() - birthDate.getMonth();
+      let dayDifference = today.getDate() - birthDate.getDate();
+
+      // Ajustar la edad si el cumpleaños aún no ha ocurrido este año
+      if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+        age--;
+      }
+
+      setCustomer({
+        ...customer,
+        dateOfBirth: value,
+        age: age,
+      });
+    }
   };
 
   const handleChangeUser = (e) => {
@@ -33,13 +79,36 @@ export default function CustomerForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!e.currentTarget.checkValidity()) {
       e.stopPropagation();
-
-      setMessage(messages.error.emptyFields);
-      setTitle(title.error);
-      setShowAlert(true);
+    } else {
+      swal({
+        title: "¿Quieres registrarte con estos datos?",
+        text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((confirm) => {
+        if (confirm) {
+          setCustomer(new Customer());
+          setUser(new User());
+          swal({
+            title: "Enviado",
+            text: "Los datos fueron enviados correctamente",
+            icon: "success",
+            timer: 2000,
+            buttons: false,
+          });
+        } else {
+          swal({
+            title: "Cancelado",
+            text: "Los datos no se han enviado",
+            icon: "error",
+            timer: 2000,
+            buttons: false,
+          });
+        }
+      });
     }
 
     setValidated(true);
@@ -48,7 +117,6 @@ export default function CustomerForm() {
   var start = new Date();
   start.setFullYear(start.getFullYear() - 18);
   var limitDate = start.toISOString().split("T")[0];
-  console.log(limitDate);
 
   return (
     <fieldset className="p-2">
@@ -59,14 +127,6 @@ export default function CustomerForm() {
         onSubmit={handleSubmit}
         className="row g-2"
       >
-        {showAlert && (
-              <Alerts
-              message={message}
-              title={title}
-              clickAlert={clickAlert}
-              handleChange={()=>null}
-              />
-            )}
         {/* identificacion */}
         <div className="col-12">
           <div className="row">
@@ -81,6 +141,7 @@ export default function CustomerForm() {
                 onChange={handleChangeCustomer}
                 required
               >
+                <option selected>Selecciona</option>
                 {documentTypes.map((documentType) => (
                   <option key={documentType}>{documentType}</option>
                 ))}
@@ -102,12 +163,7 @@ export default function CustomerForm() {
               <small className="invalid-feedback">Campo obligatorio</small>
             </div>
             <div className="col-2">
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  console.log("buscar cliente");
-                }}
-              >
+              <button className="btn btn-primary" onClick={onClickSearch}>
                 🔍
               </button>
             </div>
@@ -156,6 +212,7 @@ export default function CustomerForm() {
                 onChange={handleChangeCustomer}
                 required
               >
+                <option selected>Selecciona</option>
                 {phonePrefixes.map((phonePrefix) => (
                   <option key={phonePrefix.prefix}>{phonePrefix.prefix}</option>
                 ))}

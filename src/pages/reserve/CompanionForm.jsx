@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
-import { User } from "../../models/user.model";
 import { Form } from "react-bootstrap";
 import { Companion } from "../../models/companion.model";
 
@@ -12,7 +11,10 @@ export default function CompanionForm() {
 
   const handleChangeCompanion = (e) => {
     const { name, value, checked, type } = e.target;
-    setCompanion({ ...customer, [name]: type === "checkbox" ? checked : value });
+    setCompanion({
+      ...customer,
+      [name]: type === "checkbox" ? checked : value,
+    });
   };
 
   const handleSubmit = (event) => {
@@ -146,80 +148,6 @@ export default function CompanionForm() {
             value={customer.age}
             readOnly
           />
-        </div>
-        {/* correo */}
-        <div className="col-6">
-          <label htmlFor="email">Correo:</label>
-          <input
-            type="email"
-            className="form-control"
-            name="email"
-            value={user.email}
-            onChange={handleChangeUser}
-            required
-          />
-          <small className="valid-feedback">Todo bien!</small>
-          <small className="invalid-feedback">Campo obligatorio</small>
-        </div>
-        <div className="col-6">
-          <label htmlFor="emailConfirmation">Conf. correo:</label>
-          <input
-            type="email"
-            className="form-control"
-            name="emailConfirmation"
-            value={user.email}
-            onChange={(e) => {
-              if (user.email === e.target.value) {
-                return;
-              }
-            }}
-            required
-          />
-          <small className="valid-feedback">Todo bien!</small>
-          <small className="invalid-feedback">Campo obligatorio</small>
-        </div>
-        {/* contraseña */}
-        <div className="col-6">
-          <label htmlFor="password">Contraseña:</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            value={user.password}
-            onChange={handleChangeUser}
-            required
-          />
-          <small className="valid-feedback">Todo bien!</small>
-          <small className="invalid-feedback">Campo obligatorio</small>
-        </div>
-        <div className="col-6">
-          <label htmlFor="passwordConfirmation">Conf. contraseña:</label>
-          <input
-            type="password"
-            className="form-control"
-            name="passwordConfirmation"
-            value={user.password}
-            onChange={(e) => {
-              if (user.password === e.target.value) {
-                return;
-              }
-            }}
-            required
-          />
-          <small className="valid-feedback">Todo bien!</small>
-          <small className="invalid-feedback">Campo obligatorio</small>
-        </div>
-        <div className="col-12">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            name="travel"
-            value={false}
-            onChange={handleChangeCompanion}
-          />
-          <label className="form-check-label" htmlFor="travel">
-            El cliente está incluido en el viaje
-          </label>
         </div>
         <div className="buttons">
           <button type="submit" className="btn btn-primary">

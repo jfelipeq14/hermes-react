@@ -101,11 +101,11 @@ export const administrator = [
     surmenu: [
       {
         name: "Consultar reservas",
-        href: "administrator/reservations/consult",
+        href: "administrator/reserve/consult",
       },
       {
         name: "Crear reserva",
-        href: "administrator/reservations/create",
+        href: "administrator/reserve/create",
       },
     ],
     href: "administrator/users",
@@ -130,6 +130,6 @@ export const administrator = [
 ];
 
 export const customer = [
-  { name: "Reservations", href: "customer/reservations", icon: UserGroupIcon },
+  { name: "Reserve", href: "customer/reserve", icon: UserGroupIcon },
   { name: "Profile", href: "customer/profile", icon: UsersIcon },
 ];
