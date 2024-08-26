@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { User } from "../../../models/user.model";
+import { User } from "../../../models/auth/user.model";
 
 export default function Login({ isOpen, clickModal, handleLogin }) {
   const user = new User();

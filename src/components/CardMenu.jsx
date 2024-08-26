@@ -6,7 +6,7 @@ export default function CardMenu({ title, logo, href }) {
     <div className="card m-5 text-center">
       <NavLink to={`/${href}`} className="text-decoration-none p-2">
         <div className="container">
-          <PlusIcon width={20} className="float-end" />
+          <PlusIcon width={25} className="float-end" />
         </div>
         <div className="container">
           <div className="container">{logo}</div>

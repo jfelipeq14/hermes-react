@@ -1,20 +1,13 @@
-import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export default function Sidebar({ children }) {
-  const [open, setOpen] = useState(true);
-  const ref = useRef(null);
-  // useClickAway(ref, () => setOpen(false))
-  const toggleSidebar = () => setOpen((prev) => !prev);
-
   return (
-    <div className="col-1 position-static">
+    <div className="col-1 position-static m-0 p-0">
       <div className="row flex-nowrap">
-        <div className="col-auto px-0">
-          <div className="d-flex flex-column align-items-start">
+        <div className="col-auto p-0 m-0">
+          <div className="d-flex flex-column">
             <ul
-              className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-              id="menu"
+              className="nav nav-pills flex-column"
             >
               {children}
             </ul>
@@ -27,11 +20,11 @@ export default function Sidebar({ children }) {
 
 export function SidebarItem({ name, href, icon }) {
   return (
-    <li className="nav-item">
+    <li className="nav-item m-0 p-0">
       <NavLink to={href} className="nav-link">
-        <div className="d-flex">
-          <div className="d-none d-md-inline px-0">{name}</div>
-          <div className="float-end">{icon}</div>
+        <div className="d-flex justify-content-between align-items-center">
+          <span className="d-none d-lg-inline">{name}</span>
+          <span>{icon}</span>
         </div>
       </NavLink>
     </li>

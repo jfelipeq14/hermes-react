@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Customer } from "../../models/customer.model";
+import { Customer } from "../../models/reservations/customer.model";
 import { messages } from "../../utilies/messages";
 import { titles } from "../../utilies/titles";
 import { Form } from "react-bootstrap";

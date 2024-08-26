@@ -1,4 +1,6 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
+import Sidebar, { SidebarItem } from "../layout/Sidebar";
+import { administrator } from "../../utilies/routes";
 import FormPermissions from "./FormPermissions";
 import swal from "sweetalert";
 
@@ -41,10 +43,22 @@ export default function RolePage() {
   };
 
   return (
-    <div className="row p-5">
-      <section className="col-sm-12 col-md-6">
-        <form>
-          <fieldset>
+    <div className="row">
+      <Sidebar>
+        {administrator.map((link) => {
+          return (
+            <SidebarItem
+              key={link.name}
+              name={link.name}
+              href={link.href}
+              icon={<link.icon width={30} />}
+            />
+          );
+        })}
+      </Sidebar>
+      <main className="col-11">
+        <div className="row p-2">
+          <fieldset className="col-sm-12 col-md-6">
             <legend>Roles</legend>
             <header>
               <input
@@ -92,12 +106,12 @@ export default function RolePage() {
               </table>
             </table>
           </fieldset>
-        </form>
-      </section>
-      <fieldset className="col-sm-12 col-md-6">
-        <legend>Permisos</legend>
-        <FormPermissions />
-      </fieldset>
+          <fieldset className="col-sm-12 col-md-6">
+            <legend>Permisos</legend>
+            <FormPermissions />
+          </fieldset>
+        </div>
+      </main>
     </div>
   );
 }

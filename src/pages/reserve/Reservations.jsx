@@ -1,6 +1,5 @@
 import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
-import { useState } from "react";
 import {
   CalendarDateRangeIcon,
   ExclamationCircleIcon,
@@ -39,7 +38,7 @@ export default function Reservas() {
         })}
       </Sidebar>
       <main className="col-11">
-        <div className="row p-5">
+        <div className="row p-2">
           <fieldset className="col-sm-12 col-md-4">
             <legend>Acompañantes</legend>
             <CompanionForm/>
@@ -60,22 +59,22 @@ export default function Reservas() {
                   <tr key={reserva.email}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
-                        <EyeIcon width={20} />
+                        <EyeIcon width={25} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <UserPlusIcon width={20} />
+                        <UserPlusIcon width={25} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <UserPlusIcon width={20} />
+                        <UserPlusIcon width={25} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <CalendarDateRangeIcon width={20} />
+                        <CalendarDateRangeIcon width={25} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <TicketIcon width={20} />
+                        <TicketIcon width={25} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <ExclamationCircleIcon width={20} />
+                        <ExclamationCircleIcon width={25} />
                       </button>
                     </td>
                     <td>{reserva.nombres}</td>

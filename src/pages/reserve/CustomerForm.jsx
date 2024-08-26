@@ -2,8 +2,8 @@
 import { useState } from "react";
 //#endregion
 //#region models imports
-import { Customer } from "../../models/customer.model";
-import { User } from "../../models/user.model";
+import { Customer } from "../../models/reservations/customer.model";
+import { User } from "../../models/auth/user.model";
 //#endregion
 //#region utilities imports
 import { documentTypes } from "../../utilies/documentTypes";
@@ -14,8 +14,10 @@ import { Form } from "react-bootstrap";
 //#endregion
 //#region complements imports
 import swal from "sweetalert";
+import { BiSearch } from "react-icons/bi";
 //#endregion
 
+// eslint-disable-next-line react/prop-types
 export default function CustomerForm({ location }) {
   //#region variables (datos quemados)
   const customers = [
@@ -52,8 +54,8 @@ export default function CustomerForm({ location }) {
   // #endregion
 
   //#region read props
-  const { state } = location;
-  if (location) formCustomer.identification = state;
+  // eslint-disable-next-line react/prop-types
+  if (location.state) formCustomer.identification =  location.state.identification ?? 0;
   //#endregion
 
   //#region hooks
@@ -65,7 +67,8 @@ export default function CustomerForm({ location }) {
   // #region functions
   const onClickSearch = () => {
     let customer = customers.find(
-      (customer) => customer.identification === state
+      // eslint-disable-next-line react/prop-types
+      (customer) => customer.identification === formCustomer.identification
     );
     if (customer) {
       setCustomer(customer);
@@ -146,7 +149,7 @@ export default function CustomerForm({ location }) {
       noValidate
       validated={validated}
       onSubmit={handleSubmit}
-      className="row g-2 p-1"
+      className="row p-1"
     >
       {/* identificacion */}
       <div className="col-12">
@@ -184,8 +187,8 @@ export default function CustomerForm({ location }) {
             <small className="invalid-feedback">Campo obligatorio</small>
           </div>
           <div className="col-2">
-            <button className="btn btn-primary" onClick={onClickSearch}>
-              🔍
+            <button className="btn" onClick={onClickSearch}>
+              <BiSearch/>
             </button>
           </div>
         </div>

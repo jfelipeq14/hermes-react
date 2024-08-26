@@ -2,12 +2,26 @@ import { useState } from "react";
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 import { Form } from "react-bootstrap";
-import { Companion } from "../../models/companion.model";
+import { Companion } from "../../models/reservations/companion.model";
 
-export default function CompanionForm() {
-  const formCompanion = new Companion();
-  const [companion, setCompanion] = useState(formCompanion);
-  const [validated, setValidated] = useState(false);
+// eslint-disable-next-line react/prop-types
+export default function CompanionForm({location}) {
+  let formCompanion = new Companion();
+  let [companion, setCompanion] = useState(formCompanion);
+  let [validated, setValidated] = useState(false);
+  // eslint-disable-next-line react/prop-types
+  if (location.state) formCompanion.identification =  location.state.identification ?? 0;
+
+
+  const onClickSearch = () => {
+    let companion = companion.find(
+      // eslint-disable-next-line react/prop-types
+      (companion) => companion.identification === formCompanion.identification
+    );
+    if (companion) {
+      setCompanion(companion);
+    }
+  };
 
   const handleChangeCompanion = (e) => {
     const { name, value, checked, type } = e.target;
