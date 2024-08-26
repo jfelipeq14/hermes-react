@@ -27,8 +27,15 @@ export default function RolePage() {
     }).then((confirm) => {
       if (confirm) {
         e.target.checked = state ? true : false;
-      }else{
+      } else {
         e.target.checked = state ? false : true;
+        swal({
+          title: "Cancelado",
+          text: "Los datos no se han enviado",
+          icon: "error",
+          timer: 2000,
+          buttons: false,
+        });
       }
     });
   };
@@ -77,20 +84,12 @@ export default function RolePage() {
                     </tr>
                   ))}
                 </tbody>
+                <div className="buttons">
+                  <button type="submit" className="btn btn-primary">
+                    Guardar
+                  </button>
+                </div>
               </table>
-
-              <tbody>
-                <form>
-                  <div className="form-group">
-                    <label htmlFor="role">Roles:</label>
-                    <input
-                      id="role"
-                      placeholder="Administrador"
-                      className="form-control"
-                    />
-                  </div>
-                </form>
-              </tbody>
             </table>
           </fieldset>
         </form>
