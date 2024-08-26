@@ -1,4 +1,3 @@
-import { Form } from "react-bootstrap";
 import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import { useState } from "react";
@@ -9,6 +8,7 @@ import {
   TicketIcon,
   UserPlusIcon,
 } from "@heroicons/react/16/solid";
+import CompanionForm from "./CompanionForm";
 
 export default function Reservas() {
   const reservas = [
@@ -23,18 +23,6 @@ export default function Reservas() {
       status: "C",
     },
   ];
-
-  const [validated, setValidated] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!e.currentTarget.checkValidity()) {
-      e.stopPropagation();
-    }
-
-    setValidated(true);
-  };
 
   return (
     <div className="row">
@@ -54,12 +42,7 @@ export default function Reservas() {
         <div className="row p-5">
           <fieldset className="col-sm-12 col-md-4">
             <legend>Acompañantes</legend>
-            <Form
-              noValidate
-              validated={validated}
-              onSubmit={handleSubmit}
-              className="row g-2"
-            ></Form>
+            <CompanionForm/>
           </fieldset>
           <fieldset className="col-sm-12 col-md-8">
             <table className="table table-striped my-2">

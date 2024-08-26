@@ -1,45 +1,71 @@
+//#region react imports
 import { useState } from "react";
+//#endregion
+//#region models imports
 import { Customer } from "../../models/customer.model";
+import { User } from "../../models/user.model";
+//#endregion
+//#region utilities imports
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
-import { User } from "../../models/user.model";
+//#endregion
+//#region react-bootstrap imports
 import { Form } from "react-bootstrap";
+//#endregion
+//#region complements imports
 import swal from "sweetalert";
+//#endregion
 
-const customers = [
-  {
-    id_customer: 1,
-    id_user: 3,
-    documentType: "CC",
-    identification: "899213",
-    name: "Juan",
-    lastName: "Quintero",
-    phone: "+573001234567",
-    dateOfBirth: "2001-09-21",
-    age: 22,
-    address: "cl 9a",
-    country: "Col",
-    departament: "Ant",
-    municipality: "Med",
-    sex: "h",
-    bloodType: "o+",
-    eps: "Sura",
-    healthPosition: "Monterrey",
-    state: true,
-  },
-];
+export default function CustomerForm({ location }) {
+  //#region variables (datos quemados)
+  const customers = [
+    {
+      id_customer: 1,
+      id_user: 3,
+      documentType: "CC",
+      identification: "899213",
+      name: "Juan",
+      lastName: "Quintero",
+      phone: "+573001234567",
+      dateOfBirth: "2001-09-21",
+      age: 22,
+      address: "cl 9a",
+      country: "Col",
+      departament: "Ant",
+      municipality: "Med",
+      sex: "h",
+      bloodType: "o+",
+      eps: "Sura",
+      healthPosition: "Monterrey",
+      state: true,
+    },
+  ];
 
-export default function CustomerForm({ identification }) {
+  let start = new Date();
+  start.setFullYear(start.getFullYear() - 18);
+  let limitDate = start.toISOString().split("T")[0];
+  //#endregion
+
+  // #region formData
   let formCustomer = new Customer();
-  if (identification) formCustomer.identification = identification;
   let formUser = new User();
+  // #endregion
+
+  //#region read props
+  const { state } = location;
+  if (location) formCustomer.identification = state;
+  //#endregion
+
+  //#region hooks
   let [customer, setCustomer] = useState(formCustomer);
   let [user, setUser] = useState(formUser);
   let [validated, setValidated] = useState(false);
+  //#endregion
 
+  // #region functions
   const onClickSearch = () => {
     let customer = customers.find(
-      (customer) => customer.identification === identification
+      (customer) => customer.identification === state
     );
     if (customer) {
       setCustomer(customer);
@@ -113,17 +139,14 @@ export default function CustomerForm({ identification }) {
 
     setValidated(true);
   };
-
-  var start = new Date();
-  start.setFullYear(start.getFullYear() - 18);
-  var limitDate = start.toISOString().split("T")[0];
+  //#endregion
 
   return (
     <Form
       noValidate
       validated={validated}
       onSubmit={handleSubmit}
-      className="row g-2"
+      className="row g-2 p-1"
     >
       {/* identificacion */}
       <div className="col-12">
@@ -139,7 +162,7 @@ export default function CustomerForm({ identification }) {
               onChange={handleChangeCustomer}
               required
             >
-              <option selected>Selecciona</option>
+              <option>Selecciona</option>
               {documentTypes.map((documentType) => (
                 <option key={documentType}>{documentType}</option>
               ))}
@@ -210,9 +233,9 @@ export default function CustomerForm({ identification }) {
               onChange={handleChangeCustomer}
               required
             >
-              <option selected>Selecciona</option>
+              <option>Selecciona</option>
               {phonePrefixes.map((phonePrefix) => (
-                <option key={phonePrefix.prefix}>{phonePrefix.prefix}</option>
+                <option key={phonePrefix.country}>{phonePrefix.prefix}</option>
               ))}
             </select>
             <small className="valid-feedback">Todo bien!</small>
@@ -322,6 +345,7 @@ export default function CustomerForm({ identification }) {
         <small className="valid-feedback">Todo bien!</small>
         <small className="invalid-feedback">Campo obligatorio</small>
       </div>
+      {/* check */}
       <div className="col-12">
         <input
           className="form-check-input"
