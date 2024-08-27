@@ -5,12 +5,13 @@ import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./pages/layout/Navbar";
 import Customers from "./pages/Customers";
 import Role from "./pages/role/Role";
+import Users from "./pages/user/Users";
+import EditProfile from "./pages/user/EditProfile";
 import Reserve from "./pages/reserve/Reserve";
 import Reservations from "./pages/reserve/Reservations";
 import Packages from "./pages/packages/Packages";
 import CreatePackages from "./pages/packages/CreatePackages";
 import Menu from "./pages/Menu";
-import EditProfile from "./pages/user/EditProfile";
 import Services from "./pages/Services";
 
 export default function App() {
@@ -42,12 +43,13 @@ export default function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/customers" element={<Customers />} />
         <Route exact path="/role" element={<Role />} />
+        <Route exact path="/users" element={<Users />} />
+        <Route exact path="/edit-profile" element={<EditProfile />} />
         <Route exact path="/reserve" element={<Reserve />} />
         <Route exact path="/packages" element={<Packages />} />
         <Route exact path="/create-packages" element={<CreatePackages />} />
         <Route exact path="/reservations" element={<Reservations />} />
         <Route exact path="/menu" element={<Menu />} />
-        <Route exact path="/edit-profile" element={<EditProfile />} />
         <Route exact path="/services" element={<Services />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
