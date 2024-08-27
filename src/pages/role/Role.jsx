@@ -83,7 +83,7 @@ export default function RolePage() {
                       <td className="px-4 py-3" key={rol.id_role}>
                         <PencilSquareIcon width={25} type="button" />
                         <TrashIcon width={25} type="button" />
-                        <div className=" form-switch d-inline">
+                        <div className="form-switch d-inline">
                           <input
                             className="form-check-input"
                             type="checkbox"
