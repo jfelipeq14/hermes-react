@@ -9,7 +9,8 @@ export default function UserForm() {
     { id_role: 1, name: "Administrador", state: true },
     { id_role: 2, name: "Usuario", state: true },
   ];
-  let formUser = new User();
+
+  const formUser = new User();
 
   let [user, setUser] = useState(formUser);
   let [validated, setValidated] = useState(false);
@@ -65,7 +66,7 @@ export default function UserForm() {
       {/* Rol */}
       <div className="col-12">
         <label htmlFor="role" className="form-label">
-          Cedula:
+          Rol:
         </label>
         <select
           className="form-select"
@@ -88,7 +89,7 @@ export default function UserForm() {
           <label htmlFor="identification" className="form-label">
             Cedula:
           </label>
-          <div className="col-5">
+          <div className="col-3">
             <select
               className="form-select"
               name="documentType"
@@ -104,7 +105,7 @@ export default function UserForm() {
             <small className="valid-feedback">Todo bien!</small>
             <small className="invalid-feedback">Campo obligatorio</small>
           </div>
-          <div className="col-5">
+          <div className="col-9">
             <input
               type="text"
               className="form-control"
@@ -183,7 +184,7 @@ export default function UserForm() {
         <small className="valid-feedback">Todo bien!</small>
         <small className="invalid-feedback">Campo obligatorio</small>
       </div>
-      <div className="buttons">
+      <div className="col-12 buttons my-3">
         <button type="submit" className="btn btn-outline-primary">
           Guardar
         </button>
