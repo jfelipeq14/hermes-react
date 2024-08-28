@@ -59,10 +59,11 @@ export default function Page() {
             <h2 className="fw-bold fs-4">Paquetes</h2>
           </header>
           <article className="row g-4">
-            {packages.map((pkg) => {
+            {packages.map((pkg, index) => {
               return (
                 // eslint-disable-next-line react/jsx-key
                 <Package
+                  key={index}
                   address={pkg.address}
                   name={pkg.name}
                   date={pkg.date}

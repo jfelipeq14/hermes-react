@@ -1,12 +1,12 @@
 import {
   EyeIcon,
+  MagnifyingGlassIcon,
   PencilSquareIcon,
   PlusCircleIcon,
 } from "@heroicons/react/16/solid";
 import { administrator } from "../utilies/routes";
 import Sidebar, { SidebarItem } from "./layout/Sidebar";
 import { NavLink } from "react-router-dom";
-import { BiSearch } from "react-icons/bi";
 
 export default function Customers() {
   const customer = [
@@ -112,7 +112,7 @@ export default function Customers() {
               </div>
               <div className="col-6">
                 <button type="submit" className="btn">
-                  <BiSearch />
+                  <MagnifyingGlassIcon />
                 </button>
               </div>
             </form>
