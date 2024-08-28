@@ -2,26 +2,11 @@ import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import UserForm from "./UserForm";
+import { useState } from "react";
 
 export default function Users() {
-  const users = [
-    {
-      id_user: 1,
-      id_role: 2,
-      identification: "899898",
-      email: "jq@gmail.com",
-      password: "jq899",
-      state: true,
-    },
-    {
-      id_user: 2,
-      id_role: 2,
-      identification: "899899",
-      email: "jq@gmail.com",
-      password: "jq899",
-      state: true,
-    },
-  ];
+  const [users, setUsers] = useState(JSON.parse(localStorage.getItem("users")));
+  setUsers(JSON.parse(localStorage.getItem("users")))
 
   const handleEditUser = (e) => {
     console.log(parseInt(e.currentTarget.id));
