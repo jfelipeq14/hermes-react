@@ -8,8 +8,8 @@ import Sidebar, { SidebarItem } from "./layout/Sidebar";
 import { NavLink } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 
-export default function Customers() {
-  const customer = [
+export default function customers() {
+  const customers = [
     {
       id_customer: 1,
       id_user: 3,
@@ -53,8 +53,9 @@ export default function Customers() {
     },
   ];
 
-  const reserve = [
+  const reservations = [
     {
+      id_reservation: 1,
       paquete: "Cartagena Fam",
       valor: 670000,
       fecha: "12/12/12",
@@ -93,7 +94,7 @@ export default function Customers() {
           <fieldset className="col-sm-12 col-md-6">
             <legend>Clientes</legend>
             <NavLink
-              to={{ pathname: "/reserve" }}
+              to={{ pathname: "/reservations" }}
               state={{ identification: 0 }}
               className="btn btn-primary float-end"
             >
@@ -126,30 +127,30 @@ export default function Customers() {
                 <th scope="col">Reservas</th>
               </thead>
               <tbody>
-                {customer.map((row) => (
-                  <tr key={row.id_customer}>
+                {customers.map((customer) => (
+                  <tr key={customer.id_customer}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
                         <EyeIcon
                           width={25}
-                          onClick={() => console.log(row.id_customer)}
+                          onClick={() => console.log(customer.id_customer)}
                         />
                       </button>
                       <NavLink
-                        to={{ pathname: "/reserve" }}
-                        state={{ identification: row.identification }}
+                        to={{ pathname: "/reservations" }}
+                        state={{ identification: customer.identification }}
                         className="btn m-0 p-0"
                       >
                         <PencilSquareIcon width={25} />
                       </NavLink>
                     </td>
-                    <td>{row.identification}</td>
+                    <td>{customer.identification}</td>
                     <td>
-                      {row.name.trim()} {row.lastName.trim()}
+                      {customer.name.trim()} {customer.lastName.trim()}
                     </td>
-                    <td>{row.phone}</td>
-                    <td>{row.state}</td>
-                    <td>{row.reservas.length}</td>
+                    <td>{customer.phone}</td>
+                    <td>{customer.state}</td>
+                    <td>{customer.reservas.length}</td>
                   </tr>
                 ))}
               </tbody>
@@ -157,7 +158,7 @@ export default function Customers() {
           </fieldset>
           <fieldset className="col-sm-12 col-md-6">
             <legend>Reservas</legend>
-            <NavLink to="/reserve" className="btn btn-primary float-end">
+            <NavLink to="/reservations" className="btn btn-primary float-end">
               <PlusCircleIcon width={25} />
               Crear
             </NavLink>
@@ -170,8 +171,8 @@ export default function Customers() {
                 <th scope="col">Estado</th>
               </thead>
               <tbody>
-                {reserve.map((row) => (
-                  <tr key={row.paquete}>
+                {reservations.map((reserve) => (
+                  <tr key={reserve.paquete}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
                         <EyeIcon width={25} />
@@ -180,10 +181,10 @@ export default function Customers() {
                         <PencilSquareIcon width={25} />
                       </button>
                     </td>
-                    <td>{row.paquete}</td>
-                    <td>{row.valor}</td>
-                    <td>{row.fecha}</td>
-                    <td>{row.estado}</td>
+                    <td>{reserve.paquete}</td>
+                    <td>{reserve.valor}</td>
+                    <td>{reserve.fecha}</td>
+                    <td>{reserve.estado}</td>
                   </tr>
                 ))}
               </tbody>

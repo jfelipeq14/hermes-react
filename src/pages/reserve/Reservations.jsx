@@ -41,7 +41,7 @@ export default function Reservas() {
         <div className="row p-2">
           <fieldset className="col-sm-12 col-md-4">
             <legend>Acompañantes</legend>
-            <CompanionForm/>
+            <CompanionForm />
           </fieldset>
           <fieldset className="col-sm-12 col-md-8">
             <table className="table table-striped my-2">
@@ -56,7 +56,7 @@ export default function Reservas() {
               </thead>
               <tbody>
                 {reservas.map((reserva) => (
-                  <tr key={reserva.email}>
+                  <tr key={reserva.id_reservation}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
                         <EyeIcon width={25} />

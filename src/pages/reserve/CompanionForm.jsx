@@ -3,14 +3,15 @@ import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 import { Form } from "react-bootstrap";
 import { Companion } from "../../models/reservations/companion.model";
+import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 
 // eslint-disable-next-line react/prop-types
 export default function CompanionForm({location}) {
-  let formCompanion = new Companion();
-  let [companion, setCompanion] = useState(formCompanion);
-  let [validated, setValidated] = useState(false);
+  const formCompanion = new Companion();
+  const [companion, setCompanion] = useState(formCompanion);
+  const [validated, setValidated] = useState(false);
   // eslint-disable-next-line react/prop-types
-  if (location.state) formCompanion.identification =  location.state.identification ?? 0;
+  // if (location.state) formCompanion.identification =  location.state.identification || 0;
 
 
   const onClickSearch = () => {
@@ -83,8 +84,8 @@ export default function CompanionForm({location}) {
             <small className="invalid-feedback">Campo obligatorio</small>
           </div>
           <div className="col-2">
-            <button className="btn btn-primary" onClick={onClickSearch}>
-              🔍
+            <button className="btn" onClick={onClickSearch}>
+              <MagnifyingGlassIcon width={25}/>
             </button>
           </div>
         </div>
