@@ -47,7 +47,7 @@ export default function App() {
         <Route exact path="/edit-profile" element={<EditProfile />} />
         <Route exact path="/reserve" element={<Reserve />} />
         <Route exact path="/packages" element={<Packages />} />
-        <Route exact path="/create-packages" element={<CreatePackages />} />
+        <Route exact path="/create-packs" element={<CreatePackages />} />
         <Route exact path="/reservations" element={<Reservations />} />
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/services" element={<Services />} />

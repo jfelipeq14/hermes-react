@@ -1,32 +1,51 @@
-import {
-  EyeIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/16/solid";
+import // PlusCircleIcon,
+// EyeIcon,
+// PencilSquareIcon,
+// TrashIcon,
+"@heroicons/react/16/solid";
 import { administrator } from "../utilies/routes";
 import Sidebar, { SidebarItem } from "./layout/Sidebar";
+import { useState } from "react";
 
-export default function Customers() {
-  const services = [
-    {
-      categoria: "Transporte",
-      nombre: "Metro",
-      valor: 3200,
-      estado: "Habilitado",
-    },
-    {
-      categoria: "Alojamiento",
-      nombre: "5 Estrellas",
-      valor: 580000,
-      estado: "Deshabilitado",
-    },
-    {
-        categoria: "Entretenimiento",
-        nombre: "Museo",
-        valor: 37900,
-        estado: "Habilitado",
-      },
-  ];
+export default function Services() {
+  const [formData, setServiceData] = useState({
+    categoria: "",
+    nombre: "",
+    valor: "",
+    estado: "Habilitado",
+  });
+  const [data, setData] = useState([]);
+
+  const handleChange = (e) => {
+    setServiceData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const checkSeleccionado = document.querySelector('input[name="estado"]:checked');
+
+    if (checkSeleccionado) {
+      setData([...data, formData]);
+      setServiceData({
+        categoria: "",
+        nombre: "",
+        valor: "",
+        estado: "",
+      });
+    } else {
+      // Aqui toiene que ir la alerta de error
+    }
+  };
+
+  const handleReset = () => {
+    setServiceData({
+      categoria: "",
+      nombre: "",
+      valor: "",
+      estado: "",
+    });
+  };
 
   return (
     <div className="row">
@@ -43,68 +62,104 @@ export default function Customers() {
         })}
       </Sidebar>
       <main className="col-11">
-        <div className="row p-5">
-          <fieldset className="col-sm-12 col-md-6">
-            <legend>Reservas</legend>
-            <header className="d-flex justify-content-end align-items-end"></header>
-          </fieldset>
-          {/*  */}
-          <fieldset className="col-sm-12 col-md-6">
-            <section>
-              <form>
-                <fieldset>
-                  <legend>Roles</legend>
-                  <header>
-                    <input
-                      type="search"
-                      placeholder="Buscar"
-                      className="form-control"
-                    />
-                  </header>
-                  <table className="table table-striped">
-                    <table className="table table-striped">
-                      <thead>
-                        <tr>
-                          <th scope="col">Acciones</th>
-                          <th scope="col">Categoria</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Valor</th>
-                          <th scope="col">Estado</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {services.map((row) => (
-                          <tr key={row.paquete}>
-                            <td className="d-flex">
-                              <EyeIcon type="button" width={25} />
-                              <PencilSquareIcon type="button" width={25} />
-                              <TrashIcon type="button" width={25} />
-                            </td>
-                            <td>{row.categoria}</td>
-                            <td>{row.nombre}</td>
-                            <td>{row.valor}</td>
-                            <td>{row.estado}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-
-                    <tbody>
-                      <form>
-                        <div className="form-group">
-                          <label htmlFor="role">Roles:</label>
-                          <input
-                            id="role"
-                            placeholder="Administrador"
-                            className="form-control"
-                          />
-                        </div>
-                      </form>
-                    </tbody>
-                  </table>
-                </fieldset>
-              </form>
-            </section>
+        <div className="row p-2">
+          <form className="col-sm-12 col-md-6" onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <legend>Servicio</legend>
+              <label>Categoría</label>
+              <select
+                className="form-select"
+                id="categoria"
+                name="categoria"
+                value={formData.categoria}
+                onChange={handleChange}
+              >
+                <option value=" ">Selecciona una categoría</option>
+                <option>Transporte</option>
+              </select>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="nombre" className="form-label">
+                Nombre
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="nombre"
+                name="nombre"
+                value={formData.nombre}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="valor" className="form-label">
+                Valor
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="valor"
+                name="valor"
+                value={formData.valor}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Estado</label>
+              <div>
+                <label htmlFor="habilitado">Habilitado</label>
+                <input
+                  type="radio"
+                  id="habilitado"
+                  name="estado"
+                  value="habilitado"
+                  onChange={handleChange}
+                />
+                <label htmlFor="deshabilitado">Deshabilitado</label>
+                <input
+                  type="radio"
+                  id="deshabilitado"
+                  name="estado"
+                  value="deshabilitado"
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Guardar
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleReset}
+            >
+              Limpiar
+            </button>
+          </form>
+          <fieldset className="col-sm-12 col-md-5">
+            <legend>Servicios</legend>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Acciones</th>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item, index) => (
+                  <tr key={index}>
+                    <td>{/* botones */}</td>
+                    <td>{item.categoria}</td>
+                    <td>{item.nombre}</td>
+                    <td>{item.valor}</td>
+                    <td>{item.estado}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </fieldset>
         </div>
       </main>
