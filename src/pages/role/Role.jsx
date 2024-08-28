@@ -98,11 +98,7 @@ export default function RolePage() {
                     </tr>
                   ))}
                 </tbody>
-                <div className="buttons">
-                  <button type="submit" className="btn btn-primary">
-                    Guardar
-                  </button>
-                </div>
+               
               </table>
             </table>
           </fieldset>
