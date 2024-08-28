@@ -30,9 +30,11 @@ export default function PackForm() {
   const [pack, setPackage] = useState(formPackage);
   const [validated, setValidated] = useState(false);
   const [servicePackData, setServicePackData] = useState([]);
-  let idService;
+  let idService = 0;
 
-  useEffect(() => {}, [servicePackData]);
+  useEffect(() => {
+    // pack.services.push(...servicePackData);
+  }, [servicePackData]);
 
   const handleChangePack = (e) => {
     const { name, value, checked, type } = e.target;
@@ -46,6 +48,15 @@ export default function PackForm() {
       event.stopPropagation();
     }
     setValidated(true);
+  };
+
+  const handleChangeOptions = (e) => {
+    const index = e.target.options.selectedIndex;
+    const serviceFound = servicePackData.find((s) => s.idService === index);
+    if (e.target.options.selectedIndex === idService || serviceFound) {
+      return;
+    }
+    idService = e.target.options.selectedIndex;
   };
 
   const onClickService = () => {
@@ -113,24 +124,20 @@ export default function PackForm() {
                   Imagen:
                 </label>
                 <div className="row">
-                  <div className="col-7">
+                  <div className="col-12">
                     <input
-                      type="text"
                       className="form-control"
+                      type="file"
+                      accept="image/*"
                       name="image"
                       value={pack.image}
                       onChange={handleChangePack}
                       pattern="^\+?[0-9]{1,3}[0-9]{6,}$"
                       required
                     />
-                    <small className="valid-feedback">Todo bien!</small>
-                    <small className="invalid-feedback">
-                      Campo obligatorio
-                    </small>
                   </div>
-                  <div className="col-5">
-                    <button className="btn btn-primary">Cargar</button>
-                  </div>
+                  <small className="valid-feedback">Todo bien!</small>
+                  <small className="invalid-feedback">Campo obligatorio</small>
                 </div>
               </div>
               {/* servicios */}
@@ -143,11 +150,11 @@ export default function PackForm() {
                     <select
                       className="form-select"
                       name="services"
-                      onChange={(e) => {
-                        idService = e.target.options.selectedIndex + 1;
-                      }}
+                      // value={idService}
+                      onChange={handleChangeOptions}
                       required
                     >
+                      <option selected>Selecciona</option>
                       {services.map((service) => (
                         <option key={service.idService}>
                           {service.nombre}
@@ -183,12 +190,12 @@ export default function PackForm() {
                   </div>
                   {/* Precio */}
                   <div className="col-12">
-                    <label htmlFor="name">Precio:</label>
+                    <label htmlFor="precio">Precio:</label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
-                      name="name"
-                      value={pack.name}
+                      name="precio"
+                      value={pack.precio}
                       onChange={handleChangePack}
                       pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
                       required
@@ -202,7 +209,7 @@ export default function PackForm() {
                   <div className="col-12">
                     <label htmlFor="destination">Ganancia:</label>
                     <input
-                      type="text"
+                      type="number"
                       className="form-control"
                       name="destination"
                       value={pack.destination}
@@ -276,22 +283,24 @@ export default function PackForm() {
                 <th scope="col">Categoria</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Valor</th>
-                <th scope="col">Cantidad</th>
               </thead>
               <tbody>
-                {servicePackData.map((service) => (
-                  <tr key={service.id}>
-                    <td>
-                      <button className="btn">
-                        <TrashIcon width={25} />
-                      </button>
-                    </td>
-                    <td>{service.nombre}</td>
-                    <td>{service.categoria}</td>
-                    <td>{service.valor}</td>
-                    <td>{service.cantidad}</td>
-                  </tr>
-                ))}
+                {servicePackData.map((service) => {
+                  if (service) {
+                    return (
+                      <tr key={service.idService}>
+                        <td>
+                          <button className="btn">
+                            <TrashIcon width={25} />
+                          </button>
+                        </td>
+                        <td>{service.nombre}</td>
+                        <td>{service.categoria}</td>
+                        <td>{service.valor}</td>
+                      </tr>
+                    );
+                  }
+                })}
               </tbody>
             </table>
           </fieldset>
