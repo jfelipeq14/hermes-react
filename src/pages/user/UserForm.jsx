@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import { User } from "../../models/auth/user.model";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import swal from "sweetalert";
 import { documentTypes } from "../../utilies/documentTypes";
 
@@ -9,6 +9,12 @@ export default function UserForm() {
     { id_role: 1, name: "Administrador", state: true },
     { id_role: 2, name: "Usuario", state: true },
   ];
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    localStorage.setItem("users", JSON.stringify(users));
+  }, [users]);
 
   const formUser = new User();
 
@@ -33,7 +39,7 @@ export default function UserForm() {
         dangerMode: true,
       }).then((confirm) => {
         if (confirm) {
-          setUser(new User());
+          setUsers(...users, user);
           swal({
             title: "Enviado",
             text: "Los datos fueron enviados correctamente",
@@ -70,12 +76,12 @@ export default function UserForm() {
         </label>
         <select
           className="form-select"
-          name="role"
+          name="id_role"
           value={user.id_role}
           onChange={handleChangeUser}
           required
         >
-          <option>Selecciona</option>
+          <option selected>Selecciona</option>
           {roles.map((role) => (
             <option key={role.id_role}>{role.name}</option>
           ))}

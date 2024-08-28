@@ -23,7 +23,7 @@ export function SidebarItem({ name, href, icon }) {
     <li className="nav-item m-0 p-0">
       <NavLink to={href} className="nav-link">
         <div className="d-flex justify-content-between align-items-center">
-          <span className="d-none d-lg-inline">{name}</span>
+          <span className="d-none">{name}</span>
           <span>{icon}</span>
         </div>
       </NavLink>
