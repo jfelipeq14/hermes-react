@@ -168,6 +168,8 @@ export default function UserForm() {
           name="password"
           value={user.password}
           onChange={handleChangeUser}
+          pattern="^[a-z0-9.!#$%&*+/=?^_`{|}~-]{8,}$"
+          minLength={8}
           required
         />
         <small className="valid-feedback">Todo bien!</small>
