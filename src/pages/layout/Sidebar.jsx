@@ -1,5 +1,7 @@
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 export default function Sidebar({ children }) {
   return (
     <div className="col-1 position-static m-0 p-0">
@@ -14,14 +16,18 @@ export default function Sidebar({ children }) {
   );
 }
 
+// eslint-disable-next-line react/prop-types
 export function SidebarItem({ name, href, icon }) {
   return (
     <li className="nav-item m-0 p-0">
       <NavLink to={{ pathname: `/${href}` }} className="nav-link">
-        <div className="d-flex justify-content-between align-items-center">
-          <span className="d-none">{name}</span>
-          <span>{icon}</span>
-        </div>
+        <OverlayTrigger
+          key={name}
+          placement="right"
+          overlay={<Tooltip id={`tooltip-right`}>{name}</Tooltip>}
+        >
+          <button className="btn">{icon}</button>
+        </OverlayTrigger>
       </NavLink>
     </li>
   );
