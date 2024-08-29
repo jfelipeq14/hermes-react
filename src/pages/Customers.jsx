@@ -27,7 +27,6 @@ export default function customers() {
       sex: "h",
       bloodType: "o+",
       eps: "Sura",
-      healthPosition: "Monterrey",
       state: true,
       reservas: [
         {

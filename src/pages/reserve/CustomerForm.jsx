@@ -38,7 +38,6 @@ export default function CustomerForm({ location }) {
       sex: "h",
       bloodType: "o+",
       eps: "Sura",
-      healthPosition: "Monterrey",
       state: true,
     },
   ];
@@ -188,7 +187,7 @@ export default function CustomerForm({ location }) {
           </div>
           <div className="col-2">
             <button className="btn" onClick={onClickSearch}>
-              <MagnifyingGlassIcon/>
+              <MagnifyingGlassIcon width={25}/>
             </button>
           </div>
         </div>

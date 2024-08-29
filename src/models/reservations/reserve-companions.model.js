@@ -29,6 +29,5 @@ export class ReserveCompanions {
     this.sex = "";
     this.bloodType = "";
     this.eps = "";
-    this.healthPosition = "";
   }
 }

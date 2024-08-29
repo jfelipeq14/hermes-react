@@ -191,7 +191,6 @@ CREATE TABLE customers(
     sex CHAR NOT NULL,
     bloodType VARCHAR(3) NOT NULL,
     eps VARCHAR(60) NOT NULL,
-    healthPosition VARCHAR(60) NOT NULL,
     state BOOLEAN NOT NULL,
     
     CONSTRAINT pk_idCustomer PRIMARY KEY (id_customer),
@@ -205,7 +204,6 @@ CREATE TABLE customers(
     CONSTRAINT chk_sexCustomer CHECK (sex ~ '^(H|M)$'),
     CONSTRAINT chk_bloodTypeCustomer CHECK (bloodType ~ '^(A|B|AB|O)+[+|-]$'),
     CONSTRAINT chk_epsCustomer CHECK (eps ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
-    CONSTRAINT chk_healthPositionCustomer CHECK (healthPosition ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$')
 );
 SELECT * FROM customers;
 
@@ -243,7 +241,6 @@ CREATE TABLE reserve_companions(
     sex CHAR,
     bloodType VARCHAR(3),
     eps VARCHAR(60),
-    healthPosition VARCHAR(60),
     
     CONSTRAINT pk_idReserveCompanion PRIMARY KEY (id_reserve_companion),
     CONSTRAINT fk_idReservation FOREIGN KEY (id_reservation) REFERENCES reservations(id_reservation),
@@ -255,7 +252,6 @@ CREATE TABLE reserve_companions(
     CONSTRAINT chk_sexCompanion CHECK (sex ~ '^[hm]$'),
     CONSTRAINT chk_bloodTypeCompanion CHECK (bloodType ~ '^(A|B|AB|O)+[+|-]$'),
     CONSTRAINT chk_epsCompanion CHECK (eps ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
-    CONSTRAINT chk_healthPositionCompanion CHECK (healthPosition ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$')
 );
 SELECT * FROM reserve_companions;
 
