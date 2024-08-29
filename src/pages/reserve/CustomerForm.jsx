@@ -2,8 +2,8 @@
 import { useState } from "react";
 //#endregion
 //#region models imports
-import { Customer } from "../../models/reservations/customer.model";
-import { User } from "../../models/auth/user.model";
+import { Customers } from "../../models/reservations/customers.model";
+import { Users } from "../../models/users/users.model";
 //#endregion
 //#region utilities imports
 import { documentTypes } from "../../utilies/documentTypes";
@@ -14,7 +14,7 @@ import { Form } from "react-bootstrap";
 //#endregion
 //#region complements imports
 import swal from "sweetalert";
-import { BiSearch } from "react-icons/bi";
+import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
 // eslint-disable-next-line react/prop-types
@@ -49,8 +49,8 @@ export default function CustomerForm({ location }) {
   //#endregion
 
   // #region formData
-  let formCustomer = new Customer();
-  let formUser = new User();
+  let formCustomer = new Customers();
+  let formUser = new Users();
   // #endregion
 
   //#region read props
@@ -188,7 +188,7 @@ export default function CustomerForm({ location }) {
           </div>
           <div className="col-2">
             <button className="btn" onClick={onClickSearch}>
-              <BiSearch/>
+              <MagnifyingGlassIcon/>
             </button>
           </div>
         </div>

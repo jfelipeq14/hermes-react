@@ -6,13 +6,16 @@ import // PlusCircleIcon,
 import { administrator } from "../utilies/routes";
 import Sidebar, { SidebarItem } from "./layout/Sidebar";
 import { useState } from "react";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
+import swal from "sweetalert";
+
 
 export default function Services() {
   const [formData, setServiceData] = useState({
     categoria: "",
     nombre: "",
     valor: "",
-    estado: "Habilitado",
+    estado: "",
   });
   const [data, setData] = useState([]);
 
@@ -44,6 +47,31 @@ export default function Services() {
       nombre: "",
       valor: "",
       estado: "",
+    });
+  };
+
+
+  const handleCheck = (e) => {
+    const state = e.target.checked;
+    swal({
+      title: "¿Estás seguro?",
+      text: "Si desactivas este servicio, no podra ser exhibido en los paquetes",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        e.target.checked = state ? true : false;
+      } else {
+        e.target.checked = state ? false : true;
+        swal({
+          title: "Cancelado",
+          text: "Los datos no se han enviado",
+          icon: "error",
+          timer: 2000,
+          buttons: false,
+        });
+      }
     });
   };
 
@@ -121,7 +149,7 @@ export default function Services() {
                   id="deshabilitado"
                   name="estado"
                   value="deshabilitado"
-                  onChange={handleChange}
+                  onChange={handleChange} 
                 />
               </div>
             </div>
@@ -151,7 +179,21 @@ export default function Services() {
               <tbody>
                 {data.map((item, index) => (
                   <tr key={index}>
-                    <td>{/* botones */}</td>
+                    <td>
+                    <PencilSquareIcon width={25} type="button" />
+                    <TrashIcon  width={25} type="button" />
+                    <div className="form-switch d-inline">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            name="state"
+                            onChange={handleCheck}
+                            checked
+                          />
+                          {/* Hacer la validacion de, si le doy al radio me tiene que poner el estado que selecciones, si es habilitado o deshabilitado */}
+                        </div>
+                    </td>
                     <td>{item.categoria}</td>
                     <td>{item.nombre}</td>
                     <td>{item.valor}</td>

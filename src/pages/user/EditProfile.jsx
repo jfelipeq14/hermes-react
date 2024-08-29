@@ -1,17 +1,14 @@
 import { useState } from "react";
-import { Customer } from "../../models/reservations/customer.model";
-import { messages } from "../../utilies/messages";
-import { titles } from "../../utilies/titles";
 import { Form } from "react-bootstrap";
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
-import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
-import { BiSearch } from "react-icons/bi";
+import { administrator } from "../../utilies/routes";
+import { Customers } from "../../models/reservations/customers.model";
+import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 
-// eslint-disable-next-line react/prop-types
-export default function EditProfile({ clickModal }) {
-  const formCustomer = new Customer();
+export default function EditProfile({ isOpen, clickModal }) {
+  const formCustomer = new Customers();
   const [customer, setCustomer] = useState(formCustomer);
   const [validated, setValidated] = useState(false);
 
@@ -107,7 +104,7 @@ export default function EditProfile({ clickModal }) {
                             console.log("buscar cliente", customer.identification);
                           }}
                         >
-                          <BiSearch></BiSearch>
+                          <MagnifyingGlassIcon></MagnifyingGlassIcon>
                         </button>
                       </div>
                     </div>
