@@ -7,14 +7,14 @@ import { Companions } from "../../models/reservations/companions.model";
 //#region utilities imports
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
+import { bloodType } from "../../utilies/bloodType";
 //#endregion
 //#region react-bootstrap imports
 import { Form } from "react-bootstrap";
 //#endregion
 //#region complements imports
-import swal from "sweetalert";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
-import { bloodType } from "../../utilies/bloodType";
+import swal from "sweetalert";
 //#endregion
 
 // eslint-disable-next-line react/prop-types
@@ -33,10 +33,6 @@ export default function CompanionForm() {
       eps: "",
     },
   ];
-
-  let start = new Date();
-  start.setFullYear(start.getFullYear() - 18);
-  let limitDate = start.toISOString().split("T")[0];
   //#endregion
 
   // #region formData
@@ -169,7 +165,7 @@ export default function CompanionForm() {
           </div>
           <div className="col-2">
             <button className="btn" onClick={onClickSearch}>
-              <MagnifyingGlassIcon width={25}/>
+              <MagnifyingGlassIcon width={25} />
             </button>
           </div>
         </div>
