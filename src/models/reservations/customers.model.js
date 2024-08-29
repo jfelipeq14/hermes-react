@@ -12,7 +12,6 @@ export class Customers {
     this.sex = "" || "H" || "M";
     this.bloodType = "";
     this.eps = "";
-    this.healthPosition = "";
     this.state = true;
   }
 }

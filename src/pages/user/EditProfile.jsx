@@ -2,23 +2,15 @@ import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
-import { messages } from "../../utilies/messages";
-import { titles } from "../../utilies/titles";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import { administrator } from "../../utilies/routes";
 import { Customers } from "../../models/reservations/customers.model";
+import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 
 export default function EditProfile({ isOpen, clickModal }) {
   const formCustomer = new Customers();
   const [customer, setCustomer] = useState(formCustomer);
   const [validated, setValidated] = useState(false);
-
-  const [message, setMessage] = useState(messages);
-  const [title, setTitle] = useState(titles);
-  const [showAlert, setShowAlert] = useState(false);
-  const clickAlert = () => {
-    setShowAlert(!showAlert);
-  };
 
   const handleChangeCustomer = (e) => {
     const { name, value, checked, type } = e.target;
@@ -30,10 +22,6 @@ export default function EditProfile({ isOpen, clickModal }) {
 
     if (!e.currentTarget.checkValidity()) {
       e.stopPropagation();
-
-      setMessage(messages.error.emptyFields);
-      setTitle(title.error);
-      setShowAlert(true);
     }
 
     setValidated(true);
@@ -67,14 +55,6 @@ export default function EditProfile({ isOpen, clickModal }) {
             onSubmit={handleSubmit}
             className="row g-2"
           >
-            {showAlert && (
-              <Alerts
-              message={message}
-              title={title}
-              clickAlert={clickAlert}
-              handleChange={()=>null}
-              />
-            )}
             <div className="row">
               <fieldset className="col-sm-12 col-md-6">
                 <legend>Datos personales</legend>
@@ -119,12 +99,12 @@ export default function EditProfile({ isOpen, clickModal }) {
                       </div>
                       <div className="col-2">
                         <button
-                          className="btn btn-primary"
+                          className="btn"
                           onClick={() => {
-                            console.log("buscar cliente");
+                            console.log("buscar cliente", customer.identification);
                           }}
                         >
-                          🔍
+                          <MagnifyingGlassIcon></MagnifyingGlassIcon>
                         </button>
                       </div>
                     </div>
@@ -251,8 +231,7 @@ export default function EditProfile({ isOpen, clickModal }) {
                 </div>
               </fieldset>
             </div>
-
-            <div className="buttons">
+            <div className="col-12 buttons my-3">
               <button type="submit" className="btn btn-primary">
                 Crear
               </button>

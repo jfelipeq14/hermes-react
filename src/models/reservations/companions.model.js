@@ -9,6 +9,5 @@ export class Companions {
     this.sex = "";
     this.bloodType = "";
     this.eps = "";
-    this.healthPosition = "";
   }
 }

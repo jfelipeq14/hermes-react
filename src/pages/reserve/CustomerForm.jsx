@@ -18,7 +18,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
 // eslint-disable-next-line react/prop-types
-export default function CustomerForm({ location }) {
+export default function CustomerForm({ location, setHaveCompanions }) {
   //#region variables (datos quemados)
   const customers = [
     {
@@ -38,7 +38,6 @@ export default function CustomerForm({ location }) {
       sex: "h",
       bloodType: "o+",
       eps: "Sura",
-      healthPosition: "Monterrey",
       state: true,
     },
   ];
@@ -119,8 +118,9 @@ export default function CustomerForm({ location }) {
         dangerMode: true,
       }).then((confirm) => {
         if (confirm) {
-          setCustomer(new Customer());
-          setUser(new User());
+          setCustomer(new Customers());
+          setUser(new Users());
+          setHaveCompanions(true);
           swal({
             title: "Enviado",
             text: "Los datos fueron enviados correctamente",
@@ -188,7 +188,7 @@ export default function CustomerForm({ location }) {
           </div>
           <div className="col-2">
             <button className="btn" onClick={onClickSearch}>
-              <MagnifyingGlassIcon/>
+              <MagnifyingGlassIcon width={25}/>
             </button>
           </div>
         </div>
