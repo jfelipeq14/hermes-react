@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { User } from "../../../models/auth/user.model";
+import { Users } from "../../../models/users/users.model";
 
 export default function Login({ isOpen, clickModal, handleLogin }) {
-  const user = new User();
+  const user = new Users();
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [messages, setMessages] = useState([]);
   const [formData, setFormData] = useState(user);

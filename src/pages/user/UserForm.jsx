@@ -1,5 +1,5 @@
 import { Form } from "react-bootstrap";
-import { User } from "../../models/auth/user.model";
+import { Users } from "../../models/users/users.model";
 import { useEffect, useState } from "react";
 import swal from "sweetalert";
 import { documentTypes } from "../../utilies/documentTypes";
@@ -16,7 +16,7 @@ export default function UserForm() {
     localStorage.setItem("users", JSON.stringify(users));
   }, [users]);
 
-  const formUser = new User();
+  const formUser = new Users();
 
   let [user, setUser] = useState(formUser);
   let [validated, setValidated] = useState(false);
