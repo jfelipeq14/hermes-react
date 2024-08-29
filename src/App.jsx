@@ -13,6 +13,7 @@ import Packages from "./pages/packages/Packages";
 import CreatePackages from "./pages/packages/CreatePackages";
 import Menu from "./pages/Menu";
 import Services from "./pages/Services";
+import Programing from "./pages/packages/Programing";
 
 export default function App() {
   return (
@@ -37,6 +38,10 @@ export default function App() {
           <Link to="services" className="nav-link">
             Services
           </Link>
+        </li><li className="nav-item">
+          <Link to="programing-packs" className="nav-link">
+            Programing
+          </Link>
         </li>
       </Navbar>
       <Routes>
@@ -48,6 +53,7 @@ export default function App() {
         <Route exact path="/reserve" element={<Reserve />} />
         <Route exact path="/packages" element={<Packages />} />
         <Route exact path="/create-packs" element={<CreatePackages />} />
+        <Route exact path="/programing-packs" element={<Programing />} />
         <Route exact path="/reservations" element={<Reservations />} />
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/services" element={<Services />} />
