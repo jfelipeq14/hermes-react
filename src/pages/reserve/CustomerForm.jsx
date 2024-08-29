@@ -14,7 +14,7 @@ import { Form } from "react-bootstrap";
 //#endregion
 //#region complements imports
 import swal from "sweetalert";
-import { BiSearch } from "react-icons/bi";
+import { MagnifyingGlassCircleIcon, MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
 // eslint-disable-next-line react/prop-types
@@ -188,7 +188,7 @@ export default function CustomerForm({ location }) {
           </div>
           <div className="col-2">
             <button className="btn" onClick={onClickSearch}>
-              <BiSearch/>
+              <MagnifyingGlassIcon/>
             </button>
           </div>
         </div>
