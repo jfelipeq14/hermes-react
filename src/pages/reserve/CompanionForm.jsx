@@ -1,13 +1,13 @@
 import { useState } from "react";
+import { Form } from "react-bootstrap";
+import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
-import { Form } from "react-bootstrap";
-import { Companion } from "../../models/reservations/companion.model";
-import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
+import { Companions } from "../../models/reservations/companions.model";
 
 // eslint-disable-next-line react/prop-types
 export default function CompanionForm({location}) {
-  const formCompanion = new Companion();
+  const formCompanion = new Companions();
   const [companion, setCompanion] = useState(formCompanion);
   const [validated, setValidated] = useState(false);
   // eslint-disable-next-line react/prop-types

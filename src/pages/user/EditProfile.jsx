@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Customer } from "../../models/reservations/customer.model";
-import { messages } from "../../utilies/messages";
-import { titles } from "../../utilies/titles";
 import { Form } from "react-bootstrap";
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
-import { administrator } from "../../utilies/routes";
+import { messages } from "../../utilies/messages";
+import { titles } from "../../utilies/titles";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
+import { administrator } from "../../utilies/routes";
+import { Customers } from "../../models/reservations/customers.model";
 
 export default function EditProfile({ isOpen, clickModal }) {
-  const formCustomer = new Customer();
+  const formCustomer = new Customers();
   const [customer, setCustomer] = useState(formCustomer);
   const [validated, setValidated] = useState(false);
 
