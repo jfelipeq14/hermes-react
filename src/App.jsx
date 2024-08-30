@@ -15,6 +15,7 @@ import Menu from "./pages/Menu";
 import Services from "./pages/Services";
 import Programing from "./pages/packages/Programing";
 
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -57,6 +58,7 @@ export default function App() {
         <Route exact path="/reservations" element={<Reservations />} />
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/services" element={<Services />} />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
