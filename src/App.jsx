@@ -16,6 +16,7 @@ import Services from "./pages/Services";
 import Programing from "./pages/packages/Programing";
 import Payments from "./pages/pay/Payments";
 
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -59,6 +60,7 @@ export default function App() {
         <Route exact path="/payments" element={<Payments />} />
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/services" element={<Services />} />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
