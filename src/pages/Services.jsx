@@ -9,41 +9,20 @@ import { useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import swal from "sweetalert";
 import { Services } from "../models/services/services.model";
+import { Form } from "react-bootstrap";
 
 export default function Service() {
   const formService = new Services();
-  const [formData, setServiceData] = useState(formService);
+  const [serviceData, setServiceData] = useState(formService);
   const [data, setData] = useState([]);
+  let [validated, setValidated] = useState(false);
 
   const handleChange = (e) => {
-    setServiceData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const checkSeleccionado = document.querySelector(
-      'input[name="estado"]:checked'
-    );
-
-    if (checkSeleccionado) {
-      setData([...data, formData]);
-      setServiceData({
-        categoria: "",
-        nombre: "",
-        valor: "",
-        estado: "",
-      });
-    }
+    setServiceData({ ...serviceData, [e.target.name]: e.target.value });
   };
 
   const handleReset = () => {
-    setServiceData({
-      categoria: "",
-      nombre: "",
-      valor: "",
-      estado: "",
-    });
+    setServiceData(new Services());
   };
 
   const handleCheck = (e) => {
@@ -59,8 +38,7 @@ export default function Service() {
         {
           e.target.checked = state ? true : false;
         }
-      }
-       else {
+      } else {
         e.target.checked = state ? false : true;
         swal({
           title: "Cancelado",
@@ -71,6 +49,42 @@ export default function Service() {
         });
       }
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!e.currentTarget.checkValidity()) {
+      e.stopPropagation();
+    } else {
+      swal({
+        title: "¿Quieres registrarte con estos datos?",
+        text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((confirm) => {
+        if (confirm) {
+          setData([...data, serviceData]);
+          swal({
+            title: "Enviado",
+            text: "Los datos fueron enviados correctamente",
+            icon: "success",
+            timer: 2000,
+            buttons: false,
+          });
+        } else {
+          swal({
+            title: "Cancelado",
+            text: "Los datos no se han enviado",
+            icon: "error",
+            timer: 2000,
+            buttons: false,
+          });
+        }
+      });
+    }
+    setValidated(true);
   };
 
   return (
@@ -89,19 +103,24 @@ export default function Service() {
       </Sidebar>
       <main className="col-11">
         <div className="row p-2">
-          <form className="col-sm-12 col-md-6" onSubmit={handleSubmit}>
+          <Form
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmit}
+            onReset={handleReset}
+            className="col-sm-12 col-md-6 p-1"
+          >
             <div className="mb-3">
               <legend>Servicio</legend>
               <label>Categoría</label>
               <select
                 className="form-select"
-                id="categoria"
-                name="categoria"
-                value={formData.categoria}
+                name="id_categoryService"
+                value={serviceData.id_categoryService}
                 onChange={handleChange}
               >
-                <option value=" ">Selecciona una categoría</option>
-                <option>Transporte</option>
+                <option value="">Selecciona una categoría</option>
+                <option value={1}>Transporte</option>
               </select>
             </div>
             <div className="mb-3">
@@ -111,9 +130,8 @@ export default function Service() {
               <input
                 type="text"
                 className="form-control"
-                id="nombre"
-                name="nombre"
-                value={formData.nombre}
+                name="name"
+                value={serviceData.name}
                 onChange={handleChange}
               />
             </div>
@@ -124,9 +142,8 @@ export default function Service() {
               <input
                 type="number"
                 className="form-control"
-                id="valor"
-                name="valor"
-                value={formData.valor}
+                name="price"
+                value={serviceData.price}
                 onChange={handleChange}
               />
             </div>
@@ -137,31 +154,30 @@ export default function Service() {
                 <input
                   type="radio"
                   id="habilitado"
-                  name="estado"
-                  value="habilitado"
+                  name="status"
+                  value={true}
                   onChange={handleChange}
+                  checked
                 />
                 <label htmlFor="deshabilitado">Deshabilitado</label>
                 <input
                   type="radio"
                   id="deshabilitado"
-                  name="estado"
-                  value="deshabilitado"
+                  name="status"
+                  value={false}
                   onChange={handleChange}
                 />
               </div>
             </div>
-            <button type="submit" className="btn btn-primary">
-              Guardar
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={handleReset}
-            >
-              Limpiar
-            </button>
-          </form>
+            <div className="buttons">
+              <button type="submit" className="btn btn-primary">
+                Guardar
+              </button>
+              <button type="reset" className="btn btn-secondary">
+                Limpiar
+              </button>
+            </div>
+          </Form>
           <fieldset className="col-sm-12 col-md-5">
             <legend>Servicios</legend>
             <table className="table table-striped">
@@ -192,10 +208,10 @@ export default function Service() {
                         {/* Hacer la validacion de, si le doy al radio me tiene que poner el estado que selecciones, si es habilitado o deshabilitado */}
                       </div>
                     </td>
-                    <td>{item.categoria}</td>
-                    <td>{item.nombre}</td>
-                    <td>{item.valor}</td>
-                    <td>{item.estado}</td>
+                    <td>{item.id_categoryService}</td>
+                    <td>{item.name}</td>
+                    <td>{item.price}</td>
+                    <td>{item.status ? "Activo" : "Inactivo"}</td>
                   </tr>
                 ))}
               </tbody>
