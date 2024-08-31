@@ -8,15 +8,11 @@ import Sidebar, { SidebarItem } from "./layout/Sidebar";
 import { useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import swal from "sweetalert";
+import { Services } from "../models/services/services.model";
 
-
-export default function Services() {
-  const [formData, setServiceData] = useState({
-    categoria: "",
-    nombre: "",
-    valor: "",
-    estado: "",
-  });
+export default function Service() {
+  const formService = new Services();
+  const [formData, setServiceData] = useState(formService);
   const [data, setData] = useState([]);
 
   const handleChange = (e) => {
@@ -26,7 +22,9 @@ export default function Services() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const checkSeleccionado = document.querySelector('input[name="estado"]:checked');
+    const checkSeleccionado = document.querySelector(
+      'input[name="estado"]:checked'
+    );
 
     if (checkSeleccionado) {
       setData([...data, formData]);
@@ -36,8 +34,6 @@ export default function Services() {
         valor: "",
         estado: "",
       });
-    } else {
-      // Aqui toiene que ir la alerta de error
     }
   };
 
@@ -50,7 +46,6 @@ export default function Services() {
     });
   };
 
-
   const handleCheck = (e) => {
     const state = e.target.checked;
     swal({
@@ -61,8 +56,11 @@ export default function Services() {
       dangerMode: true,
     }).then((confirm) => {
       if (confirm) {
-        e.target.checked = state ? true : false;
-      } else {
+        {
+          e.target.checked = state ? true : false;
+        }
+      }
+       else {
         e.target.checked = state ? false : true;
         swal({
           title: "Cancelado",
@@ -149,7 +147,7 @@ export default function Services() {
                   id="deshabilitado"
                   name="estado"
                   value="deshabilitado"
-                  onChange={handleChange} 
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -180,19 +178,19 @@ export default function Services() {
                 {data.map((item, index) => (
                   <tr key={index}>
                     <td>
-                    <PencilSquareIcon width={25} type="button" />
-                    <TrashIcon  width={25} type="button" />
-                    <div className="form-switch d-inline">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            role="switch"
-                            name="state"
-                            onChange={handleCheck}
-                            checked
-                          />
-                          {/* Hacer la validacion de, si le doy al radio me tiene que poner el estado que selecciones, si es habilitado o deshabilitado */}
-                        </div>
+                      <PencilSquareIcon width={25} type="button" />
+                      <TrashIcon width={25} type="button" />
+                      <div className="form-switch d-inline">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          role="switch"
+                          name="state"
+                          onChange={handleCheck}
+                          checked
+                        />
+                        {/* Hacer la validacion de, si le doy al radio me tiene que poner el estado que selecciones, si es habilitado o deshabilitado */}
+                      </div>
                     </td>
                     <td>{item.categoria}</td>
                     <td>{item.nombre}</td>
