@@ -1,6 +1,7 @@
-import { formattedDate } from "../utilies/formattedDate";
+import { formatDate } from "@fullcalendar/core/index.js";
 import { formattedPrice } from "../utilies/formattedPrice";
 
+// eslint-disable-next-line react/prop-types
 export default function Package({ address, name, date, price, services = [] }) {
   return (
     <div className="card col-sm-12 col-md-4">
@@ -11,7 +12,7 @@ export default function Package({ address, name, date, price, services = [] }) {
       </div>
       <div className="card-body d-flex justify-content-between">
         <p className="card-title text-muted">{name}</p>
-        <p className="card-text">{formattedDate(date)}</p>
+        <p className="card-text">{formatDate(date)}</p>
       </div>
       <div className="d-flex justify-content-between">
         <ul className="list-unstyled">

@@ -14,6 +14,7 @@ import CreatePackages from "./pages/packages/CreatePackages";
 import Menu from "./pages/Menu";
 import Services from "./pages/Services";
 import Programing from "./pages/packages/Programing";
+import Payments from "./pages/pay/Payments";
 
 
 export default function App() {
@@ -56,6 +57,7 @@ export default function App() {
         <Route exact path="/create-packs" element={<CreatePackages />} />
         <Route exact path="/programing-packs" element={<Programing />} />
         <Route exact path="/reservations" element={<Reservations />} />
+        <Route exact path="/payments" element={<Payments />} />
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/services" element={<Services />} />
 
