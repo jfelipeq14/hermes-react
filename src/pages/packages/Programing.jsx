@@ -1,4 +1,4 @@
-import { Calendar } from "../../components/Calendar";
+import  Calendar  from "../../components/Calendar";
 import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 

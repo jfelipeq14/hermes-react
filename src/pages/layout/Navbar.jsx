@@ -8,6 +8,7 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/16/solid";
 
+// eslint-disable-next-line react/prop-types
 export default function Navbar({ children }) {
   const navigate = useNavigate();
   const [user, setUser] = useState(false);
