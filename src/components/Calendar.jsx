@@ -3,7 +3,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 
 const events = [{ title: "Meeting", start: new Date() }];
 
-export function Calendar() {
+export default function Calendar() {
   return (
     <FullCalendar
       plugins={[dayGridPlugin]}

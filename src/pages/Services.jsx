@@ -174,7 +174,7 @@ export default function Service() {
                 Guardar
               </button>
               <button type="reset" className="btn btn-secondary">
-                Limpiar
+                Cancelar
               </button>
             </div>
           </Form>

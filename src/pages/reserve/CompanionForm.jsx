@@ -142,7 +142,7 @@ export default function CompanionForm() {
               onChange={handleChangeCompanion}
               required
             >
-              <option selected>Selecciona</option>
+              <option value="">Selecciona</option>
               {documentTypes.map((documentType) => (
                 <option key={documentType}>{documentType}</option>
               ))}
@@ -214,7 +214,7 @@ export default function CompanionForm() {
               onChange={handleChangeCompanion}
               required
             >
-              <option selected>Selecciona</option>
+              <option value="">Selecciona</option>
               {phonePrefixes.map((phonePrefix) => (
                 <option key={phonePrefix.country}>{phonePrefix.prefix}</option>
               ))}
@@ -279,7 +279,7 @@ export default function CompanionForm() {
           onChange={handleChangeCompanion}
           required
         >
-          <option selected>Selecciona</option>
+          <option value="">Selecciona</option>
           {bloodType.map((blood, index) => (
             <option key={index}>{blood}</option>
           ))}
@@ -308,7 +308,7 @@ export default function CompanionForm() {
           Crear
         </button>
         <button type="reset" className="btn btn-secondary">
-          Limpiar
+          Cancelar
         </button>
       </div>
     </Form>

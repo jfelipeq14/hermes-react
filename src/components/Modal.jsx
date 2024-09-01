@@ -1,12 +1,15 @@
-// eslint-disable-next-line react/prop-types
-export default function Modal({ isOpen, toggleModal, title }) {
-  return (
-    <Modal show={isOpen} onHide={toggleModal}>
-      <header>{title}</header>
+import { useState } from "react";
 
-      <footer>
-        <small>Hermes</small>
-      </footer>
+// eslint-disable-next-line react/prop-types
+export default function Modal({ isOpen, clickModal, component }) {
+  const [modalIsOpen, setModalIsOpen] = useState(isOpen);
+  const toggleModal = () => {
+    setModalIsOpen(!modalIsOpen);
+    clickModal(!modalIsOpen);
+  };
+  return (
+    <Modal show={modalIsOpen} onHide={toggleModal}>
+      {component}
     </Modal>
   );
 }

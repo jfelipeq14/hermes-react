@@ -1,5 +1,4 @@
-import { administrator } from "../../utilies/routes";
-import Sidebar, { SidebarItem } from "../layout/Sidebar";
+import { useState } from "react";
 import {
   CalendarDateRangeIcon,
   ExclamationCircleIcon,
@@ -7,21 +6,34 @@ import {
   TicketIcon,
   UserPlusIcon,
 } from "@heroicons/react/16/solid";
+
+import { administrator } from "../../utilies/routes";
+import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import CompanionForm from "./CompanionForm";
+import PayForm from "../pay/PayForm";
+import Modal from "../../components/Modal";
+import Calendar from "../../components/Calendar";
 
 export default function Reservas() {
+  const [modalPaysOpen, setModalPaysOpen] = useState(false);
+  const clickModal = () => {
+    setModalPaysOpen(!modalPaysOpen);
+  }
+
   const reservas = [
     {
-      id_reservation: 0,
-      id_detail_programming_package: 0,
-      id_customer: 0,
+      id_reservation: 1,
+      id_detail_programming_package: 1,
+      id_customer: 1,
       date_reservation: "2024-12-12",
       price_reservation: 240000,
-      number_companions: 0,
+      number_companions: 1,
       travel_customer: true,
       status: "C",
     },
   ];
+
+  const [showPay, setShowPay] = useState(false);
 
   return (
     <div className="row">
@@ -40,10 +52,11 @@ export default function Reservas() {
       <main className="col-11">
         <div className="row p-2">
           <fieldset className="col-sm-12 col-md-4">
-            <legend>Acompañantes</legend>
-            <CompanionForm />
+            <legend>{showPay ? "Pago" : "Acompañante"}</legend>
+            {showPay ? <PayForm /> : <CompanionForm />}
           </fieldset>
           <fieldset className="col-sm-12 col-md-8">
+            <legend>Reservas</legend>
             <table className="table table-striped my-2">
               <thead>
                 <th scope="col">Acciones</th>
@@ -61,27 +74,40 @@ export default function Reservas() {
                       <button className="btn m-0 p-0">
                         <EyeIcon width={25} />
                       </button>
-                      <button className="btn m-0 p-0">
+                      <button
+                        className="btn m-0 p-0"
+                        onClick={() => {
+                          setShowPay(false);
+                        }}
+                      >
                         <UserPlusIcon width={25} />
                       </button>
                       <button className="btn m-0 p-0">
                         <UserPlusIcon width={25} />
                       </button>
-                      <button className="btn m-0 p-0">
+                      <button
+                        className="btn m-0 p-0"
+                        onClick={clickModal}
+                      >
                         <CalendarDateRangeIcon width={25} />
                       </button>
-                      <button className="btn m-0 p-0">
+                      <button
+                        className="btn m-0 p-0"
+                        onClick={() => {
+                          setShowPay(true);
+                        }}
+                      >
                         <TicketIcon width={25} />
                       </button>
                       <button className="btn m-0 p-0">
                         <ExclamationCircleIcon width={25} />
                       </button>
                     </td>
-                    <td>{reserva.nombres}</td>
-                    <td>{reserva.fechaInscripcion}</td>
-                    <td>{reserva.fechaFinInscripcion}</td>
-                    <td>{reserva.fechaEjecucion}</td>
-                    <td>{reserva.valor}</td>
+                    <td>{reserva.id_customer}</td>
+                    <td>{reserva.id_detail_programming_package}</td>
+                    <td>{reserva.id_detail_programming_package}</td>
+                    <td>{reserva.id_detail_programming_package}</td>
+                    <td>{reserva.price_reservation}</td>
                     <td>{reserva.estado}</td>
                   </tr>
                 ))}
@@ -90,6 +116,13 @@ export default function Reservas() {
           </fieldset>
         </div>
       </main>
+      {modalPaysOpen && (
+        <Modal
+          isOpen={modalPaysOpen}
+          clickModal={clickModal}
+          component={<Calendar />}
+        />
+      )}
     </div>
   );
 }

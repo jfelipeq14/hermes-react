@@ -366,7 +366,7 @@ export default function CustomerForm({ location, setHaveCompanions }) {
           Crear
         </button>
         <button type="reset" className="btn btn-secondary">
-          Limpiar
+          Cancelar
         </button>
       </div>
     </Form>
