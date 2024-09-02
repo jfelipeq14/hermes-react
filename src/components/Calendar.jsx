@@ -1,9 +1,10 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 
 // const events = [{ title: "Meeting", start: new Date() }];
 
-export function Calendar() {
+export default function Calendar() {
   const events = [
     {
       title: "Cartagena",
@@ -36,15 +37,15 @@ export function Calendar() {
 function renderEventContent(eventInfo) {
   return (
       <div className="btn-group dropend">
-        <button type="button" className="btn">
+        <button type="button" className="btn p-0 m-0">
           {eventInfo.event.title}
         </button>
         <button
-          type="button"
-          className="btn dropdown-toggle dropdown-toggle-split"
+          className="btn"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
+          <EllipsisVerticalIcon width={25} />
         </button>
         <ul className="dropdown-menu">
           <li>
