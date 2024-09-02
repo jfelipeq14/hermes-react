@@ -51,7 +51,7 @@ export default function Packs() {
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    }).then((confirm) => {
+    }).then((confirm) => {  2
       if (confirm) {
         e.target.checked = state ? true : false;
       } else {
