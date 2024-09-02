@@ -207,7 +207,7 @@ export default function PackForm() {
                   </div>
                   {/* Ganancia */}
                   <div className="col-12">
-                    <label htmlFor="destination">Ganancia:</label>
+                    <label htmlFor="destination">Ingreso:</label>
                     <input
                       type="number"
                       className="form-control"
