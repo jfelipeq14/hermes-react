@@ -14,6 +14,7 @@ import { NavLink } from "react-router-dom";
 
 const packages = [
   {
+    id: 1,
     address: "Calle 123 # 123 - 123",
     name: "Paquete 1",
     date: "2021-09-30",
@@ -21,6 +22,7 @@ const packages = [
     services: ["servicio 1", "servicio 2", "servicio 3"],
   },
   {
+    id: 2,
     address: "Calle 123 # 123 - 123",
     name: "Paquete 2",
     date: "2021-09-30",
@@ -28,6 +30,7 @@ const packages = [
     services: ["servicio 1", "servicio 2", "servicio 3"],
   },
   {
+    id: 3,
     address: "Calle 123 # 123 - 123",
     name: "Paquete 3",
     date: "2021-09-30",
@@ -35,19 +38,13 @@ const packages = [
     services: ["servicio 1", "servicio 2", "servicio 3"],
   },
   {
+    id: 4,
     address: "Calle 123 # 123 - 123",
     name: "Paquete 4",
     date: "2021-09-30",
     price: 1000000,
     services: ["servicio 1", "servicio 2", "servicio 3"],
-  },
-  {
-    address: "Calle 123 # 123 - 123",
-    name: "Paquete 5",
-    date: "2021-09-30",
-    price: 1000000,
-    services: ["servicio 1", "servicio 2", "servicio 3"],
-  },
+  }
 ];
 
 export default function Page() {
@@ -59,11 +56,11 @@ export default function Page() {
             <h2 className="fw-bold fs-4">Paquetes</h2>
           </header>
           <article className="row g-4">
-            {packages.map((pkg, index) => {
+            {packages.map((pkg) => {
               return (
                 // eslint-disable-next-line react/jsx-key
                 <Package
-                  key={index}
+                  key={pkg.id}
                   address={pkg.address}
                   name={pkg.name}
                   date={pkg.date}

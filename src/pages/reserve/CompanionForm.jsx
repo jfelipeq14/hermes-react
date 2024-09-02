@@ -36,13 +36,7 @@ export default function CompanionForm({
 
   // #region functions
   const onClickSearch = () => {
-    // eslint-disable-next-line react/prop-types
-    let companion = companions.find(
-      (c) => c.identification === formCompanion.identification
-    );
-    if (companion) {
-      setCompanion(companion);
-    }
+    console.log("Buscando...");
   };
 
   const handleChangeCompanion = (e) => {
