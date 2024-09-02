@@ -1,8 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
-// const events = [{ title: "Meeting", start: new Date() }];
-
 export function Calendar() {
   const events = [
     {
@@ -22,6 +20,7 @@ export function Calendar() {
       date_ending: new Date(),
     },
   ];
+export default function Calendar() {
   return (
     <FullCalendar
       plugins={[dayGridPlugin]}

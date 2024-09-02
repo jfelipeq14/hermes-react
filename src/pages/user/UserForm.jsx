@@ -1,8 +1,8 @@
 import { Form } from "react-bootstrap";
 import { Users } from "../../models/users/users.model";
-import { useEffect, useState } from "react";
 import swal from "sweetalert";
 import { documentTypes } from "../../utilies/documentTypes";
+import { useState } from "react";
 
 export default function UserForm() {
   const roles = [
@@ -11,11 +11,6 @@ export default function UserForm() {
   ];
 
   const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(users));
-  }, [users]);
-
   const formUser = new Users();
 
   let [user, setUser] = useState(formUser);
