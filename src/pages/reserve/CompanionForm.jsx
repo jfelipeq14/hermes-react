@@ -17,24 +17,11 @@ import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import swal from "sweetalert";
 //#endregion
 
-// eslint-disable-next-line react/prop-types
-export default function CompanionForm() {
-  //#region variables (datos quemados)
-  const companions = [
-    {
-      id_reserve_companion: 0,
-      id_reservation: 0,
-      identification: "",
-      name: "",
-      lastName: "",
-      phone: "",
-      sex: "",
-      bloodType: "",
-      eps: "",
-    },
-  ];
-  //#endregion
-
+export default function CompanionForm({
+  companions,
+  setCompanions,
+  setHaveCompanions,
+}) {
   // #region formData
   let formCompanion = new Companions();
   // #endregion
@@ -49,9 +36,9 @@ export default function CompanionForm() {
 
   // #region functions
   const onClickSearch = () => {
+    // eslint-disable-next-line react/prop-types
     let companion = companions.find(
-      // eslint-disable-next-line react/prop-types
-      (companion) => companion.identification === formCompanion.identification
+      (c) => c.identification === formCompanion.identification
     );
     if (companion) {
       setCompanion(companion);
@@ -97,6 +84,7 @@ export default function CompanionForm() {
         dangerMode: true,
       }).then((confirm) => {
         if (confirm) {
+          setCompanions([...companions, companion]);
           setCompanion(new Companions());
           swal({
             title: "Enviado",
@@ -200,7 +188,7 @@ export default function CompanionForm() {
         <small className="valid-feedback">Todo bien!</small>
         <small className="invalid-feedback">Campo obligatorio</small>
       </div>
-      {/* celular: Agregar el prefijo en el input de phone */}
+      {/* celular */}
       <div className="col-12">
         <label htmlFor="phone" className="col-12">
           Celular:
@@ -210,11 +198,10 @@ export default function CompanionForm() {
             <select
               className="form-select"
               name="phone"
-              value={companion.phone}
               onChange={handleChangeCompanion}
               required
             >
-              <option value="">Selecciona</option>
+              <option>Selecciona</option>
               {phonePrefixes.map((phonePrefix) => (
                 <option key={phonePrefix.country}>{phonePrefix.prefix}</option>
               ))}
@@ -305,9 +292,15 @@ export default function CompanionForm() {
       {/* buttons */}
       <div className="buttons my-4">
         <button type="submit" className="btn btn-primary">
-          Crear
+          Agregar
         </button>
-        <button type="reset" className="btn btn-secondary">
+        <button
+          type="reset"
+          className="btn btn-secondary"
+          onClick={() => {
+            setHaveCompanions(false);
+          }}
+        >
           Cancelar
         </button>
       </div>

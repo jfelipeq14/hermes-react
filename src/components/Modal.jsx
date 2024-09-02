@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
-export default function Modal({ isOpen, clickModal, component }) {
+export default function Modal({ isOpen, clickModal, children }) {
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
@@ -9,7 +9,7 @@ export default function Modal({ isOpen, clickModal, component }) {
   };
   return (
     <Modal show={modalIsOpen} onHide={toggleModal}>
-      {component}
+      {children}
     </Modal>
   );
 }
