@@ -1,16 +1,15 @@
-// Login.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Users } from "../../../models/users/users.model";
+import swal from "sweetalert";
 import UserLogin from './UserLogin'; // Importar el componente de usuario
 
 // eslint-disable-next-line react/prop-types
 export default function Login({ isOpen, clickModal, handleLogin }) {
   const user = new Users();
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
-  const [messages, setMessages] = useState([]);
   const [formData, setFormData] = useState(user);
   const navigate = useNavigate();
 
@@ -21,7 +20,8 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
 
   const validateForm = (e) => {
     e.preventDefault();
-    const errors = [];
+
+    let errors = [];
 
     if (formData.email === "" || formData.password === "") {
       errors.push("Los campos no pueden estar vacíos.");
@@ -37,14 +37,44 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
     }
 
     if (errors.length > 0) {
-      setMessages(errors);
+      swal({
+        title: "Errores en el formulario",
+        text: errors.join("\n"),
+        icon: "warning",
+        buttons: false,
+        timer: 3000,
+      });
       return;
     }
 
-    setMessages(["Inicio de sesión exitoso."]);
-    handleLogin();
-    setModalIsOpen(false);
-    navigate("/Menu");
+    swal({
+      title: "¿Estás seguro?",
+      text: "¿Deseas iniciar sesión con estos datos?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        swal({
+          title: "Inicio de sesión exitoso",
+          icon: "success",
+          timer: 2000,
+          buttons: false,
+        }).then(() => {
+          handleLogin();
+          setModalIsOpen(false);
+          navigate("/Menu");
+        });
+      } else {
+        swal({
+          title: "Cancelado",
+          text: "El inicio de sesión ha sido cancelado",
+          icon: "error",
+          timer: 2000,
+          buttons: false,
+        });
+      }
+    });
   };
 
   return (
@@ -77,15 +107,6 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
                 required
               />
             </div>
-            {messages.length > 0 && (
-              <div className={`alert ${messages[0].includes("correctamente") ? "alert-success" : "alert-danger"}`}>
-                <ul>
-                  {messages.map((msg, index) => (
-                    <li key={index}>{msg}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
             <Button type="submit">Ingresar</Button>
           </form>
           <UserLogin />
