@@ -1,45 +1,48 @@
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
+
 import {
   PencilSquareIcon,
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/16/solid";
+
 import CompanionForm from "./CompanionForm";
 import CustomerForm from "./CustomerForm";
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import PaymentForm from "./PaymentForm";
+import Package from "../../components/Package";
 
 export default function Reserve() {
   const location = useLocation();
+  console.log(location.state);
+
   const [haveCompanions, setHaveCompanions] = useState(false);
-  const companions = [
-    {
-      id_reserve_companion: 1,
-      id_reservation: 1,
-      identification: "899898855",
-      name: "Juan",
-      lastName: "Quintero",
-      phone: "687171",
-      sex: "Hombre",
-      bloodType: "O+",
-      eps: "Sura",
-    },
-  ];
+  const [companions, setCompanions] = useState([]);
+
+  let indexEdit = -1;
 
   return (
     <>
       <div className="row m-0 p-0 g-2">
-        <fieldset className="col-sm-12 col-lg-5">
+        <fieldset className="col-sm-12 col-lg-4">
           <legend>Datos personales</legend>
           {haveCompanions ? (
-            <CompanionForm />
+            <CompanionForm
+              companions={companions}
+              setCompanions={setCompanions}
+              setHaveCompanions={setHaveCompanions}
+              indexEdit={indexEdit}
+            />
           ) : (
             <CustomerForm
               location={location}
+              companions={companions}
+              setCompanions={setCompanions}
               setHaveCompanions={setHaveCompanions}
             />
           )}
         </fieldset>
-        <fieldset className="col-sm-12 col-lg-5">
+        <fieldset className="col-sm-12 col-lg-6">
           <legend>Acompañantes</legend>
           <button
             className="btn btn-primary float-end"
@@ -68,17 +71,28 @@ export default function Reserve() {
                     <button className="btn m-0 p-0">
                       <TrashIcon
                         width={25}
-                        onClick={() =>
-                          console.log(companion.id_reserve_companion)
-                        }
+                        onClick={() => {
+                          let index = companions.findIndex(
+                            (c) => c.identification === companion.identification
+                          );
+                          if (index < 0) return;
+                          companions.splice(index, 1);
+                          setCompanions([...companions]);
+                        }}
                       />
                     </button>
                     <button className="btn m-0 p-0">
                       <PencilSquareIcon
                         width={25}
-                        onClick={() =>
-                          console.log(companion.id_reserve_companion)
-                        }
+                        onClick={() => {
+                          // Buscar un acompañante por su id
+                          let index = companions.findIndex(
+                            (c) => c.identification === companion.identification
+                          );
+                          if (!index) return;
+                          indexEdit = index;
+                          console.log(indexEdit);
+                        }}
                       />
                     </button>
                   </td>
@@ -97,11 +111,16 @@ export default function Reserve() {
         </fieldset>
         <fieldset className="d-none d-lg-inline col-lg-2">
           <legend>Paquete</legend>
+          <Package />
         </fieldset>
       </div>
       <div className="row m-0 p-0 g-2">
-        <fieldset className="col-sm-12 col-lg-5">
+        <fieldset className="col-sm-12 col-lg-4">
+          <a href="" className="float-end">
+            Politicas de pago
+          </a>
           <legend>Pago</legend>
+          <PaymentForm />
         </fieldset>
       </div>
     </>

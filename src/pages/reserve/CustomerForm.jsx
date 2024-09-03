@@ -18,7 +18,12 @@ import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
 // eslint-disable-next-line react/prop-types
-export default function CustomerForm({ location, setHaveCompanions }) {
+export default function CustomerForm({
+  location,
+  companions,
+  setCompanions,
+  setHaveCompanions,
+}) {
   //#region variables (datos quemados)
   const customers = [
     {
@@ -54,7 +59,8 @@ export default function CustomerForm({ location, setHaveCompanions }) {
 
   //#region read props
   // eslint-disable-next-line react/prop-types
-  if (location.state) formCustomer.identification =  location.state.identification ?? 0;
+  if (location.state)
+    formCustomer.identification = location.state.identification ?? 0;
   //#endregion
 
   //#region hooks
@@ -118,6 +124,7 @@ export default function CustomerForm({ location, setHaveCompanions }) {
         dangerMode: true,
       }).then((confirm) => {
         if (confirm) {
+          setCompanions([...companions, customer]);
           setCustomer(new Customers());
           setUser(new Users());
           setHaveCompanions(true);
@@ -166,8 +173,10 @@ export default function CustomerForm({ location, setHaveCompanions }) {
               required
             >
               <option>Selecciona</option>
-              {documentTypes.map((documentType) => (
-                <option key={documentType}>{documentType}</option>
+              {documentTypes.map((documentType, index) => (
+                <option key={index} value={documentType}>
+                  {documentType}
+                </option>
               ))}
             </select>
             <small className="valid-feedback">Todo bien!</small>
@@ -188,7 +197,7 @@ export default function CustomerForm({ location, setHaveCompanions }) {
           </div>
           <div className="col-2">
             <button className="btn" onClick={onClickSearch}>
-              <MagnifyingGlassIcon width={25}/>
+              <MagnifyingGlassIcon width={25} />
             </button>
           </div>
         </div>

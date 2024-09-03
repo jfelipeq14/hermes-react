@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   CalendarDateRangeIcon,
-  ExclamationCircleIcon,
   EyeIcon,
+  NoSymbolIcon,
+  PlusCircleIcon,
   TicketIcon,
   UserPlusIcon,
 } from "@heroicons/react/16/solid";
@@ -15,10 +17,13 @@ import Modal from "../../components/Modal";
 import Calendar from "../../components/Calendar";
 
 export default function Reservas() {
+  const location = useLocation();
+  console.log(location.state.identification);
+  
   const [modalPaysOpen, setModalPaysOpen] = useState(false);
   const clickModal = () => {
     setModalPaysOpen(!modalPaysOpen);
-  }
+  };
 
   const reservas = [
     {
@@ -57,6 +62,16 @@ export default function Reservas() {
           </fieldset>
           <fieldset className="col-sm-12 col-md-8">
             <legend>Reservas</legend>
+            <header className="buttons">
+              <button className="btn btn-primary">
+                <CalendarDateRangeIcon width={25} />
+                Programación
+              </button>
+              <button className="btn btn-primary">
+                <PlusCircleIcon width={25} />
+                Crear
+              </button>
+            </header>
             <table className="table table-striped my-2">
               <thead>
                 <th scope="col">Acciones</th>
@@ -82,13 +97,7 @@ export default function Reservas() {
                       >
                         <UserPlusIcon width={25} />
                       </button>
-                      <button className="btn m-0 p-0">
-                        <UserPlusIcon width={25} />
-                      </button>
-                      <button
-                        className="btn m-0 p-0"
-                        onClick={clickModal}
-                      >
+                      <button className="btn m-0 p-0" onClick={clickModal}>
                         <CalendarDateRangeIcon width={25} />
                       </button>
                       <button
@@ -100,7 +109,7 @@ export default function Reservas() {
                         <TicketIcon width={25} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <ExclamationCircleIcon width={25} />
+                        <NoSymbolIcon width={25} />
                       </button>
                     </td>
                     <td>{reserva.id_customer}</td>
@@ -113,15 +122,14 @@ export default function Reservas() {
                 ))}
               </tbody>
             </table>
+            <footer></footer>
           </fieldset>
         </div>
       </main>
       {modalPaysOpen && (
-        <Modal
-          isOpen={modalPaysOpen}
-          clickModal={clickModal}
-          component={<Calendar />}
-        />
+        <Modal isOpen={modalPaysOpen} clickModal={clickModal}>
+          <Calendar />
+        </Modal>
       )}
     </div>
   );
