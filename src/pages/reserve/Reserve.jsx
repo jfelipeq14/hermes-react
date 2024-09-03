@@ -108,6 +108,15 @@ export default function Reserve() {
               ))}
             </tbody>
           </table>
+          <footer>
+            {/* datos del cliente que no viaja */}
+            <label htmlFor="">
+              Cliente:
+              <input type="text" className="form-control" />
+
+            </label>
+            <button className="btn btn-primary float-end">Pagar</button>
+          </footer>
         </fieldset>
         <fieldset className="d-none d-lg-inline col-lg-2">
           <legend>Paquete</legend>

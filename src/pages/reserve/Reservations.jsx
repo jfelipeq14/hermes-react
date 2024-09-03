@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import {
   CalendarDateRangeIcon,
   EyeIcon,
@@ -17,13 +16,13 @@ import Modal from "../../components/Modal";
 import Calendar from "../../components/Calendar";
 
 export default function Reservas() {
-  const location = useLocation();
-  console.log(location.state.identification);
   
   const [modalPaysOpen, setModalPaysOpen] = useState(false);
   const clickModal = () => {
     setModalPaysOpen(!modalPaysOpen);
   };
+
+  // datos embebidos
 
   const reservas = [
     {
