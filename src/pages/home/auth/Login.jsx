@@ -8,7 +8,7 @@ import UserLogin from './UserLogin';
 
 
 // eslint-disable-next-line react/prop-types
-export default function Login({ isOpen, clickModal, handleLogin }) {
+export default function Login({ isOpen, clickModal, handleLogin, setUser }) {
   const user = new Users();
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [formData, setFormData] = useState(user);
@@ -21,6 +21,7 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setUser(formData)
     handleLogin();
     setModalIsOpen(false);
     navigate("/Menu");
