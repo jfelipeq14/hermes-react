@@ -12,7 +12,7 @@ import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import CompanionForm from "./CompanionForm";
 import PayForm from "../pay/PayForm";
-import Modal from "../../components/Modal";
+import Modals from "../../components/Modals";
 import Calendar from "../../components/Calendar";
 
 export default function Reservas() {
@@ -126,9 +126,9 @@ export default function Reservas() {
         </div>
       </main>
       {modalPaysOpen && (
-        <Modal isOpen={modalPaysOpen} clickModal={clickModal}>
+        <Modals isOpen={modalPaysOpen} clickModal={clickModal}>
           <Calendar />
-        </Modal>
+        </Modals>
       )}
     </div>
   );
