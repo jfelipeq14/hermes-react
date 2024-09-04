@@ -118,6 +118,7 @@ export default function Service() {
                 name="id_categoryService"
                 value={serviceData.id_categoryService}
                 onChange={handleChange}
+                required
               >
                 <option value="">Selecciona una categoría</option>
                 <option value={1}>Transporte</option>
@@ -133,7 +134,13 @@ export default function Service() {
                 name="name"
                 value={serviceData.name}
                 onChange={handleChange}
+                pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+                required
               />
+              <small className="valid-feedback">Todo bien!</small>
+              <small className="invalid-feedback">
+                Por favor escriba un nombre valido
+              </small>
             </div>
             <div className="mb-3">
               <label htmlFor="valor" className="form-label">
@@ -145,7 +152,13 @@ export default function Service() {
                 name="price"
                 value={serviceData.price}
                 onChange={handleChange}
+                pattern="^[1-9][0-9]*(\.[0-9]{1,2})?$"
+                required
               />
+              <small className="valid-feedback">Todo bien!</small>
+              <small className="invalid-feedback">
+                Por favor escriba un nombre valido
+              </small>
             </div>
             <div className="mb-3">
               <label className="form-label">Estado</label>
