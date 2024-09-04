@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import swal from "sweetalert";
+import { paymentsStatus } from "../../utilies/paymentsStatus";
 
 export default function PayForm() {
   // img
@@ -17,12 +18,7 @@ export default function PayForm() {
     estado: "",
   });
 
-  const estados = [
-    { value: "R", nombre: "Revisar" },
-    { value: "P", nombre: "Pago" },
-    { value: "N", nombre: "No pago" },
-    { value: "A", nombre: "Anulado" },
-  ];
+  
 
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -162,7 +158,7 @@ export default function PayForm() {
           required
         >
           <option value="">Selecciona</option>
-          {estados.map((estado, index) => (
+          {paymentsStatus.map((estado, index) => (
             <option key={index} value={estado.value}>
               {estado.nombre}
             </option>

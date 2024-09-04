@@ -15,6 +15,7 @@ import Menu from "./pages/Menu";
 import Services from "./pages/Services";
 import Programing from "./pages/packages/Programing";
 import Payments from "./pages/pay/Payments";
+import Payment from "./pages/pay/Payment";
 
 
 export default function App() {
@@ -58,6 +59,7 @@ export default function App() {
         <Route exact path="/programing-packs" element={<Programing />} />
         <Route exact path="/reservations" element={<Reservations />} />
         <Route exact path="/payments" element={<Payments />} />
+        <Route exact path="/payment" element={<Payment />} />
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/services" element={<Services />} />
 

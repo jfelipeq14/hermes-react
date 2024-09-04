@@ -24,7 +24,7 @@ export default function Login({ isOpen, clickModal, handleLogin, setUser }) {
     setUser(formData)
     handleLogin();
     setModalIsOpen(false);
-    navigate("/Menu");
+    navigate("/menu");
   };
 
   return (
