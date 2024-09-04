@@ -8,67 +8,22 @@ import HermesLogo from "../../../components/HermesLogo";
 
 // eslint-disable-next-line react/prop-types
 export default function Register({ isOpen, clickModal }) {
-  // const [nombre, setNombre] = useState("");
-  // const [correo, setCorreo] = useState("");
-  // const [tipoIdentificacion, setTipoIdentificacion] = useState("");
-  // const [cedula, setCedula] = useState("");
-  // const [contraseña, setContraseña] = useState("");
-  // const [confirmarContraseña, setConfirmarContraseña] = useState("");
-  // const [error, setError] = useState("");
-  // const [mostrarContraseña, setMostrarContraseña] = useState(false);
-  // const [mostrarConfirmarContraseña, setMostrarConfirmarContraseña] =
-  //   useState(false);
-  // Puedes ahorrarte todo lo anterior con
   const formUser = new Users();
   formUser.id_role = 2; // Usuario
-  const [user, setUser] = useState(formUser); // Un solo estado para todos los campos
+  const [user, setUser] = useState(formUser);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [validated, setValidated] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  // Puedes ahorrarte estas validaciones haciendo los formularios iguales a los que ya tenemos. Revisa el codigo nuevo
-  // const handleRegister = (e) => {
-  //   e.preventDefault();
-  //   setError("");
-
-  //   // Validaciones
-  //   if (!nombre || !correo || !cedula || !contraseña || !confirmarContraseña) {
-  //     setError("Todos los campos son obligatorios");
-  //     return;
-  //   }
-  //   if (contraseña !== confirmarContraseña) {
-  //     setError("Las contraseñas no coinciden");
-  //     return;
-  //   }
-  //   if (
-  //     !/^(?=.*[A-Z])(?=.*[a-z0-9.!#$%&*+/=?^_`{|}~-]).{8,}$/.test(contraseña)
-  //   ) {
-  //     setError(
-  //       "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una constra mayúscula y solo puede incluir constras minúsculas, números o ciertos símbolos."
-  //     );
-  //     return;
-  //   }
-  //   if (!/^[a-zA-Z\s]+$/.test(nombre)) {
-  //     setError("El nombre solo debe contener constras y espacios.");
-  //     return;
-  //   }
-  //   if (!/^\d+$/.test(cedula)) {
-  //     setError("La cédula debe contener solo números.");
-  //     return;
-  //   }
-
-  // };
-
-  // Esta es la forma de hacer las validaciones:
-  const [validated, setValidated] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!e.currentTarget.checkValidity()) {
       e.stopPropagation();
     } else {
-      // Confirmación de registro
       swal({
         title: "¿Quieres registrarte con estos datos?",
         text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
@@ -80,7 +35,6 @@ export default function Register({ isOpen, clickModal }) {
           console.log("Registro exitoso con:", user);
           clickModal(); // Cierra el modal después del registro
 
-          // Mostrar alerta de registro exitoso
           swal({
             title: "Registro Exitoso",
             text: "Ahora puedes iniciar sesión, dirígete a ingresar.",
@@ -99,25 +53,25 @@ export default function Register({ isOpen, clickModal }) {
         }
       });
     }
-
     setValidated(true);
+  };
+
+  const handleReset = () => {
+    setUser(formUser); // Reinicia el estado del usuario
+    setConfirmPassword(""); // Reinicia la confirmación de contraseña
+    clickModal(); // Cierra el modal
   };
 
   return (
     <Modal show={isOpen} onHide={clickModal}>
       <h1 className="text-center p-4">Registrarse</h1>
       <HermesLogo />
-      <Form
-        noValidate
-        validated={validated}
-        onSubmit={handleSubmit}
-        className="row p-4"
-      >
-        {/* identificacion */}
+      <Form noValidate validated={validated} onSubmit={handleSubmit} className="row p-4">
+        {/* Identificación */}
         <div className="col-12">
           <div className="row">
             <label htmlFor="identification" className="form-label">
-              Identificacion:
+              Identificación:
             </label>
             <div className="col-3">
               <select
@@ -150,7 +104,7 @@ export default function Register({ isOpen, clickModal }) {
             </div>
           </div>
         </div>
-        {/* correo */}
+        {/* Correo */}
         <div className="col-12">
           <label htmlFor="email">Correo:</label>
           <input
@@ -165,7 +119,7 @@ export default function Register({ isOpen, clickModal }) {
           <small className="valid-feedback">Todo bien!</small>
           <small className="invalid-feedback">Campo obligatorio</small>
         </div>
-        {/* contraseña */}
+        {/* Contraseña */}
         <div className="col-6">
           <label htmlFor="password">Contraseña:</label>
           <input
@@ -188,30 +142,17 @@ export default function Register({ isOpen, clickModal }) {
             className="form-control"
             name="confirmPassword"
             value={confirmPassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-              if (confirmPassword === user.password) {
-                return;
-              } else {
-                swal({
-                  title: "La contraseña no coincide",
-                  text: "Revisa la información antes de enviar el formulario",
-                  icon: "warning",
-                  buttons: false,
-                  timer: 2000,
-                });
-              }
-            }}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
           <small className="valid-feedback">Todo bien!</small>
           <small className="invalid-feedback">Campo obligatorio</small>
         </div>
         <div className="col-12 buttons my-3">
-          <button type="submit" className="btn btn-outline-primary">
+          <button type="submit" className="btn btn-outline-primary" disabled={confirmPassword !== user.password}>
             Guardar
           </button>
-          <button type="reset" className="btn btn-outline-danger">
+          <button type="button" className="btn btn-outline-danger" onClick={handleReset}>
             Cancelar
           </button>
         </div>
