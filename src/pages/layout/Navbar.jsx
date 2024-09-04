@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import HermesLogo from "../../components/HermesLogo";
 import Login from "../home/auth/Login";
@@ -84,14 +84,14 @@ export default function Navbar({ children }) {
                     className="btn"
                     onClick={() => navigate("/edit-profile")}
                   >
-                    <UserCircleIcon width={25} className="me-2" />
+                    <UserCircleIcon width={25} />
                     {user.id_role == 1 ? "Administrador" : "Cliente"}
                   </button>
                   <button
                     className="btn"
                     onClick={() => setShowLogoutModal(true)}
                   >
-                    <ArrowRightEndOnRectangleIcon width={25} className="me-2" />
+                    <ArrowRightEndOnRectangleIcon width={25} />
                   </button>
                 </li>
               )}
