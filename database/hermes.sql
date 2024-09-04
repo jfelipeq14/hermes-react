@@ -1,5 +1,7 @@
 -- DROP DATABASE IF EXISTS hermes;
 -- CREATE DATABASE hermes;
+--nuevo
+
 
 DROP TABLE IF EXISTS permissions CASCADE;
 CREATE TABLE permissions(

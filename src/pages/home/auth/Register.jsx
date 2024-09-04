@@ -24,17 +24,37 @@ export default function Register({ isOpen, clickModal }) {
     if (!e.currentTarget.checkValidity()) {
       e.stopPropagation();
     } else {
+      if (user.password !== confirmPassword) {
+        swal({
+          title: "Error",
+          text: "Las contraseñas no coinciden",
+          icon: "warning",
+          buttons: false,
+          timer: 2000,
+        });
+        return;
+      }
+
+      // Confirmación de registro
       swal({
         title: "¿Quieres registrarte con estos datos?",
         text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
         icon: "warning",
         buttons: true,
         dangerMode: true,
-      }).then((confirm) => {
+      }).then(async (confirm) => {
         if (confirm) {
-          console.log("Registro exitoso con:", user);
-          clickModal(); // Cierra el modal después del registro
-
+          try {
+            const response = await fetch('http://localhost:3000/api/users', {
+              method: 'POST',
+              body: JSON.stringify(user),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+            const data = await response.json();
+            if (data.success) {
+              console.log("Registro exitoso con:", data.user);
           swal({
             title: "Registro Exitoso",
             text: "Ahora puedes iniciar sesión, dirígete a ingresar.",
@@ -42,6 +62,31 @@ export default function Register({ isOpen, clickModal }) {
             buttons: false,
             timer: 3000,
           });
+              // Almacenar el token en localStorage
+              localStorage.setItem('authToken', data.token);
+
+              clickModal(); // Cierra el modal después del registro
+
+              swal({
+                title: "Registro Exitoso",
+                text: "Ahora puedes iniciar sesión, dirígete a ingresar.",
+                icon: "success",
+                buttons: false,
+                timer: 3000,
+              });
+            } else {
+              throw new Error(data.message);
+            }
+          } catch (error) {
+            console.error('Error al registrar usuario:', error);
+            swal({
+              title: "Error",
+              text: "Hubo un problema al registrar el usuario",
+              icon: "error",
+              buttons: false,
+              timer: 3000,
+            });
+          }
         } else {
           swal({
             title: "Cancelado",
@@ -66,7 +111,12 @@ export default function Register({ isOpen, clickModal }) {
     <Modal show={isOpen} onHide={clickModal}>
       <h1 className="text-center p-4">Registrarse</h1>
       <HermesLogo />
-      <Form noValidate validated={validated} onSubmit={handleSubmit} className="row p-4">
+      <Form
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+        className="row p-4"
+      >
         {/* Identificación */}
         <div className="col-12">
           <div className="row">
@@ -81,9 +131,11 @@ export default function Register({ isOpen, clickModal }) {
                 onChange={handleChange}
                 required
               >
-                <option>Selecciona</option>
+                <option value="">Selecciona</option>
                 {documentTypes.map((documentType) => (
-                  <option key={documentType}>{documentType}</option>
+                  <option key={documentType} value={documentType}>
+                    {documentType}
+                  </option>
                 ))}
               </select>
               <small className="valid-feedback">Todo bien!</small>
@@ -136,7 +188,7 @@ export default function Register({ isOpen, clickModal }) {
           <small className="invalid-feedback">Campo obligatorio</small>
         </div>
         <div className="col-6">
-          <label htmlFor="passwordConfirmation">Confirm. contraseña:</label>
+          <label htmlFor="confirmPassword">Confirmar contraseña:</label>
           <input
             type="password"
             className="form-control"
@@ -152,7 +204,12 @@ export default function Register({ isOpen, clickModal }) {
           <button type="submit" className="btn btn-outline-primary" disabled={confirmPassword !== user.password}>
             Guardar
           </button>
-          <button type="button" className="btn btn-outline-danger" onClick={handleReset}>
+
+    
+          <button 
+            type="button" 
+            className="btn btn-outline-danger"
+            onClick={clickModal}>
             Cancelar
           </button>
         </div>

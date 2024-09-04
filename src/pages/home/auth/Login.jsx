@@ -5,6 +5,9 @@ import Modal from "react-bootstrap/Modal";
 import { Users } from "../../../models/users/users.model";
 import UserLogin from './UserLogin';
 
+
+
+// eslint-disable-next-line react/prop-types
 export default function Login({ isOpen, clickModal, handleLogin }) {
   const user = new Users();
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
