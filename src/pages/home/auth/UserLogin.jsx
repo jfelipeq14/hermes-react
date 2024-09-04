@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import swal from "sweetalert";
 
 export default function UserLogin() {
   const [showResetModal, setShowResetModal] = useState(false);
@@ -10,7 +11,6 @@ export default function UserLogin() {
   const [verificationCode, setVerificationCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [messages, setMessages] = useState([]);
 
   const toggleResetModal = () => {
     setShowResetModal(!showResetModal);
@@ -22,7 +22,9 @@ export default function UserLogin() {
 
   const handleResetPassword = (e) => {
     e.preventDefault();
-    setMessages(["Código enviado a tu correo."]);
+    swal("Código enviado a tu correo.", {
+      icon: "success",
+    });
     setTimeout(() => {
       toggleResetModal();
       setShowCodeModal(true);
@@ -32,10 +34,14 @@ export default function UserLogin() {
   const handleVerifyCode = (e) => {
     e.preventDefault();
     if (verificationCode === "9999") {
-      setMessages(["Código verificado. Ahora puedes restablecer tu contraseña."]);
+      swal("Código verificado. Ahora puedes restablecer tu contraseña.", {
+        icon: "success",
+      });
       toggleCodeModal();
     } else {
-      setMessages(["Código incorrecto. Intenta nuevamente."]);
+      swal("Código incorrecto. Intenta nuevamente.", {
+        icon: "error",
+      });
     }
   };
 
@@ -53,11 +59,15 @@ export default function UserLogin() {
     }
 
     if (errors.length > 0) {
-      setMessages(errors);
+      swal(errors.join("\n"), {
+        icon: "error",
+      });
       return;
     }
 
-    setMessages(["Contraseña restablecida correctamente."]);
+    swal("Contraseña restablecida correctamente.", {
+      icon: "success",
+    });
     toggleCodeModal();
   };
 
@@ -92,7 +102,7 @@ export default function UserLogin() {
       </Modal>
 
       {/* Modal para ingresar el código de verificación */}
-      <Modal show={showCodeModal} onHide={toggleCodeModal}>
+      <Modal show={showCodeModal}>
         <Modal.Header>
           <Modal.Title>Ingresa el código de verificación</Modal.Title>
           <Button variant="close" onClick={toggleCodeModal} aria-label="Cerrar">
@@ -116,7 +126,7 @@ export default function UserLogin() {
       </Modal>
 
       {/* Modal para cambiar la contraseña */}
-      <Modal show={showCodeModal && verificationCode === "9999"} onHide={toggleCodeModal}>
+      <Modal show={showCodeModal && verificationCode === "9999"}>
         <Modal.Header>
           <Modal.Title>Cambiar Contraseña</Modal.Title>
           <Button variant="close" onClick={toggleCodeModal} aria-label="Cerrar">
@@ -145,15 +155,6 @@ export default function UserLogin() {
                 required
               />
             </div>
-            {messages.length > 0 && (
-              <div className={`alert ${messages[0].includes("correctamente") ? "alert-success" : "alert-danger"}`}>
-                <ul>
-                  {messages.map((msg, index) => (
-                    <li key={index}>{msg}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
             <Button type="submit">Restablecer Contraseña</Button>
           </form>
         </Modal.Body>
