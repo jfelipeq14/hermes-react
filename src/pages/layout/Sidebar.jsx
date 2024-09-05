@@ -21,11 +21,8 @@ export function SidebarItem({ name, href, icon }) {
   return (
     <li className="nav-item m-0 p-0">
       <NavLink to={{ pathname: `/${href}` }} className="nav-link">
-        <OverlayTrigger
-          placement="right"
-          overlay={<Tooltip>{name}</Tooltip>}
-        >
-          <button className="btn">{icon}</button>
+        <OverlayTrigger placement="right" overlay={<Tooltip>{name}</Tooltip>}>
+          <button className="btn btn-outline-secondary">{icon}</button>
         </OverlayTrigger>
       </NavLink>
     </li>
