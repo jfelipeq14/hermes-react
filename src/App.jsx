@@ -15,8 +15,7 @@ import Menu from "./pages/Menu";
 import Services from "./pages/services/Services";
 import Programing from "./pages/packages/Programing";
 import Payments from "./pages/pay/Payments";
-import Payment from "./pages/pay/Payment";
-
+import Sales from "./pages/Sales";
 
 export default function App() {
   return (
@@ -46,6 +45,12 @@ export default function App() {
             Programing
           </Link>
         </li>
+        <li className="nav-item">
+          <Link to="sales" className="nav-link">
+            Sales
+          </Link>
+        </li>
+        
       </Navbar>
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -59,9 +64,9 @@ export default function App() {
         <Route exact path="/programing-packs" element={<Programing />} />
         <Route exact path="/reservations" element={<Reservations />} />
         <Route exact path="/payments" element={<Payments />} />
-        <Route exact path="/payment" element={<Payment />} />
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/services" element={<Services />} />
+        <Route exact path="/sales" element={<Sales />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

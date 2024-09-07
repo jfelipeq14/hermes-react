@@ -1,26 +1,12 @@
-import { useEffect, useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import UserForm from "./UserForm";
+import { useState } from "react";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    // Simulación de una llamada a una API para obtener usuarios
-    async function fetchUsers() {
-      try {
-        const response = await fetch('http://localhost:3000/api/users');
-        const data = await response.json();
-        setUsers(data.users); // Actualiza el estado con los usuarios obtenidos
-      } catch (error) {
-        console.error('Error al cargar usuarios:', error);
-      }
-    }
-
-    fetchUsers();
-  }, []); // El arreglo vacío indica que este efecto solo se ejecutará una vez al montar el componente
+  // setUsers(JSON.parse(localStorage.getItem("users")))
 
   const handleEditUser = (e) => {
     console.log(parseInt(e.currentTarget.id));
@@ -31,6 +17,9 @@ export default function Users() {
     console.log(parseInt(e.currentTarget.id));
     console.log("Eliminando usuario");
   };
+
+  // useEffect(() => {}, [users]);
+  // useEffect(() => {}, [formUser]);
 
   return (
     <div className="row">

@@ -8,26 +8,20 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/16/solid";
 
-import { loginUser, logOut } from "../../utilies/login";
-import { Users } from "../../models/users/users.model";
-
 // eslint-disable-next-line react/prop-types
 export default function Navbar({ children }) {
-  const userData = new Users();
   const navigate = useNavigate();
-  const [user, setUser] = useState(userData);
+  const [user, setUser] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  let [isLogged, setIsLogged] = useState(false);
-
   const handleLogin = () => {
-    setIsLogged(loginUser(user));
+    setUser(true);
   };
 
   const handleLogout = () => {
-    setIsLogged(logOut(user));
+    setUser(false);
     setShowLogoutModal(false); // Cierra el modal al cerrar sesión
     navigate("/");
   };
@@ -61,7 +55,7 @@ export default function Navbar({ children }) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {children}
-              {!isLogged ? (
+              {!user ? (
                 <li className="nav-item d-flex align-items-center">
                   <button
                     type="button"
@@ -80,18 +74,11 @@ export default function Navbar({ children }) {
                 </li>
               ) : (
                 <li className="nav-item d-flex g-3 align-items-center">
-                  <button
-                    className="btn"
-                    onClick={() => navigate("/edit-profile")}
-                  >
-                    <UserCircleIcon width={25} />
-                    {user.id_role == 1 ? "Administrador" : "Cliente"}
+                  <button className="btn btn-primary d-flex align-items-center" onClick={() => navigate("/edit-profile")}>
+                    <UserCircleIcon width={25} className="me-2" />
                   </button>
-                  <button
-                    className="btn"
-                    onClick={() => setShowLogoutModal(true)}
-                  >
-                    <ArrowRightEndOnRectangleIcon width={25} />
+                  <button className="btn btn-danger d-flex align-items-center" onClick={() => setShowLogoutModal(true)}>
+                    <ArrowRightEndOnRectangleIcon width={25} className="me-2" />
                   </button>
                 </li>
               )}
@@ -105,7 +92,6 @@ export default function Navbar({ children }) {
           isOpen={openLoginModal}
           clickModal={toggleLoginModal}
           handleLogin={handleLogin}
-          setUser={setUser}
         />
       )}
       {openRegisterModal && (
@@ -118,45 +104,21 @@ export default function Navbar({ children }) {
 
       {/* Modal de confirmación */}
       {showLogoutModal && (
-        <div
-          className="modal fade show"
-          style={{ display: "block" }}
-          tabIndex="-1"
-          role="dialog"
-        >
+        <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" role="dialog">
           <div className="modal-dialog" role="document">
             <div className="modal-content rounded-3 shadow-lg">
               <div className="modal-header border-bottom-0">
                 <h5 className="modal-title">Confirmar Cierre de Sesión</h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => setShowLogoutModal(false)}
-                  aria-label="Close"
-                >
+                <button type="button" className="btn-close" onClick={() => setShowLogoutModal(false)} aria-label="Close">
                   <span>&times;</span>
                 </button>
               </div>
               <div className="modal-body">
-                <p className="text-center">
-                  ¿Estás seguro que deseas cerrar sesión?
-                </p>
+                <p className="text-center">¿Estás seguro que deseas cerrar sesión?</p>
               </div>
               <div className="modal-footer d-flex justify-content-center border-top-0">
-                <button
-                  type="button"
-                  className="btn btn-secondary me-2"
-                  onClick={() => setShowLogoutModal(false)}
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={handleLogout}
-                >
-                  Cerrar Sesión
-                </button>
+                <button type="button" className="btn btn-secondary me-2" onClick={() => setShowLogoutModal(false)}>Cancelar</button>
+                <button type="button" className="btn btn-danger" onClick={handleLogout}>Cerrar Sesión</button>
               </div>
             </div>
           </div>

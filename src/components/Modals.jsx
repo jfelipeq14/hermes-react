@@ -8,7 +8,6 @@ export default function Modals({ isOpen, clickModal, children }) {
     setModalIsOpen(!modalIsOpen);
     clickModal(!modalIsOpen);
   };
-
   return (
     <Modal show={modalIsOpen} onHide={toggleModal}>
       {children}
