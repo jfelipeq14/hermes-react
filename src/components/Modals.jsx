@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Modal } from "react-bootstrap";
 
 // eslint-disable-next-line react/prop-types
-export default function Modal({ isOpen, clickModal, children }) {
+export default function Modals({ isOpen, clickModal, children }) {
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
