@@ -31,7 +31,6 @@ export default function Reserve() {
               companions={companions}
               setCompanions={setCompanions}
               setHaveCompanions={setHaveCompanions}
-              indexEdit={indexEdit}
             />
           ) : (
             <CustomerForm
