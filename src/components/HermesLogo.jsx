@@ -2,9 +2,9 @@ export default function HermesLogo() {
   return(
     // agregar logo de hermes ubicado en los assets
     <picture>
-      <source srcSet="../assets/hermes.webp" type="image/webp" />
-      <source srcSet="../assets/hermes.png" type="image/png" />
-      <img src="../assets/hermes.svg" className="img-fluid" alt="Hermes" />
+      <source srcSet="/hermes.svg" type="image/webp" />
+      <source srcSet="/hermes.svg" type="image/png" />
+      <img src="/hermes.svg" className="img-fluid" alt="Hermes" />
     </picture>
   )
 }
