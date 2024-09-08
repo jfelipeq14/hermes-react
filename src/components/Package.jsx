@@ -1,11 +1,9 @@
 import { formatDate } from "@fullcalendar/core/index.js";
 import { formattedPrice } from "../utilies/formattedPrice";
 import { NavLink } from "react-router-dom";
-import { PencilSquareIcon } from "@heroicons/react/16/solid";
 
 // eslint-disable-next-line react/prop-types
 export default function Package({
-  key,
   address,
   name,
   date,
@@ -34,7 +32,6 @@ export default function Package({
         </div>
         <NavLink
           to={{ pathname: "/reserve" }}
-          state={{ index: key }}
           className="btn btn-primary m-2"
         >
           Reservar
