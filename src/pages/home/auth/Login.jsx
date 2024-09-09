@@ -1,6 +1,5 @@
-// Login.jsx
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Users } from "../../../models/users/users.model";
@@ -8,10 +7,10 @@ import UserLogin from './UserLogin'; // Importar el componente de usuario
 
 // eslint-disable-next-line react/prop-types
 export default function Login({ isOpen, clickModal, handleLogin }) {
-  const user = new Users();
+  const userModel = new Users(); // Supongamos que Users tiene una lista de usuarios
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [messages, setMessages] = useState([]);
-  const [formData, setFormData] = useState(user);
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
   const toggleModal = () => {
@@ -36,13 +35,32 @@ export default function Login({ isOpen, clickModal, handleLogin }) {
       errors.push("La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula y solo puede incluir letras minúsculas, números o ciertos símbolos.");
     }
 
+    // Si hay errores, los mostramos y detenemos la ejecución
     if (errors.length > 0) {
       setMessages(errors);
       return;
     }
 
+    // Aquí buscamos el usuario en la lista de usuarios (suponiendo que sea un array)
+    const userFound = userModel.users.find(
+      (user) => user.email === formData.email
+    );
+
+    // Si el usuario no es encontrado
+    if (!userFound) {
+      setMessages(["Usuario no encontrado."]);
+      return;
+    }
+
+    // Si la contraseña no coincide
+    if (userFound.password !== formData.password) {
+      setMessages(["Contraseña incorrecta."]);
+      return;
+    }
+
+    // Si todo es correcto, iniciamos sesión
     setMessages(["Inicio de sesión exitoso."]);
-    handleLogin();
+    handleLogin(userFound); // Pasamos el usuario al handleLogin
     setModalIsOpen(false);
     navigate("/Menu");
   };
