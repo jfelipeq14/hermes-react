@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "changes": "git fetch origin develop && git pull origin develop && npm ci --legacy-peer-deps --no-fund --no-audit"
+    "changes": "git fetch origin develop && git pull origin develop && npm i --no-fund --no-audit"
   },
   "dependencies": {
     "@fullcalendar/core": "6.1.15",
