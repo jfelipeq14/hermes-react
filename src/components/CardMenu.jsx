@@ -1,18 +1,22 @@
-import { PlusIcon } from "@heroicons/react/16/solid";
-import { NavLink } from "react-router-dom";
+// src/components/CardMenu.jsx
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function CardMenu({ title, logo, href }) {
-  return (
-    <div className="card m-5 text-center">
-      <NavLink to={`/${href}`} className="text-decoration-none p-2">
-        <div className="container">
-          <PlusIcon width={25} className="float-end" />
-        </div>
-        <div className="container">
-          <div className="container">{logo}</div>
-        </div>
-        <footer className="p-2">{title}</footer>
-      </NavLink>
-    </div>
-  );
-}
+// Componente CardMenu
+const CardMenu = ({ title, logo, href }) => (
+  <div className="card-menu">
+    <Link to={href} className="card-link">
+      <div className="card-logo">{logo}</div>
+      <div className="card-title">{title}</div>
+    </Link>
+  </div>
+);
+
+CardMenu.propTypes = {
+  title: PropTypes.string.isRequired,
+  logo: PropTypes.element.isRequired,
+  href: PropTypes.string.isRequired
+};
+
+export default CardMenu;
+
