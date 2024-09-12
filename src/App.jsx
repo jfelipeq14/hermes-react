@@ -16,11 +16,17 @@ import Services from "./pages/services/Services";
 import Programing from "./pages/packages/Programing";
 import Payments from "./pages/pay/Payments";
 import Sales from "./pages/Sales";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Navbar>
+        <li className="nav-item">
+          <Link to="dashboard" className="nav-link">
+            Dashboard
+          </Link>
+        </li>
         <li className="nav-item">
           <Link to="customers" className="nav-link">
             Customers
@@ -67,6 +73,7 @@ export default function App() {
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/services" element={<Services />} />
         <Route exact path="/sales" element={<Sales />} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
