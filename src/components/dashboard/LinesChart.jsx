@@ -1,62 +1,34 @@
-import { Line } from 'react-chartjs-2';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    Filler,
-} from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { PolarArea } from "react-chartjs-2";
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-    Filler
-);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-var beneficios = [0, 56, 20, 36, 80, 40, 30, -20, 25, 30, 12, 60];
-var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+var options = {
+  responsive: true,
+  maintainAspectRatio: false,
+};
 
-var midata = {
-    labels: meses,
-    datasets: [ // Cada una de las líneas del gráfico
-        {
-            label: 'Beneficios',
-            data: beneficios,
-            tension: 0.5,
-            fill : true,
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            pointRadius: 5,
-            pointBorderColor: 'rgba(255, 99, 132)',
-            pointBackgroundColor: 'rgba(255, 99, 132)',
-        },
-        {
-            label: 'Otra línea',
-            data: [20, 25, 60, 65, 45, 10, 0, 25, 35, 7, 20, 25]
-        },
+const data = {
+    labels: [
+      'Red',
+      'Green',
+      'Yellow',
+      'Grey',
+      'Blue'
     ],
-};
-
-var misoptions = {
-    scales : {
-        y : {
-            min : 0
-        },
-        x: {
-            ticks: { color: 'rgb(255, 99, 132)'}
-        }
-    }
-};
+    datasets: [{
+      label: 'My First Dataset',
+      data: [11, 16, 7, 3, 14],
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(75, 192, 192)',
+        'rgb(255, 205, 86)',
+        'rgb(201, 203, 207)',
+        'rgb(54, 162, 235)'
+      ]
+    }]
+  };
 
 export default function LinesChart() {
-    return <Line data={midata} options={misoptions}/>
+  return <PolarArea data={data} options={options} />;
 }
