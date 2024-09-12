@@ -34,5 +34,5 @@ var data = {
 };
 
 export default function PiesChart() {
-    return <Pie data={data} options={options} />
+    return <Pie data={data} options={options}  />
 }
