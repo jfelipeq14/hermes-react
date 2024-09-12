@@ -57,7 +57,7 @@ function renderEventContent(eventInfo) {
             Editar programación
           </a>
         </li>
-      </ul>
+      </ul>  
     </div>
   );
 }
