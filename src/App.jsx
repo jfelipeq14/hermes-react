@@ -56,7 +56,6 @@ export default function App() {
             Sales
           </Link>
         </li>
-        
       </Navbar>
       <Routes>
         <Route exact path="/" element={<Home />} />
