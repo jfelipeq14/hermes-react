@@ -51,7 +51,7 @@ export default function Page() {
   return (
     <>
       <main className="row">
-        <section className="col-sm-12 mx-auto my-5">
+        <section className="col-12 mx-auto my-5">
           <header className="text-center">
             <h2 className="fw-bold fs-4">Paquetes</h2>
           </header>

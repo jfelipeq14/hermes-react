@@ -3,12 +3,12 @@ import // PlusCircleIcon,
 // PencilSquareIcon,
 // TrashIcon,
 "@heroicons/react/16/solid";
-import { administrator } from "../utilies/routes";
-import Sidebar, { SidebarItem } from "./layout/Sidebar";
+import { administrator } from "../../utilies/routes";
+import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import { useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import swal from "sweetalert";
-import { Services } from "../models/services/services.model";
+import { Services } from "../../models/services/services.model";
 import { Form } from "react-bootstrap";
 
 export default function Service() {

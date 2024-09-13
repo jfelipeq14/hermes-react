@@ -4,8 +4,8 @@ import {
   PencilSquareIcon,
   PlusCircleIcon,
 } from "@heroicons/react/16/solid";
-import { administrator } from "../utilies/routes";
-import Sidebar, { SidebarItem } from "./layout/Sidebar";
+import { administrator } from "../../utilies/routes";
+import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import { NavLink } from "react-router-dom";
 
 export default function customers() {
@@ -89,7 +89,7 @@ export default function customers() {
         })}
       </Sidebar>
       <main className="col-11">
-        <div className="row p-2">
+        <div className="row">
           <fieldset className="col-sm-12 col-md-6">
             <legend>Clientes</legend>
             <NavLink
