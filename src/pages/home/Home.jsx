@@ -55,7 +55,7 @@ export default function Page() {
           <header className="text-center">
             <h2 className="fw-bold fs-4">Paquetes</h2>
           </header>
-          <article className="row g-4">
+          <article className="row g-1">
             {packages.map((pkg) => {
               return (
                 <Package
@@ -87,7 +87,7 @@ export default function Page() {
           <hr />
           {/* crear un detail donde se hagan preguntas y respuestas de una agencia de viajes */}
           <article className="row">
-            <fieldset className="col-md-3 rounded p-4 m-4 border">
+            <fieldset className="col-md-3 rounded p-3">
               <legend className="d-flex align-items-center gap-4 fs-5 fw-medium">
                 ¿Cómo puedo reservar un paquete?
               </legend>
@@ -97,7 +97,7 @@ export default function Page() {
                 pasos que se te indican.
               </p>
             </fieldset>
-            <fieldset className="col-md-3 rounded p-4 m-4 border">
+            <fieldset className="col-md-3 rounded p-3">
               <legend className="d-flex align-items-center gap-4 fs-5 fw-medium">
                 ¿Cómo puedo reservar un paquete?
               </legend>
@@ -107,7 +107,7 @@ export default function Page() {
                 pasos que se te indican.
               </p>
             </fieldset>
-            <fieldset className="col-md-3 rounded p-4 m-4 border">
+            <fieldset className="col-md-3 rounded p-3">
               <legend className="d-flex align-items-center gap-4 fs-5 fw-medium">
                 ¿Cómo puedo reservar un paquete?
               </legend>
@@ -117,7 +117,7 @@ export default function Page() {
                 pasos que se te indican.
               </p>
             </fieldset>
-            <fieldset className="col-md-3 rounded p-4 m-4 border">
+            <fieldset className="col-md-3 rounded p-3">
               <legend className="d-flex align-items-center gap-4 fs-5 fw-medium">
                 ¿Cómo puedo reservar un paquete?
               </legend>
