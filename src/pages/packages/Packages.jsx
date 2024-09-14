@@ -6,10 +6,12 @@ import {
 import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import { NavLink } from "react-router-dom";
+import swal from "sweetalert";
 
 export default function Packs() {
   const packs = [
     {
+      id: 1,
       nombres: "Cartagena",
       fechaInscripcion: "24/08/2024",
       fechaFinInscripcion: "30/08/2024",
@@ -18,6 +20,7 @@ export default function Packs() {
       estado: "Activo",
     },
     {
+      id: 2,
       nombres: "Barranquilla",
       fechaInscripcion: "13/08/2024",
       fechaFinInscripcion: "20/08/2024",
@@ -39,6 +42,30 @@ export default function Packs() {
       cantidad: 1,
     },
   ];
+
+  const handleChange = (e) => {
+    const state = e.target.checked;
+    swal({
+      title: "Cambiar Estado",
+      text: "¿Quieres cambiar el estado de este paquete?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirm) => {  2
+      if (confirm) {
+        e.target.checked = state ? true : false;
+      } else {
+        e.target.checked = state ? false : true;
+        swal({
+          title: "Cancelado",
+          text: "Los datos no se han enviado",
+          icon: "error",
+          timer: 2000,
+          buttons: false,
+        });
+      }
+    });
+  };
 
   return (
     <div className="row">
@@ -99,9 +126,23 @@ export default function Packs() {
                       <button className="btn m-0 p-0">
                         <EyeIcon width={25} />
                       </button>
-                      <button className="btn m-0 p-0">
+                      <NavLink
+                        to={{ pathname: "/create-packs" }}
+                        state={{ id: pack.id }}
+                        className="btn m-0 p-0"
+                      >
                         <PencilSquareIcon width={25} />
-                      </button>
+                      </NavLink>
+                      <div className="form-switch d-inline">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          role="switch"
+                          name="state"
+                          checked={pack.state}
+                          onChange={handleChange}
+                        />
+                      </div>
                     </td>
                     <td>{pack.nombres}</td>
                     <td>{pack.fechaInscripcion}</td>

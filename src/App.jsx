@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./pages/layout/Navbar";
-import Customers from "./pages/Customers";
+import Customers from "./pages/customers/Customers";
 import Role from "./pages/role/Role";
 import Users from "./pages/user/Users";
 import EditProfile from "./pages/user/EditProfile";
@@ -12,12 +12,21 @@ import Reservations from "./pages/reserve/Reservations";
 import Packages from "./pages/packages/Packages";
 import CreatePackages from "./pages/packages/CreatePackages";
 import Menu from "./pages/Menu";
-import Services from "./pages/Services";
+import Services from "./pages/services/Services";
+import Programing from "./pages/packages/Programing";
+import Payments from "./pages/pay/Payments";
+import Sales from "./pages/Sales";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Navbar>
+        <li className="nav-item">
+          <Link to="dashboard" className="nav-link">
+            Dashboard
+          </Link>
+        </li>
         <li className="nav-item">
           <Link to="customers" className="nav-link">
             Customers
@@ -37,6 +46,15 @@ export default function App() {
           <Link to="services" className="nav-link">
             Services
           </Link>
+        </li><li className="nav-item">
+          <Link to="programing-packs" className="nav-link">
+            Programing
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="sales" className="nav-link">
+            Sales
+          </Link>
         </li>
       </Navbar>
       <Routes>
@@ -48,9 +66,14 @@ export default function App() {
         <Route exact path="/reserve" element={<Reserve />} />
         <Route exact path="/packages" element={<Packages />} />
         <Route exact path="/create-packs" element={<CreatePackages />} />
+        <Route exact path="/programing-packs" element={<Programing />} />
         <Route exact path="/reservations" element={<Reservations />} />
+        <Route exact path="/payments" element={<Payments />} />
         <Route exact path="/menu" element={<Menu />} />
         <Route exact path="/services" element={<Services />} />
+        <Route exact path="/sales" element={<Sales />} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

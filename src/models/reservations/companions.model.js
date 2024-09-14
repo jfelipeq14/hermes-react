@@ -1,4 +1,4 @@
-export class Companion {
+export class Companions {
   constructor() {
     this.id_reserve_companion = 0;
     this.id_reservation = 0;
@@ -9,6 +9,5 @@ export class Companion {
     this.sex = "";
     this.bloodType = "";
     this.eps = "";
-    this.healthPosition = "";
   }
 }

@@ -41,7 +41,7 @@ CREATE TABLE roles(
 SELECT * FROM roles;
 
 DROP TABLE IF EXISTS role_privilege CASCADE;
-CREATE TABLE role_privilege(
+CREATE TABLE role_privileges(
     id_role_privilege SERIAL NOT NULL,
     id_role INTEGER NOT NULL,
     id_privilege INTEGER NOT NULL,
@@ -56,12 +56,16 @@ DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users( 
     id_user SERIAL NOT NULL,
     id_role INTEGER NOT NULL,
+    documentType VARCHAR(5) NOT NULL,
+    identification VARCHAR(60) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     state BOOLEAN,
 
     CONSTRAINT pk_idUser PRIMARY KEY (id_user),
     CONSTRAINT fk_idRoleUser FOREIGN KEY (id_role) REFERENCES roles(id_role),
+    CONSTRAINT chk_documentTypeUser CHECK (documentType ~ '^(CC|CE|PA|SC|CD|TE|PEP|AS|DU|CCEX|CEEX|PAEX|SCEX|CDEX|TEX|RNEX|PEPEX|ASEX)$'),
+    CONSTRAINT chk_identificationUser CHECK (identification ~ '^[a-z0-9]{6,}$'),
     CONSTRAINT chk_emailUser CHECK (email ~ '^[a-z0-9.!#$%&*+/=?^_`{|}~-]+@[a-z0-9-]+\.[a-z0-9.]{2,}$')
 
 );
@@ -116,6 +120,7 @@ CREATE TABLE  programation_packages (
     date_end  DATE NOT NULL,
     date_execution  DATE NOT NULL,
     date_ending DATE NOT NULL,
+
     CONSTRAINT pk_idProgramation PRIMARY KEY (id_programation),
     CONSTRAINT chk_dateStart CHECK (date_start >= current_date),
     CONSTRAINT chk_dateEnd CHECK (date_end >= current_date + interval '7 days'),
@@ -130,8 +135,8 @@ CREATE TABLE detail_programming_packages (
     id_detail_programming_package SERIAL NOT NULL,
     id_package  INTEGER NOT NULL,
     id_programation  INTEGER NOT NULL,
-    status_programation_package  BOOLEAN,
     price_package  DECIMAL (15,2),
+    status  BOOLEAN,
 
     CONSTRAINT pk_detailProgrammingPackages PRIMARY KEY (id_detail_programming_package),
     CONSTRAINT fk_packages FOREIGN KEY (id_package) REFERENCES packages(id_package),
@@ -176,8 +181,6 @@ DROP TABLE IF EXISTS customers CASCADE;
 CREATE TABLE customers(
     id_customer SERIAL NOT NULL,
     id_user INTEGER NOT NULL,
-    documentType VARCHAR(2) NOT NULL,
-    identification VARCHAR(30) NOT NULL,
     name VARCHAR(60) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
     phone VARCHAR(15) NOT NULL,
@@ -188,13 +191,10 @@ CREATE TABLE customers(
     sex CHAR NOT NULL,
     bloodType VARCHAR(3) NOT NULL,
     eps VARCHAR(60) NOT NULL,
-    healthPosition VARCHAR(60) NOT NULL,
     state BOOLEAN NOT NULL,
     
     CONSTRAINT pk_idCustomer PRIMARY KEY (id_customer),
     CONSTRAINT fk_idUser FOREIGN KEY (id_user) REFERENCES users(id_user),
-    CONSTRAINT chk_documentTypeCustomer CHECK (documentType ~ '^(CC|CE|PA|SC|CD|TE|PEP|AS|DU|CCEX|CEEX|PAEX|SCEX|CDEX|TEX|RNEX|PEPEX|ASEX)$'),
-    CONSTRAINT chk_identificationCustomer CHECK (identification ~ '^[a-z0-9]{6,}$'),
     CONSTRAINT chk_nameCustomer CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
     CONSTRAINT chk_lastNameCustomer CHECK (lastName ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
     CONSTRAINT chk_phoneCustomer CHECK (phone ~ '^\+?[0-9]{1,3}[0-9]{7,}$'),
@@ -204,7 +204,6 @@ CREATE TABLE customers(
     CONSTRAINT chk_sexCustomer CHECK (sex ~ '^(H|M)$'),
     CONSTRAINT chk_bloodTypeCustomer CHECK (bloodType ~ '^(A|B|AB|O)+[+|-]$'),
     CONSTRAINT chk_epsCustomer CHECK (eps ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
-    CONSTRAINT chk_healthPositionCustomer CHECK (healthPosition ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$')
 );
 SELECT * FROM customers;
 
@@ -234,28 +233,30 @@ DROP TABLE IF EXISTS reserve_companions CASCADE;
 CREATE TABLE reserve_companions(
     id_reserve_companion SERIAL NOT NULL,
     id_reservation SERIAL NOT NULL,
+    documentType VARCHAR(5) NOT NULL,
+    identification VARCHAR(60) NOT NULL,
     name VARCHAR(60),
     lastName VARCHAR(50),
     phone VARCHAR(15),
     sex CHAR,
     bloodType VARCHAR(3),
     eps VARCHAR(60),
-    healthPosition VARCHAR(60),
     
     CONSTRAINT pk_idReserveCompanion PRIMARY KEY (id_reserve_companion),
     CONSTRAINT fk_idReservation FOREIGN KEY (id_reservation) REFERENCES reservations(id_reservation),
+    CONSTRAINT chk_documentTypeCompanion CHECK (documentType ~ '^(CC|CE|PA|SC|CD|TE|PEP|AS|DU|CCEX|CEEX|PAEX|SCEX|CDEX|TEX|RNEX|PEPEX|ASEX)$'),
+    CONSTRAINT chk_identificationCompanion CHECK (identification ~ '^[a-z0-9]{6,}$'),
     CONSTRAINT chk_nameCompanion CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
     CONSTRAINT chk_lastNameCompanion CHECK (lastName ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
     CONSTRAINT chk_phoneCompanion CHECK (phone ~ '^\+?[0-9]{1,3}[0-9]{7,}$'),
     CONSTRAINT chk_sexCompanion CHECK (sex ~ '^[hm]$'),
     CONSTRAINT chk_bloodTypeCompanion CHECK (bloodType ~ '^(A|B|AB|O)+[+|-]$'),
     CONSTRAINT chk_epsCompanion CHECK (eps ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
-    CONSTRAINT chk_healthPositionCompanion CHECK (healthPosition ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$')
 );
 SELECT * FROM reserve_companions;
 
 DROP TABLE IF EXISTS pay CASCADE;
-CREATE TABLE pay ( 
+CREATE TABLE pays ( 
     id_pay SERIAL NOT NULL,
     id_reservation INTEGER NOT NULL,
     date_pay DATE DEFAULT CURRENT_DATE,
@@ -269,7 +270,7 @@ CREATE TABLE pay (
 	-- ESTADOS DE PAGO: REVISAR, PAGO, NO PAGO, ANULADO
 	CONSTRAINT chk_statusReservation CHECK (status ~ '^(R|P|N|A|)$')
 );
-SELECT * FROM pay;
+SELECT * FROM pays;
 
 -- DICTIONARY OF DATA
 SELECT

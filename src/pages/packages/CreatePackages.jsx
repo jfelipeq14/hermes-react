@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Package } from "../../models/packs/package.model";
-import { Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { Form } from "react-bootstrap";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/16/solid";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import { administrator } from "../../utilies/routes";
+import { Packages } from "../../models/packs/packages.model";
 
 export default function PackForm() {
-  const formPackage = new Package();
+  const formPackage = new Packages();
   // const formService = new Service();
   const services = [
     {
@@ -207,7 +207,7 @@ export default function PackForm() {
                   </div>
                   {/* Ganancia */}
                   <div className="col-12">
-                    <label htmlFor="destination">Ganancia:</label>
+                    <label htmlFor="destination">Ingreso:</label>
                     <input
                       type="number"
                       className="form-control"
@@ -240,7 +240,7 @@ export default function PackForm() {
                   Crear
                 </button>
                 <button type="reset" className="btn btn-secondary">
-                  Limpiar
+                  Cancelar
                 </button>
               </div>
             </Form>

@@ -2,8 +2,8 @@
 import { useState } from "react";
 //#endregion
 //#region models imports
-import { Customer } from "../../models/reservations/customer.model";
-import { User } from "../../models/auth/user.model";
+import { Customers } from "../../models/reservations/customers.model";
+import { Users } from "../../models/users/users.model";
 //#endregion
 //#region utilities imports
 import { documentTypes } from "../../utilies/documentTypes";
@@ -14,11 +14,12 @@ import { Form } from "react-bootstrap";
 //#endregion
 //#region complements imports
 import swal from "sweetalert";
-import { BiSearch } from "react-icons/bi";
+import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
 // eslint-disable-next-line react/prop-types
-export default function CustomerForm({ location }) {
+export default function CustomerForm({location, companions, setCompanions, setHaveCompanions,
+}) {
   //#region variables (datos quemados)
   const customers = [
     {
@@ -38,7 +39,6 @@ export default function CustomerForm({ location }) {
       sex: "h",
       bloodType: "o+",
       eps: "Sura",
-      healthPosition: "Monterrey",
       state: true,
     },
   ];
@@ -49,13 +49,15 @@ export default function CustomerForm({ location }) {
   //#endregion
 
   // #region formData
-  let formCustomer = new Customer();
-  let formUser = new User();
+  let formCustomer = new Customers();
+  let formUser = new Users();
   // #endregion
 
   //#region read props
   // eslint-disable-next-line react/prop-types
-  if (location.state) formCustomer.identification =  location.state.identification ?? 0;
+  if (location.state)
+    // eslint-disable-next-line react/prop-types
+    formCustomer.identification = location.state.identification ?? 0;
   //#endregion
 
   //#region hooks
@@ -67,7 +69,6 @@ export default function CustomerForm({ location }) {
   // #region functions
   const onClickSearch = () => {
     let customer = customers.find(
-      // eslint-disable-next-line react/prop-types
       (customer) => customer.identification === formCustomer.identification
     );
     if (customer) {
@@ -119,8 +120,10 @@ export default function CustomerForm({ location }) {
         dangerMode: true,
       }).then((confirm) => {
         if (confirm) {
-          setCustomer(new Customer());
-          setUser(new User());
+          setCompanions([...companions, customer]);
+          setCustomer(new Customers());
+          setUser(new Users());
+          setHaveCompanions(true);
           swal({
             title: "Enviado",
             text: "Los datos fueron enviados correctamente",
@@ -166,8 +169,10 @@ export default function CustomerForm({ location }) {
               required
             >
               <option>Selecciona</option>
-              {documentTypes.map((documentType) => (
-                <option key={documentType}>{documentType}</option>
+              {documentTypes.map((documentType, index) => (
+                <option key={index} value={documentType}>
+                  {documentType}
+                </option>
               ))}
             </select>
             <small className="valid-feedback">Todo bien!</small>
@@ -188,7 +193,7 @@ export default function CustomerForm({ location }) {
           </div>
           <div className="col-2">
             <button className="btn" onClick={onClickSearch}>
-              <BiSearch/>
+              <MagnifyingGlassIcon width={25} />
             </button>
           </div>
         </div>
@@ -366,7 +371,7 @@ export default function CustomerForm({ location }) {
           Crear
         </button>
         <button type="reset" className="btn btn-secondary">
-          Limpiar
+          Cancelar
         </button>
       </div>
     </Form>

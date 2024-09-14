@@ -8,22 +8,22 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/16/solid";
 
+// eslint-disable-next-line react/prop-types
 export default function Navbar({ children }) {
   const navigate = useNavigate();
   const [user, setUser] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleLogin = () => {
-    setUser(true); // Cambia a true al iniciar sesión
+    setUser(true);
   };
 
   const handleLogout = () => {
-    const confirmLogout = window.confirm("¿Seguro que quieres cerrar sesión?");
-    if (confirmLogout) {
-      setUser(false);
-      navigate("/");
-    }
+    setUser(false);
+    setShowLogoutModal(false); // Cierra el modal al cerrar sesión
+    navigate("/");
   };
 
   const toggleLoginModal = () => {
@@ -74,24 +74,19 @@ export default function Navbar({ children }) {
                 </li>
               ) : (
                 <li className="nav-item d-flex g-3 align-items-center">
-                  <UserCircleIcon
-                    width={25}
-                    className="btn"
-                    onClick={() => {
-                      navigate("/edit-profile");
-                    }}
-                  />
-                  <ArrowRightEndOnRectangleIcon
-                    width={25}
-                    className="btn"
-                    onClick={handleLogout}
-                  />
+                  <button className="btn btn-primary d-flex align-items-center" onClick={() => navigate("/edit-profile")}>
+                    <UserCircleIcon width={25} className="me-2" />
+                  </button>
+                  <button className="btn btn-danger d-flex align-items-center" onClick={() => setShowLogoutModal(true)}>
+                    <ArrowRightEndOnRectangleIcon width={25} className="me-2" />
+                  </button>
                 </li>
               )}
             </ul>
           </div>
         </div>
       </nav>
+
       {openLoginModal && (
         <Login
           isOpen={openLoginModal}
@@ -103,8 +98,31 @@ export default function Navbar({ children }) {
         <Register
           isOpen={openRegisterModal}
           clickModal={toggleRegisterModal}
-          handleLogin={handleLogin} // Asegúrate de pasar el mismo manejador para el registro
+          handleLogin={handleLogin}
         />
+      )}
+
+      {/* Modal de confirmación */}
+      {showLogoutModal && (
+        <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" role="dialog">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content rounded-3 shadow-lg">
+              <div className="modal-header border-bottom-0">
+                <h5 className="modal-title">Confirmar Cierre de Sesión</h5>
+                <button type="button" className="btn-close" onClick={() => setShowLogoutModal(false)} aria-label="Close">
+                  <span>&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p className="text-center">¿Estás seguro que deseas cerrar sesión?</p>
+              </div>
+              <div className="modal-footer d-flex justify-content-center border-top-0">
+                <button type="button" className="btn btn-secondary me-2" onClick={() => setShowLogoutModal(false)}>Cancelar</button>
+                <button type="button" className="btn btn-danger" onClick={handleLogout}>Cerrar Sesión</button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

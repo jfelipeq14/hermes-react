@@ -1,8 +1,8 @@
 import { Form } from "react-bootstrap";
-import { User } from "../../models/auth/user.model";
-import { useEffect, useState } from "react";
+import { Users } from "../../models/users/users.model";
 import swal from "sweetalert";
 import { documentTypes } from "../../utilies/documentTypes";
+import { useState } from "react";
 
 export default function UserForm() {
   const roles = [
@@ -11,12 +11,7 @@ export default function UserForm() {
   ];
 
   const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(users));
-  }, [users]);
-
-  const formUser = new User();
+  const formUser = new Users();
 
   let [user, setUser] = useState(formUser);
   let [validated, setValidated] = useState(false);
@@ -168,6 +163,8 @@ export default function UserForm() {
           name="password"
           value={user.password}
           onChange={handleChangeUser}
+          pattern="^[a-z0-9.!#$%&*+/=?^_`{|}~-]{8,}$"
+          minLength={8}
           required
         />
         <small className="valid-feedback">Todo bien!</small>
