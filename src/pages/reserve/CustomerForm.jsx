@@ -18,11 +18,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
 // eslint-disable-next-line react/prop-types
-export default function CustomerForm({
-  location,
-  companions,
-  setCompanions,
-  setHaveCompanions,
+export default function CustomerForm({location, companions, setCompanions, setHaveCompanions,
 }) {
   //#region variables (datos quemados)
   const customers = [
@@ -60,6 +56,7 @@ export default function CustomerForm({
   //#region read props
   // eslint-disable-next-line react/prop-types
   if (location.state)
+    // eslint-disable-next-line react/prop-types
     formCustomer.identification = location.state.identification ?? 0;
   //#endregion
 

@@ -50,10 +50,10 @@ export default function Sales() {
       </Sidebar>
       <main className="col-11">
         <div className="row p-2">
-          <fieldset className="col-sm-12 col-md-7">
+          <fieldset className="col-12">
             <legend>Ventas</legend>
             <header className="row">
-              <div className="col-6">
+              <div className="col-6 my-2">
                 <input
                   type="text"
                   id="identification"
@@ -61,9 +61,6 @@ export default function Sales() {
                   placeholder="Buscar"
                   onChange={(e) => console.log(e.target.value)}
                 />
-              </div>
-              <div className="col-6">
-                <div className="buttons float-end"></div>
               </div>
             </header>
             <table className="table table-striped">

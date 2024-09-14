@@ -20,6 +20,7 @@ const events = [
     date_ending: new Date(),
   },
 ];
+
 export default function Calendar() {
   return (
     <FullCalendar
@@ -27,6 +28,8 @@ export default function Calendar() {
       initialView="dayGridMonth"
       events={events}
       eventContent={renderEventContent}
+      showNonCurrentDates={false}
+      fixedWeekCount={false}
     />
   );
 }
@@ -34,14 +37,18 @@ export default function Calendar() {
 // a custom render function
 function renderEventContent(eventInfo) {
   return (
-    <div className="btn-group dropend">
-      <button type="button" className="btn p-0 m-0">
+    <div className="container w-100 p-0 m-0">
+      <button type="button" className="btn p-0 m-0 fs-6">
         {eventInfo.event.title}
       </button>
-      <button className="btn" data-bs-toggle="dropdown" aria-expanded="false">
-        <EllipsisVerticalIcon width={25} />
+      <button
+        className="btn p-0 m-0"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <EllipsisVerticalIcon width={20} className="m-0 p-0" />
       </button>
-      <ul className="dropdown-menu">
+      <ul className="dropdown-menu m-0 p-0">
         <li>
           <a className="dropdown-item" href="#">
             Previsualizar clientes
@@ -57,7 +64,7 @@ function renderEventContent(eventInfo) {
             Editar programación
           </a>
         </li>
-      </ul>  
+      </ul>
     </div>
   );
 }
