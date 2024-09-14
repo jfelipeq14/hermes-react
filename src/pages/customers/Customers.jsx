@@ -93,7 +93,7 @@ export default function customers() {
           <fieldset className="col-sm-12 col-md-6">
             <legend>Clientes</legend>
             <NavLink
-              to={{ pathname: "/reservations" }}
+              to={{ pathname: "/reserve" }}
               state={{ identification: 0 }}
               className="btn btn-primary float-end"
             >
@@ -157,7 +157,7 @@ export default function customers() {
           </fieldset>
           <fieldset className="col-sm-12 col-md-6">
             <legend>Reservas</legend>
-            <NavLink to="/reservations" className="btn btn-primary float-end">
+            <NavLink to="/reserve" className="btn btn-primary float-end">
               <PlusCircleIcon width={25} />
               Crear
             </NavLink>

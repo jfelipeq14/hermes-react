@@ -18,63 +18,25 @@ import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
 // eslint-disable-next-line react/prop-types
-export default function CustomerForm({location, companions, setCompanions, setHaveCompanions,
-}) {
+export default function CustomerForm({ location,user, setUser, customer, setCustomer, companions, setCompanions, setHaveCompanions,}) {
   //#region variables (datos quemados)
-  const customers = [
-    {
-      id_customer: 1,
-      id_user: 3,
-      documentType: "CC",
-      identification: "899213",
-      name: "Juan",
-      lastName: "Quintero",
-      phone: "+573001234567",
-      dateOfBirth: "2001-09-21",
-      age: 22,
-      address: "cl 9a",
-      country: "Col",
-      departament: "Ant",
-      municipality: "Med",
-      sex: "h",
-      bloodType: "o+",
-      eps: "Sura",
-      state: true,
-    },
-  ];
-
   let start = new Date();
   start.setFullYear(start.getFullYear() - 18);
   let limitDate = start.toISOString().split("T")[0];
-  //#endregion
 
-  // #region formData
-  let formCustomer = new Customers();
-  let formUser = new Users();
-  // #endregion
+  let travel = false;
+  //#endregion
 
   //#region read props
   // eslint-disable-next-line react/prop-types
-  if (location.state)
-    // eslint-disable-next-line react/prop-types
-    formCustomer.identification = location.state.identification ?? 0;
+  if (location.state) customer.identification = location.state.identification ?? 0;
   //#endregion
 
   //#region hooks
-  let [customer, setCustomer] = useState(formCustomer);
-  let [user, setUser] = useState(formUser);
   let [validated, setValidated] = useState(false);
   //#endregion
 
   // #region functions
-  const onClickSearch = () => {
-    let customer = customers.find(
-      (customer) => customer.identification === formCustomer.identification
-    );
-    if (customer) {
-      setCustomer(customer);
-    }
-  };
 
   const handleChangeCustomer = (e) => {
     let { name, value, checked, type } = e.target;
@@ -120,9 +82,9 @@ export default function CustomerForm({location, companions, setCompanions, setHa
         dangerMode: true,
       }).then((confirm) => {
         if (confirm) {
-          setCompanions([...companions, customer]);
-          setCustomer(new Customers());
-          setUser(new Users());
+          if (travel) {
+            setCompanions([...companions, customer]);
+          }
           setHaveCompanions(true);
           swal({
             title: "Enviado",
@@ -164,8 +126,8 @@ export default function CustomerForm({location, companions, setCompanions, setHa
             <select
               className="form-select"
               name="documentType"
-              value={customer.documentType}
-              onChange={handleChangeCustomer}
+              value={user.documentType}
+              onChange={handleChangeUser}
               required
             >
               <option>Selecciona</option>
@@ -183,8 +145,8 @@ export default function CustomerForm({location, companions, setCompanions, setHa
               type="text"
               className="form-control"
               name="identification"
-              value={customer.identification}
-              onChange={handleChangeCustomer}
+              value={user.identification}
+              onChange={handleChangeUser}
               pattern="^[a-z0-9]{6,}$"
               required
             />
@@ -192,7 +154,7 @@ export default function CustomerForm({location, companions, setCompanions, setHa
             <small className="invalid-feedback">Campo obligatorio</small>
           </div>
           <div className="col-2">
-            <button className="btn" onClick={onClickSearch}>
+            <button className="btn">
               <MagnifyingGlassIcon width={25} />
             </button>
           </div>
@@ -360,7 +322,9 @@ export default function CustomerForm({location, companions, setCompanions, setHa
           type="checkbox"
           name="travel"
           value={false}
-          onChange={handleChangeCustomer}
+          onChange={() => {
+            travel = !travel;
+          }}
         />
         <label className="form-check-label" htmlFor="travel">
           El cliente está incluido en el viaje

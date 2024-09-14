@@ -11,6 +11,8 @@ import CompanionForm from "./CompanionForm";
 import CustomerForm from "./CustomerForm";
 import PaymentForm from "./PaymentForm";
 import Package from "../../components/Package";
+import { Customers } from "../../models/reservations/customers.model";
+import { Users } from "../../models/users/users.model";
 
 export default function Reserve() {
   const location = useLocation();
@@ -18,6 +20,12 @@ export default function Reserve() {
 
   const [haveCompanions, setHaveCompanions] = useState(false);
   const [companions, setCompanions] = useState([]);
+
+  const formCustomer = new Customers();
+  let [customer, setCustomer] = useState(formCustomer);
+  const formUser = new Users();
+  let [user, setUser] = useState(formUser);
+
 
   let indexEdit = -1;
 
@@ -35,6 +43,10 @@ export default function Reserve() {
           ) : (
             <CustomerForm
               location={location}
+              user={user}
+              setUser={setUser}
+              customer={customer}
+              setCustomer={setCustomer}
               companions={companions}
               setCompanions={setCompanions}
               setHaveCompanions={setHaveCompanions}
@@ -107,6 +119,23 @@ export default function Reserve() {
               ))}
             </tbody>
           </table>
+          <fieldset>
+            <legend>Cliente</legend>
+            <form className="row justify-content-end align-items-end">
+              {/* Agregar la informacion esencial de un cliente como: identificacion, nombres (nombres y apellidos en el mismo input) y el boton para ir a pagar */}
+              <label className="col-4">
+                Identificacion
+                <input type="text" className="form-control" value={user.identification} />
+              </label>
+              <label className="col-4">
+                Nombre
+                <input type="text" className="form-control" value={`${customer.name} ${customer.lastName}`} />
+              </label>
+              <div className="col-4">
+                <button className="btn btn-primary">Pagar</button>
+              </div>
+            </form>
+          </fieldset>
         </fieldset>
         <fieldset className="d-none d-lg-inline col-lg-2">
           <legend>Paquete</legend>

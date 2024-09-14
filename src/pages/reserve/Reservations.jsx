@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   CalendarDateRangeIcon,
   EyeIcon,
@@ -63,14 +63,20 @@ export default function Reservas() {
           <fieldset className="col-sm-12 col-md-8">
             <legend>Reservas</legend>
             <header className="buttons">
-              <button className="btn btn-primary">
+              <NavLink
+                to={{ pathname: "/programing-packs" }}
+                className="btn btn-primary m-2"
+              >
                 <CalendarDateRangeIcon width={25} />
                 Programación
-              </button>
-              <button className="btn btn-primary">
+              </NavLink>
+              <NavLink
+                to={{ pathname: "/" }}
+                className="btn btn-primary m-2"
+              >
                 <PlusCircleIcon width={25} />
                 Crear
-              </button>
+              </NavLink>
             </header>
             <table className="table table-striped my-2">
               <thead>
