@@ -62,7 +62,7 @@ export default function Services() {
         })}
       </Sidebar>
       <main className="col-11">
-        <div className="row p-2">
+        <div className="row">
           <form className="col-sm-12 col-md-6" onSubmit={handleSubmit}>
             <div className="mb-3">
               <legend>Servicio</legend>

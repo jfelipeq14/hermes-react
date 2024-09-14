@@ -55,7 +55,7 @@ export default function Packs() {
         })}
       </Sidebar>
       <main className="col-11">
-        <div className="row p-2">
+        <div className="row">
           <fieldset className="col-sm-12 col-md-7">
             <legend>Paquetes</legend>
             <header className="row">

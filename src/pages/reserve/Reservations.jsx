@@ -38,7 +38,7 @@ export default function Reservas() {
         })}
       </Sidebar>
       <main className="col-11">
-        <div className="row p-2">
+        <div className="row">
           <fieldset className="col-sm-12 col-md-4">
             <legend>Acompañantes</legend>
             <CompanionForm />
