@@ -21,9 +21,6 @@ export default function Service() {
     setServiceData({ ...serviceData, [e.target.name]: e.target.value });
   };
 
-  const handleReset = () => {
-    setServiceData(new Services());
-  };
 
   const handleCheck = (e) => {
     const state = e.target.checked;
@@ -51,40 +48,97 @@ export default function Service() {
     });
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     if (!e.currentTarget.checkValidity()) {
       e.stopPropagation();
-    } else {
-      swal({
-        title: "¿Quieres registrarte con estos datos?",
-        text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      }).then((confirm) => {
-        if (confirm) {
-          setData([...data, serviceData]);
-          swal({
-            title: "Enviado",
-            text: "Los datos fueron enviados correctamente",
-            icon: "success",
-            timer: 2000,
-            buttons: false,
-          });
-        } else {
-          swal({
-            title: "Cancelado",
-            text: "Los datos no se han enviado",
-            icon: "error",
-            timer: 2000,
-            buttons: false,
-          });
-        }
-      });
+      setValidated(true);
+      return;
     }
-    setValidated(true);
+  
+    swal({
+      title: "¿Quieres registrarte con estos datos?",
+      text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        setData(prevData => [...prevData, { ...serviceData, id: Date.now() }]);
+        swal({
+          title: "Enviado",
+          text: "Los datos fueron enviados correctamente",
+          icon: "success",
+          timer: 2000,
+          buttons: false,
+        });
+        resetForm();
+      } else {
+        swal({
+          title: "Cancelado",
+          text: "Los datos no se han enviado",
+          icon: "error",
+          timer: 2000,
+          buttons: false,
+        });
+      }
+    });
+  };
+  
+  const resetForm = () => {
+    setServiceData({
+      id: null,
+      id_categoryService: '',
+      name: '',
+      price: '',
+      status: true
+    });
+    setValidated(false);
+  };
+
+  const handleDelete = (id) => {
+    const index = data.findIndex((item) => item.id === id);
+    if (index < 0) return;
+    const updatedData = [...data];
+    updatedData.splice(index, 1);
+    setData(updatedData);
+
+    swal({
+      title: "¿Quieres registrarte con estos datos?",
+      text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        setData(prevData => [...prevData, { ...serviceData, id: Date.now() }]);
+        swal({
+          title: "Enviado",
+          text: "Los datos fueron enviados correctamente",
+          icon: "success",
+          timer: 2000,
+          buttons: false,
+        });
+        resetForm();
+      } else {
+        swal({
+          title: "Cancelado",
+          text: "Los datos no se han enviado",
+          icon: "error",
+          timer: 2000,
+          buttons: false,
+        });
+      }
+    });
+  };
+
+  const handleEdit = (id) => {
+    const serviceToEdit = data.find((item) => item.id === id);
+    if (serviceToEdit) {
+      setServiceData(serviceToEdit);
+    }
   };
 
   return (
@@ -107,7 +161,6 @@ export default function Service() {
             noValidate
             validated={validated}
             onSubmit={handleSubmit}
-            onReset={handleReset}
             className="col-sm-12 col-md-6 p-1"
           >
             <div className="mb-3">
@@ -122,6 +175,8 @@ export default function Service() {
               >
                 <option value="">Selecciona una categoría</option>
                 <option value={1}>Transporte</option>
+                <option value={2}>Alimentación</option>
+                <option value={3}>Entretenimiento</option>
               </select>
             </div>
             <div className="mb-3">
@@ -207,8 +262,20 @@ export default function Service() {
                 {data.map((item, index) => (
                   <tr key={index}>
                     <td>
-                      <PencilSquareIcon width={25} type="button" />
-                      <TrashIcon width={25} type="button" />
+                      <button
+                        className="btn m-0 p-0"
+                        onClick={() => handleEdit(item.id)}
+                      >
+                        <PencilSquareIcon width={25} />
+                      </button>
+                      <button
+                      className="btn m-0 p-0"
+                      onClick={() => handleDelete(item.id)}>
+                        <TrashIcon
+                          width={25}
+                          
+                        />
+                      </button>
                       <div className="form-switch d-inline">
                         <input
                           className="form-check-input"
