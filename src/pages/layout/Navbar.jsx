@@ -117,7 +117,7 @@ export default function Navbar({ children }) {
                 <p className="text-center">¿Estás seguro que deseas cerrar sesión?</p>
               </div>
               <div className="modal-footer d-flex justify-content-center border-top-0">
-                <button type="button" className="btn btn-secondary me-2" onClick={() => setShowLogoutModal(false)}>Cancelar</button>
+                <button type="button" className="btn btn-danger me-2" onClick={() => setShowLogoutModal(false)}>Cancelar</button>
                 <button type="button" className="btn btn-danger" onClick={handleLogout}>Cerrar Sesión</button>
               </div>
             </div>

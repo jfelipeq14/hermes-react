@@ -193,7 +193,7 @@ export default function UserForm() {
         </button>
         <button type="reset" className="btn btn-outline-danger">
           Cancelar
-        </button>
+        </button> 
       </div>
     </Form>
   );

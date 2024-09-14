@@ -166,7 +166,7 @@ const handleChangePrivilege = (permissionId, privilegeId) => (e) => {
         <button type="submit" className="btn btn-primary">
           Guardar
         </button>
-        <button type="reset" className="btn btn-primary">
+        <button type="reset" className="btn btn-danger">
           Cancelar
         </button>
       </div>

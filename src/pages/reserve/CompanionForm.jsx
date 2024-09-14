@@ -287,7 +287,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
         </button>
         <button
           type="reset"
-          className="btn btn-secondary"
+          className="btn btn-danger"
           onClick={() => {
             setHaveCompanions(false);
           }}

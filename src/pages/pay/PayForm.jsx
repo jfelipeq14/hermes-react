@@ -176,7 +176,7 @@ export default function PayForm() {
         <button type="submit" className="btn btn-primary">
           Pagar
         </button>
-        <button type="reset" className="btn btn-secondary">
+        <button type="reset" className="btn btn-danger">
           Cancelar
         </button>
       </div>

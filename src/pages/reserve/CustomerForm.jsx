@@ -370,7 +370,7 @@ export default function CustomerForm({location, companions, setCompanions, setHa
         <button type="submit" className="btn btn-primary">
           Crear
         </button>
-        <button type="reset" className="btn btn-secondary">
+        <button type="reset" className="btn btn-danger">
           Cancelar
         </button>
       </div>
