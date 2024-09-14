@@ -63,7 +63,7 @@ export default function UserLogin() {
 
   return (
     <>
-      <p>
+      <p className="text-center">
         <a href="#" onClick={toggleResetModal}>Olvidé mi contraseña</a>
       </p>
 

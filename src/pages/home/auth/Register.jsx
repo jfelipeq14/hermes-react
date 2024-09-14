@@ -104,9 +104,17 @@ export default function Register({ isOpen, clickModal }) {
   };
 
   return (
-    <Modal show={isOpen} onHide={clickModal}>
-      <h1 className="text-center p-4">Registrarse</h1>
-      <HermesLogo />
+    <Modal show={isOpen} onHide={clickModal} size="md">
+      <button
+        type="button"
+        className="btn-close position-absolute top-0 end-0 m-2"
+        onClick={clickModal}
+        aria-label="Close"
+      ></button>
+      <h1 className="text-center fs-3 my-5">Registrarse</h1>
+      <div className="container text-center">
+        <HermesLogo />
+      </div>
       <Form
         noValidate
         validated={validated}
