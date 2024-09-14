@@ -1,6 +1,7 @@
 import { PlusIcon } from "@heroicons/react/16/solid";
 import { NavLink } from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 export default function CardMenu({ title, logo, href }) {
   return (
     <div className="card m-5 text-center">

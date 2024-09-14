@@ -58,7 +58,6 @@ export default function Page() {
           <article className="row g-4">
             {packages.map((pkg) => {
               return (
-                // eslint-disable-next-line react/jsx-key
                 <Package
                   key={pkg.id}
                   address={pkg.address}
