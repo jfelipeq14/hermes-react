@@ -14,12 +14,12 @@ import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import CompanionForm from "./CompanionForm";
 import PayForm from "../pay/PayForm";
 import Modals from "../../components/Modals";
-import Calendar from "../../components/Calendar";
+import Reprogramming from "./Reprogramming";
 
 export default function Reservas() {
   const location = useLocation();
   console.log(location.state.identification);
-  
+
   const [modalPaysOpen, setModalPaysOpen] = useState(false);
   const clickModal = () => {
     setModalPaysOpen(!modalPaysOpen);
@@ -127,8 +127,8 @@ export default function Reservas() {
         </div>
       </main>
       {modalPaysOpen && (
-        <Modals isOpen={modalPaysOpen} clickModal={clickModal}>
-          <Calendar />
+        <Modals isOpen={modalPaysOpen} clickModal={clickModal} size="lg">
+          <Reprogramming clickModal={clickModal} />
         </Modals>
       )}
     </div>

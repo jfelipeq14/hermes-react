@@ -17,11 +17,8 @@ import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import swal from "sweetalert";
 //#endregion
 
-export default function CompanionForm({
-  companions,
-  setCompanions,
-  setHaveCompanions,
-}) {
+// eslint-disable-next-line react/prop-types
+export default function CompanionForm({ companions, setCompanions, setHaveCompanions,}) {
   // #region formData
   let formCompanion = new Companions();
   // #endregion
@@ -195,7 +192,7 @@ export default function CompanionForm({
               onChange={handleChangeCompanion}
               required
             >
-              <option>Selecciona</option>
+              <option value="">Selecciona</option>
               {phonePrefixes.map((phonePrefix) => (
                 <option key={phonePrefix.country}>{phonePrefix.prefix}</option>
               ))}
