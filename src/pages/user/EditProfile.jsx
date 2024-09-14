@@ -7,7 +7,8 @@ import { administrator } from "../../utilies/routes";
 import { Customers } from "../../models/reservations/customers.model";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 
-export default function EditProfile({ isOpen, clickModal }) {
+// eslint-disable-next-line react/prop-types
+export default function EditProfile({ clickModal }) {
   const formCustomer = new Customers();
   const [customer, setCustomer] = useState(formCustomer);
   const [validated, setValidated] = useState(false);

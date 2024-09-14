@@ -3,13 +3,7 @@ import { formattedPrice } from "../utilies/formattedPrice";
 import { NavLink } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-export default function Package({
-  address,
-  name,
-  date,
-  price,
-  services = [],
-}) {
+export default function Package({address,name,date,price,services = [],}) {
   return (
     <div className="col-sm-6 col-md-4 col-lg-3">
       <div className="card">

@@ -69,7 +69,6 @@ export default function CustomerForm({location, companions, setCompanions, setHa
   // #region functions
   const onClickSearch = () => {
     let customer = customers.find(
-      // eslint-disable-next-line react/prop-types
       (customer) => customer.identification === formCustomer.identification
     );
     if (customer) {
