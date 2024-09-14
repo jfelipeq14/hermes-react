@@ -1,24 +1,32 @@
+/* eslint-disable react/prop-types */
 //#region react imports
 import { useState } from "react";
 //#endregion
-//#region models imports
-import { Customers } from "../../models/reservations/customers.model";
-import { Users } from "../../models/users/users.model";
-//#endregion
+
 //#region utilities imports
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 //#endregion
+
 //#region react-bootstrap imports
 import { Form } from "react-bootstrap";
 //#endregion
+
 //#region complements imports
 import swal from "sweetalert";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
-// eslint-disable-next-line react/prop-types
-export default function CustomerForm({ location,user, setUser, customer, setCustomer, companions, setCompanions, setHaveCompanions,}) {
+export default function CustomerForm({
+  location,
+  user,
+  setUser,
+  customer,
+  setCustomer,
+  companions,
+  setCompanions,
+  setHaveCompanions,
+}) {
   //#region variables (datos quemados)
   let start = new Date();
   start.setFullYear(start.getFullYear() - 18);
@@ -28,8 +36,8 @@ export default function CustomerForm({ location,user, setUser, customer, setCust
   //#endregion
 
   //#region read props
-  // eslint-disable-next-line react/prop-types
-  if (location.state) customer.identification = location.state.identification ?? 0;
+  if (location.state)
+    customer.identification = location.state.identification ?? 0;
   //#endregion
 
   //#region hooks

@@ -44,7 +44,7 @@ const packages = [
     date: "2021-09-30",
     price: 1000000,
     services: ["servicio 1", "servicio 2", "servicio 3"],
-  }
+  },
 ];
 
 export default function Page() {
@@ -56,16 +56,18 @@ export default function Page() {
             <h2 className="fw-bold fs-4">Paquetes</h2>
           </header>
           <article className="row g-1">
-            {packages.map((pkg) => {
+            {packages.map((pkg, index) => {
               return (
-                <Package
-                  key={pkg.id}
-                  address={pkg.address}
-                  name={pkg.name}
-                  date={pkg.date}
-                  price={pkg.price}
-                  services={pkg.services}
-                />
+                <div className="col-sm-12 col-md-6 col-lg-3 p-2" key={index}>
+                  <Package
+                    key={pkg.id}
+                    address={pkg.address}
+                    name={pkg.name}
+                    date={pkg.date}
+                    price={pkg.price}
+                    services={pkg.services}
+                  />
+                </div>
               );
             })}
           </article>
