@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 import {
@@ -26,7 +26,6 @@ export default function Reserve() {
   const formUser = new Users();
   let [user, setUser] = useState(formUser);
 
-
   let indexEdit = -1;
 
   return (
@@ -34,7 +33,7 @@ export default function Reserve() {
       <div className="row m-0 p-0 g-2">
         <fieldset className="col-sm-12 col-lg-4">
           <legend>Datos personales</legend>
-          {haveCompanions ? (
+          {haveCompanions && (customer.name || customer.lastName) ? (
             <CompanionForm
               companions={companions}
               setCompanions={setCompanions}
@@ -125,14 +124,28 @@ export default function Reserve() {
               {/* Agregar la informacion esencial de un cliente como: identificacion, nombres (nombres y apellidos en el mismo input) y el boton para ir a pagar */}
               <label className="col-4">
                 Identificacion
-                <input type="text" className="form-control" value={user.identification} />
+                <input
+                  type="text"
+                  className="form-control"
+                  value={user.identification}
+                />
               </label>
               <label className="col-4">
                 Nombre
-                <input type="text" className="form-control" value={`${customer.name} ${customer.lastName}`} />
+                <input
+                  type="text"
+                  className="form-control"
+                  value={`${customer.name} ${customer.lastName}`}
+                />
               </label>
               <div className="col-4">
                 <button className="btn btn-primary">Pagar</button>
+                <NavLink
+                  to={{ pathname: "/" }}
+                  className="btn btn-danger"
+                >
+                  Cancelar
+                </NavLink>
               </div>
             </form>
           </fieldset>
