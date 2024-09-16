@@ -8,7 +8,7 @@ CREATE TABLE permissions(
     state BOOLEAN NOT NULL,
     CONSTRAINT pk_idPermission PRIMARY KEY (id_permission),
     CONSTRAINT uc_namePermissions UNIQUE (name),
-    CONSTRAINT chk_namePermissions CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$')
+    CONSTRAINT chk_namePermissions CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$')
 );
 SELECT * FROM permissions;
 
@@ -21,7 +21,7 @@ CREATE TABLE privileges(
     CONSTRAINT pk_idPrivilege PRIMARY KEY (id_privilege),
     CONSTRAINT fk_idPermission FOREIGN KEY (id_permission) REFERENCES permissions(id_permission),
     CONSTRAINT uc_namePrivilege UNIQUE (name),
-    CONSTRAINT chk_namePrivileges CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$')
+    CONSTRAINT chk_namePrivileges CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$')
 );
 SELECT * FROM privileges; 
 
@@ -36,7 +36,7 @@ CREATE TABLE roles(
   
     CONSTRAINT pk_idRole PRIMARY KEY (id_role),
     CONSTRAINT uc_nameRole UNIQUE (name),
-    CONSTRAINT chk_nameRole CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$')
+    CONSTRAINT chk_nameRole CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$')
 );
 SELECT * FROM roles;
 
@@ -77,7 +77,7 @@ CREATE TABLE category_services(
     name VARCHAR(60) NOT NULL,
 
     CONSTRAINT PK_categoryService PRIMARY KEY (id_categoryService),
-    CONSTRAINT chk_nameCategoryServices CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
+    CONSTRAINT chk_nameCategoryServices CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT UC_nameCategoryService UNIQUE (name)
 );
 SELECT * FROM category_services;
@@ -93,7 +93,7 @@ CREATE TABLE services(
     CONSTRAINT PK_Service PRIMARY KEY (id_service),
     CONSTRAINT UC_nameService UNIQUE (name),
     CONSTRAINT FK_categoryService FOREIGN KEY (id_categoryService) REFERENCES category_services(id_categoryService),
-    CONSTRAINT chk_nameServices CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
+    CONSTRAINT chk_nameServices CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_priceService CHECK (CAST(price AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
 );
 SELECT * FROM services;
@@ -107,8 +107,8 @@ CREATE TABLE  packages (
     status  BOOLEAN,
     
     CONSTRAINT pk_packages PRIMARY KEY (id_package),
-    CONSTRAINT chk_namePackage  CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
-    CONSTRAINT chk_destinationPackage  CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
+    CONSTRAINT chk_namePackage  CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
+    CONSTRAINT chk_destinationPackage  CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_pricePackage CHECK  (CAST(price AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
 );
 SELECT * FROM packages;
@@ -195,15 +195,15 @@ CREATE TABLE customers(
     
     CONSTRAINT pk_idCustomer PRIMARY KEY (id_customer),
     CONSTRAINT fk_idUser FOREIGN KEY (id_user) REFERENCES users(id_user),
-    CONSTRAINT chk_nameCustomer CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
-    CONSTRAINT chk_lastNameCustomer CHECK (lastName ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
+    CONSTRAINT chk_nameCustomer CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
+    CONSTRAINT chk_lastNameCustomer CHECK (lastName ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_phoneCustomer CHECK (phone ~ '^\+?[0-9]{1,3}[0-9]{7,}$'),
     CONSTRAINT chk_departamentCustomer CHECK (CAST(departament AS TEXT) ~ '^[0-9]$'),
     CONSTRAINT chk_municipalityCustomer CHECK (CAST(municipality AS TEXT) ~ '^[0-9]$'),
     CONSTRAINT chk_countryCustomer CHECK (CAST(country AS TEXT) ~ '^[0-9]$'),
     CONSTRAINT chk_sexCustomer CHECK (sex ~ '^(H|M)$'),
     CONSTRAINT chk_bloodTypeCustomer CHECK (bloodType ~ '^(A|B|AB|O)+[+|-]$'),
-    CONSTRAINT chk_epsCustomer CHECK (eps ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
+    CONSTRAINT chk_epsCustomer CHECK (eps ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
 );
 SELECT * FROM customers;
 
@@ -246,12 +246,12 @@ CREATE TABLE reserve_companions(
     CONSTRAINT fk_idReservation FOREIGN KEY (id_reservation) REFERENCES reservations(id_reservation),
     CONSTRAINT chk_documentTypeCompanion CHECK (documentType ~ '^(CC|CE|PA|SC|CD|TE|PEP|AS|DU|CCEX|CEEX|PAEX|SCEX|CDEX|TEX|RNEX|PEPEX|ASEX)$'),
     CONSTRAINT chk_identificationCompanion CHECK (identification ~ '^[a-z0-9]{6,}$'),
-    CONSTRAINT chk_nameCompanion CHECK (name ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
-    CONSTRAINT chk_lastNameCompanion CHECK (lastName ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
+    CONSTRAINT chk_nameCompanion CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
+    CONSTRAINT chk_lastNameCompanion CHECK (lastName ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_phoneCompanion CHECK (phone ~ '^\+?[0-9]{1,3}[0-9]{7,}$'),
     CONSTRAINT chk_sexCompanion CHECK (sex ~ '^[hm]$'),
     CONSTRAINT chk_bloodTypeCompanion CHECK (bloodType ~ '^(A|B|AB|O)+[+|-]$'),
-    CONSTRAINT chk_epsCompanion CHECK (eps ~ '^[A-Z][a-zñ]{3,}[^\d\W_]*$'),
+    CONSTRAINT chk_epsCompanion CHECK (eps ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
 );
 SELECT * FROM reserve_companions;
 

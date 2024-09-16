@@ -119,7 +119,7 @@ export default function EditProfile({ clickModal }) {
                       name="name"
                       value={customer.name}
                       onChange={handleChangeCustomer}
-                      pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+                      pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
                       required
                     />
                     <small className="valid-feedback">Todo bien!</small>
@@ -136,7 +136,7 @@ export default function EditProfile({ clickModal }) {
                       name="lastName"
                       value={customer.lastName}
                       onChange={handleChangeCustomer}
-                      pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+                      pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
                       required
                     />
                     <small className="valid-feedback">Todo bien!</small>

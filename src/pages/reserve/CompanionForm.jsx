@@ -158,7 +158,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
           name="name"
           value={companion.name}
           onChange={handleChangeCompanion}
-          pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+          pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
         <small className="valid-feedback">Todo bien!</small>
@@ -173,7 +173,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
           name="lastName"
           value={companion.lastName}
           onChange={handleChangeCompanion}
-          pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+          pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
         <small className="valid-feedback">Todo bien!</small>
@@ -274,7 +274,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
           name="eps"
           value={companion.eps}
           onChange={handleChangeCompanion}
-          pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+          pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
         <small className="valid-feedback">Todo bien!</small>
