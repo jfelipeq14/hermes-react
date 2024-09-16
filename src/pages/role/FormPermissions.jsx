@@ -130,7 +130,7 @@ const handleChangePrivilege = (permissionId, privilegeId) => (e) => {
           name="name"
           value={role.name}
           onChange={handleChangeRole}
-          pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+          pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
       </div>

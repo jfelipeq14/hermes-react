@@ -83,7 +83,7 @@ export default function PayForm() {
           name="name"
           value={pay.cliente}
           onChange={handleChange}
-          pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+          pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
         <small className="valid-feedback">Todo bien!</small>
@@ -98,7 +98,7 @@ export default function PayForm() {
           name="name"
           value={pay.paquete}
           onChange={handleChange}
-          pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+          pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
         <small className="valid-feedback">Todo bien!</small>

@@ -97,7 +97,7 @@ export default function PackForm() {
                   name="name"
                   value={pack.name}
                   onChange={handleChangePack}
-                  pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+                  pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
                   required
                 />
                 <small className="valid-feedback">Todo bien!</small>
@@ -112,7 +112,7 @@ export default function PackForm() {
                   name="destination"
                   value={pack.destination}
                   onChange={handleChangePack}
-                  pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+                  pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
                   required
                 />
                 <small className="valid-feedback">Todo bien!</small>
@@ -197,7 +197,7 @@ export default function PackForm() {
                       name="precio"
                       value={pack.precio}
                       onChange={handleChangePack}
-                      pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
+                      pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
                       required
                     />
                     <small className="valid-feedback">Todo bien!</small>

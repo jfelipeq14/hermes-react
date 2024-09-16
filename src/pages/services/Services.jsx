@@ -189,7 +189,7 @@ export default function Service() {
                 name="name"
                 value={serviceData.name}
                 onChange={handleChange}
-                // pattern="'^[A-Z][a-zñ]{3,}[^\d\W_]*$'"
+                pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
                 required
               />
               <small className="valid-feedback">Todo bien!</small>
