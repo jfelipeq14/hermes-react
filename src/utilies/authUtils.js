@@ -1,8 +1,13 @@
+import Cookies from 'js-cookie';
 
+export const getToken = () => {
+  return Cookies.get("access-token");
+}
 
-export const logout = () => {
-    // Aquí puedes eliminar el token del almacenamiento local o del contexto
-    localStorage.removeItem("token"); // o el nombre que estés usando
-    console.log("Cierre de sesión exitoso");
-  };
-  
+export const setToken = (token) => {
+  Cookies.set("access-token", token);
+}
+
+export const removeToken = () => {
+  Cookies.remove("access-token");
+}
