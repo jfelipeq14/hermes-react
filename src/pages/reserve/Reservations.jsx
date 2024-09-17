@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   CalendarDateRangeIcon,
   EyeIcon,
@@ -17,9 +17,6 @@ import Modals from "../../components/Modals";
 import Reprogramming from "./Reprogramming";
 
 export default function Reservas() {
-  const location = useLocation();
-  console.log(location.state.identification);
-
   const [modalPaysOpen, setModalPaysOpen] = useState(false);
   const clickModal = () => {
     setModalPaysOpen(!modalPaysOpen);

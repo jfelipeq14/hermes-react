@@ -227,28 +227,6 @@ export default function Service() {
                 Por favor escriba un nombre valido
               </small>
             </div>
-            <div className="mb-3">
-              <label className="form-label">Estado</label>
-              <div>
-                <label htmlFor="habilitado">Habilitado</label>
-                <input
-                  type="radio"
-                  id="habilitado"
-                  name="status"
-                  value={true}
-                  onChange={handleChange}
-                  checked
-                />
-                <label htmlFor="deshabilitado">Deshabilitado</label>
-                <input
-                  type="radio"
-                  id="deshabilitado"
-                  name="status"
-                  value={false}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
             <div className="buttons">
               <button type="submit" className="btn btn-primary">
                 Guardar

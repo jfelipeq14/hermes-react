@@ -32,41 +32,47 @@ export default function Dashboard() {
             <div className="mx-auto">
               <div className="row">
                 <div className="col-sm-12 col-md-4">
-                  <UserIcon width={200} />
+                  <div className="text-center">
+                    <UserIcon width={130} color="silver" />
 
-                  <p>Esteban Dido</p>
-                  <div>
-                    <span>Paquetes totales: </span>
-                    <strong>20</strong>
-                  </div>
-                  <div>
-                    <span>Total dinero: </span>
-                    <strong>200000000</strong>
+                    <p>Esteban Dido</p>
+                    <div>
+                      <span>Paquetes totales: </span>
+                      <strong>20</strong>
+                    </div>
+                    <div>
+                      <span>Total dinero: </span>
+                      <strong>200000000</strong>
+                    </div>
                   </div>
                 </div>
                 <div className="col-sm-12 col-md-4">
-                  <UserIcon width={200} />
-                  <p>Esteban Dido</p>
-                  <div>
-                    <span>Paquetes totales: </span>
-                    <strong>20</strong>
-                  </div>
-                  <div>
-                    <span>Total dinero: </span>
-                    <strong>200000000</strong>
+                  <div className="text-center">
+                    <UserIcon width={150} color="gold" />
+                    <p>Esteban Dido</p>
+                    <div>
+                      <span>Paquetes totales: </span>
+                      <strong>20</strong>
+                    </div>
+                    <div>
+                      <span>Total dinero: </span>
+                      <strong>200000000</strong>
+                    </div>
                   </div>
                 </div>
                 <div className="col-sm-12 col-md-4">
-                  <UserIcon width={200} />
+                  <div className="text-center">
+                    <UserIcon width={120} color="bronze" />
 
-                  <p>Esteban Dido</p>
-                  <div>
-                    <span>Paquetes totales: </span>
-                    <strong>20</strong>
-                  </div>
-                  <div>
-                    <span>Total dinero: </span>
-                    <strong>200000000</strong>
+                    <p>Esteban Dido</p>
+                    <div>
+                      <span>Paquetes totales: </span>
+                      <strong>20</strong>
+                    </div>
+                    <div>
+                      <span>Total dinero: </span>
+                      <strong>200000000</strong>
+                    </div>
                   </div>
                 </div>
               </div>

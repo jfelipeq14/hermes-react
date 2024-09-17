@@ -6,6 +6,7 @@ CREATE TABLE permissions(
     id_permission SERIAL NOT NULL,
     name VARCHAR(60) NOT NULL,
     state BOOLEAN NOT NULL,
+
     CONSTRAINT pk_idPermission PRIMARY KEY (id_permission),
     CONSTRAINT uc_namePermissions UNIQUE (name),
     CONSTRAINT chk_namePermissions CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$')
@@ -33,7 +34,6 @@ CREATE TABLE roles(
     name VARCHAR(60) NOT NULL,
     state BOOLEAN NOT NULL,
 
-  
     CONSTRAINT pk_idRole PRIMARY KEY (id_role),
     CONSTRAINT uc_nameRole UNIQUE (name),
     CONSTRAINT chk_nameRole CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$')
@@ -89,7 +89,7 @@ CREATE TABLE services(
     name VARCHAR(60) NOT NULL,
     price DECIMAL(15,2) NOT NULL,
     status BOOLEAN NOT NULL,
-    
+
     CONSTRAINT PK_Service PRIMARY KEY (id_service),
     CONSTRAINT UC_nameService UNIQUE (name),
     CONSTRAINT FK_categoryService FOREIGN KEY (id_categoryService) REFERENCES category_services(id_categoryService),
