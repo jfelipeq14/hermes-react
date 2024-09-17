@@ -15,31 +15,43 @@ export default function Service() {
   const formService = new Services();
   const [serviceData, setServiceData] = useState(formService);
   const [data, setData] = useState([]);
-  let [validated, setValidated] = useState(false);
+  const [validated, setValidated] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const handleChange = (e) => {
     setServiceData({ ...serviceData, [e.target.name]: e.target.value });
   };
 
-
-  const handleCheck = (e) => {
-    const state = e.target.checked;
+  const handleCheck = (id, currentState) => {
+    const newState = !currentState;
     swal({
       title: "¿Estás seguro?",
-      text: "Si desactivas este servicio, no podra ser exhibido en los paquetes",
+      text: newState
+        ? "Si activas este servicio, podrá ser exhibido en los paquetes"
+        : "Si desactivas este servicio, no podrá ser exhibido en los paquetes",
       icon: "warning",
       buttons: true,
-      dangerMode: true,
+      dangerMode: !newState,
     }).then((confirm) => {
       if (confirm) {
-        {
-          e.target.checked = state ? true : false;
-        }
+        setData((prevData) =>
+          prevData.map((item) =>
+            item.id === id ? { ...item, status: newState } : item
+          )
+        );
+        swal({
+          title: newState ? "Activado" : "Desactivado",
+          text: newState
+            ? "El servicio ha sido activado y será exhibido en los paquetes"
+            : "El servicio ha sido desactivado y no será exhibido en los paquetes",
+          icon: newState ? "success" : "info",
+          timer: 2000,
+          buttons: false,
+        });
       } else {
-        e.target.checked = state ? false : true;
         swal({
           title: "Cancelado",
-          text: "Los datos no se han enviado",
+          text: "No se han realizado cambios",
           icon: "error",
           timer: 2000,
           buttons: false,
@@ -48,28 +60,42 @@ export default function Service() {
     });
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     if (!e.currentTarget.checkValidity()) {
       e.stopPropagation();
       setValidated(true);
       return;
     }
-  
+
     swal({
-      title: "¿Quieres registrarte con estos datos?",
+      title: editMode
+        ? "¿Quieres guardar estos cambios?"
+        : "¿Quieres registrar este servicio?",
       text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
       icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((confirm) => {
       if (confirm) {
-        setData(prevData => [...prevData, { ...serviceData, id: Date.now() }]);
+        if (editMode) {
+          setData((prevData) =>
+            prevData.map((item) =>
+              item.id === serviceData.id ? serviceData : item
+            )
+          );
+        } else {
+          setData((prevData) => [
+            ...prevData,
+            { ...serviceData, id: Date.now() },
+          ]);
+        }
         swal({
-          title: "Enviado",
-          text: "Los datos fueron enviados correctamente",
+          title: editMode ? "Actualizado" : "Registrado",
+          text: editMode
+            ? "Los datos fueron actualizados correctamente"
+            : "Los datos fueron registrados correctamente",
           icon: "success",
           timer: 2000,
           buttons: false,
@@ -86,50 +112,35 @@ export default function Service() {
       }
     });
   };
-  
   const resetForm = () => {
     setServiceData({
       id: null,
-      id_categoryService: '',
-      name: '',
-      price: '',
-      status: true
+      id_categoryService: "",
+      name: "",
+      price: "",
+      status: true,
     });
     setValidated(false);
+    setEditMode(false);
   };
 
   const handleDelete = (id) => {
-    const index = data.findIndex((item) => item.id === id);
-    if (index < 0) return;
-    const updatedData = [...data];
-    updatedData.splice(index, 1);
-    setData(updatedData);
-
     swal({
-      title: "¿Quieres registrarte con estos datos?",
-      text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
+      title: "¿Estás seguro?",
+      text: "Una vez eliminado, no podrás recuperar este servicio",
       icon: "warning",
-      buttons: true,
+      buttons: ["Cancelar", "Sí, eliminar"],
       dangerMode: true,
-    }).then((confirm) => {
-      if (confirm) {
-        setData(prevData => [...prevData, { ...serviceData, id: Date.now() }]);
-        swal({
-          title: "Enviado",
-          text: "Los datos fueron enviados correctamente",
-          icon: "success",
-          timer: 2000,
-          buttons: false,
-        });
-        resetForm();
+    }).then((willDelete) => {
+      if (willDelete) {
+        setData((prevData) => prevData.filter((item) => item.id !== id));
+        swal(
+          "Eliminado",
+          "El servicio ha sido eliminado correctamente",
+          "success"
+        );
       } else {
-        swal({
-          title: "Cancelado",
-          text: "Los datos no se han enviado",
-          icon: "error",
-          timer: 2000,
-          buttons: false,
-        });
+        swal("Cancelado", "El servicio está a salvo", "info");
       }
     });
   };
@@ -138,6 +149,7 @@ export default function Service() {
     const serviceToEdit = data.find((item) => item.id === id);
     if (serviceToEdit) {
       setServiceData(serviceToEdit);
+      setEditMode(true);
     }
   };
 
@@ -189,7 +201,7 @@ export default function Service() {
                 name="name"
                 value={serviceData.name}
                 onChange={handleChange}
-                pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
+                pattern="^[A-Z][a-zñ]{3,}[^\d\W_]*$"
                 required
               />
               <small className="valid-feedback">Todo bien!</small>
@@ -241,7 +253,7 @@ export default function Service() {
               <button type="submit" className="btn btn-primary">
                 Guardar
               </button>
-              <button type="reset" className="btn btn-danger">
+              <button type="reset" className="btn btn-secondary" onClick={resetForm}>
                 Cancelar
               </button>
             </div>
@@ -259,8 +271,8 @@ export default function Service() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
+                {data.map((item) => (
+                  <tr key={item.id}>
                     <td>
                       <button
                         className="btn m-0 p-0"
@@ -269,29 +281,25 @@ export default function Service() {
                         <PencilSquareIcon width={25} />
                       </button>
                       <button
-                      className="btn m-0 p-0"
-                      onClick={() => handleDelete(item.id)}>
-                        <TrashIcon
-                          width={25}
-                          
-                        />
+                        className="btn m-0 p-0"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        <TrashIcon width={25} />
                       </button>
                       <div className="form-switch d-inline">
                         <input
                           className="form-check-input"
                           type="checkbox"
                           role="switch"
-                          name="state"
-                          onChange={handleCheck}
-                          checked
+                          checked={item.status}
+                          onChange={() => handleCheck(item.id, item.status)}
                         />
-                        {/* Hacer la validacion de, si le doy al radio me tiene que poner el estado que selecciones, si es habilitado o deshabilitado */}
                       </div>
                     </td>
                     <td>{item.id_categoryService}</td>
                     <td>{item.name}</td>
                     <td>{item.price}</td>
-                    <td>{item.status ? "Activo" : "Inactivo"}</td>
+                    <td>{item.status ? "Habilitado" : "Inhabilitado"}</td>
                   </tr>
                 ))}
               </tbody>
