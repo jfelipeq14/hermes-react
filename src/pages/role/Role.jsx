@@ -7,12 +7,12 @@ import swal from "sweetalert";
 export default function RolePage() {
   const roles = [
     {
-      id_role: 1,
+      idRole: 1,
       name: "Aministrador",
       state: true,
     },
     {
-      id_role: 2,
+      idRole: 2,
       name: "Cliente",
       state: true,
     },
@@ -78,9 +78,9 @@ export default function RolePage() {
                 </thead>
                 <tbody>
                   {roles.map((rol) => (
-                    <tr key={rol.id_role}>
+                    <tr key={rol.idRole}>
                       <td className="px-4 py-3">{rol.name}</td>
-                      <td className="px-4 py-3" key={rol.id_role}>
+                      <td className="px-4 py-3" key={rol.idRole}>
                         <PencilSquareIcon width={25} type="button" />
                         <TrashIcon width={25} type="button" />
                         <div className="form-switch d-inline">

@@ -87,7 +87,7 @@ export default function Users() {
                     </td>
                     <td>{user.identification}</td>
                     <td>{user.email}</td>
-                    <td>{user.id_role}</td>
+                    <td>{user.idRole}</td>
                     <td>{user.state ? "Activo" : "Inactivo"}</td>
                   </tr>
                 ))}

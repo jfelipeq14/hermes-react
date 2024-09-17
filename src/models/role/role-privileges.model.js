@@ -1,7 +1,7 @@
 export class RolePrivilege {
   constructor() {
-    this.id_role_privilege = 0;
-    this.id_role = 0;
-    this.id_privilege = 0;
+    this.idRolePrivilege = 0;
+    this.idRole = 0;
+    this.idPrivilege = 0;
   }
 }

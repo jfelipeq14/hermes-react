@@ -15,11 +15,11 @@ SELECT * FROM permissions;
 
 DROP TABLE IF EXISTS privileges CASCADE;
 CREATE TABLE privileges(
-    id_privilege SERIAL NOT NULL,
+    idPrivilege SERIAL NOT NULL,
     name VARCHAR(60) NOT NULL,
     id_permission INTEGER NOT NULL,
 
-    CONSTRAINT pk_idPrivilege PRIMARY KEY (id_privilege),
+    CONSTRAINT pk_idPrivilege PRIMARY KEY (idPrivilege),
     CONSTRAINT fk_idPermission FOREIGN KEY (id_permission) REFERENCES permissions(id_permission),
     CONSTRAINT uc_namePrivilege UNIQUE (name),
     CONSTRAINT chk_namePrivileges CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$')
@@ -30,11 +30,11 @@ SELECT * FROM privileges;
 
 DROP TABLE IF EXISTS roles CASCADE;
 CREATE TABLE roles(
-    id_role SERIAL NOT NULL,
+    idRole SERIAL NOT NULL,
     name VARCHAR(60) NOT NULL,
     state BOOLEAN NOT NULL,
 
-    CONSTRAINT pk_idRole PRIMARY KEY (id_role),
+    CONSTRAINT pk_idRole PRIMARY KEY (idRole),
     CONSTRAINT uc_nameRole UNIQUE (name),
     CONSTRAINT chk_nameRole CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$')
 );
@@ -42,20 +42,20 @@ SELECT * FROM roles;
 
 DROP TABLE IF EXISTS role_privilege CASCADE;
 CREATE TABLE role_privileges(
-    id_role_privilege SERIAL NOT NULL,
-    id_role INTEGER NOT NULL,
-    id_privilege INTEGER NOT NULL,
+    idRolePrivilege SERIAL NOT NULL,
+    idRole INTEGER NOT NULL,
+    idPrivilege INTEGER NOT NULL,
     
-    CONSTRAINT pk_idRolePrivilege PRIMARY KEY (id_role_privilege),
-    CONSTRAINT fk_idRole FOREIGN KEY (id_role) REFERENCES roles(id_role),
-    CONSTRAINT fk_idPrivilege FOREIGN KEY (id_privilege) REFERENCES privileges(id_privilege)
+    CONSTRAINT pk_idRolePrivilege PRIMARY KEY (idRolePrivilege),
+    CONSTRAINT fk_idRole FOREIGN KEY (idRole) REFERENCES roles(idRole),
+    CONSTRAINT fk_idPrivilege FOREIGN KEY (idPrivilege) REFERENCES privileges(idPrivilege)
 );
 SELECT * FROM role_privilege;
 
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users( 
     id_user SERIAL NOT NULL,
-    id_role INTEGER NOT NULL,
+    idRole INTEGER NOT NULL,
     documentType VARCHAR(5) NOT NULL,
     identification VARCHAR(60) NOT NULL,
     email VARCHAR(255) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE users(
     state BOOLEAN,
 
     CONSTRAINT pk_idUser PRIMARY KEY (id_user),
-    CONSTRAINT fk_idRoleUser FOREIGN KEY (id_role) REFERENCES roles(id_role),
+    CONSTRAINT fk_idRoleUser FOREIGN KEY (idRole) REFERENCES roles(idRole),
     CONSTRAINT chk_documentTypeUser CHECK (documentType ~ '^(CC|CE|PA|SC|CD|TE|PEP|AS|DU|CCEX|CEEX|PAEX|SCEX|CDEX|TEX|RNEX|PEPEX|ASEX)$'),
     CONSTRAINT chk_identificationUser CHECK (identification ~ '^[a-z0-9]{6,}$'),
     CONSTRAINT chk_emailUser CHECK (email ~ '^[a-z0-9.!#$%&*+/=?^_`{|}~-]+@[a-z0-9-]+\.[a-z0-9.]{2,}$')

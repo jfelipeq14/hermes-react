@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import HermesLogo from "../../components/HermesLogo";
 import Login from "../home/auth/Login";
@@ -7,7 +7,12 @@ import {
   ArrowRightEndOnRectangleIcon,
   UserCircleIcon,
 } from "@heroicons/react/16/solid";
-import { login } from "../home/service/home.service";
+import {
+  getTokenStorage,
+  removeTokenStorage,
+  setTokenStorage,
+} from "../../utilies/authUtils";
+import { login, logout } from "../../services/auth.service";
 
 // eslint-disable-next-line react/prop-types
 export default function Navbar({ children }) {
@@ -19,6 +24,14 @@ export default function Navbar({ children }) {
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [validated, setValidated] = useState(false);
+
+  useEffect(() => {
+    const loggedUser = getTokenStorage();
+    if (loggedUser) {
+      const user = JSON.parse(loggedUser);
+      setUser(user);
+    }
+  }, []);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -33,7 +46,8 @@ export default function Navbar({ children }) {
     } else {
       try {
         const userLogin = await login({ email, password });
-        setUser(userLogin.data);
+        setUser(userLogin);
+        setTokenStorage(userLogin);
         setOpenLoginModal(false);
         navigate("/menu");
       } catch (error) {
@@ -44,7 +58,9 @@ export default function Navbar({ children }) {
   };
 
   const handleLogout = () => {
-    setUser(false);
+    setUser(null);
+    removeTokenStorage();
+    logout();
     setShowLogoutModal(false); // Cierra el modal al cerrar sesión
     navigate("/");
   };
@@ -84,7 +100,7 @@ export default function Navbar({ children }) {
                     className="btn btn-outline-dark mx-2"
                     onClick={() => navigate("/edit-profile")}
                   >
-                    {user.email}
+                    {user.data.email}
                     <UserCircleIcon width={25} className="mx-2" />
                   </button>
                   <button

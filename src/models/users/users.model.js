@@ -1,7 +1,7 @@
 export class Users {
   constructor() {
-    this.id_user = 0;
-    this.id_role = 0;
+    this.idUser = 0;
+    this.idRole = 0;
     this.documentType =
       "" ||
       "CC" ||
@@ -25,6 +25,6 @@ export class Users {
     this.identification = "";
     this.email = "";
     this.password = "";
-    this.state = true;
+    this.status = true;
   }
 }

@@ -20,7 +20,7 @@ export default function Register({ isOpen, clickModal }) {
   //   useState(false);
   // Puedes ahorrarte todo lo anterior con
   const formUser = new Users();
-  formUser.id_role = 2; // Usuario
+  formUser.idRole = 2; // Usuario
   const [user, setUser] = useState(formUser); // Un solo estado para todos los campos
   const [confirmPassword, setConfirmPassword] = useState("");
   const handleChange = (e) => {

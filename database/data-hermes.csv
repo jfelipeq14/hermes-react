@@ -46,7 +46,7 @@
 "permissions","id_permission","nextval('permissions_id_permission_seq'::regclass)","NO","integer",32,NULL,NULL
 "permissions","name",NULL,"NO","character varying",60,NULL,NULL
 "permissions","state",NULL,"NO","boolean",NULL,NULL,NULL
-"privileges","id_privilege","nextval('privileges_id_privilege_seq'::regclass)","NO","integer",32,NULL,NULL
+"privileges","idPrivilege","nextval('privileges_idPrivilege_seq'::regclass)","NO","integer",32,NULL,NULL
 "privileges","id_permission",NULL,"NO","integer",32,NULL,NULL
 "privileges","name",NULL,"NO","character varying",60,NULL,NULL
 "programation_packages","date_ending",NULL,"NO","date",NULL,NULL,NULL
@@ -72,10 +72,10 @@
 "reserve_companions","eps",NULL,"YES","character varying",60,NULL,NULL
 "reserve_companions","healthposition",NULL,"YES","character varying",60,NULL,NULL
 "reserve_companions","rh",NULL,"YES","character",1,NULL,NULL
-"role_privilege","id_role",NULL,"NO","integer",32,NULL,NULL
-"role_privilege","id_role_privilege","nextval('role_privilege_id_role_privilege_seq'::regclass)","NO","integer",32,NULL,NULL
-"role_privilege","id_privilege",NULL,"NO","integer",32,NULL,NULL
-"roles","id_role","nextval('roles_id_role_seq'::regclass)","NO","integer",32,NULL,NULL
+"role_privilege","idRole",NULL,"NO","integer",32,NULL,NULL
+"role_privilege","idRolePrivilege","nextval('role_privilege_idRolePrivilege_seq'::regclass)","NO","integer",32,NULL,NULL
+"role_privilege","idPrivilege",NULL,"NO","integer",32,NULL,NULL
+"roles","idRole","nextval('roles_idRole_seq'::regclass)","NO","integer",32,NULL,NULL
 "roles","state",NULL,"NO","boolean",NULL,NULL,NULL
 "roles","name",NULL,"NO","character varying",60,NULL,NULL
 "services","name",NULL,"NO","character varying",60,NULL,NULL
@@ -83,7 +83,7 @@
 "services","id_categoryservice",NULL,"NO","integer",32,NULL,NULL
 "services","id_service","nextval('services_id_service_seq'::regclass)","NO","integer",32,NULL,NULL
 "services","status",NULL,"NO","boolean",NULL,NULL,NULL
-"users","id_role",NULL,"NO","integer",32,NULL,NULL
+"users","idRole",NULL,"NO","integer",32,NULL,NULL
 "users","id_user","nextval('users_id_user_seq'::regclass)","NO","integer",32,NULL,NULL
 "users","state",NULL,"YES","boolean",NULL,NULL,NULL
 "users","email",NULL,"NO","character varying",255,NULL,NULL
