@@ -11,7 +11,6 @@ import { logout } from "../../services/auth.service";
 import Login from "../home/auth/Login";
 import Register from "../home/auth/Register";
 
-// eslint-disable-next-line react/prop-types
 export default function Navbar({ children, user, setUser }) {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
