@@ -7,130 +7,98 @@ import {
   TicketIcon,
   UserGroupIcon,
   UsersIcon,
+  UserIcon,
 } from "@heroicons/react/16/solid";
 
 import Dashboard from "../pages/Dashboard";
-import Reserve from "../pages/reserve/Reserve";
+import Roles from "../pages/role/Role";
+import Users from "../pages/user/Users";
+import Services from "../pages/services/Services";
+import Packages from "../pages/packages/Packages";
+import CreatePackages from "../pages/packages/CreatePackages";
+import Programming from "../pages/packages/Programing";
+import Customers from "../pages/customers/Customers";
+import Reservations from "../pages/reserve/Reservations";
+import Payments from "../pages/pay/Payments";
+import Pays from "../pages/pay/Sales";
+
 import EditProfile from "../pages/user/EditProfile";
 
 export const administrator = [
   {
-    id_permission: 1,
     name: "Dashboard",
-    state: true,
     href: "administrator/dashboard",
     component: Dashboard,
     icon: ChartPieIcon,
   },
   {
-    id_permission: 2,
+    name: "Perfil",
+    href: "administrator/profile",
+    component: EditProfile,
+    icon: UserIcon,
+  },
+  {
     name: "Configuración",
-    state: true,
-    surmenu: [
-      {
-        name: "Gestion de Roles",
-        href: "administrator/roles",
-      },
-    ],
     href: "administrator/roles",
+    component: Roles,
     icon: Cog6ToothIcon,
   },
   {
-    id_permission: 3,
     name: "Usuarios",
-    state: true,
-    surmenu: [
-      {
-        name: "Gestión de usuarios",
-        href: "administrator/users",
-      },
-    ],
     href: "administrator/users",
+    component: Users,
     icon: UsersIcon,
   },
   {
-    id_permission: 4,
     name: "Servicios",
-    state: true,
-    surmenu: [
-      {
-        name: "Gestión de servicios",
-        href: "administrator/services",
-      },
-    ],
     href: "administrator/services",
+    component: Services,
     icon: ShoppingCartIcon,
   },
   {
-    id_permission: 5,
     name: "Paquetes",
-    state: true,
-    surmenu: [
-      {
-        name: "Consultar paquetes",
-        href: "administrator/packages/consult",
-      },
+    href: "administrator/packages",
+    component: Packages,
+    submenu: [
       {
         name: "Crear paquetes",
         href: "administrator/packages/create",
+        component: CreatePackages,
       },
       {
-        name: "Programacion de paquetes",
-        href: "administrator/packages/program",
+        name: "Programación de paquetes",
+        href: "administrator/packages/programming",
+        component: Programming,
       },
     ],
-    href: "administrator/users",
     icon: CubeIcon,
   },
   {
-    id_permission: 6,
     name: "Clientes",
-    state: true,
-    surmenu: [
-      {
-        name: "Consultar clientes",
-        href: "administrator/customers/consult",
-      },
-      {
-        name: "Crear clientes",
-        href: "administrator/customers/create",
-      },
-    ],
-    href: "administrator/users",
+    href: "administrator/customers",
+    component: Customers,
     icon: UserGroupIcon,
   },
   {
-    id_permission: 7,
     name: "Reservas",
-    state: true,
-    surmenu: [
-      {
-        name: "Consultar reservas",
-        href: "administrator/reserve/consult",
-      },
-      {
-        name: "Crear reserva",
-        href: "administrator/reserve/create",
-      },
-    ],
-    href: "administrator/users",
+    href: "administrator/reservations",
+    component: Reservations,
     icon: FolderPlusIcon,
   },
   {
-    id_permission: 8,
-    name: "Ventas",
-    state: true,
-    surmenu: [
+    name: "Pagos",
+    submenu: [
       {
         name: "Consultar pagos",
-        href: "administrator/payments/consult",
+        href: "administrator/pays",
+        component: Pays,
       },
       {
-        name: "Gestion de pagos",
-        href: "administrator/payments/manage",
+        name: "Gestión de pagos",
+        href: "administrator/payments",
+        component: Payments,
       },
     ],
-    href: "administrator/users",
     icon: TicketIcon,
   },
 ];
@@ -138,8 +106,7 @@ export const administrator = [
 export const customer = [
   {
     name: "Reserve",
-    href: "customer/reserve",
-    component: Reserve,
+    href: "/reserve",
     icon: UserGroupIcon,
   },
   {

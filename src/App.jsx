@@ -8,6 +8,7 @@ import PageNotFound from "./pages/PageNotFound";
 
 import { getTokenStorage } from "./utilies/authUtils";
 import { administrator } from "./utilies/routes";
+import Reserve from "./pages/reserve/Reserve";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -31,18 +32,40 @@ export default function App() {
       </Navbar>
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/reserve" element={<Reserve />} />
         {user &&
           user.data.id_role === 1 &&
-          administrator.map((admin) => (
-            <Route
-              key={admin.name}
-              exact
-              path={admin.href}
-              element={
-                <RenderComponent user={user} component={<admin.component />} />
-              }
-            />
-          ))}
+          administrator.map((admin) => {
+            if (!admin.component && admin.submenu) {
+              return admin.submenu.map((submenu) => (
+                <Route
+                  key={submenu.name}
+                  exact
+                  path={submenu.href}
+                  element={
+                    <RenderComponent
+                      user={user}
+                      component={<submenu.component />}
+                    />
+                  }
+                />
+              ));
+            } else {
+              return (
+                <Route
+                  key={admin.name}
+                  exact
+                  path={admin.href}
+                  element={
+                    <RenderComponent
+                      user={user}
+                      component={<admin.component />}
+                    />
+                  }
+                />
+              );
+            }
+          })}
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
