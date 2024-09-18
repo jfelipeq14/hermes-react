@@ -11,3 +11,15 @@ export const setToken = (token) => {
 export const removeToken = () => {
   Cookies.remove("access-token");
 }
+
+export const setTokenStorage = (token) => {
+  window.localStorage.setItem("access-token", JSON.stringify(token));
+}
+
+export const getTokenStorage = () => {
+  return window.localStorage.getItem("access-token")
+}
+
+export const removeTokenStorage = () => {
+  window.localStorage.removeItem("access-token");
+}

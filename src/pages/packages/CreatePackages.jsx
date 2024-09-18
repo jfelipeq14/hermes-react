@@ -154,7 +154,7 @@ export default function PackForm() {
                       onChange={handleChangeOptions}
                       required
                     >
-                      <option selected>Selecciona</option>
+                      <option value="">Selecciona</option>
                       {services.map((service) => (
                         <option key={service.idService}>
                           {service.nombre}

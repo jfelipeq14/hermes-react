@@ -6,8 +6,8 @@ import { useState } from "react";
 
 export default function UserForm() {
   const roles = [
-    { id_role: 1, name: "Administrador", state: true },
-    { id_role: 2, name: "Usuario", state: true },
+    { idRole: 1, name: "Administrador", state: true },
+    { idRole: 2, name: "Usuario", state: true },
   ];
 
   const [users, setUsers] = useState([]);
@@ -71,14 +71,14 @@ export default function UserForm() {
         </label>
         <select
           className="form-select"
-          name="id_role"
-          value={user.id_role}
+          name="idRole"
+          value={user.idRole}
           onChange={handleChangeUser}
           required
         >
           <option selected>Selecciona</option>
           {roles.map((role) => (
-            <option key={role.id_role}>{role.name}</option>
+            <option key={role.idRole}>{role.name}</option>
           ))}
         </select>
         <small className="valid-feedback">Todo bien!</small>

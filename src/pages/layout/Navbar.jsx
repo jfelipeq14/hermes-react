@@ -1,52 +1,24 @@
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { Navigate, NavLink } from "react-router-dom";
 import HermesLogo from "../../components/HermesLogo";
-import Login from "../home/auth/Login";
-import Register from "../home/auth/Register";
+import { useState } from "react";
 import {
   ArrowRightEndOnRectangleIcon,
   UserCircleIcon,
 } from "@heroicons/react/16/solid";
-import { login } from "../home/service/home.service";
+import { removeTokenStorage } from "../../utilies/authUtils";
+import { logout } from "../../services/auth.service";
+import Login from "../home/auth/Login";
+import Register from "../home/auth/Register";
 
-// eslint-disable-next-line react/prop-types
-export default function Navbar({ children }) {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function Navbar({ children, user, setUser }) {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const [validated, setValidated] = useState(false);
-
-  const handleChange = ({ target }) => {
-    const { name, value } = target;
-    if (name === "email") setEmail(value);
-    if (name === "password") setPassword(value);
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    if (!e.currentTarget.checkValidity()) {
-      e.stopPropagation();
-    } else {
-      try {
-        const userLogin = await login({ email, password });
-        setUser(userLogin.data);
-        setOpenLoginModal(false);
-        navigate("/menu");
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    setValidated(true);
-  };
 
   const handleLogout = () => {
-    setUser(false);
-    setShowLogoutModal(false); // Cierra el modal al cerrar sesión
-    navigate("/");
+    setUser(null);
+    removeTokenStorage();
+    logout();
   };
 
   const toggleLoginModal = () => {
@@ -58,124 +30,75 @@ export default function Navbar({ children }) {
   };
 
   return (
-    <>
-      <nav className="navbar navbar-expand-lg">
-        <div className="container-fluid">
-          <NavLink to="/" className="nav-brand">
-            <HermesLogo />
-          </NavLink>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              {children}
-              {user ? (
-                <li className="nav-item d-flex g-3 align-items-center">
-                  <button
-                    className="btn btn-outline-dark mx-2"
-                    onClick={() => navigate("/edit-profile")}
-                  >
-                    {user.email}
-                    <UserCircleIcon width={25} className="mx-2" />
-                  </button>
-                  <button
-                    className="btn btn-outline-danger mx-2"
-                    onClick={() => setShowLogoutModal(true)}
-                  >
-                    <ArrowRightEndOnRectangleIcon width={25} className="me-2" />
-                  </button>
-                </li>
-              ) : (
-                <li className="nav-item d-flex align-items-center">
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary mx-1"
-                    onClick={toggleLoginModal}
-                  >
-                    Ingresar
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-secondary mx-1"
-                    onClick={toggleRegisterModal}
-                  >
-                    Registrarse
-                  </button>
-                </li>
-              )}
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      {openLoginModal && (
-        <Login
-          isOpen={openLoginModal}
-          clickModal={toggleLoginModal}
-          validated={validated}
-          handleLogin={handleLogin}
-          handleChange={handleChange}
-        />
-      )}
-      {openRegisterModal && (
-        <Register isOpen={openRegisterModal} clickModal={toggleRegisterModal} />
-      )}
-
-      {/* Modal de confirmación */}
-      {showLogoutModal && (
-        <div
-          className="modal fade show"
-          style={{ display: "block" }}
-          tabIndex="-1"
-          role="dialog"
+    <nav className="navbar navbar-expand-lg">
+      <div className="container-fluid">
+        <NavLink to="/" className="nav-brand">
+          <HermesLogo />
+        </NavLink>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content rounded-3 shadow-lg">
-              <div className="modal-header border-bottom-0">
-                <h5 className="modal-title">Confirmar Cierre de Sesión</h5>
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            {children}
+            {user ? (
+              <li className="nav-item d-flex g-3 align-items-center">
                 <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => setShowLogoutModal(false)}
-                  aria-label="Close"
+                  className="btn btn-outline-dark mx-2"
+                  onClick={() => <Navigate to="/edit-profile" />}
                 >
-                  <span>&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <p className="text-center">
-                  ¿Estás seguro que deseas cerrar sesión?
-                </p>
-              </div>
-              <div className="modal-footer d-flex justify-content-center border-top-0">
-                <button
-                  type="button"
-                  className="btn btn-danger me-2"
-                  onClick={() => setShowLogoutModal(false)}
-                >
-                  Cancelar
+                  {user.data.email}
+                  <UserCircleIcon width={25} className="mx-2" />
                 </button>
                 <button
-                  type="button"
-                  className="btn btn-danger"
+                  className="btn btn-outline-danger mx-2"
                   onClick={handleLogout}
                 >
-                  Cerrar Sesión
+                  <ArrowRightEndOnRectangleIcon width={25} className="me-2" />
                 </button>
-              </div>
-            </div>
-          </div>
+              </li>
+            ) : (
+              <li className="nav-item d-flex align-items-center">
+                <button
+                  type="button"
+                  className="btn btn-outline-primary mx-1"
+                  onClick={toggleLoginModal}
+                >
+                  Ingresar
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary mx-1"
+                  onClick={toggleRegisterModal}
+                >
+                  Registrarse
+                </button>
+              </li>
+            )}
+            {openLoginModal && (
+              <Login
+                isOpen={openLoginModal}
+                clickModal={toggleLoginModal}
+                setUser={setUser}
+              />
+            )}
+            {openRegisterModal && (
+              <Register
+                isOpen={openRegisterModal}
+                clickModal={toggleRegisterModal}
+              />
+            )}
+          </ul>
         </div>
-      )}
-    </>
+      </div>
+    </nav>
   );
 }

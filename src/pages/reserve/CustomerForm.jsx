@@ -128,7 +128,7 @@ export default function CustomerForm({
       <div className="col-12">
         <div className="row">
           <label htmlFor="identification" className="form-label">
-            Cedula:
+            Identificación:
           </label>
           <div className="col-5">
             <select
@@ -138,7 +138,7 @@ export default function CustomerForm({
               onChange={handleChangeUser}
               required
             >
-              <option>Selecciona</option>
+              <option value="">Selecciona</option>
               {documentTypes.map((documentType, index) => (
                 <option key={index} value={documentType}>
                   {documentType}

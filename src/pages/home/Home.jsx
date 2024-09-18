@@ -47,7 +47,7 @@ const packages = [
   },
 ];
 
-export default function Page() {
+export default function Home() {
   return (
     <>
       <main className="row">
@@ -75,7 +75,7 @@ export default function Page() {
             <p>
               Antes de realizar una reserva debes saber que el comprobante se
               sube en la aplicación, pero previamente debes registrarte. Lee
-              nuestros{" "}
+              nuestros{""}
               <NavLink to={"/terminos"} className="text-primary">
                 terminos y condiciones
               </NavLink>

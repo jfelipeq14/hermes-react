@@ -13,11 +13,11 @@ const permissions = [
 
 // Creamos otro arreglo llamado "privilegios" que contiene objetos con información sobre privilegios
 const privilegios = [
-  { id_privilege: 1, name: "Crear" },  // Privilegio 1: Crear
-  { id_privilege: 2, name: "Ver" },    // Privilegio 2: Ver
-  { id_privilege: 3, name: "Editar" },  // Privilegio 3: Editar
-  { id_privilege: 4, name: "Eliminar" }, // Privilegio 4: Eliminar
-  { id_privilege: 5, name: "Cambiar estado" },  // Privilegio 5: Cambiar estado
+  { idPrivilege: 1, name: "Crear" },  // Privilegio 1: Crear
+  { idPrivilege: 2, name: "Ver" },    // Privilegio 2: Ver
+  { idPrivilege: 3, name: "Editar" },  // Privilegio 3: Editar
+  { idPrivilege: 4, name: "Eliminar" }, // Privilegio 4: Eliminar
+  { idPrivilege: 5, name: "Cambiar estado" },  // Privilegio 5: Cambiar estado
 ];
 
 // Utilizamos el hook useState de React para crear un estado inicial para el rol y los permisos con privilegios
@@ -26,7 +26,7 @@ const [permissionsWithPrivileges, setPermissionsWithPrivileges] = useState(
   permissions.map(permission => ({
     ...permission,  // Copiamos las propiedades del permiso original
     privileges: privilegios.reduce((acc, privilege) => {  // Creamos un objeto para los privilegios de cada permiso
-      acc[privilege.id_privilege] = false;  // Inicializamos cada privilegio como deshabilitado (false)
+      acc[privilege.idPrivilege] = false;  // Inicializamos cada privilegio como deshabilitado (false)
       return acc;
     }, {})
   }))
@@ -64,7 +64,7 @@ const handleSubmit = (e) => {
         permissionsWithPrivileges.map(permission => ({
           ...permission,
           privileges: privilegios.reduce((acc, privilege) => {
-            acc[privilege.id_privilege] = false;
+            acc[privilege.idPrivilege] = false;
             return acc;
           }, {})
         }))
@@ -139,7 +139,7 @@ const handleChangePrivilege = (permissionId, privilegeId) => (e) => {
           <tr>
             <th>Nombre</th>
             {privilegios.map(privilege => (
-              <th key={privilege.id_privilege}>{privilege.name}</th>
+              <th key={privilege.idPrivilege}>{privilege.name}</th>
             ))}
           </tr>
         </thead>
@@ -148,13 +148,13 @@ const handleChangePrivilege = (permissionId, privilegeId) => (e) => {
             <tr key={permission.id_permission}>
               <td className="px-4 py-3">{permission.name}</td>
               {privilegios.map(privilege => (
-                <td className="px-4 py-3" key={privilege.id_privilege}>
+                <td className="px-4 py-3" key={privilege.idPrivilege}>
                   <input
                     className="form-check-input"
                     type="checkbox"
-                    checked={!!permission.privileges[privilege.id_privilege]}
-                    value={privilege.id_privilege}
-                    onChange={handleChangePrivilege(permission.id_permission, privilege.id_privilege)}
+                    checked={!!permission.privileges[privilege.idPrivilege]}
+                    value={privilege.idPrivilege}
+                    onChange={handleChangePrivilege(permission.id_permission, privilege.idPrivilege)}
                   />
                 </td>
               ))}

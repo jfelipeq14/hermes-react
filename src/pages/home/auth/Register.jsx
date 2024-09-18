@@ -20,7 +20,7 @@ export default function Register({ isOpen, clickModal }) {
   //   useState(false);
   // Puedes ahorrarte todo lo anterior con
   const formUser = new Users();
-  formUser.id_role = 2; // Usuario
+  formUser.idRole = 2; // Usuario
   const [user, setUser] = useState(formUser); // Un solo estado para todos los campos
   const [confirmPassword, setConfirmPassword] = useState("");
   const handleChange = (e) => {
@@ -28,40 +28,6 @@ export default function Register({ isOpen, clickModal }) {
     setUser({ ...user, [name]: value });
   };
 
-  // Puedes ahorrarte estas validaciones haciendo los formularios iguales a los que ya tenemos. Revisa el codigo nuevo
-  // const handleRegister = (e) => {
-  //   e.preventDefault();
-  //   setError("");
-
-  //   // Validaciones
-  //   if (!nombre || !correo || !cedula || !contraseña || !confirmarContraseña) {
-  //     setError("Todos los campos son obligatorios");
-  //     return;
-  //   }
-  //   if (contraseña !== confirmarContraseña) {
-  //     setError("Las contraseñas no coinciden");
-  //     return;
-  //   }
-  //   if (
-  //     !/^(?=.*[A-Z])(?=.*[a-z0-9.!#$%&*+/=?^_`{|}~-]).{8,}$/.test(contraseña)
-  //   ) {
-  //     setError(
-  //       "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una constra mayúscula y solo puede incluir constras minúsculas, números o ciertos símbolos."
-  //     );
-  //     return;
-  //   }
-  //   if (!/^[a-zA-Z\s]+$/.test(nombre)) {
-  //     setError("El nombre solo debe contener constras y espacios.");
-  //     return;
-  //   }
-  //   if (!/^\d+$/.test(cedula)) {
-  //     setError("La cédula debe contener solo números.");
-  //     return;
-  //   }
-
-  // };
-
-  // Esta es la forma de hacer las validaciones:
   const [validated, setValidated] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -135,7 +101,7 @@ export default function Register({ isOpen, clickModal }) {
                 onChange={handleChange}
                 required
               >
-                <option>Selecciona</option>
+                <option value="">Selecciona</option>
                 {documentTypes.map((documentType) => (
                   <option key={documentType}>{documentType}</option>
                 ))}
