@@ -3,10 +3,17 @@
     "tasks": [
         {
             "type": "npm",
+            "script": "lint",
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            "type": "npm",
             "script": "changes",
             "runOptions": {
                 "runOn": "folderOpen"
             }
-        }
+        },
     ]
 } 

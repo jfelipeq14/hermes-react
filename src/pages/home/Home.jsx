@@ -47,7 +47,7 @@ const packages = [
   },
 ];
 
-export default function Page() {
+export default function Home() {
   return (
     <>
       <main className="row">

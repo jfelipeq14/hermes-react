@@ -9,12 +9,17 @@ import {
   UsersIcon,
 } from "@heroicons/react/16/solid";
 
+import Dashboard from "../pages/Dashboard";
+import Reserve from "../pages/reserve/Reserve";
+import EditProfile from "../pages/user/EditProfile";
+
 export const administrator = [
   {
     id_permission: 1,
     name: "Dashboard",
     state: true,
     href: "administrator/dashboard",
+    component: Dashboard,
     icon: ChartPieIcon,
   },
   {
@@ -110,7 +115,8 @@ export const administrator = [
     ],
     href: "administrator/users",
     icon: FolderPlusIcon,
-  },{
+  },
+  {
     id_permission: 8,
     name: "Ventas",
     state: true,
@@ -130,6 +136,16 @@ export const administrator = [
 ];
 
 export const customer = [
-  { name: "Reserve", href: "customer/reserve", icon: UserGroupIcon },
-  { name: "Profile", href: "customer/profile", icon: UsersIcon },
+  {
+    name: "Reserve",
+    href: "customer/reserve",
+    component: Reserve,
+    icon: UserGroupIcon,
+  },
+  {
+    name: "Profile",
+    href: "customer/profile",
+    component: EditProfile,
+    icon: UsersIcon,
+  },
 ];

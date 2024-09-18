@@ -1,81 +1,55 @@
-import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Link, Routes, Navigate } from "react-router-dom";
 
 import Home from "./pages/home/Home";
-import PageNotFound from "./pages/PageNotFound";
 import Navbar from "./pages/layout/Navbar";
-import Customers from "./pages/customers/Customers";
-import Role from "./pages/role/Role";
-import Users from "./pages/user/Users";
-import EditProfile from "./pages/user/EditProfile";
-import Reserve from "./pages/reserve/Reserve";
-import Reservations from "./pages/reserve/Reservations";
-import Packages from "./pages/packages/Packages";
-import CreatePackages from "./pages/packages/CreatePackages";
-import Menu from "./pages/Menu";
-import Services from "./pages/services/Services";
-import Programing from "./pages/packages/Programing";
-import Payments from "./pages/pay/Payments";
-import Sales from "./pages/Sales";
-import Dashboard from "./pages/Dashboard";
+import PageNotFound from "./pages/PageNotFound";
+
+import { getTokenStorage } from "./utilies/authUtils";
+import { administrator } from "./utilies/routes";
 
 export default function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loggedUser = getTokenStorage();
+    if (loggedUser) {
+      const user = JSON.parse(loggedUser);
+      setUser(user);
+    }
+  }, []);
+
   return (
     <BrowserRouter>
-      <Navbar>
+      <Navbar user={user} setUser={setUser}>
         <li className="nav-item">
-          <Link to="dashboard" className="nav-link">
-            Dashboard
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="customers" className="nav-link">
-            Customers
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="role" className="nav-link">
-            Role
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="packages" className="nav-link">
-            Packages
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="services" className="nav-link">
-            Services
-          </Link>
-        </li><li className="nav-item">
-          <Link to="programing-packs" className="nav-link">
-            Programing
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="sales" className="nav-link">
-            Sales
+          <Link to="/" className="nav-link">
+            Home
           </Link>
         </li>
       </Navbar>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/customers" element={<Customers />} />
-        <Route exact path="/role" element={<Role />} />
-        <Route exact path="/users" element={<Users />} />
-        <Route exact path="/edit-profile" element={<EditProfile />} />
-        <Route exact path="/reserve" element={<Reserve />} />
-        <Route exact path="/packages" element={<Packages />} />
-        <Route exact path="/create-packs" element={<CreatePackages />} />
-        <Route exact path="/programing-packs" element={<Programing />} />
-        <Route exact path="/reservations" element={<Reservations />} />
-        <Route exact path="/payments" element={<Payments />} />
-        <Route exact path="/menu" element={<Menu />} />
-        <Route exact path="/services" element={<Services />} />
-        <Route exact path="/sales" element={<Sales />} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
+        {user &&
+          user.data.id_role === 1 &&
+          administrator.map((admin) => (
+            <Route
+              key={admin.name}
+              exact
+              path={admin.href}
+              element={
+                <RenderComponent user={user} component={<admin.component />} />
+              }
+            />
+          ))}
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );
+}
+
+export function RenderComponent({ user, component }) {
+  return user ? component : <Navigate to="/" />;
 }
