@@ -74,7 +74,7 @@ export default function Services() {
                 value={formData.categoria}
                 onChange={handleChange}
               >
-                <option value=" ">Selecciona una categoría</option>
+                <option value="">Selecciona una categoría</option>
                 <option>Transporte</option>
               </select>
             </div>

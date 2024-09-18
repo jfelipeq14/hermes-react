@@ -101,7 +101,7 @@ export default function Register({ isOpen, clickModal }) {
                 onChange={handleChange}
                 required
               >
-                <option>Selecciona</option>
+                <option value="">Selecciona</option>
                 {documentTypes.map((documentType) => (
                   <option key={documentType}>{documentType}</option>
                 ))}
