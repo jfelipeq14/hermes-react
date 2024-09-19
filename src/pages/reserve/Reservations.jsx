@@ -16,13 +16,10 @@ import PayForm from "../pay/PayForm";
 import Modals from "../../components/Modals";
 import Reprogramming from "./Reprogramming";
 
-export default function Reservas() {
-  const [modalPaysOpen, setModalPaysOpen] = useState(false);
-  const clickModal = () => {
-    setModalPaysOpen(!modalPaysOpen);
-  };
+import { ReservationsService } from "../../services/reservations.service.js";
 
-  const reservas = [
+export default function Reservas() {
+  const [reservas, setReservas] = useState([
     {
       id_reservation: 1,
       id_detail_programming_package: 1,
@@ -33,7 +30,19 @@ export default function Reservas() {
       travel_customer: true,
       status: "C",
     },
-  ];
+  ]);
+  
+  const [modalPaysOpen, setModalPaysOpen] = useState(false);
+  const clickModal = () => {
+    setModalPaysOpen(!modalPaysOpen);
+  };
+
+  (async () => {
+    const getData = await ReservationsService.getAll();
+    if (getData) {
+      setReservas(getData);
+    }
+  })();
 
   const [showPay, setShowPay] = useState(false);
 
@@ -67,10 +76,7 @@ export default function Reservas() {
                 <CalendarDateRangeIcon width={25} />
                 Programación
               </NavLink>
-              <NavLink
-                to={{ pathname: "/" }}
-                className="btn btn-primary m-2"
-              >
+              <NavLink to={{ pathname: "/" }} className="btn btn-primary m-2">
                 <PlusCircleIcon width={25} />
                 Crear
               </NavLink>
