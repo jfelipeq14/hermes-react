@@ -14,36 +14,64 @@ import { NavLink } from "react-router-dom";
 
 const packages = [
   {
-    id: 1,
-    address: "Calle 123 # 123 - 123",
-    name: "Paquete 1",
+    id_package: 1,
+    destination: "Cartagena",
+    name: "Navidad",
     date: "2021-09-30",
     price: 1000000,
-    services: ["servicio 1", "servicio 2", "servicio 3"],
+    services: [
+      {
+        id: 1,
+        category: "Entretenimiento",
+        name: "Pesca",
+      },
+      {
+        id: 2,
+        category: "Transporte",
+        name: "Lancha",
+      },
+    ],
+    status: true,
   },
   {
-    id: 2,
-    address: "Calle 123 # 123 - 123",
-    name: "Paquete 2",
-    date: "2021-09-30",
+    id_package: 2,
+    destination: "Santa Marta",
+    name: "Año nuevo",
+    date: "2025-01-01",
     price: 1000000,
-    services: ["servicio 1", "servicio 2", "servicio 3"],
+    services: [
+      {
+        id: 1,
+        category: "Entretenimiento",
+        name: "Pesca",
+      },
+      {
+        id: 2,
+        category: "Transporte",
+        name: "Lancha",
+      },
+    ],
+    status: false,
   },
   {
-    id: 3,
-    address: "Calle 123 # 123 - 123",
-    name: "Paquete 3",
-    date: "2021-09-30",
+    id_package: 3,
+    destination: "Cavo de la vela",
+    name: "Mitad de año",
+    date: "2025-06-06",
     price: 1000000,
-    services: ["servicio 1", "servicio 2", "servicio 3"],
-  },
-  {
-    id: 4,
-    address: "Calle 123 # 123 - 123",
-    name: "Paquete 4",
-    date: "2021-09-30",
-    price: 1000000,
-    services: ["servicio 1", "servicio 2", "servicio 3"],
+    services: [
+      {
+        id: 1,
+        category: "Entretenimiento",
+        name: "Pesca",
+      },
+      {
+        id: 2,
+        category: "Transporte",
+        name: "Lancha",
+      },
+    ],
+    status: true,
   },
 ];
 
@@ -55,17 +83,18 @@ export default function Home() {
           <header className="text-center">
             <h2 className="fw-bold fs-4">Paquetes</h2>
           </header>
-          <article className="row g-1">
+          <article className="row g-1 justify-content-center">
             {packages.map((pkg, index) => {
               return (
                 <div className="col-sm-12 col-md-6 col-lg-3 p-2" key={index}>
                   <Package
-                    key={pkg.id}
-                    address={pkg.address}
+                    key={pkg.id_package}
+                    destination={pkg.destination}
                     name={pkg.name}
                     date={pkg.date}
                     price={pkg.price}
                     services={pkg.services}
+                    status={pkg.status}
                   />
                 </div>
               );

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import HermesLogo from "../../components/HermesLogo";
 import { useState } from "react";
 import {
@@ -12,13 +12,13 @@ import Login from "../home/auth/Login";
 import Register from "../home/auth/Register";
 
 export default function Navbar({ children, user, setUser }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [role, setRole] = useState(1);
 
-  (async()=>{
-    const user = await user
-    setRole(user.data.id_role)
-  })()
+  (async () => {
+    const dataUser = await user;
+    setRole(dataUser.data.id_role);
+  })();
 
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
@@ -27,7 +27,7 @@ export default function Navbar({ children, user, setUser }) {
     setUser(null);
     removeTokenStorage();
     logout();
-    navigate("/")
+    navigate("/");
   };
 
   const toggleLoginModal = () => {
@@ -41,7 +41,10 @@ export default function Navbar({ children, user, setUser }) {
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
-        <NavLink to={role === 1 ? "administrator" : "customer"} className="nav-brand">
+        <NavLink
+          to={role === 1 ? "administrator" : "customer"}
+          className="nav-brand"
+        >
           <HermesLogo />
         </NavLink>
         <button
@@ -60,13 +63,13 @@ export default function Navbar({ children, user, setUser }) {
             {children}
             {user ? (
               <li className="nav-item d-flex g-3 align-items-center">
-                <button
+                <NavLink
+                  to={{ pathname: "administrator/profile", user: user }}
                   className="btn btn-outline-dark mx-2"
-                  onClick={() => <Navigate to="/edit-profile" />}
                 >
                   {user.data.email}
                   <UserCircleIcon width={25} className="mx-2" />
-                </button>
+                </NavLink>
                 <button
                   className="btn btn-outline-danger mx-2"
                   onClick={handleLogout}
@@ -91,8 +94,7 @@ export default function Navbar({ children, user, setUser }) {
                   Registrarse
                 </button>
               </li>
-            )
-            }
+            )}
             {openLoginModal && (
               <Login
                 isOpen={openLoginModal}
