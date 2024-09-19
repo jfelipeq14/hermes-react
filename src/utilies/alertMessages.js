@@ -4,6 +4,11 @@ export const titles = {
       error: "No se pudo realizar la accion",
       exito: "La accion se realizo correctamente",
       confirmar: "Confirmar la accion"
+    },
+    servicios:{
+      error: "No se pudo realizar la accion",
+      exito: "La accion se realizo correctamente",
+      confirmar: "Confirmar la accion"
     }
   ,
   error: "Error",
@@ -26,5 +31,13 @@ export const messages = {
   },
   exito: {
     formSent: "Formulario enviado correctamente",
+  },
+  servicios: {
+    
+    exito: "Servicio creado exitosamente",
+    eliminado: "Servicio eliminado exitosamente",
+    actualizado: "Servicio actualizado exitosamente",
+    cambioEstado: "El servicio cambio de estado",
+    confirmar: "Confirmar"
   },
 };

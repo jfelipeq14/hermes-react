@@ -12,22 +12,20 @@ import { Services } from "../../models/services/services.model";
 import { Form } from "react-bootstrap";
 
 import { ServicesService } from "../../services/services.service";
+import { messages, titles } from "../../utilies/alertMessages";
 
 export default function Service() {
-  const formService = new Services();
-  const [serviceData, setServiceData] = useState(formService);
+  const [serviceData, setServiceData] = useState(new Services());
 
   const [validated, setValidated] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
-  const [services, setServices] = useState([
-  ]);
+  const [services, setServices] = useState([]);
 
   (async () => {
     const getData = await ServicesService.getAll();
-    if (getData) {
-      setServices(getData);
-    }
+    if (!getData) return;
+    setServices(getData);
   })();
 
   const handleChange = (e) => {
@@ -48,7 +46,7 @@ export default function Service() {
       if (confirm) {
         setServiceData((prevData) =>
           prevData.map((item) =>
-            item.id === id ? { ...item, status: newState } : item
+            item.idService === id ? { ...item, status: newState } : item
           )
         );
         swal({
@@ -82,36 +80,49 @@ export default function Service() {
     }
 
     swal({
-      title: editMode
-        ? "¿Quieres guardar estos cambios?"
-        : "¿Quieres registrar este servicio?",
-      text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
+      title: titles.servicios.confirmar,
+      text: messages.servicios.confirmar,
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    }).then((confirm) => {
+    }).then(async (confirm) => {
       if (confirm) {
         if (editMode) {
+          serviceData.idCategoryService = parseInt(
+            serviceData.idCategoryService
+          );
           setServiceData((prevData) =>
             prevData.map((item) =>
-              item.id === serviceData.id ? serviceData : item
+              item.idService === serviceData.idService ? serviceData : item
             )
           );
         } else {
           setServiceData((prevData) => [
             ...prevData,
-            { ...serviceData, id: Date.now() },
+            { ...serviceData, idService: 0 },
           ]);
+          serviceData.idCategoryService = parseInt(
+            serviceData.idCategoryService
+          );
+          const data = await ServicesService.create(serviceData);
+          if (data) {
+            swal({
+              title: titles.servicios.exito,
+              text: messages.servicios.exito,
+              icon: "success",
+              timer: 2000,
+              buttons: false,
+            });
+          } else {
+            swal({
+              title: titles.servicios.error,
+              text: messages.servicios.error,
+              icon: "error",
+              timer: 2000,
+              buttons: false,
+            });
+          }
         }
-        swal({
-          title: editMode ? "Actualizado" : "Registrado",
-          text: editMode
-            ? "Los datos fueron actualizados correctamente"
-            : "Los datos fueron registrados correctamente",
-          icon: "success",
-          timer: 2000,
-          buttons: false,
-        });
         resetForm();
       } else {
         swal({
@@ -126,13 +137,7 @@ export default function Service() {
   };
 
   const resetForm = () => {
-    setServiceData({
-      id: null,
-      id_categoryService: "",
-      name: "",
-      price: "",
-      status: true,
-    });
+    setServiceData(new Services());
     setValidated(false);
     setEditMode(false);
   };
@@ -146,7 +151,9 @@ export default function Service() {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        setServiceData((prevData) => prevData.filter((item) => item.id !== id));
+        setServiceData((prevData) =>
+          prevData.filter((item) => item.idService !== id)
+        );
         swal(
           "Eliminado",
           "El servicio ha sido eliminado correctamente",
@@ -159,23 +166,19 @@ export default function Service() {
   };
 
   const handleEdit = async (id) => {
-    const serviceToEdit = services.find((item) => item.id === id);
+    const serviceToEdit = services.find((item) => item.idService === id);
     if (serviceToEdit) {
       setServiceData(serviceToEdit);
       setEditMode(true);
-      const update = await update(id, serviceToEdit)
-      if (update){
-        swal(
-          {
-            title: "Editado",
+      const update = await update(id, serviceToEdit);
+      if (update) {
+        swal({
+          title: "Editado",
           text: "Los datos han sido editado",
           icon: "success",
           timer: 2000,
           buttons: false,
-          }
-          
-        );
-
+        });
       }
     }
   };
@@ -207,8 +210,8 @@ export default function Service() {
               <label>Categoría</label>
               <select
                 className="form-select"
-                name="id_categoryService"
-                value={serviceData.id_categoryService}
+                name="idCategoryService"
+                value={serviceData.idCategoryService}
                 onChange={handleChange}
                 required
               >
@@ -258,7 +261,11 @@ export default function Service() {
               <button type="submit" className="btn btn-primary">
                 Guardar
               </button>
-              <button type="reset" className="btn btn-secondary" onClick={resetForm}>
+              <button
+                type="reset"
+                className="btn btn-secondary"
+                onClick={resetForm}
+              >
                 Cancelar
               </button>
             </div>
@@ -277,17 +284,17 @@ export default function Service() {
               </thead>
               <tbody>
                 {services.map((item) => (
-                  <tr key={item.id}>
+                  <tr key={item.idService}>
                     <td>
                       <button
                         className="btn m-0 p-0"
-                        onClick={() => handleEdit(item.id)}
+                        onClick={() => handleEdit(item.idService)}
                       >
                         <PencilSquareIcon width={25} />
                       </button>
                       <button
                         className="btn m-0 p-0"
-                        onClick={() => handleDelete(item.id)}
+                        onClick={() => handleDelete(item.idService)}
                       >
                         <TrashIcon width={25} />
                       </button>
@@ -297,11 +304,13 @@ export default function Service() {
                           type="checkbox"
                           role="switch"
                           checked={item.status}
-                          onChange={() => handleCheck(item.id, item.status)}
+                          onChange={() =>
+                            handleCheck(item.idService, item.status)
+                          }
                         />
                       </div>
                     </td>
-                    <td>{item.id_categoryService}</td>
+                    <td>{item.idCategoryService}</td>
                     <td>{item.name}</td>
                     <td>{item.price}</td>
                     <td>{item.status ? "Habilitado" : "Inhabilitado"}</td>

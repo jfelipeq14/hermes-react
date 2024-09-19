@@ -23,9 +23,13 @@ export class ServicesService {
   };
 
   static create = async (obj) => {
+    console.log(obj);
+    
     try {
-      const { data } = await axios.post(`${API_URL}`, obj);
-      return data;
+      if (obj) {
+        const { data } = await axios.post(`${API_URL}`, obj);
+        return data;
+      }
     } catch (error) {
       console.error(error);
       return null;
