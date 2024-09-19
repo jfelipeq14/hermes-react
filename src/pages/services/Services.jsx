@@ -11,18 +11,24 @@ import swal from "sweetalert";
 import { Services } from "../../models/services/services.model";
 import { Form } from "react-bootstrap";
 
-import { services } from 
+import { ServicesService } from "../../services/services.service";
 
 export default function Service() {
   const formService = new Services();
   const [serviceData, setServiceData] = useState(formService);
-  const [data, setData] = useState([]);
+
   const [validated, setValidated] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
-  (async()=>{
-    const getData = await getAll()
-  })()
+  const [services, setServices] = useState([
+  ]);
+
+  (async () => {
+    const getData = await ServicesService.getAll();
+    if (getData) {
+      setServices(getData);
+    }
+  })();
 
   const handleChange = (e) => {
     setServiceData({ ...serviceData, [e.target.name]: e.target.value });
@@ -40,7 +46,7 @@ export default function Service() {
       dangerMode: !newState,
     }).then((confirm) => {
       if (confirm) {
-        setData((prevData) =>
+        setServiceData((prevData) =>
           prevData.map((item) =>
             item.id === id ? { ...item, status: newState } : item
           )
@@ -86,13 +92,13 @@ export default function Service() {
     }).then((confirm) => {
       if (confirm) {
         if (editMode) {
-          setData((prevData) =>
+          setServiceData((prevData) =>
             prevData.map((item) =>
               item.id === serviceData.id ? serviceData : item
             )
           );
         } else {
-          setData((prevData) => [
+          setServiceData((prevData) => [
             ...prevData,
             { ...serviceData, id: Date.now() },
           ]);
@@ -140,7 +146,7 @@ export default function Service() {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        setData((prevData) => prevData.filter((item) => item.id !== id));
+        setServiceData((prevData) => prevData.filter((item) => item.id !== id));
         swal(
           "Eliminado",
           "El servicio ha sido eliminado correctamente",
@@ -153,7 +159,7 @@ export default function Service() {
   };
 
   const handleEdit = async (id) => {
-    const serviceToEdit = data.find((item) => item.id === id);
+    const serviceToEdit = services.find((item) => item.id === id);
     if (serviceToEdit) {
       setServiceData(serviceToEdit);
       setEditMode(true);
@@ -270,7 +276,7 @@ export default function Service() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item) => (
+                {services.map((item) => (
                   <tr key={item.id}>
                     <td>
                       <button

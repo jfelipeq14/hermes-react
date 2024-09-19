@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3000/services";
 
-export class Services {
+export class ServicesService {
   static getAll = async () => {
     try {
       const { data } = await axios.get(`${API_URL}`);

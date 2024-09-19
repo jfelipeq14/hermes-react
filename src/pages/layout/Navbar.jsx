@@ -17,6 +17,7 @@ export default function Navbar({ children, user, setUser }) {
 
   (async () => {
     const dataUser = await user;
+    if (!dataUser) return;
     setRole(dataUser.data.id_role);
   })();
 
