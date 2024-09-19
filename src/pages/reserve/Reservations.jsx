@@ -19,9 +19,9 @@ import Reprogramming from "./Reprogramming";
 import { ReservationsService } from "../../services/reservations.service.js";
 
 export default function Reservas() {
-  const [reservas, setReservas] = useState([]);
-
   const [modalPaysOpen, setModalPaysOpen] = useState(false);
+  const [showPay, setShowPay] = useState(false);
+  const [reservas, setReservas] = useState([]);
   const clickModal = () => {
     setModalPaysOpen(!modalPaysOpen);
   };
@@ -33,7 +33,6 @@ export default function Reservas() {
     }
   })();
 
-  const [showPay, setShowPay] = useState(false);
 
   return (
     <div className="row">
