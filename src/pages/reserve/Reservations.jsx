@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   CalendarDateRangeIcon,
@@ -17,23 +17,25 @@ import Modals from "../../components/Modals";
 import Reprogramming from "./Reprogramming";
 
 import { ReservationsService } from "../../services/reservations.service.js";
+import { formattedPrice } from "../../utilies/formattedPrice.js";
 
 export default function Reservas() {
-  const [reservas, setReservas] = useState([]);
-
   const [modalPaysOpen, setModalPaysOpen] = useState(false);
+  const [showPay, setShowPay] = useState(false);
+  const [reservas, setReservas] = useState([]);
   const clickModal = () => {
     setModalPaysOpen(!modalPaysOpen);
   };
 
-  (async () => {
-    const getData = await ReservationsService.getAll();
-    if (getData) {
-      setReservas(getData);
-    }
-  })();
-
-  const [showPay, setShowPay] = useState(false);
+  useEffect(() => {
+    const getData = async () => {
+      const data = await ReservationsService.getAll();
+      if (data) {
+        setReservas(data);
+      }
+    };
+    getData();
+  }, []);
 
   return (
     <div className="row">
@@ -111,10 +113,10 @@ export default function Reservas() {
                       </button>
                     </td>
                     <td>{reserva.id_customer}</td>
-                    <td>{reserva.id_detail_programming_package}</td>
-                    <td>{reserva.id_detail_programming_package}</td>
-                    <td>{reserva.id_detail_programming_package}</td>
-                    <td>{reserva.price_reservation}</td>
+                    <td>{reserva.idDetailProgrammingPackage}</td>
+                    <td>{reserva.idDetailProgrammingPackage}</td>
+                    <td>{reserva.idDetailProgrammingPackage}</td>
+                    <td>{formattedPrice(reserva.priceReservation)}</td>
                     <td>{reserva.estado}</td>
                   </tr>
                 ))}
