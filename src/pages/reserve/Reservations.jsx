@@ -19,19 +19,8 @@ import Reprogramming from "./Reprogramming";
 import { ReservationsService } from "../../services/reservations.service.js";
 
 export default function Reservas() {
-  const [reservas, setReservas] = useState([
-    {
-      id_reservation: 1,
-      id_detail_programming_package: 1,
-      id_customer: 1,
-      date_reservation: "2024-12-12",
-      price_reservation: 240000,
-      number_companions: 1,
-      travel_customer: true,
-      status: "C",
-    },
-  ]);
-  
+  const [reservas, setReservas] = useState([]);
+
   const [modalPaysOpen, setModalPaysOpen] = useState(false);
   const clickModal = () => {
     setModalPaysOpen(!modalPaysOpen);
