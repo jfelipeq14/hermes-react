@@ -132,13 +132,13 @@ SELECT * FROM programation_packages;
 
 DROP TABLE IF EXISTS detail_programming_packages CASCADE;
 CREATE TABLE detail_programming_packages (
-    id_detail_programming_package SERIAL NOT NULL,
+    idDetailProgrammingPackage SERIAL NOT NULL,
     id_package  INTEGER NOT NULL,
     id_programation  INTEGER NOT NULL,
     price_package  DECIMAL (15,2),
     status  BOOLEAN,
 
-    CONSTRAINT pk_detailProgrammingPackages PRIMARY KEY (id_detail_programming_package),
+    CONSTRAINT pk_detailProgrammingPackages PRIMARY KEY (idDetailProgrammingPackage),
     CONSTRAINT fk_packages FOREIGN KEY (id_package) REFERENCES packages(id_package),
     CONSTRAINT fk_programation_packages FOREIGN KEY (id_programation) REFERENCES programation_packages(id_programation),
     CONSTRAINT chk_pricePackage CHECK (CAST(price_package AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
@@ -163,14 +163,14 @@ SELECT * FROM detail_package_service;
 
 DROP TABLE  IF EXISTS  detail_programming_packages_service CASCADE;
 CREATE  TABLE  detail_programming_packages_service (
-    id_detail_programming_package_service SERIAL NOT NULL,
-    id_detail_programming_package INTEGER NOT NULL,
+    idDetailProgrammingPackage_service SERIAL NOT NULL,
+    idDetailProgrammingPackage INTEGER NOT NULL,
     id_detail_package_service INTEGER NOT NULL,
     quantity  INTEGER NOT NULL,
     price_service DECIMAL (15,2),
     
-    CONSTRAINT  pk_id_detail_programming_package_service  PRIMARY KEY (id_detail_programming_package_service),
-    CONSTRAINT  fk_id_detail_programming_package FOREIGN KEY (id_detail_programming_package) REFERENCES  detail_programming_packages(id_detail_programming_package),
+    CONSTRAINT  pk_idDetailProgrammingPackage_service  PRIMARY KEY (idDetailProgrammingPackage_service),
+    CONSTRAINT  fk_idDetailProgrammingPackage FOREIGN KEY (idDetailProgrammingPackage) REFERENCES  detail_programming_packages(idDetailProgrammingPackage),
     CONSTRAINT fk_id_detail_package_service FOREIGN KEY (id_detail_package_service) REFERENCES detail_package_service(id_detail_package_service),
     CONSTRAINT chk_quantityPackageService CHECK (CAST(quantity AS TEXT) ~ '^[0-9]{2,}$'),
     CONSTRAINT chk_pricePackageService CHECK (CAST(price_service AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
@@ -210,18 +210,18 @@ SELECT * FROM customers;
 DROP TABLE IF EXISTS reservations CASCADE;
 CREATE TABLE reservations(
     id_reservation SERIAL NOT NULL,
-    id_detail_programming_package INTEGER NOT NULL,
+    idDetailProgrammingPackage INTEGER NOT NULL,
     id_customer INTEGER NOT NULL,
-    date_reservation DATE DEFAULT CURRENT_DATE,
-    price_reservation DECIMAL(15,2) NOT NULL,
-    number_companions INTEGER NOT NULL,
-    travel_customer BOOLEAN NOT NULL,
+    dateReservation DATE DEFAULT CURRENT_DATE,
+    priceReservation DECIMAL(15,2) NOT NULL,
+    numberCompanions INTEGER NOT NULL,
+    travelCustomer BOOLEAN NOT NULL,
     status CHAR NOT NULL,
     
     CONSTRAINT pk_idReservation PRIMARY KEY (id_reservation),
-    CONSTRAINT fk_idDetailProgrammingPackage FOREIGN KEY (id_detail_programming_package) REFERENCES detail_programming_packages(id_detail_programming_package),
+    CONSTRAINT fk_idDetailProgrammingPackage FOREIGN KEY (idDetailProgrammingPackage) REFERENCES detail_programming_packages(idDetailProgrammingPackage),
     CONSTRAINT fk_idCustomer FOREIGN KEY (id_customer) REFERENCES customers(id_customer),
-    CONSTRAINT chk_priceReservation CHECK (CAST(price_reservation AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$'),
+    CONSTRAINT chk_priceReservation CHECK (CAST(priceReservation AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$'),
 	--ESTADO DE RESERVA: Pendiente(no pago), Confirmada(pago 50%), Pagada(pago completo), Modificada, Cancelada(retiro cliente), Anulada (dates), En curso y Finalizada
     CONSTRAINT chk_statusReservation CHECK (status ~ '^(N|C|P|M|R|A|E|F)$')
 );
