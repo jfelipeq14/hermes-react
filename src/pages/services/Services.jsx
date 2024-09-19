@@ -11,12 +11,18 @@ import swal from "sweetalert";
 import { Services } from "../../models/services/services.model";
 import { Form } from "react-bootstrap";
 
+import { services } from 
+
 export default function Service() {
   const formService = new Services();
   const [serviceData, setServiceData] = useState(formService);
   const [data, setData] = useState([]);
   const [validated, setValidated] = useState(false);
   const [editMode, setEditMode] = useState(false);
+
+  (async()=>{
+    const getData = await getAll()
+  })()
 
   const handleChange = (e) => {
     setServiceData({ ...serviceData, [e.target.name]: e.target.value });
@@ -112,6 +118,7 @@ export default function Service() {
       }
     });
   };
+
   const resetForm = () => {
     setServiceData({
       id: null,
@@ -145,11 +152,25 @@ export default function Service() {
     });
   };
 
-  const handleEdit = (id) => {
+  const handleEdit = async (id) => {
     const serviceToEdit = data.find((item) => item.id === id);
     if (serviceToEdit) {
       setServiceData(serviceToEdit);
       setEditMode(true);
+      const update = await update(id, serviceToEdit)
+      if (update){
+        swal(
+          {
+            title: "Editado",
+          text: "Los datos han sido editado",
+          icon: "success",
+          timer: 2000,
+          buttons: false,
+          }
+          
+        );
+
+      }
     }
   };
 
