@@ -54,7 +54,7 @@ SELECT * FROM role_privilege;
 
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users( 
-    id_user SERIAL NOT NULL,
+    idUser SERIAL NOT NULL,
     idRole INTEGER NOT NULL,
     documentType VARCHAR(5) NOT NULL,
     identification VARCHAR(60) NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE users(
     password VARCHAR(255) NOT NULL,
     state BOOLEAN,
 
-    CONSTRAINT pk_idUser PRIMARY KEY (id_user),
+    CONSTRAINT pk_idUser PRIMARY KEY (idUser),
     CONSTRAINT fk_idRoleUser FOREIGN KEY (idRole) REFERENCES roles(idRole),
     CONSTRAINT chk_documentTypeUser CHECK (documentType ~ '^(CC|CE|PA|SC|CD|TE|PEP|AS|DU|CCEX|CEEX|PAEX|SCEX|CDEX|TEX|RNEX|PEPEX|ASEX)$'),
     CONSTRAINT chk_identificationUser CHECK (identification ~ '^[a-z0-9]{6,}$'),
@@ -180,7 +180,7 @@ SELECT * FROM detail_programming_packages_service;
 DROP TABLE IF EXISTS customers CASCADE;
 CREATE TABLE customers(
     id_customer SERIAL NOT NULL,
-    id_user INTEGER NOT NULL,
+    idUser INTEGER NOT NULL,
     name VARCHAR(60) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
     phone VARCHAR(15) NOT NULL,
@@ -194,7 +194,7 @@ CREATE TABLE customers(
     state BOOLEAN NOT NULL,
     
     CONSTRAINT pk_idCustomer PRIMARY KEY (id_customer),
-    CONSTRAINT fk_idUser FOREIGN KEY (id_user) REFERENCES users(id_user),
+    CONSTRAINT fk_idUser FOREIGN KEY (idUser) REFERENCES users(idUser),
     CONSTRAINT chk_nameCustomer CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_lastNameCustomer CHECK (lastName ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_phoneCustomer CHECK (phone ~ '^\+?[0-9]{1,3}[0-9]{7,}$'),

@@ -7,7 +7,7 @@
 "customers","bloodtype",NULL,"NO","character varying",3,NULL,NULL
 "customers","healthposition",NULL,"NO","character varying",60,NULL,NULL
 "customers","lastname",NULL,"NO","character varying",50,NULL,NULL
-"customers","id_user",NULL,"NO","integer",32,NULL,NULL
+"customers","idUser",NULL,"NO","integer",32,NULL,NULL
 "customers","sex",NULL,"NO","character",1,NULL,NULL
 "customers","departament",NULL,"NO","integer",32,NULL,NULL
 "customers","municipality",NULL,"NO","integer",32,NULL,NULL
@@ -84,7 +84,7 @@
 "services","id_service","nextval('services_id_service_seq'::regclass)","NO","integer",32,NULL,NULL
 "services","status",NULL,"NO","boolean",NULL,NULL,NULL
 "users","idRole",NULL,"NO","integer",32,NULL,NULL
-"users","id_user","nextval('users_id_user_seq'::regclass)","NO","integer",32,NULL,NULL
+"users","idUser","nextval('users_idUser_seq'::regclass)","NO","integer",32,NULL,NULL
 "users","state",NULL,"YES","boolean",NULL,NULL,NULL
 "users","email",NULL,"NO","character varying",255,NULL,NULL
 "users","password",NULL,"NO","character varying",255,NULL,NULL
