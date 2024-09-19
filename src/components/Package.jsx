@@ -1,42 +1,29 @@
+/* eslint-disable react/prop-types */
 import { formatDate } from "@fullcalendar/core/index.js";
 import { formattedPrice } from "../utilies/formattedPrice";
 import { NavLink } from "react-router-dom";
 
-export default function Package() {
-  const services = [
-    {
-      id_service: 1,
-      id_categoryService: 1,
-      name: "Transporte",
-      price: 180000,
-      status: true,
-    },
-    {
-      id_service: 2,
-      id_categoryService: 2,
-      name: "Pesca",
-      price: 20000,
-      status: true,
-    },
-  ];
-  
-  const packageData = {
-    id_package: 1,
-    name: "Navidad en cartagena",
-    destination: "Cartagena",
-    price: 580000,
-    status: true,
-  }
-
+export default function Package({
+  destination,
+  name,
+  date,
+  price,
+  services = [],
+  status,
+}) {
   return (
-    <div className="card">
-        <div className="card-img-top bg-center">
-          <p className="position-absolute p-2">{packageData.destination}</p>
-        </div>
+    <div className="card shadow">
+      <div className="card-img-top bg-center">
+        <img src="/public/card.jpg" className="card-img-top" alt="destino" />
+        <p className="position-absolute top-0 start-0 p-2 m-2 rounded shadow bg-light">
+          {destination}
+        </p>
+      </div>
 
+      <div className="container py-2">
         <div className="d-flex justify-content-between">
-          <p className="text-muted">{packageData.name}</p>
-          <p>{formatDate()}</p>
+          <p className="text-muted">{name}</p>
+          <p>{formatDate(date)}</p>
         </div>
         <div className="d-flex justify-content-between">
           <ul className="list-unstyled">
@@ -45,11 +32,11 @@ export default function Package() {
               <li key={index}>{service.name}</li>
             ))}
           </ul>
-          <strong>{formattedPrice(packageData.price)}</strong>
+          <strong>{formattedPrice(price)}</strong>
         </div>
-        {packageData.status ? (
+        {status ? (
           <NavLink
-            to={{ pathname: "/reserve", packageData: packageData }}
+            to={{ pathname: "/reserve" }}
             className="btn btn-primary m-2"
           >
             Reservar
@@ -60,5 +47,6 @@ export default function Package() {
           </button>
         )}
       </div>
+    </div>
   );
 }
