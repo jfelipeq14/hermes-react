@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Navigate, NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import HermesLogo from "../../components/HermesLogo";
 import { useState } from "react";
 import {
@@ -12,7 +12,8 @@ import Login from "../home/auth/Login";
 import Register from "../home/auth/Register";
 
 export default function Navbar({ children, user, setUser }) {
-  const [role, setRole] = useState(0);
+  const navigate = useNavigate()
+  const [role, setRole] = useState(1);
 
   (async()=>{
     const user = await user
@@ -26,6 +27,7 @@ export default function Navbar({ children, user, setUser }) {
     setUser(null);
     removeTokenStorage();
     logout();
+    navigate("/")
   };
 
   const toggleLoginModal = () => {
