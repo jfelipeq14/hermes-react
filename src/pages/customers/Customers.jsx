@@ -136,7 +136,7 @@ export default function customers() {
                         />
                       </button>
                       <NavLink
-                        to={{ pathname: "/reservations" }}
+                        to={{ pathname: "administrator/reservations" }}
                         state={{ identification: customer.identification }}
                         className="btn m-0 p-0"
                       >

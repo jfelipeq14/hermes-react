@@ -12,6 +12,13 @@ import Login from "../home/auth/Login";
 import Register from "../home/auth/Register";
 
 export default function Navbar({ children, user, setUser }) {
+  const [role, setRole] = useState(0);
+
+  (async()=>{
+    const user = await user
+    setRole(user.data.id_role)
+  })()
+
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
 
@@ -32,7 +39,7 @@ export default function Navbar({ children, user, setUser }) {
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
-        <NavLink to="/" className="nav-brand">
+        <NavLink to={role === 1 ? "administrator" : "customer"} className="nav-brand">
           <HermesLogo />
         </NavLink>
         <button
@@ -82,7 +89,8 @@ export default function Navbar({ children, user, setUser }) {
                   Registrarse
                 </button>
               </li>
-            )}
+            )
+            }
             {openLoginModal && (
               <Login
                 isOpen={openLoginModal}

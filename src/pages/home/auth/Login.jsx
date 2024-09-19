@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // Login.jsx
 import { useState } from "react";
 import { Form } from "react-bootstrap";
@@ -8,10 +9,11 @@ import { login } from "../../../services/auth.service";
 
 import swal from "sweetalert";
 import { setTokenStorage } from "../../../utilies/authUtils";
+import { useNavigate } from "react-router-dom";
 
-// eslint-disable-next-line react/prop-types
 export default function Login({ isOpen, clickModal, setUser }) {
 
+  const navigate = useNavigate()
   const [modalIsOpen, setModalIsOpen] = useState(isOpen);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,6 +45,7 @@ export default function Login({ isOpen, clickModal, setUser }) {
         setUser(userLogin);
         setTokenStorage(userLogin);
         setModalIsOpen(!modalIsOpen);
+        navigate("/administrator");
       } catch (error) {
         console.error(error);
       }

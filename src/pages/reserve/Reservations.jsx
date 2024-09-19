@@ -61,7 +61,7 @@ export default function Reservas() {
             <legend>Reservas</legend>
             <header className="buttons">
               <NavLink
-                to={{ pathname: "/programing-packs" }}
+                to={{ pathname: "/administrator/packages/programming" }}
                 className="btn btn-primary m-2"
               >
                 <CalendarDateRangeIcon width={25} />

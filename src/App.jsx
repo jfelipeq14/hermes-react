@@ -36,22 +36,8 @@ export default function App() {
         {user &&
           user.data.id_role === 1 &&
           administrator.map((admin) => {
-            if (!admin.component && admin.submenu) {
-              return admin.submenu.map((submenu) => (
-                <Route
-                  key={submenu.name}
-                  exact
-                  path={submenu.href}
-                  element={
-                    <RenderComponent
-                      user={user}
-                      component={<submenu.component />}
-                    />
-                  }
-                />
-              ));
-            } else {
-              return (
+            return (
+              <>
                 <Route
                   key={admin.name}
                   exact
@@ -63,8 +49,22 @@ export default function App() {
                     />
                   }
                 />
-              );
-            }
+                {admin.submenu &&
+                  admin.submenu.map((submenu) => (
+                    <Route
+                      key={submenu.name}
+                      exact
+                      path={submenu.href}
+                      element={
+                        <RenderComponent
+                          user={user}
+                          component={<submenu.component />}
+                        />
+                      }
+                    />
+                  ))}
+              </>
+            );
           })}
 
         <Route path="*" element={<PageNotFound />} />
