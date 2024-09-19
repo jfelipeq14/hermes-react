@@ -98,7 +98,7 @@ export default function Packs() {
               <div className="col-6">
                 <div className="buttons float-end">
                   <NavLink
-                    to="/create-packs"
+                    to={{ pathname: `create` }}
                     className={
                       "btn btn-primary d-flex align-items-center justify-content-center gap-2"
                     }
@@ -127,7 +127,7 @@ export default function Packs() {
                         <EyeIcon width={25} />
                       </button>
                       <NavLink
-                        to={{ pathname: "/create-packs" }}
+                        to={{ pathname: `create` }}
                         state={{ id: pack.id }}
                         className="btn m-0 p-0"
                       >
@@ -161,7 +161,7 @@ export default function Packs() {
               <div className="col">
                 <div className="buttons float-end">
                   <NavLink
-                    to="packs"
+                    to={{ pathname: `/administrator/services` }}
                     className={
                       "btn btn-primary d-flex align-items-center justify-content-center gap-2"
                     }

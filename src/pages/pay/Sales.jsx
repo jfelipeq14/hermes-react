@@ -6,7 +6,6 @@ import {
 } from "@heroicons/react/16/solid";
 import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
-import { NavLink } from "react-router-dom";
 
 export default function Sales() {
   const sales = [
@@ -82,18 +81,15 @@ export default function Sales() {
                       <button className="btn m-0 p-0">
                         <EyeIcon width={25} />
                       </button>
-                      <NavLink>
-                        <button className="btn m-0 p-0">
-                          <UserPlusIcon width={25} />
-                        </button>
-                        <button className="btn m-0 p-0">
-                          <CalendarDateRangeIcon width={25} />
-                        </button>
-                        <button className="btn m-0 p-0">
-                          <TicketIcon width={25} />
-                        </button>
-                      </NavLink>
-                      
+                      <button className="btn m-0 p-0">
+                        <UserPlusIcon width={25} />
+                      </button>
+                      <button className="btn m-0 p-0">
+                        <CalendarDateRangeIcon width={25} />
+                      </button>
+                      <button className="btn m-0 p-0">
+                        <TicketIcon width={25} />
+                      </button>
                     </td>
                     <td>{sale.nombresPaquete}</td>
                     <td>{sale.valorPaquete}</td>

@@ -8,8 +8,10 @@ import {
   UserGroupIcon,
   UsersIcon,
   UserIcon,
+  HomeIcon,
 } from "@heroicons/react/16/solid";
 
+import Menu from "../pages/Menu";
 import Dashboard from "../pages/Dashboard";
 import Roles from "../pages/role/Role";
 import Users from "../pages/user/Users";
@@ -25,6 +27,12 @@ import Pays from "../pages/pay/Sales";
 import EditProfile from "../pages/user/EditProfile";
 
 export const administrator = [
+  {
+    name: "Inicio",
+    href: "administrator",
+    component: Menu,
+    icon: HomeIcon,
+  },
   {
     name: "Dashboard",
     href: "administrator/dashboard",
@@ -87,12 +95,9 @@ export const administrator = [
   },
   {
     name: "Pagos",
+    href: "administrator/pays",
+    component: Pays,
     submenu: [
-      {
-        name: "Consultar pagos",
-        href: "administrator/pays",
-        component: Pays,
-      },
       {
         name: "Gestión de pagos",
         href: "administrator/payments",

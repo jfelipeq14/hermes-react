@@ -266,7 +266,7 @@ export default function PackForm() {
               <div className="col-6">
                 <div className="buttons float-end">
                   <NavLink
-                    to="packs"
+                    to={{ pathname: `administrator/packages` }}
                     className={
                       "btn btn-primary d-flex align-items-center justify-content-center gap-2"
                     }
