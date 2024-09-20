@@ -38,7 +38,7 @@ export default function Packs() {
     },
     {
       nombre: "Lancha",
-      valor: 30000,
+      valor: 20000,
       cantidad: 1,
     },
   ];

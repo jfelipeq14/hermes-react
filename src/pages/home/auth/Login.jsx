@@ -5,7 +5,7 @@ import { Form } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import UserLogin from "./UserLogin"; // Importar el componente de usuario
 import HermesLogo from "../../../components/HermesLogo";
-import { login } from "../../../services/auth.service";
+import { AuthService } from "../../../services/auth.service.js";
 
 import swal from "sweetalert";
 import { setTokenStorage } from "../../../utilies/authUtils";
@@ -31,14 +31,14 @@ export default function Login({ isOpen, clickModal, setUser }) {
       e.stopPropagation();
     } else {
       try {
-        const userLogin = await login({ email, password });
+        const userLogin = await AuthService.login({ email, password });
         if (!userLogin) {
           swal({
             title: "No existe el usuario",
             text: "Revisa las credenciales ingresadas",
             icon: "error",
             buttons: false,
-            timer: 3000,
+            timer: 2000,
           });
           return;
         }
