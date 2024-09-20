@@ -1,31 +1,33 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3000/auth";
 
-export const login = async (credentials) => {
+export class AuthService{
+  static login = async (credentials) => {
     try {
-      const { data } = await axios.post(`${API_URL}/auth/login`, credentials);
+      const { data } = await axios.post(`${API_URL}/login`, credentials);
       return data;
     } catch (error) {
       console.error(error);
       return null;
     }
   };
-  
-  export const register = async (credentials) => {
+
+  static register = async (credentials) => {
     try {
-      const { data } = await axios.post(`${API_URL}/auth/register`, credentials);
+      const { data } = await axios.post(`${API_URL}/register`, credentials);
       return data;
     } catch (error) {
       console.error(error);
       return null;
     }
   };
-  
-  export const logout = async () => {
+
+  static logout = async () => {
     try {
-      await axios.post(`${API_URL}/auth/logout`);
+      await axios.post(`${API_URL}/logout`);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
+}

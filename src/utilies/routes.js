@@ -26,98 +26,117 @@ import Pays from "../pages/pay/Sales";
 
 import EditProfile from "../pages/user/EditProfile";
 
-export const administrator = [
-  {
-    name: "Inicio",
-    href: "administrator",
-    component: Menu,
-    icon: HomeIcon,
-  },
-  {
-    name: "Dashboard",
-    href: "administrator/dashboard",
-    component: Dashboard,
-    icon: ChartPieIcon,
-  },
-  {
-    name: "Perfil",
-    href: "administrator/profile",
-    component: EditProfile,
-    icon: UserIcon,
-  },
-  {
-    name: "Configuración",
-    href: "administrator/roles",
-    component: Roles,
-    icon: Cog6ToothIcon,
-  },
-  {
-    name: "Usuarios",
-    href: "administrator/users",
-    component: Users,
-    icon: UsersIcon,
-  },
-  {
-    name: "Servicios",
-    href: "administrator/services",
-    component: Services,
-    icon: ShoppingCartIcon,
-  },
-  {
-    name: "Paquetes",
-    href: "administrator/packages",
-    component: Packages,
-    submenu: [
+export const createRoutes = (role) => {
+  if (role === 1) {
+    return [
       {
-        name: "Crear paquetes",
-        href: "administrator/packages/create",
-        component: CreatePackages,
+        name: "Inicio",
+        href: `administrator`,
+        component: Menu,
+        icon: HomeIcon,
       },
       {
-        name: "Programación de paquetes",
-        href: "administrator/packages/programming",
-        component: Programming,
+        name: "Dashboard",
+        href: `administrator/dashboard`,
+        component: Dashboard,
+        icon: ChartPieIcon,
       },
-    ],
-    icon: CubeIcon,
-  },
-  {
-    name: "Clientes",
-    href: "administrator/customers",
-    component: Customers,
-    icon: UserGroupIcon,
-  },
-  {
-    name: "Reservas",
-    href: "administrator/reservations",
-    component: Reservations,
-    icon: FolderPlusIcon,
-  },
-  {
-    name: "Pagos",
-    href: "administrator/pays",
-    component: Pays,
-    submenu: [
+      {
+        name: "Perfil",
+        href: `administrator/profile`,
+        component: EditProfile,
+        icon: UserIcon,
+      },
+      {
+        name: "Configuración",
+        href: `administrator/roles`,
+        component: Roles,
+        icon: Cog6ToothIcon,
+      },
+      {
+        name: "Usuarios",
+        href: `administrator/users`,
+        component: Users,
+        icon: UsersIcon,
+      },
+      {
+        name: "Servicios",
+        href: `administrator/services`,
+        component: Services,
+        icon: ShoppingCartIcon,
+      },
+      {
+        name: "Paquetes",
+        href: `administrator/packages`,
+        component: Packages,
+        submenu: [
+          {
+            name: "Crear paquetes",
+            href: `administrator/packages/create`,
+            component: CreatePackages,
+          },
+          {
+            name: "Programación de paquetes",
+            href: `administrator/packages/programming`,
+            component: Programming,
+          },
+        ],
+        icon: CubeIcon,
+      },
+      {
+        name: "Clientes",
+        href: `administrator/customers`,
+        component: Customers,
+        icon: UserGroupIcon,
+      },
+      {
+        name: "Reservas",
+        href: `administrator/reservations`,
+        component: Reservations,
+        icon: FolderPlusIcon,
+      },
+      {
+        name: "Pagos",
+        href: `administrator/pays`,
+        component: Pays,
+        submenu: [
+          {
+            name: "Gestión de pagos",
+            href: `administrator/payments`,
+            component: Payments,
+          },
+        ],
+        icon: TicketIcon,
+      },
+    ];
+  } else if (role === 2) {
+    return [
+      {
+        name: "Inicio",
+        href: `customer`,
+        component: Menu,
+        icon: HomeIcon,
+      },
+      {
+        name: "Perfil",
+        href: `administrator/profile`,
+        component: EditProfile,
+        icon: UserIcon,
+      },
+      {
+        name: "Reservas",
+        href: `administrator/reservations`,
+        component: Reservations,
+        icon: FolderPlusIcon,
+      },
       {
         name: "Gestión de pagos",
-        href: "administrator/payments",
+        href: `administrator/payments`,
         component: Payments,
+        icon: TicketIcon,
       },
-    ],
-    icon: TicketIcon,
-  },
-];
-
-export const customer = [
-  {
-    name: "Reserve",
-    href: "/reserve",
-    icon: UserGroupIcon,
-  },
-  {
-    name: "Profile",
-    href: "customer/profile",
-    component: EditProfile,
-    icon: UsersIcon,
-  },
-];
+    ];
+  }else{
+    return []
+  }
+};

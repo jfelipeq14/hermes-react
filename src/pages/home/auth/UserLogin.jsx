@@ -26,7 +26,7 @@ export default function UserLogin() {
     setTimeout(() => {
       toggleResetModal();
       setShowCodeModal(true);
-    }, 3000);
+    }, 2000);
   };
 
   const handleVerifyCode = (e) => {
