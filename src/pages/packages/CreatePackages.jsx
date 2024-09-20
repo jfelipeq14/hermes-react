@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/16/solid";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import { administrator } from "../../utilies/routes";
 import { Packages } from "../../models/packs/packages.model";
+import swal from "sweetalert";
+import { PackagesService } from "../../services/packages.services";
 
 export default function PackForm() {
-  const formPackage = new Packages();
-  // const formService = new Service();
+  const navigate = useNavigate();
+  const [editMode, setEditMode] = useState(false);
   const services = [
     {
       idService: 1,
@@ -27,13 +29,14 @@ export default function PackForm() {
   ];
 
   const packs = [];
-  const [pack, setPackage] = useState(formPackage);
+  const [pack, setPackage] = useState(new Packages());
   const [validated, setValidated] = useState(false);
   const [servicePackData, setServicePackData] = useState([]);
   let idService = 0;
 
   useEffect(() => {
     // pack.services.push(...servicePackData);
+
   }, [servicePackData]);
 
   const handleChangePack = (e) => {
@@ -41,12 +44,64 @@ export default function PackForm() {
     setPackage({ ...pack, [name]: type === "checkbox" ? checked : value });
   };
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!e.currentTarget.checkValidity()) {
+      e.stopPropagation();
+    } else {
+      swal({
+        title: editMode ? "Editar paquete" : "Crear paquete",
+        text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
+        icon: "warning",
+        buttons: true,
+      }).then(async (confirm) => {
+        if (!confirm) return;
+        if (editMode) {
+          const editPack = await PackagesService.update(pack.idPackage, pack);
+          if (editPack) {
+            swal({
+              title: "Editado",
+              text: "Los datos fueron editados correctamente",
+              icon: "success",
+              timer: 2000,
+              buttons: false,
+            });
+            navigate("/administrator/packages");
+            return;
+          } else {
+            swal({
+              title: "Error",
+              text: "Ha ocurrido un error al editar el paquete",
+              icon: "error",
+              timer: 2000,
+              buttons: false,
+            });
+            return;
+          }
+        } else {
+          const createPack = await PackagesService.create(pack);
+          if (!createPack) {
+            swal({
+              title: "Error",
+              text: "Ha ocurrido un error al crear el paquete",
+              icon: "error",
+              timer: 2000,
+              buttons: false,
+            });
+            return;
+          }
+          swal({
+            title: "Creado",
+            text: "El paquete fue creado correctamente",
+            icon: "success",
+            timer: 2000,
+            buttons: false,
+          });
+          navigate("/administrator/packages");
+        }
+      });
     }
+
     setValidated(true);
   };
 
@@ -63,6 +118,7 @@ export default function PackForm() {
     const serviceFound = services.find((s) => s.idService === idService);
     setServicePackData([...servicePackData, serviceFound]);
   };
+  
 
   return (
     <div className="row">
@@ -152,7 +208,6 @@ export default function PackForm() {
                       name="services"
                       // value={idService}
                       onChange={handleChangeOptions}
-                      required
                     >
                       <option value="">Selecciona</option>
                       {services.map((service) => (
@@ -190,14 +245,15 @@ export default function PackForm() {
                   </div>
                   {/* Precio */}
                   <div className="col-12">
-                    <label htmlFor="precio">Precio:</label>
+                    <label htmlFor="price">Precio:</label>
                     <input
                       type="number"
                       className="form-control"
-                      name="precio"
-                      value={pack.precio}
+                      name="price"
+                      value={pack.price}
                       onChange={handleChangePack}
-                      pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
+                      pattern="^[1-9]\d*$"
+                      min={1}
                       required
                     />
                     <small className="valid-feedback">Todo bien!</small>
@@ -206,8 +262,8 @@ export default function PackForm() {
                     </small>
                   </div>
                   {/* Ganancia */}
-                  <div className="col-12">
-                    <label htmlFor="destination">Ingreso:</label>
+                  {/* <div className="col-12">
+                    <label htmlFor="ganan">:</label>
                     <input
                       type="number"
                       className="form-control"
@@ -219,16 +275,21 @@ export default function PackForm() {
                     <small className="invalid-feedback">
                       Campo obligatorio
                     </small>
-                  </div>
+                  </div> */}
                   <div className="col-12 my-2">
                     <label htmlFor="">Estado:</label>
                     <div className="row">
                       <div className="col-sm-12 col-md-6 my-2">
-                        <input type="radio" name="status" value={true} />
+                        <input
+                          type="radio"
+                          name="status"
+                          value={pack.status}
+                          checked
+                        />
                         <span className="mx-3">Activo</span>
                       </div>
                       <div className="col-sm-12 col-md-6 my-2">
-                        <input type="radio" name="status" value={false} />
+                        <input type="radio" name="status" value={pack.status} />
                         <span className="mx-3">Inactivo</span>
                       </div>
                     </div>

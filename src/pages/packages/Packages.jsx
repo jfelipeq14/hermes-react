@@ -2,46 +2,34 @@ import {
   EyeIcon,
   PencilSquareIcon,
   PlusCircleIcon,
+  TrashIcon,
 } from "@heroicons/react/16/solid";
 import { administrator } from "../../utilies/routes";
 import Sidebar, { SidebarItem } from "../layout/Sidebar";
 import { NavLink } from "react-router-dom";
 import swal from "sweetalert";
+import { PackagesService } from "../../services/packages.services";
+import { useEffect, useState } from "react";
 
 export default function Packs() {
-  const packs = [
-    {
-      id: 1,
-      nombres: "Cartagena",
-      fechaInscripcion: "24/08/2024",
-      fechaFinInscripcion: "30/08/2024",
-      fechaEjecucion: "10/09/2024",
-      valor: 670000,
-      estado: "Activo",
-    },
-    {
-      id: 2,
-      nombres: "Barranquilla",
-      fechaInscripcion: "13/08/2024",
-      fechaFinInscripcion: "20/08/2024",
-      fechaEjecucion: "30/08/2024",
-      valor: 800000,
-      estado: "Inactivo",
-    },
-  ];
+  const [packages, setPackages] = useState([]);
+  const [services, setServices] = useState([]);
+  async function getPackages() {
+    const data = await PackagesService.getAll();
+    if (data) {
+      setPackages(data);
+    }
+  }
+  // async function getServices() {
+  //   const data = await PackagesService.getAll();
+  //   if (data) {
+  //     setServices(data);
+  //   }
+  // }
 
-  const services = [
-    {
-      nombre: "Visita Muralla ",
-      valor: 45000,
-      cantidad: 1,
-    },
-    {
-      nombre: "Lancha",
-      valor: 30000,
-      cantidad: 1,
-    },
-  ];
+  useEffect(() => {
+    getPackages();
+  }, []);
 
   const handleChange = (e) => {
     const state = e.target.checked;
@@ -51,7 +39,8 @@ export default function Packs() {
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    }).then((confirm) => {  2
+    }).then((confirm) => {
+      2;
       if (confirm) {
         e.target.checked = state ? true : false;
       } else {
@@ -62,6 +51,38 @@ export default function Packs() {
           icon: "error",
           timer: 2000,
           buttons: false,
+        });
+      }
+    });
+  };
+  const handleDeletePack = async (e) => {
+    const idPackage = parseInt(e.target.id);
+
+    swal({
+      title: "¿Quieres eliminar el paquete?",
+      text: "Vas a eliminar el paquete",
+      icon: "warning",
+      buttons: true,
+    }).then(async (confirm) => {
+      if (!confirm) return;
+      const data = await PackagesService.remove(idPackage);
+      if (data) {
+        swal({
+          title: "Paquete eliminado",
+          text: "El paquete ha sido eliminado correctamente",
+          icon: "success",
+          buttons: false,
+          timer: 2000,
+        }).then(() => {
+          getPackages()
+        });
+      } else {
+        swal({
+          title: "Error",
+          text: "Ha ocurrido un error al eliminar el paquete",
+          icon: "error",
+          buttons: false,
+          timer: 2000,
         });
       }
     });
@@ -120,7 +141,7 @@ export default function Packs() {
                 <th scope="col">Estado</th>
               </thead>
               <tbody>
-                {packs.map((pack) => (
+                {packages.map((pack) => (
                   <tr key={pack.email}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
@@ -128,7 +149,7 @@ export default function Packs() {
                       </button>
                       <NavLink
                         to={{ pathname: `create` }}
-                        state={{ id: pack.id }}
+                        state={{ id: pack.idPackage }}
                         className="btn m-0 p-0"
                       >
                         <PencilSquareIcon width={25} />
@@ -139,17 +160,23 @@ export default function Packs() {
                           type="checkbox"
                           role="switch"
                           name="state"
-                          checked={pack.state}
+                          checked={pack.status}
                           onChange={handleChange}
                         />
-                      </div>
+                      </div> <button className="btn m-0 p-0">
+                        <TrashIcon
+                          width={25}
+                          onClick={handleDeletePack}
+                          id={pack.idPackage}
+                        />
+                      </button>
                     </td>
-                    <td>{pack.nombres}</td>
+                    <td>{pack.name}</td>
                     <td>{pack.fechaInscripcion}</td>
                     <td>{pack.fechaFinInscripcion}</td>
                     <td>{pack.fechaEjecucion}</td>
-                    <td>{pack.valor}</td>
-                    <td>{pack.estado}</td>
+                    <td>{pack.price}</td>
+                    <td>{pack.status ? "Activo" : "Inactivo"}</td>
                   </tr>
                 ))}
               </tbody>
