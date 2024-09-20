@@ -7,7 +7,7 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/16/solid";
 import { removeTokenStorage } from "../../utilies/authUtils";
-import { logout } from "../../services/auth.service";
+import { AuthService } from "../../services/auth.service.js";
 import Login from "../home/auth/Login";
 import Register from "../home/auth/Register";
 
@@ -17,10 +17,10 @@ export default function Navbar({ children, user, setUser }) {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setUser(null);
     removeTokenStorage();
-    logout();
+    await AuthService.logout();
     navigate("/");
   };
 
@@ -35,10 +35,7 @@ export default function Navbar({ children, user, setUser }) {
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
-        <NavLink
-          to="administrador"
-          className="nav-brand"
-        >
+        <NavLink to="administrador" className="nav-brand">
           <HermesLogo />
         </NavLink>
         <button

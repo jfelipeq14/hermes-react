@@ -1,24 +1,12 @@
 import { UserIcon } from "@heroicons/react/16/solid";
 import BarsChart from "../components/dashboard/BarsChart";
 import PiesChart from "../components/dashboard/PiesChart";
-import { administrator } from "../utilies/routes";
-import Sidebar, { SidebarItem } from "./layout/Sidebar";
+import Sidebar from "./layout/Sidebar";
 
 export default function Dashboard() {
   return (
     <div className="row">
-      <Sidebar>
-        {administrator.map((link) => {
-          return (
-            <SidebarItem
-              key={link.name}
-              name={link.name}
-              href={link.href}
-              icon={<link.icon width={30} />}
-            />
-          );
-        })}
-      </Sidebar>
+      <Sidebar></Sidebar>
       <div className="col-11 text-center justify-content-center align-items-center">
         <h1>Dashboard</h1>
         <div className="row">

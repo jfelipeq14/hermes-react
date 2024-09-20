@@ -4,18 +4,19 @@ import swal from "sweetalert";
 import { documentTypes } from "../../utilies/documentTypes";
 import { useState } from "react";
 import { UsersService } from "../../services/users.service";
+import { Users } from "../../models/users/users.model";
 
-export default function UserForm({ user, setUser, editMode }) {
+export default function UserForm({ user, setUser, editMode, getUsers }) {
   const roles = [
     { idRole: 1, name: "Administrador", state: true },
     { idRole: 2, name: "Usuario", state: true },
   ];
-
+  const [confirmPassword, setConfirmPassword] = useState(null);
   let [validated, setValidated] = useState(false);
 
   const handleChangeUser = (e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setUser({ ...user, [name]: name === "idRole" ? parseInt(value) : value });
   };
 
   const handleSubmit = (e) => {
@@ -29,7 +30,7 @@ export default function UserForm({ user, setUser, editMode }) {
         icon: "warning",
         buttons: true,
       }).then(async (confirm) => {
-        if (!confirm) return;
+        if (!confirm || user.password !== confirmPassword) return;
         if (editMode) {
           const editUser = await UsersService.update(user.idUser, user);
           if (editUser) {
@@ -40,7 +41,6 @@ export default function UserForm({ user, setUser, editMode }) {
               timer: 2000,
               buttons: false,
             });
-            return;
           } else {
             swal({
               title: "Error",
@@ -49,9 +49,11 @@ export default function UserForm({ user, setUser, editMode }) {
               timer: 2000,
               buttons: false,
             });
-            return;
           }
+          getUsers();
         } else {
+          user.idUser = user.identification;
+          user.idRole = 1;
           const createUser = await UsersService.create(user);
           if (!createUser) {
             swal({
@@ -61,7 +63,6 @@ export default function UserForm({ user, setUser, editMode }) {
               timer: 2000,
               buttons: false,
             });
-            return;
           }
           swal({
             title: "Creado",
@@ -70,6 +71,7 @@ export default function UserForm({ user, setUser, editMode }) {
             timer: 2000,
             buttons: false,
           });
+          getUsers();
         }
       });
     }
@@ -77,11 +79,18 @@ export default function UserForm({ user, setUser, editMode }) {
     setValidated(true);
   };
 
+  const handleReset = () => {
+    setUser(new Users());
+    setConfirmPassword(null);
+    setValidated(false);
+  };
+
   return (
     <Form
       noValidate
       validated={validated}
       onSubmit={handleSubmit}
+      onReset={handleReset}
       className="row p-1"
     >
       {/* Rol */}
@@ -98,7 +107,9 @@ export default function UserForm({ user, setUser, editMode }) {
         >
           <option value="">Selecciona</option>
           {roles.map((role) => (
-            <option key={role.idRole} value={role.idRole}>{role.name}</option>
+            <option key={role.idRole} value={role.idRole}>
+              {role.name}
+            </option>
           ))}
         </select>
         <small className="valid-feedback">Todo bien!</small>
@@ -118,7 +129,7 @@ export default function UserForm({ user, setUser, editMode }) {
               onChange={handleChangeUser}
               required
             >
-              <option>Selecciona</option>
+              <option value="">Selecciona</option>
               {documentTypes.map((documentType) => (
                 <option key={documentType}>{documentType}</option>
               ))}
@@ -142,8 +153,8 @@ export default function UserForm({ user, setUser, editMode }) {
         </div>
       </div>
       {/* correo */}
-      <div className="col-6">
-        <label htmlFor="email">Correo:</label>
+      <label className="col-12">
+        Correo:
         <input
           type="email"
           className="form-control"
@@ -155,25 +166,7 @@ export default function UserForm({ user, setUser, editMode }) {
         />
         <small className="valid-feedback">Todo bien!</small>
         <small className="invalid-feedback">Campo obligatorio</small>
-      </div>
-      <div className="col-6">
-        <label htmlFor="emailConfirmation">Confir. correo:</label>
-        <input
-          type="email"
-          className="form-control"
-          name="emailConfirmation"
-          value={user.email}
-          onChange={(e) => {
-            if (user.email === e.target.value) {
-              return;
-            }
-          }}
-          pattern="^[a-z0-9.!#$%&*+/=?^_`{|}~-]+@[a-z0-9-]+\.[a-z0-9.]{2,}$"
-          required
-        />
-        <small className="valid-feedback">Todo bien!</small>
-        <small className="invalid-feedback">Campo obligatorio</small>
-      </div>
+      </label>
       {/* contraseña */}
       <div className="col-6">
         <label htmlFor="password">Contraseña:</label>
@@ -195,12 +188,10 @@ export default function UserForm({ user, setUser, editMode }) {
         <input
           type="password"
           className="form-control"
-          name="passwordConfirmation"
-          value={user.password}
+          name="confirmPassword"
+          value={confirmPassword}
           onChange={(e) => {
-            if (user.password === e.target.value) {
-              return;
-            }
+            setConfirmPassword(e.target.value);
           }}
           required
         />

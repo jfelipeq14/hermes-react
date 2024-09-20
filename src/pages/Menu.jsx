@@ -1,26 +1,26 @@
+import { useEffect, useState } from "react";
 import CardMenu from "../components/CardMenu";
-import { administrator } from "../utilies/routes";
-import Sidebar, { SidebarItem } from "./layout/Sidebar";
+import { createRoutes } from "../utilies/routes.js";
+import Sidebar from "./layout/Sidebar";
+import { getTokenStorage } from "../utilies/authUtils.js";
 
 export default function Menu() {
+  const [role, setRole] = useState(0);
+
+  useEffect(() => {
+    const loggedUser = getTokenStorage();
+    if (!loggedUser) return;
+    const data = JSON.parse(loggedUser);
+    data.data.idRole == 1 ? setRole(1) : setRole(2);
+  }, []);
+
   return (
     <div className="row">
-      <Sidebar>
-        {administrator.map((link) => {
-          return (
-            <SidebarItem
-              key={link.name}
-              name={link.name}
-              href={link.href}
-              icon={<link.icon width={30} />}
-            />
-          );
-        })}
-      </Sidebar>
+      <Sidebar></Sidebar>
       <main className="col-11">
         <div className="container text-center">
           <div className="d-flex flex-wrap justify-content-around align-items-center">
-            {administrator.map((admin) => (
+            {createRoutes(role).map((admin) => (
               <CardMenu
                 key={admin.name}
                 title={admin.name}

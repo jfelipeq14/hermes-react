@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
-import Sidebar, { SidebarItem } from "../layout/Sidebar";
-import { administrator } from "../../utilies/routes";
+import Sidebar from "../layout/Sidebar";
 import { Customers } from "../../models/reservations/customers.model";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 
@@ -36,20 +35,9 @@ export default function EditProfile({ clickModal }) {
 
   return (
     <div className="row">
-      <Sidebar>
-        {administrator.map((link) => {
-          return (
-            <SidebarItem
-              key={link.name}
-              name={link.name}
-              href={link.href}
-              icon={<link.icon width={30} />}
-            />
-          );
-        })}
-      </Sidebar>
+      <Sidebar></Sidebar>
       <main className="col-11">
-        <div className="row p-5">
+        <div className="row">
           <Form
             noValidate
             validated={validated}

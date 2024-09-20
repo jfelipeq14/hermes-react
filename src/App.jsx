@@ -7,19 +7,20 @@ import Navbar from "./pages/layout/Navbar";
 import PageNotFound from "./pages/PageNotFound";
 
 import { getTokenStorage } from "./utilies/authUtils";
-import { administrator } from "./utilies/routes";
+import { createRoutes } from "./utilies/routes.js";
 import Reserve from "./pages/reserve/Reserve";
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(0);
 
   useEffect(() => {
     const loggedUser = getTokenStorage();
-    if (loggedUser) {
-      const user = JSON.parse(loggedUser);
-      setUser(user);
-    }
-  }, []);
+    if (!loggedUser) return;
+    const data = JSON.parse(loggedUser);
+    data.data.idRole == 1 ? setRole(1) : setRole(2);
+    setUser(data);
+  }, [user]);
 
   return (
     <BrowserRouter>
@@ -34,23 +35,23 @@ export default function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/reserve" element={<Reserve />} />
         {user &&
-          user.data.idRole === 1 &&
-          administrator.map((admin) => {
+          role &&
+          createRoutes(role).map((item) => {
             return (
               <>
                 <Route
-                  key={admin.name}
+                  key={item.name}
                   exact
-                  path={admin.href}
+                  path={item.href}
                   element={
                     <RenderComponent
                       user={user}
-                      component={<admin.component />}
+                      component={<item.component />}
                     />
                   }
                 />
-                {admin.submenu &&
-                  admin.submenu.map((submenu) => (
+                {item.submenu &&
+                  item.submenu.map((submenu) => (
                     <Route
                       key={submenu.name}
                       exact
@@ -66,7 +67,6 @@ export default function App() {
               </>
             );
           })}
-
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

@@ -4,8 +4,7 @@ import {
   PencilSquareIcon,
   PlusCircleIcon,
 } from "@heroicons/react/16/solid";
-import { administrator } from "../../utilies/routes";
-import Sidebar, { SidebarItem } from "../layout/Sidebar";
+import Sidebar from "../layout/Sidebar";
 import { NavLink } from "react-router-dom";
 
 export default function customers() {
@@ -76,18 +75,7 @@ export default function customers() {
 
   return (
     <div className="row">
-      <Sidebar>
-        {administrator.map((link) => {
-          return (
-            <SidebarItem
-              key={link.name}
-              name={link.name}
-              href={link.href}
-              icon={<link.icon width={30} />}
-            />
-          );
-        })}
-      </Sidebar>
+      <Sidebar></Sidebar>
       <main className="col-11">
         <div className="row">
           <fieldset className="col-sm-12 col-md-6">

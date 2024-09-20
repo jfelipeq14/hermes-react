@@ -45,7 +45,11 @@ export default function Login({ isOpen, clickModal, setUser }) {
         setUser(userLogin);
         setTokenStorage(userLogin);
         setModalIsOpen(!modalIsOpen);
-        navigate("/administrator");
+        if (userLogin.data.idRole === 1) {
+          navigate("/administrator");
+        }else{
+          navigate("/customer");
+        }
       } catch (error) {
         console.error(error);
       }

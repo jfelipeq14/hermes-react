@@ -32,11 +32,11 @@ export default function Register({ isOpen, clickModal }) {
         text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
         icon: "warning",
         buttons: true,
-      }).then((confirm) => {
+      }).then(async (confirm) => {
         if (!confirm || user.password !== confirmPassword) return;
         user.idUser = user.identification;
-        user.idRole = 2;
-        const userCreated = AuthService.register(user);
+        user.idRole = 1;
+        const userCreated = await AuthService.register(user);
         swal({
           title: userCreated ? "Registro Exitoso" : "Error al registrar",
           text: userCreated
