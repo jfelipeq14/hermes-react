@@ -12,7 +12,7 @@ export default function customers() {
   const customers = [
     {
       id_customer: 1,
-      id_user: 3,
+      idUser: 3,
       documentType: "CC",
       identification: "899213",
       name: "Juan",

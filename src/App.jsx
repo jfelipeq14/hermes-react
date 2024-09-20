@@ -34,7 +34,7 @@ export default function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/reserve" element={<Reserve />} />
         {user &&
-          user.data.id_role === 1 &&
+          user.data.idRole === 1 &&
           administrator.map((admin) => {
             return (
               <>

@@ -1,19 +1,16 @@
+/* eslint-disable react/prop-types */
 import { Form } from "react-bootstrap";
-import { Users } from "../../models/users/users.model";
 import swal from "sweetalert";
 import { documentTypes } from "../../utilies/documentTypes";
 import { useState } from "react";
+import { UsersService } from "../../services/users.service";
 
-export default function UserForm() {
+export default function UserForm({ user, setUser, editMode }) {
   const roles = [
     { idRole: 1, name: "Administrador", state: true },
     { idRole: 2, name: "Usuario", state: true },
   ];
 
-  const [users, setUsers] = useState([]);
-  const formUser = new Users();
-
-  let [user, setUser] = useState(formUser);
   let [validated, setValidated] = useState(false);
 
   const handleChangeUser = (e) => {
@@ -27,26 +24,49 @@ export default function UserForm() {
       e.stopPropagation();
     } else {
       swal({
-        title: "¿Quieres registrarte con estos datos?",
+        title: editMode ? "Editar usuario" : "Crear usuario",
         text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
         icon: "warning",
         buttons: true,
-        dangerMode: true,
-      }).then((confirm) => {
-        if (confirm) {
-          setUsers(...users, user);
-          swal({
-            title: "Enviado",
-            text: "Los datos fueron enviados correctamente",
-            icon: "success",
-            timer: 2000,
-            buttons: false,
-          });
+      }).then(async (confirm) => {
+        if (!confirm) return;
+        if (editMode) {
+          const editUser = await UsersService.update(user.idUser, user);
+          if (editUser) {
+            swal({
+              title: "Editado",
+              text: "Los datos fueron editados correctamente",
+              icon: "success",
+              timer: 2000,
+              buttons: false,
+            });
+            return;
+          } else {
+            swal({
+              title: "Error",
+              text: "Ha ocurrido un error al editar el usuario",
+              icon: "error",
+              timer: 2000,
+              buttons: false,
+            });
+            return;
+          }
         } else {
+          const createUser = await UsersService.create(user);
+          if (!createUser) {
+            swal({
+              title: "Error",
+              text: "Ha ocurrido un error al crear el usuario",
+              icon: "error",
+              timer: 2000,
+              buttons: false,
+            });
+            return;
+          }
           swal({
-            title: "Cancelado",
-            text: "Los datos no se han enviado",
-            icon: "error",
+            title: "Creado",
+            text: "El usuario fue creado correctamente",
+            icon: "success",
             timer: 2000,
             buttons: false,
           });
@@ -76,9 +96,9 @@ export default function UserForm() {
           onChange={handleChangeUser}
           required
         >
-          <option selected>Selecciona</option>
+          <option value="">Selecciona</option>
           {roles.map((role) => (
-            <option key={role.idRole}>{role.name}</option>
+            <option key={role.idRole} value={role.idRole}>{role.name}</option>
           ))}
         </select>
         <small className="valid-feedback">Todo bien!</small>
@@ -193,7 +213,7 @@ export default function UserForm() {
         </button>
         <button type="reset" className="btn btn-outline-danger">
           Cancelar
-        </button> 
+        </button>
       </div>
     </Form>
   );
