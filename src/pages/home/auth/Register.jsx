@@ -1,71 +1,54 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import swal from "sweetalert";
-import { Users } from "../../../models/users/users.model";
-import { Form } from "react-bootstrap";
+
+import { Modal, Form } from "react-bootstrap";
+
 import { documentTypes } from "../../../utilies/documentTypes";
+
+import { AuthService } from "../../../services/auth.service.js";
+import { Users } from "../../../models/users/users.model";
+
 import HermesLogo from "../../../components/HermesLogo";
 
-// eslint-disable-next-line react/prop-types
+import swal from "sweetalert";
+
 export default function Register({ isOpen, clickModal }) {
-  // const [nombre, setNombre] = useState("");
-  // const [correo, setCorreo] = useState("");
-  // const [tipoIdentificacion, setTipoIdentificacion] = useState("");
-  // const [cedula, setCedula] = useState("");
-  // const [contraseña, setContraseña] = useState("");
-  // const [confirmarContraseña, setConfirmarContraseña] = useState("");
-  // const [error, setError] = useState("");
-  // const [mostrarContraseña, setMostrarContraseña] = useState(false);
-  // const [mostrarConfirmarContraseña, setMostrarConfirmarContraseña] =
-  //   useState(false);
-  // Puedes ahorrarte todo lo anterior con
-  const formUser = new Users();
-  formUser.idRole = 2; // Usuario
-  const [user, setUser] = useState(formUser); // Un solo estado para todos los campos
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [user, setUser] = useState(new Users());
+  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [validated, setValidated] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
-  const [validated, setValidated] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!e.currentTarget.checkValidity()) {
       e.stopPropagation();
     } else {
-      // Confirmación de registro
       swal({
         title: "¿Quieres registrarte con estos datos?",
         text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
         icon: "warning",
         buttons: true,
-        dangerMode: true,
-      }).then((confirm) => {
-        if (confirm) {
-          console.log("Registro exitoso con:", user);
-          clickModal(); // Cierra el modal después del registro
-
-          // Mostrar alerta de registro exitoso
-          swal({
-            title: "Registro Exitoso",
-            text: "Ahora puedes iniciar sesión, dirígete a ingresar.",
-            icon: "success",
-            buttons: false,
-            timer: 3000,
-          });
-        } else {
-          swal({
-            title: "Cancelado",
-            text: "Los datos no se han enviado",
-            icon: "error",
-            timer: 2000,
-            buttons: false,
-          });
-        }
+      }).then(async (confirm) => {
+        if (!confirm || user.password !== confirmPassword) return;
+        user.idUser = user.identification;
+        user.idRole = 1;
+        const userCreated = await AuthService.register(user);
+        swal({
+          title: userCreated ? "Registro Exitoso" : "Error al registrar",
+          text: userCreated
+            ? "Ahora puedes iniciar sesión, dirígete a ingresar."
+            : "Revisa la información antes de enviar el formulario",
+          icon: userCreated ? "success" : "error",
+          buttons: false,
+          timer: 2000,
+        });
+        clickModal();
       });
     }
-
     setValidated(true);
   };
 
@@ -164,17 +147,6 @@ export default function Register({ isOpen, clickModal }) {
             value={confirmPassword}
             onChange={(e) => {
               setConfirmPassword(e.target.value);
-              if (confirmPassword === user.password) {
-                return;
-              } else {
-                swal({
-                  title: "La contraseña no coincide",
-                  text: "Revisa la información antes de enviar el formulario",
-                  icon: "warning",
-                  buttons: false,
-                  timer: 2000,
-                });
-              }
             }}
             required
           />

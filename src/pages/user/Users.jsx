@@ -1,6 +1,5 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
-import { administrator } from "../../utilies/routes";
-import Sidebar, { SidebarItem } from "../layout/Sidebar";
+import Sidebar from "../layout/Sidebar";
 import UserForm from "./UserForm";
 import { useEffect, useState } from "react";
 
@@ -55,7 +54,7 @@ export default function UsersPage() {
       buttons: true,
     }).then(async (confirm) => {
       if (!confirm || loggedUser.data.idUser == idUser) return;
-      const data = await UsersService.remove(parseInt(e.currentTarget.id));
+      const data = await UsersService.remove(idUser);
       if (data) {
         swal({
           title: "Usuario eliminado",
@@ -76,6 +75,7 @@ export default function UsersPage() {
         });
       }
     });
+    setEditMode(false);
   };
 
   const handleCheck = (e) => {
@@ -100,8 +100,6 @@ export default function UsersPage() {
           timer: 2000,
           buttons: false,
         });
-        getUsers();
-        return;
       } else {
         swal({
           title: "Error",
@@ -110,30 +108,19 @@ export default function UsersPage() {
           timer: 2000,
           buttons: false,
         });
-        return;
       }
+      getUsers();
     });
   };
 
   return (
     <div className="row">
-      <Sidebar>
-        {administrator.map((link) => {
-          return (
-            <SidebarItem
-              key={link.name}
-              name={link.name}
-              href={link.href}
-              icon={<link.icon width={30} />}
-            />
-          );
-        })}
-      </Sidebar>
+      <Sidebar></Sidebar>
       <main className="col-11">
         <div className="row">
           <fieldset className="col-sm-12 col-md-6">
             <legend>Usuario</legend>
-            <UserForm user={user} setUser={setUser} editMode={editMode} />
+            <UserForm user={user} setUser={setUser} editMode={editMode} getUsers={getUsers} />
           </fieldset>
           <fieldset className="col-sm-12 col-md-6">
             <legend>Usuarios</legend>

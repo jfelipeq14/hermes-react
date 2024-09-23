@@ -9,8 +9,7 @@ import {
   UserPlusIcon,
 } from "@heroicons/react/16/solid";
 
-import { administrator } from "../../utilies/routes";
-import Sidebar, { SidebarItem } from "../layout/Sidebar";
+import Sidebar from "../layout/Sidebar";
 import CompanionForm from "./CompanionForm";
 import PayForm from "../pay/PayForm";
 import Modals from "../../components/Modals";
@@ -39,18 +38,7 @@ export default function Reservas() {
 
   return (
     <div className="row">
-      <Sidebar>
-        {administrator.map((link) => {
-          return (
-            <SidebarItem
-              key={link.name}
-              name={link.name}
-              href={link.href}
-              icon={<link.icon width={30} />}
-            />
-          );
-        })}
-      </Sidebar>
+      <Sidebar></Sidebar>
       <main className="col-11">
         <div className="row">
           <fieldset className="col-sm-12 col-md-4">
