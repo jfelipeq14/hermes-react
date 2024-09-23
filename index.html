@@ -5,9 +5,23 @@
     <link rel="icon" type="image/svg+xml" href="/public/hermes.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hermes</title>
+    <style>        #root {
+      text-align: center;
+      transition: opacity 2s ease;
+      opacity: 1;
+  }</style>
   </head>
   <body class="container-fluid">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      window.onload = function() {
+          const root = document.getElementById('root');
+
+          setTimeout(() => {
+              root.style.opacity = 0;
+          }, 2000); // Espera 2 segundos antes de desvanecer
+      };
+  </script>
   </body>
 </html>
