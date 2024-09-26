@@ -13,21 +13,34 @@ import Reserve from "./pages/reserve/Reserve";
 export default function App() {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(0);
+  const [routes, setRoutes] = useState([]);
 
   useEffect(() => {
     const loggedUser = getTokenStorage();
     if (!loggedUser) return;
     const data = JSON.parse(loggedUser);
-    data.data.idRole == 1 ? setRole(1) : setRole(2);
     setUser(data);
+    setRole(data.data.idRole === 1 ? 1 : 2);
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      setRole(user.data.idRole === 1 ? 1 : 2);
+    }
   }, [user]);
+
+  useEffect(() => {
+    if (role) {
+      setRoutes(createRoutes(role));
+    }
+  }, [role]);
 
   return (
     <BrowserRouter>
       <Navbar user={user} setUser={setUser}>
         <li className="nav-item">
           <Link to="/" className="nav-link">
-            Home
+            Inicio
           </Link>
         </li>
       </Navbar>
@@ -36,11 +49,10 @@ export default function App() {
         <Route exact path="/reserve" element={<Reserve />} />
         {user &&
           role &&
-          createRoutes(role).map((item) => {
+          routes.map((item) => {
             return (
               <>
                 <Route
-                  key={item.name}
                   exact
                   path={item.href}
                   element={

@@ -10,11 +10,13 @@ import swal from "sweetalert";
 export default function PaymentForm() {
   // img
   const [image, setImage] = useState(null);
+  // payment method
+  const [paymentMethod, setPaymentMethod] = useState(null);
 
   const [validated, setValidated] = useState(false);
   const [pay, setPay] = useState({
-    valorTotal: "",
-    pagoMinimo: "",
+    valorTotal: 0,
+    pagoMinimo: 0,
     comprobante: "",
   });
 
@@ -65,14 +67,71 @@ export default function PaymentForm() {
     <>
       <section className="buttons justify-content-around">
         <button className="btn btn-outline-primary">
-          <CreditCardIcon width={80} />
+          <CreditCardIcon
+            width={80}
+            onClick={() => {
+              setPaymentMethod("banco");
+            }}
+          />
         </button>
         <button className="btn btn-outline-primary">
-          <CurrencyDollarIcon width={80} />
+          <CurrencyDollarIcon
+            width={80}
+            onClick={() => {
+              setPaymentMethod("nequi");
+            }}
+          />
         </button>
         <button className="btn btn-outline-primary">
-          <QrCodeIcon width={80} />
+          <QrCodeIcon
+            width={80}
+            onClick={() => {
+              setPaymentMethod("qr");
+            }}
+          />
         </button>
+      </section>
+      <section>
+        {paymentMethod && (
+          <div className="container shadow p-3 m-2">
+            <h1 className="text-center text-uppercase">{paymentMethod}</h1>
+            {paymentMethod === "nequi" ? (
+              <>
+                <p>
+                  Numero de celular: <strong>3128283889</strong>
+                </p>
+                <p>
+                  Nombre:
+                  <strong>Juan Castaño</strong>
+                </p>
+              </>
+            ) : paymentMethod === "banco" ? (
+              <>
+                <p>
+                  Nombre: <strong>Juan S. Castaño</strong>
+                </p>
+                <p>
+                  Tipo de documento: <strong>CC</strong>
+                </p>
+                <p>
+                  Numero de documento:
+                  <strong>123456789</strong>
+                </p>
+                <p>
+                  Banco: <strong>Bancolombia</strong>
+                </p>
+                <p>
+                  Tipo de cuenta: <strong>Ahorros</strong>
+                </p>
+                <p>
+                  Numero de cuenta: <strong>123456789</strong>
+                </p>
+              </>
+            ) : paymentMethod === "qr" ? (
+              <img src="/public/hermes.png" width={80} />
+            ) : null}
+          </div>
+        )}
       </section>
       <Form
         noValidate
@@ -117,7 +176,7 @@ export default function PaymentForm() {
           <small className="invalid-feedback">Campo obligatorio</small>
           <img
             alt="preview comprobante"
-            className="img-thumbnail"
+            className="img-thumbnail my-2"
             src={image}
           />
         </label>

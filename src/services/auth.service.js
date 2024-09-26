@@ -6,6 +6,7 @@ export class AuthService{
   static login = async (credentials) => {
     try {
       const { data } = await axios.post(`${API_URL}/login`, credentials);
+      console.log(data);
       return data;
     } catch (error) {
       console.error(error);
