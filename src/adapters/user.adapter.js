@@ -3,7 +3,7 @@ import { User } from "../models/users/users.model.js";
 export const createAddaptedUser = (user) => {
   const formattedUser = new User({
     idUser: user.id,
-    idRole: user.name,
+    idRole: user.idRole,
     documentType: user.documentType,
     identification: user.identification,
     email: user.email,

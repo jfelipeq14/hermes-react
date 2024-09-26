@@ -33,41 +33,26 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
         if (!confirm || user.password !== confirmPassword) return;
         if (editMode) {
           const editUser = await UsersService.update(user.idUser, user);
-          if (editUser) {
-            swal({
-              title: "Editado",
-              text: "Los datos fueron editados correctamente",
-              icon: "success",
-              timer: 2000,
-              buttons: false,
-            });
-          } else {
-            swal({
-              title: "Error",
-              text: "Ha ocurrido un error al editar el usuario",
-              icon: "error",
-              timer: 2000,
-              buttons: false,
-            });
-          }
+          swal({
+            title: editUser ? "Editado" : "Error",
+            text: editUser
+              ? "Los datos fueron editados correctamente"
+              : "Ha ocurrido un error al editar la informacion",
+            icon: editUser ? "success" : "error",
+            timer: 2000,
+            buttons: false,
+          });
           getUsers();
         } else {
           user.idUser = user.identification;
           user.idRole = 1;
           const createUser = await UsersService.create(user);
-          if (!createUser) {
-            swal({
-              title: "Error",
-              text: "Ha ocurrido un error al crear el usuario",
-              icon: "error",
-              timer: 2000,
-              buttons: false,
-            });
-          }
           swal({
-            title: "Creado",
-            text: "El usuario fue creado correctamente",
-            icon: "success",
+            title: createUser ? "Creado" : "Error",
+            text: createUser
+              ? "El usuario fue creado correctamente"
+              : "Ha ocurrido un error al crear el usuario",
+            icon: createUser ? "success" : "error",
             timer: 2000,
             buttons: false,
           });
