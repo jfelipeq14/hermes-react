@@ -16,7 +16,6 @@ import { Users } from "../../models/users/users.model";
 
 export default function Reserve() {
   const location = useLocation();
-  console.log(location.state);
 
   const [haveCompanions, setHaveCompanions] = useState(false);
   const [companions, setCompanions] = useState([]);
@@ -139,13 +138,14 @@ export default function Reserve() {
                 />
               </label>
               <div className="col-4">
-                <button className="btn btn-primary">Pagar</button>
-                <NavLink
-                  to={{ pathname: "/" }}
-                  className="btn btn-danger"
-                >
-                  Cancelar
-                </NavLink>
+                <div className="buttons">
+                  <NavLink to="#pay" className="btn btn-primary">
+                    Pagar
+                  </NavLink>
+                  <NavLink to={{ pathname: "/" }} className="btn btn-danger">
+                    Cancelar
+                  </NavLink>
+                </div>
               </div>
             </form>
           </fieldset>
@@ -161,7 +161,7 @@ export default function Reserve() {
             Politicas de pago
           </a>
           <legend>Pago</legend>
-          <PaymentForm />
+          <PaymentForm id="pay" />
         </fieldset>
       </div>
     </>
