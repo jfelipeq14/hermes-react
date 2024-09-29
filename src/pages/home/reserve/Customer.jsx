@@ -15,6 +15,8 @@ import { Form } from "react-bootstrap";
 //#region complements imports
 import swal from "sweetalert";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
+import { Customers } from "../../../models/reservations/customers.model";
+import { Users } from "../../../models/users/users.model";
 //#endregion
 
 export default function Customer({
@@ -45,7 +47,6 @@ export default function Customer({
   //#endregion
 
   // #region functions
-
   const handleChangeCustomer = (e) => {
     let { name, value, checked, type } = e.target;
     setCustomer({
@@ -107,6 +108,12 @@ export default function Customer({
 
     setValidated(true);
   };
+
+  const handleReset = () => {
+    setCustomer(new Customers());
+    setUser(new Users());
+    setValidated(false);
+  };
   //#endregion
 
   return (
@@ -114,6 +121,7 @@ export default function Customer({
       noValidate
       validated={validated}
       onSubmit={handleSubmit}
+      onReset={handleReset}
       className="row p-1"
     >
       {/* identificacion */}
@@ -316,9 +324,10 @@ export default function Customer({
         <small className="invalid-feedback">Campo obligatorio</small>
       </div>
       {/* check */}
-      <div className="col-12">
+      <label className="col-12">
+        ¿El cliente está incluido en el viaje?
         <input
-          className="form-check-input"
+          className="form-check-input my-2"
           type="checkbox"
           name="travel"
           value={false}
@@ -326,11 +335,8 @@ export default function Customer({
             travel = !travel;
           }}
         />
-        <label className="form-check-label" htmlFor="travel">
-          El cliente está incluido en el viaje
-        </label>
-      </div>
-      <div className="buttons">
+      </label>
+      <div className="buttons my-3">
         <button type="submit" className="btn btn-primary">
           Crear
         </button>
