@@ -26,13 +26,19 @@ export default function Package({
           <p>{formatDate(date)}</p>
         </div>
         <div className="d-flex justify-content-between">
-          <ul className="list-unstyled">
-            {/* Realiza un map de los servicios que se incluyan como un item de la lista */}
-            {services.map((service, index) => (
-              <li key={index}>{service.name}</li>
-            ))}
-          </ul>
-          <strong>{formattedPrice(price)} Persona</strong>
+          <div className="container p-0 m-0">
+            <strong>Incluye: </strong>
+            <ul className="list-unstyled">
+              {services.map((service, index) => (
+                <li key={index}>{service.name}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="d-flex flex-column">
+            <strong>{formattedPrice(price)}</strong>
+            <small className="text-end">Por persona</small>
+          </div>
         </div>
         {status ? (
           <NavLink
