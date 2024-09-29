@@ -11,9 +11,8 @@ import { Services } from "../../models/services/services.model";
 import { Form } from "react-bootstrap";
 
 export default function Service() {
-  const formService = new Services();
-  const [serviceData, setServiceData] = useState(formService);
-  const [data, setData] = useState([]);
+  const [serviceData, setServiceData] = useState(new Services());
+  const [services, setServices] = useState([]);
   const [validated, setValidated] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
@@ -33,7 +32,7 @@ export default function Service() {
       dangerMode: !newState,
     }).then((confirm) => {
       if (confirm) {
-        setData((prevData) =>
+        setServices((prevData) =>
           prevData.map((item) =>
             item.id === id ? { ...item, status: newState } : item
           )
@@ -79,13 +78,13 @@ export default function Service() {
     }).then((confirm) => {
       if (confirm) {
         if (editMode) {
-          setData((prevData) =>
+          setServices((prevData) =>
             prevData.map((item) =>
               item.id === serviceData.id ? serviceData : item
             )
           );
         } else {
-          setData((prevData) => [
+          setServices((prevData) => [
             ...prevData,
             { ...serviceData, id: Date.now() },
           ]);
@@ -132,7 +131,7 @@ export default function Service() {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        setData((prevData) => prevData.filter((item) => item.id !== id));
+        setServices((prevData) => prevData.filter((item) => item.id !== id));
         swal(
           "Eliminado",
           "El servicio ha sido eliminado correctamente",
@@ -145,7 +144,7 @@ export default function Service() {
   };
 
   const handleEdit = (id) => {
-    const serviceToEdit = data.find((item) => item.id === id);
+    const serviceToEdit = services.find((item) => item.id === id);
     if (serviceToEdit) {
       setServiceData(serviceToEdit);
       setEditMode(true);
@@ -241,7 +240,7 @@ export default function Service() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((item) => (
+                {services.map((item) => (
                   <tr key={item.id}>
                     <td>
                       <button

@@ -11,7 +11,7 @@ import {
 
 import Sidebar from "../layout/Sidebar";
 import CompanionForm from "./CompanionForm";
-import PayForm from "../pay/PayForm";
+import PayForm from "../payments/PayForm.jsx";
 import Modals from "../../components/Modals";
 import Reprogramming from "./Reprogramming";
 
