@@ -32,7 +32,7 @@ export default function Package({
               <li key={index}>{service.name}</li>
             ))}
           </ul>
-          <strong>{formattedPrice(price)}</strong>
+          <strong>{formattedPrice(price)} Persona</strong>
         </div>
         {status ? (
           <NavLink
