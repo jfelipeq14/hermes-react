@@ -22,6 +22,7 @@ export default function ReservationsPage() {
   const [modalPaysOpen, setModalPaysOpen] = useState(false);
   const [showPay, setShowPay] = useState(false);
   const [reservas, setReservas] = useState([]);
+  
   const clickModal = () => {
     setModalPaysOpen(!modalPaysOpen);
   };
