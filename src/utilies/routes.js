@@ -14,17 +14,17 @@ import {
 import Menu from "../pages/Menu";
 import Dashboard from "../pages/Dashboard";
 import Roles from "../pages/role/Role";
-import Users from "../pages/user/Users";
+import Users from "../pages/users/Index";
 import Services from "../pages/services/Services";
-import Packages from "../pages/packages/Packages";
+import Packages from "../pages/packages/Index";
 import CreatePackages from "../pages/packages/CreatePackages";
-import Programming from "../pages/packages/Programing";
+import Programming from "../pages/programming/Index";
 import Customers from "../pages/customers/Customers";
 import Reservations from "../pages/reserve/Reservations";
-import Payments from "../pages/pay/Payments";
-import Pays from "../pages/pay/Sales";
+import Payments from "../pages/payments/Payments";
+import Pays from "../pages/payments/Sales";
 
-import EditProfile from "../pages/user/EditProfile";
+import EditProfile from "../pages/profile/EditProfile";
 
 export const createRoutes = (role) => {
   if (role === 1) {
