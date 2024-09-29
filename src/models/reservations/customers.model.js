@@ -2,8 +2,6 @@ export class Customers {
   constructor() {
     this.id_customer = 0;
     this.idUser = 0;
-    this.name = "";
-    this.lastName = "";
     this.phone = "";
     this.address = "";
     this.country = 0;

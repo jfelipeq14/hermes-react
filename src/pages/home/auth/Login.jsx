@@ -1,22 +1,24 @@
 /* eslint-disable react/prop-types */
-// Login.jsx
-import { useState } from "react";
-import { Form } from "react-bootstrap";
-import { Modal } from "react-bootstrap";
-import UserLogin from "./UserLogin"; // Importar el componente de usuario
-import HermesLogo from "../../../components/HermesLogo";
-import { AuthService } from "../../../services/auth.service.js";
 
-import swal from "sweetalert";
-import { setTokenStorage } from "../../../utilies/authUtils";
+import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
-export default function Login({ isOpen, clickModal, setUser }) {
+import { Form } from "react-bootstrap";
 
-  const navigate = useNavigate()
-  const [modalIsOpen, setModalIsOpen] = useState(isOpen);
+import { setTokenStorage } from "../../../utilies/authUtils.js";
+import HermesLogo from "../../../components/HermesLogo.jsx";
+import swal from "sweetalert";
+
+import { AuthService } from "../../../services/auth.service.js";
+
+
+export default function Login({ setUser }) {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [validated, setValidated] = useState(false);
 
   const handleChange = ({ target }) => {
@@ -25,7 +27,7 @@ export default function Login({ isOpen, clickModal, setUser }) {
     if (name === "password") setPassword(value);
   };
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!e.currentTarget.checkValidity()) {
       e.stopPropagation();
@@ -44,10 +46,9 @@ export default function Login({ isOpen, clickModal, setUser }) {
         }
         setUser(userLogin);
         setTokenStorage(userLogin);
-        setModalIsOpen(!modalIsOpen);
         if (userLogin.data.idRole === 1) {
           navigate("/administrator");
-        }else{
+        } else {
           navigate("/customer");
         }
       } catch (error) {
@@ -57,19 +58,14 @@ export default function Login({ isOpen, clickModal, setUser }) {
     setValidated(true);
   };
 
-  const toggleModal = () => {
-    setModalIsOpen(!modalIsOpen);
-    clickModal(!modalIsOpen);
+  const handleReset = () => {
+    setEmail("");
+    setPassword("");
+    setValidated(false);
   };
 
   return (
-    <Modal show={modalIsOpen} onHide={toggleModal} size="sm">
-      <button
-        type="button"
-        className="btn-close position-absolute top-0 end-0 m-2"
-        onClick={clickModal}
-        aria-label="Close"
-      ></button>
+    <>
       <h1 className="text-center fs-3 my-5">Ingresar</h1>
       <div className="container text-center">
         <HermesLogo />
@@ -77,15 +73,16 @@ export default function Login({ isOpen, clickModal, setUser }) {
       <Form
         noValidate
         validated={validated}
-        onSubmit={handleLogin}
-        className="row p-4"
+        onSubmit={handleSubmit}
+        onReset={handleReset}
+        className="row p-2"
       >
         <label className="col-12">
           Correo electrónico:
           <input
             type="email"
             name="email"
-            className="form-control"
+            className="form-control my-2"
             onChange={handleChange}
           />
         </label>
@@ -94,16 +91,16 @@ export default function Login({ isOpen, clickModal, setUser }) {
           <input
             type="password"
             name="password"
-            className="form-control"
+            className="form-control my-2"
             onChange={handleChange}
             required
           />
         </label>
         <div className="buttons justify-content-center">
-          <button className="btn btn-primary">Ingresar</button>
+          <button className="btn btn-primary" type="submit">Ingresar</button>
+          <button className="btn btn-primary" type="reset">Cancelar</button>
         </div>
       </Form>
-      <UserLogin />
-    </Modal>
+    </>
   );
 }
