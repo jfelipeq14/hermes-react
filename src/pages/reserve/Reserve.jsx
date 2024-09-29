@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import CustomerForm from "./CustomerForm";
+import CustomerForm from "./customer/CustomerForm";
 import Package from "../../components/Package";
 import { Customers } from "../../models/reservations/customers.model";
 import { Users } from "../../models/users/users.model";

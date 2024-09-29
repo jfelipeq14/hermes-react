@@ -8,10 +8,8 @@ import {
   UserGroupIcon,
   UsersIcon,
   UserIcon,
-  HomeIcon,
 } from "@heroicons/react/16/solid";
 
-import Menu from "../pages/Menu";
 import Dashboard from "../pages/Dashboard";
 import Roles from "../pages/role/Role";
 import Users from "../pages/users/Index";
@@ -22,19 +20,13 @@ import Programming from "../pages/programming/Index";
 import Customers from "../pages/customers/Customers";
 import Reservations from "../pages/reserve/Reservations";
 import Payments from "../pages/payments/Payments";
-import Pays from "../pages/payments/Sales";
+import Sales from "../pages/payments/Sales";
 
 import EditProfile from "../pages/profile/EditProfile";
 
 export const createRoutes = (role) => {
   if (role === 1) {
     return [
-      {
-        name: "Inicio",
-        href: `administrator`,
-        component: Menu,
-        icon: HomeIcon,
-      },
       {
         name: "Dashboard",
         href: `administrator/dashboard`,
@@ -97,8 +89,8 @@ export const createRoutes = (role) => {
       },
       {
         name: "Pagos",
-        href: `administrator/pays`,
-        component: Pays,
+        href: `administrator/sales`,
+        component: Sales,
         submenu: [
           {
             name: "Gestión de pagos",
@@ -111,12 +103,6 @@ export const createRoutes = (role) => {
     ];
   } else if (role === 2) {
     return [
-      {
-        name: "Inicio",
-        href: `customer`,
-        component: Menu,
-        icon: HomeIcon,
-      },
       {
         name: "Perfil",
         href: `administrator/profile`,

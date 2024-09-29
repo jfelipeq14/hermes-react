@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/16/solid";
 
 import Sidebar from "../layout/Sidebar";
-import CompanionForm from "./CompanionForm";
+import CompanionForm from "./companions/CompanionForm";
 import PayForm from "../payments/PayForm.jsx";
 import Modals from "../../components/Modals";
 import Reprogramming from "./Reprogramming";
