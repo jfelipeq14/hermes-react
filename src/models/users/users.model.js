@@ -23,6 +23,8 @@ export class Users {
       "PEPEX" ||
       "ASEX";
     this.identification = "";
+    this.name = "";
+    this.lastName = "";
     this.email = "";
     this.password = "";
     this.status = true;
