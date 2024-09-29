@@ -1,6 +1,6 @@
 import  Calendar  from "../../components/Calendar";
 import Sidebar from "../layout/Sidebar";
-import ProgramingForm from "./ProgramingForm";
+import ProgramingForm from "./FormProgramming";
 
 export default function ProgramingPage() {
   return (
