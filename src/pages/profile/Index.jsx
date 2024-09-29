@@ -22,7 +22,7 @@ export default function ProfilePage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-6">
+      <main className="col-10">
         <div className="row">
           {isCustomer ? (
             <CustomerForm

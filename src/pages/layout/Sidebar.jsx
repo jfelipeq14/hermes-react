@@ -1,4 +1,3 @@
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { createRoutes } from "../../utilies/routes.js";
 import { useEffect, useState } from "react";
@@ -15,15 +14,15 @@ export default function Sidebar() {
   }, []);
 
   return (
-    <aside className="col-1">
-      <ul className="nav nav-pills sticky-top d-flex flex-column">
+    <aside className="col-2">
+      <ul className="nav nav-pills sticky-top d-flex flex-column p-2 bg-body-tertiary rounded border">
         {createRoutes(role).map((link) => {
           return (
             <SidebarItem
               key={link.name}
               name={link.name}
               href={link.href}
-              icon={<link.icon width={30} />}
+              icon={<link.icon width={30} color="white" />}
             />
           );
         })}
@@ -37,9 +36,11 @@ export function SidebarItem({ name, href, icon }) {
   return (
     <li className="nav-item">
       <NavLink to={{ pathname: `/${href}` }}>
-        <OverlayTrigger placement="right" overlay={<Tooltip>{name}</Tooltip>}>
-          <button className="btn">{icon}</button>
-        </OverlayTrigger>
+      <div className="d-flex align-items-center">
+      <button className="btn">{icon}</button>
+      {name}
+      </div>
+          
       </NavLink>
     </li>
   );

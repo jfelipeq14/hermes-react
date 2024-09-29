@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import { Packages } from "../../models/packs/packages.model";
 
 export default function FormPackage() {
-  // const formService = new Service();
+
+  const navigate = useNavigate();
   const services = [
     {
       idService: 1,
@@ -31,7 +32,7 @@ export default function FormPackage() {
   let idService = 0;
 
   useEffect(() => {
-    // pack.services.push(...servicePackData);
+    
   }, [servicePackData]);
 
   const handleChangePack = (e) => {
@@ -40,11 +41,15 @@ export default function FormPackage() {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
     }
+
+    packs.push(pack);
+    navigate('/administrator/packages');
+    
     setValidated(true);
   };
 

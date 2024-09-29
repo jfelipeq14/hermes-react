@@ -73,6 +73,26 @@ const packages = [
     ],
     status: true,
   },
+  {
+    id_package: 4,
+    destination: "Medellin",
+    name: "Feria de flores",
+    date: "2025-06-06",
+    price: 1000000,
+    services: [
+      {
+        id: 1,
+        category: "Entretenimiento",
+        name: "Pesca",
+      },
+      {
+        id: 2,
+        category: "Transporte",
+        name: "Lancha",
+      },
+    ],
+    status: true,
+  },
 ];
 
 export default function Home() {

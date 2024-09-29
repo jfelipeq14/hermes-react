@@ -119,7 +119,7 @@ export default function UsersPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-11">
+      <main className="col-10">
         <fieldset>
           <legend>Usuarios</legend>
           <header className="my-4">

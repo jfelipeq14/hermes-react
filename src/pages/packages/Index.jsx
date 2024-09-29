@@ -6,6 +6,7 @@ import {
 import Sidebar from "../layout/Sidebar";
 import { NavLink } from "react-router-dom";
 import swal from "sweetalert";
+import { useState } from "react";
 
 export default function PackagesPage() {
   const packs = [
@@ -42,6 +43,8 @@ export default function PackagesPage() {
     },
   ];
 
+  const [viewServices, setViewServices] = useState(false);
+
   const handleChange = (e) => {
     const state = e.target.checked;
     swal({
@@ -50,7 +53,8 @@ export default function PackagesPage() {
       icon: "warning",
       buttons: true,
       dangerMode: true,
-    }).then((confirm) => {  2
+    }).then((confirm) => {
+      2;
       if (confirm) {
         e.target.checked = state ? true : false;
       } else {
@@ -69,9 +73,9 @@ export default function PackagesPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-11">
+      <main className="col-10">
         <div className="row">
-          <fieldset className="col-sm-12 col-md-7">
+          <fieldset className="col-sm-12 col-md-8">
             <legend>Paquetes</legend>
             <header className="row">
               <div className="col-6">
@@ -86,7 +90,7 @@ export default function PackagesPage() {
               <div className="col-6">
                 <div className="buttons float-end">
                   <NavLink
-                    to={{ pathname: `create` }}
+                    to={{ pathname: `package` }}
                     className={
                       "btn btn-primary d-flex align-items-center justify-content-center gap-2"
                     }
@@ -112,7 +116,12 @@ export default function PackagesPage() {
                   <tr key={pack.email}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
-                        <EyeIcon width={25} />
+                        <EyeIcon
+                          width={25}
+                          onClick={() => {
+                            setViewServices(!viewServices);
+                          }}
+                        />
                       </button>
                       <NavLink
                         to={{ pathname: `create` }}
@@ -143,40 +152,27 @@ export default function PackagesPage() {
               </tbody>
             </table>
           </fieldset>
-          <fieldset className="col-sm-12 col-md-5">
-            <legend>Servicios</legend>
-            <header className="row">
-              <div className="col">
-                <div className="buttons float-end">
-                  <NavLink
-                    to={{ pathname: `/administrator/services` }}
-                    className={
-                      "btn btn-primary d-flex align-items-center justify-content-center gap-2"
-                    }
-                  >
-                    <PlusCircleIcon width={25} />
-                    Crear
-                  </NavLink>
-                </div>
-              </div>
-            </header>
-            <table className="table table-striped my-2">
-              <thead>
-                <th scope="col">Nombre</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Cantidad</th>
-              </thead>
-              <tbody>
-                {services.map((service) => (
-                  <tr key={service.paquete}>
-                    <td>{service.nombre}</td>
-                    <td>{service.valor}</td>
-                    <td>{service.cantidad}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </fieldset>
+          {viewServices && (
+            <fieldset className="col-sm-12 col-md-4">
+              <legend>Servicios</legend>
+              <table className="table table-striped my-2">
+                <thead>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Cantidad</th>
+                </thead>
+                <tbody>
+                  {services.map((service) => (
+                    <tr key={service.paquete}>
+                      <td>{service.nombre}</td>
+                      <td>{service.valor}</td>
+                      <td>{service.cantidad}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </fieldset>
+          )}
         </div>
       </main>
     </div>

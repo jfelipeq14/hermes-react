@@ -9,13 +9,13 @@ import { Form } from "react-bootstrap";
 //#endregion
 
 //#region models imports
-import { Companions } from "../../../../models/reservations/companions.model";
+import { Companions } from "../../../models/reservations/companions.model.js";
 //#endregion
 
 //#region utilities imports
-import { documentTypes } from "../../../../utilies/documentTypes";
-import { phonePrefixes } from "../../../../utilies/phonePrefixes";
-import { bloodType } from "../../../../utilies/bloodType";
+import { documentTypes } from "../../../utilies/documentTypes.js";
+import { phonePrefixes } from "../../../utilies/phonePrefixes";
+import { bloodType } from "../../../utilies/bloodType";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import swal from "sweetalert";

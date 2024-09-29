@@ -79,7 +79,7 @@ export default function CustomersPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-11">
+      <main className="col-10">
         <div className="row">
           <fieldset className="col-sm-12 col-md-7">
             <legend>Clientes</legend>

@@ -1,13 +1,13 @@
 import { UserIcon } from "@heroicons/react/16/solid";
-import BarsChart from "../components/dashboard/BarsChart";
-import PiesChart from "../components/dashboard/PiesChart";
-import Sidebar from "./layout/Sidebar";
+import BarsChart from "../../components/dashboard/BarsChart";
+import PiesChart from "../../components/dashboard/PiesChart";
+import Sidebar from "../layout/Sidebar";
 
 export default function DashboardPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <div className="col-11 text-center justify-content-center align-items-center">
+      <div className="col-10 text-center justify-content-center align-items-center">
         <h1>Dashboard</h1>
         <div className="row">
           <div className="col-sm-12 col-md-6">
