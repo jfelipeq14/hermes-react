@@ -6,8 +6,11 @@ import {
 } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
-export default function customers() {
+export default function Customers() {
+  const [haveReservations, setHaveReservations] = useState('');
+
   const customers = [
     {
       id_customer: 1,
@@ -78,7 +81,7 @@ export default function customers() {
       <Sidebar></Sidebar>
       <main className="col-11">
         <div className="row">
-          <fieldset className="col-sm-12 col-md-6">
+          <fieldset className="col-sm-12 col-md-7">
             <legend>Clientes</legend>
             <NavLink
               to={{ pathname: "/reserve" }}
@@ -143,40 +146,48 @@ export default function customers() {
               </tbody>
             </table>
           </fieldset>
-          <fieldset className="col-sm-12 col-md-6">
-            <legend>Reservas</legend>
-            <NavLink to="/reserve" className="btn btn-primary float-end">
-              <PlusCircleIcon width={25} />
-              Crear
-            </NavLink>
-            <table className="table table-striped my-2">
-              <thead>
-                <th scope="col">Acciones</th>
-                <th scope="col">Paquete</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Estado</th>
-              </thead>
-              <tbody>
-                {reservations.map((reserve) => (
-                  <tr key={reserve.paquete}>
-                    <td className="d-flex">
-                      <button className="btn m-0 p-0">
-                        <EyeIcon width={25} />
-                      </button>
-                      <button className="btn m-0 p-0">
-                        <PencilSquareIcon width={25} />
-                      </button>
-                    </td>
-                    <td>{reserve.paquete}</td>
-                    <td>{reserve.valor}</td>
-                    <td>{reserve.fecha}</td>
-                    <td>{reserve.estado}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </fieldset>
+          {haveReservations && (
+            <fieldset className="col-sm-12 col-md-5 p-5">
+              <legend>Reservas del cliente</legend>
+              <NavLink to="/reserve" className="btn btn-primary float-end">
+                <PlusCircleIcon width={25} />
+                Crear
+              </NavLink>
+              <table className="table table-striped my-2">
+                <thead>
+                  <th scope="col">Acciones</th>
+                  <th scope="col">Paquete</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Estado</th>
+                </thead>
+                <tbody>
+                  {reservations.map((reserve) => (
+                    <tr key={reserve.paquete}>
+                      <td className="d-flex">
+                        <button className="btn m-0 p-0">
+                          <EyeIcon
+                            width={25}
+                            color={haveReservations ? "blue" : "black"}
+                            onClick={() =>
+                              setHaveReservations(!haveReservations)
+                            }
+                          />
+                        </button>
+                        <button className="btn m-0 p-0">
+                          <PencilSquareIcon width={25} />
+                        </button>
+                      </td>
+                      <td>{reserve.paquete}</td>
+                      <td>{reserve.valor}</td>
+                      <td>{reserve.fecha}</td>
+                      <td>{reserve.estado}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </fieldset>
+          )}
         </div>
       </main>
     </div>
