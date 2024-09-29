@@ -3,7 +3,7 @@ import BarsChart from "../components/dashboard/BarsChart";
 import PiesChart from "../components/dashboard/PiesChart";
 import Sidebar from "./layout/Sidebar";
 
-export default function Dashboard() {
+export default function DashboardPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>

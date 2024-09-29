@@ -6,7 +6,7 @@ import UserForm from "../users/UserForm";
 import CustomerForm from "../users/CustomerForm";
 import { Customers } from "../../models/reservations/customers.model";
 
-export default function EditProfile() {
+export default function ProfilePage() {
   const [user, setUser] = useState(new Users());
   const [customer, setCustomer] = useState(new Customers());
   const [isCustomer, setIsCustomer] = useState(false);

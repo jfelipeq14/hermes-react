@@ -9,16 +9,16 @@ import {
   UserPlusIcon,
 } from "@heroicons/react/16/solid";
 
-import Sidebar from "../layout/Sidebar";
-import CompanionForm from "./companions/CompanionForm";
-import PayForm from "../payments/PayForm.jsx";
-import Modals from "../../components/Modals";
-import Reprogramming from "./Reprogramming";
+import Sidebar from "../layout/Sidebar.jsx";
+import CompanionForm from "../home/reserve/companions/FormCompanion.jsx";
+import PayForm from "../payments/FormPayment.jsx";
+import Modals from "../../components/Modals.jsx";
+import Reprogramming from "../../components/Reprogramming.jsx";
 
 import { ReservationsService } from "../../services/reservations.service.js";
 import { formattedPrice } from "../../utilies/formattedPrice.js";
 
-export default function Reservas() {
+export default function ReservationsPage() {
   const [modalPaysOpen, setModalPaysOpen] = useState(false);
   const [showPay, setShowPay] = useState(false);
   const [reservas, setReservas] = useState([]);

@@ -5,9 +5,9 @@ import {
   MagnifyingGlassIcon,
   PencilSquareIcon,
 } from "@heroicons/react/16/solid";
-import PayForm from "./PayForm";
+import PayForm from "./FormPayment";
 
-export default function Payments() {
+export default function PaymentsPage() {
   const payments = [
     {
       id_pay: 1,

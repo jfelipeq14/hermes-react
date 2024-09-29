@@ -1,24 +1,29 @@
-import {
-  CreditCardIcon,
-  CurrencyDollarIcon,
-  QrCodeIcon,
-} from "@heroicons/react/16/solid";
+import { CreditCardIcon, QrCodeIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import swal from "sweetalert";
 
-export default function PaymentForm() {
+export default function FormPayment() {
   // img
   const [image, setImage] = useState(null);
-  // payment method
   const [paymentMethod, setPaymentMethod] = useState(null);
-
   const [validated, setValidated] = useState(false);
   const [pay, setPay] = useState({
-    valorTotal: 0,
-    pagoMinimo: 0,
+    cliente: "",
+    paquete: "",
+    valor: "",
+    pago: "",
+    restante: "",
     comprobante: "",
+    estado: "",
   });
+
+  const estados = [
+    { value: "R", nombre: "Revisar" },
+    { value: "P", nombre: "Pago" },
+    { value: "N", nombre: "No pago" },
+    { value: "A", nombre: "Anulado" },
+  ];
 
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -63,6 +68,20 @@ export default function PaymentForm() {
 
     setValidated(true);
   };
+
+  const handleReset = () => {
+    setPay({
+      cliente: "",
+      paquete: "",
+      valor: "",
+      pago: "",
+      restante: "",
+      comprobante: "",
+      estado: "",
+    });
+    setImage(null);
+    setValidated(false);
+  };
   return (
     <>
       <section className="buttons justify-content-around">
@@ -75,14 +94,6 @@ export default function PaymentForm() {
           />
         </button>
         <button className="btn btn-outline-primary">
-          <CurrencyDollarIcon
-            width={80}
-            onClick={() => {
-              setPaymentMethod("nequi");
-            }}
-          />
-        </button>
-        <button className="btn btn-outline-primary">
           <QrCodeIcon
             width={80}
             onClick={() => {
@@ -91,54 +102,75 @@ export default function PaymentForm() {
           />
         </button>
       </section>
-      <section>
-        {paymentMethod && (
-          <div className="container shadow p-3 m-2">
-            <h1 className="text-center text-uppercase">{paymentMethod}</h1>
-            {paymentMethod === "nequi" ? (
-              <>
-                <p>
-                  Numero de celular: <strong>3128283889</strong>
-                </p>
-                <p>
-                  Nombre:
-                  <strong>Juan Castaño</strong>
-                </p>
-              </>
-            ) : paymentMethod === "banco" ? (
-              <>
-                <p>
-                  Nombre: <strong>Juan S. Castaño</strong>
-                </p>
-                <p>
-                  Tipo de documento: <strong>CC</strong>
-                </p>
-                <p>
-                  Numero de documento:
-                  <strong>123456789</strong>
-                </p>
-                <p>
-                  Banco: <strong>Bancolombia</strong>
-                </p>
-                <p>
-                  Tipo de cuenta: <strong>Ahorros</strong>
-                </p>
-                <p>
-                  Numero de cuenta: <strong>123456789</strong>
-                </p>
-              </>
-            ) : paymentMethod === "qr" ? (
-              <img src="/public/hermes.png" width={80} />
-            ) : null}
-          </div>
-        )}
-      </section>
+      
+      {paymentMethod && (
+        <div className="container shadow p-3 m-2">
+          <h1 className="text-center text-uppercase">{paymentMethod}</h1>
+          {paymentMethod === "banco" ? (
+            <>
+              <p>
+                Nombre: <strong>Juan S. Castaño</strong>
+              </p>
+              <p>
+                Tipo de documento: <strong>CC</strong>
+              </p>
+              <p>
+                Numero de documento:
+                <strong>123456789</strong>
+              </p>
+              <p>
+                Banco: <strong>Bancolombia</strong>
+              </p>
+              <p>
+                Tipo de cuenta: <strong>Ahorros</strong>
+              </p>
+              <p>
+                Numero de cuenta: <strong>123456789</strong>
+              </p>
+            </>
+          ) : paymentMethod === "qr" ? (
+            <img src="/public/hermes.png" width={80} />
+          ) : null}
+        </div>
+      )}
+
       <Form
         noValidate
         validated={validated}
         onSubmit={handleSubmit}
+        onReset={handleReset}
         className="row p-1"
       >
+        {/* Cliente */}
+        <label className="col-12">
+          Cliente:
+          <input
+            type="text"
+            className="form-control"
+            name="name"
+            value={pay.cliente}
+            onChange={handleChange}
+            pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
+            required
+          />
+          <small className="valid-feedback">Todo bien!</small>
+          <small className="invalid-feedback">Campo obligatorio</small>
+        </label>
+        {/* Paquete */}
+        <label className="col-12">
+          Paquete:
+          <input
+            type="text"
+            className="form-control"
+            name="name"
+            value={pay.paquete}
+            onChange={handleChange}
+            pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
+            required
+          />
+          <small className="valid-feedback">Todo bien!</small>
+          <small className="invalid-feedback">Campo obligatorio</small>
+        </label>
         <label className="col-6">
           Valor total:
           <input
@@ -179,6 +211,25 @@ export default function PaymentForm() {
             className="img-thumbnail my-2"
             src={image}
           />
+        </label>
+        <label className="col-12">
+          Estado:
+          <select
+            className="form-select"
+            name="estado"
+            value={pay.estado}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Selecciona</option>
+            {estados.map((estado, index) => (
+              <option key={index} value={estado.value}>
+                {estado.nombre}
+              </option>
+            ))}
+          </select>
+          <small className="valid-feedback">Todo bien!</small>
+          <small className="invalid-feedback">Campo obligatorio</small>
         </label>
         {/* buttons */}
         <div className="buttons my-4">

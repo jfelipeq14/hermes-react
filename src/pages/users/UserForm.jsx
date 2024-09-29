@@ -1,12 +1,21 @@
 /* eslint-disable react/prop-types */
-import { Form } from "react-bootstrap";
-import swal from "sweetalert";
-import { documentTypes } from "../../utilies/documentTypes";
 import { useState } from "react";
+
+import { Form } from "react-bootstrap";
+
+import { documentTypes } from "../../utilies/documentTypes";
 import { UsersService } from "../../services/users.service";
+import swal from "sweetalert";
+
 import { Users } from "../../models/users/users.model";
 
-export default function UserForm({ user, setUser, editMode, getUsers }) {
+export default function UserForm({
+  user,
+  setUser,
+  editMode = false,
+  getUsers,
+  customer = false,
+}) {
   const roles = [
     { idRole: 1, name: "Administrador", state: true },
     { idRole: 2, name: "Usuario", state: true },
@@ -14,7 +23,7 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
   const [confirmPassword, setConfirmPassword] = useState(null);
   let [validated, setValidated] = useState(false);
 
-  const handleChangeUser = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: name === "idRole" ? parseInt(value) : value });
   };
@@ -32,6 +41,7 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
       }).then(async (confirm) => {
         if (!confirm || user.password !== confirmPassword) return;
         if (editMode) {
+          user.idUser = user.identification;
           const editUser = await UsersService.update(user.idUser, user);
           swal({
             title: editUser ? "Editado" : "Error",
@@ -44,7 +54,7 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
           });
         } else {
           user.idUser = user.identification;
-          user.idRole = 1;
+          user.idRole = 2;
           const createUser = await UsersService.create(user);
           swal({
             title: createUser ? "Creado" : "Error",
@@ -77,27 +87,28 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
       onReset={handleReset}
       className="row p-1"
     >
-      {/* Rol */}
-      <label className="col-12">
-        Rol:
-        <select
-          className="form-select my-2"
-          name="idRole"
-          value={user.idRole}
-          onChange={handleChangeUser}
-          required
-        >
-          <option value="">Selecciona</option>
-          {roles.map((role) => (
-            <option key={role.idRole} value={role.idRole}>
-              {role.name}
-            </option>
-          ))}
-        </select>
-        <small className="valid-feedback">Información correcta</small>
-        <small className="invalid-feedback">Revisa los datos</small>
-      </label>
-      
+      {!customer && (
+        <label className="col-12">
+          Rol:
+          <select
+            className="form-select my-2"
+            name="idRole"
+            value={user.idRole}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Selecciona</option>
+            {roles.map((role) => (
+              <option key={role.idRole} value={role.idRole}>
+                {role.name}
+              </option>
+            ))}
+          </select>
+          <small className="valid-feedback">Información correcta</small>
+          <small className="invalid-feedback">Revisa los datos</small>
+        </label>
+      )}
+
       {/* identificacion */}
       <label className="col-12">
         Cedula:
@@ -106,7 +117,7 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
             className="form-select"
             name="documentType"
             value={user.documentType}
-            onChange={handleChangeUser}
+            onChange={handleChange}
             required
           >
             <option value="">Selecciona</option>
@@ -119,7 +130,7 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
             className="form-control"
             name="identification"
             value={user.identification}
-            onChange={handleChangeUser}
+            onChange={handleChange}
             pattern="^[a-z0-9]{6,}$"
             required
           />
@@ -136,7 +147,7 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
           className="form-control"
           name="name"
           value={user.name}
-          onChange={handleChangeUser}
+          onChange={handleChange}
           pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
@@ -152,7 +163,7 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
           className="form-control"
           name="lastName"
           value={user.lastName}
-          onChange={handleChangeUser}
+          onChange={handleChange}
           pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
@@ -168,7 +179,7 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
           className="form-control"
           name="email"
           value={user.email}
-          onChange={handleChangeUser}
+          onChange={handleChange}
           pattern="^[a-z0-9.!#$%&*+/=?^_`{|}~-]+@[a-z0-9-]+\.[a-z0-9.]{2,}$"
           required
         />
@@ -184,7 +195,7 @@ export default function UserForm({ user, setUser, editMode, getUsers }) {
           className="form-control"
           name="password"
           value={user.password}
-          onChange={handleChangeUser}
+          onChange={handleChange}
           pattern="^[a-z0-9.!#$%&*+/=?^_`{|}~-]{8,}$"
           min={confirmPassword}
           minLength={8}

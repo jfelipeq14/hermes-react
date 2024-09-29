@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import CustomerForm from "./customer/CustomerForm";
-import Package from "../../components/Package";
-import { Customers } from "../../models/reservations/customers.model";
-import { Users } from "../../models/users/users.model";
+import CustomerForm from "./FormReserveCustomer";
+import Package from "../../../components/Package";
+import { Customers } from "../../../models/reservations/customers.model";
+import { Users } from "../../../models/users/users.model";
 
-export default function Reserve() {
+export default function ReservePage() {
   let [customer, setCustomer] = useState(new Customers());
   let [user, setUser] = useState(new Users());
 

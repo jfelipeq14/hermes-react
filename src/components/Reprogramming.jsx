@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Customers } from "../../models/reservations/customers.model";
-import Calendar from "../../components/Calendar";
+import { Customers } from "../models/reservations/customers.model";
+import Calendar from "./Calendar";
 
 // eslint-disable-next-line react/prop-types
 export default function Reprogramming({clickModal}) {

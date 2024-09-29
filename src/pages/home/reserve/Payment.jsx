@@ -1,4 +1,4 @@
-import PaymentForm from "./PaymentForm";
+import FormPayment from "../../payments/FormPayment";
 
 export default function Pay() {
   return (
@@ -10,7 +10,7 @@ export default function Pay() {
             Politicas de pago
           </a>
         </legend>
-        <PaymentForm />
+        <FormPayment />
       </fieldset>
     </div>
   );

@@ -62,20 +62,6 @@ export default function App() {
                     />
                   }
                 />
-                {item.submenu &&
-                  item.submenu.map((submenu) => (
-                    <Route
-                      key={submenu.name}
-                      exact
-                      path={submenu.href}
-                      element={
-                        <RenderComponent
-                          user={user}
-                          component={<submenu.component />}
-                        />
-                      }
-                    />
-                  ))}
               </>
             );
           })}

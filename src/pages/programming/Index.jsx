@@ -2,7 +2,7 @@ import  Calendar  from "../../components/Calendar";
 import Sidebar from "../layout/Sidebar";
 import ProgramingForm from "./ProgramingForm";
 
-export default function Programing() {
+export default function ProgramingPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>

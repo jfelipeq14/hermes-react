@@ -7,7 +7,7 @@ import Sidebar from "../layout/Sidebar";
 import { NavLink } from "react-router-dom";
 import swal from "sweetalert";
 
-export default function Packs() {
+export default function PackagesPage() {
   const packs = [
     {
       id: 1,

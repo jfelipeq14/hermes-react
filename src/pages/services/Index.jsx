@@ -10,7 +10,7 @@ import swal from "sweetalert";
 import { Services } from "../../models/services/services.model";
 import { Form } from "react-bootstrap";
 
-export default function Service() {
+export default function ServicesPage() {
   const [serviceData, setServiceData] = useState(new Services());
   const [services, setServices] = useState([]);
   const [validated, setValidated] = useState(false);

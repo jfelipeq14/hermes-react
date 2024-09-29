@@ -8,7 +8,7 @@ import Sidebar from "../layout/Sidebar";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
-export default function Customers() {
+export default function CustomersPage() {
   const [haveReservations, setHaveReservations] = useState('');
 
   const customers = [

@@ -3,7 +3,7 @@ import Sidebar from "../layout/Sidebar";
 import FormPermissions from "./FormPermissions";
 import swal from "sweetalert";
 
-export default function RolePage() {
+export default function RolesPage() {
   const roles = [
     {
       idRole: 1,

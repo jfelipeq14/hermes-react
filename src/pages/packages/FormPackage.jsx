@@ -5,8 +5,7 @@ import { PlusCircleIcon, TrashIcon } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import { Packages } from "../../models/packs/packages.model";
 
-export default function PackForm() {
-  const formPackage = new Packages();
+export default function FormPackage() {
   // const formService = new Service();
   const services = [
     {
@@ -26,7 +25,7 @@ export default function PackForm() {
   ];
 
   const packs = [];
-  const [pack, setPackage] = useState(formPackage);
+  const [pack, setPackage] = useState(new Packages());
   const [validated, setValidated] = useState(false);
   const [servicePackData, setServicePackData] = useState([]);
   let idService = 0;

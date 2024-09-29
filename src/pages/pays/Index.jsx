@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 
-export default function Sales() {
+export default function PaysPage() {
   const sales = [
     {
       id: 1,

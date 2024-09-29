@@ -17,7 +17,7 @@ import swal from "sweetalert";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
-export default function CustomerForm({
+export default function Customer({
   location,
   user,
   setUser,

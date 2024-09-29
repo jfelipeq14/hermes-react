@@ -1,34 +1,31 @@
+/* eslint-disable react/prop-types */
+
 //#region react imports
 import { useState } from "react";
 //#endregion
-//#region models imports
-import { Companions } from "../../../models/reservations/companions.model";
-//#endregion
-//#region utilities imports
-import { documentTypes } from "../../../utilies/documentTypes";
-import { phonePrefixes } from "../../../utilies/phonePrefixes";
-import { bloodType } from "../../../utilies/bloodType";
-//#endregion
+
 //#region react-bootstrap imports
 import { Form } from "react-bootstrap";
 //#endregion
-//#region complements imports
+
+//#region models imports
+import { Companions } from "../../../../models/reservations/companions.model";
+//#endregion
+
+//#region utilities imports
+import { documentTypes } from "../../../../utilies/documentTypes";
+import { phonePrefixes } from "../../../../utilies/phonePrefixes";
+import { bloodType } from "../../../../utilies/bloodType";
+
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import swal from "sweetalert";
 //#endregion
 
-// eslint-disable-next-line react/prop-types
-export default function CompanionForm({ companions, setCompanions, setHaveCompanions,}) {
-  // #region formData
-  let formCompanion = new Companions();
-  // #endregion
-
-  //#region read props
-  //#endregion
+export default function FormCompanion({ companions, setCompanions, setHaveCompanions}) {
 
   //#region hooks
-  let [companion, setCompanion] = useState(formCompanion);
-  let [validated, setValidated] = useState(false);
+  const [companion, setCompanion] = useState(new Companions());
+  const [validated, setValidated] = useState(false);
   //#endregion
 
   // #region functions
@@ -36,12 +33,14 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
     console.log("Buscando...");
   };
 
-  const handleChangeCompanion = (e) => {
-    let { name, value, checked, type } = e.target;
+  const handleChange = (e) => {
+    const { name, value, checked, type } = e.target;
+
     setCompanion({
       ...companion,
       [name]: type === "checkbox" ? checked : value,
     });
+
     if (name === "dateOfBirth") {
       let birthDate = new Date(value);
       let today = new Date();
@@ -98,6 +97,12 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
 
     setValidated(true);
   };
+
+  const handleReset = () => {
+    setCompanion(new Companions());
+    setValidated(false);
+  };
+
   //#endregion
 
   return (
@@ -105,6 +110,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
       noValidate
       validated={validated}
       onSubmit={handleSubmit}
+      onReset={handleReset}
       className="row p-1"
     >
       {/* identificacion */}
@@ -118,7 +124,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
               className="form-select"
               name="documentType"
               value={companion.documentType}
-              onChange={handleChangeCompanion}
+              onChange={handleChange}
               required
             >
               <option value="">Selecciona</option>
@@ -135,7 +141,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
               className="form-control"
               name="identification"
               value={companion.identification}
-              onChange={handleChangeCompanion}
+              onChange={handleChange}
               pattern="^[a-z0-9]{6,}$"
               required
             />
@@ -157,7 +163,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
           className="form-control"
           name="name"
           value={companion.name}
-          onChange={handleChangeCompanion}
+          onChange={handleChange}
           pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
@@ -172,7 +178,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
           className="form-control"
           name="lastName"
           value={companion.lastName}
-          onChange={handleChangeCompanion}
+          onChange={handleChange}
           pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
@@ -189,7 +195,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
             <select
               className="form-select"
               name="phone"
-              onChange={handleChangeCompanion}
+              onChange={handleChange}
               required
             >
               <option value="">Selecciona</option>
@@ -206,7 +212,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
               className="form-control"
               name="phone"
               value={companion.phone}
-              onChange={handleChangeCompanion}
+              onChange={handleChange}
               pattern="^\+?[0-9]{1,3}[0-9]{7,}$"
               required
             />
@@ -226,7 +232,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
               type="radio"
               name="sex"
               value="H"
-              onChange={handleChangeCompanion}
+              onChange={handleChange}
             />
             <label htmlFor="sex" className="mx-4">
               Hombre
@@ -237,7 +243,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
               type="radio"
               name="sex"
               value="M"
-              onChange={handleChangeCompanion}
+              onChange={handleChange}
             />
             <label htmlFor="sex" className="mx-4">
               Mujer
@@ -254,7 +260,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
           className="form-select"
           name="bloodType"
           value={companion.bloodType}
-          onChange={handleChangeCompanion}
+          onChange={handleChange}
           required
         >
           <option value="">Selecciona</option>
@@ -273,7 +279,7 @@ export default function CompanionForm({ companions, setCompanions, setHaveCompan
           className="form-control"
           name="eps"
           value={companion.eps}
-          onChange={handleChangeCompanion}
+          onChange={handleChange}
           pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
           required
         />
