@@ -8,7 +8,7 @@ import PageNotFound from "./pages/PageNotFound";
 
 import { getTokenStorage } from "./utilies/authUtils";
 import { createRoutes } from "./utilies/routes.js";
-import Reserve from "./pages/reserve/Reserve";
+import Reserve from "./pages/home/reserve/Reserve.jsx";
 
 export default function App() {
   const [user, setUser] = useState(null);

@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/16/solid";
 
 import Sidebar from "../layout/Sidebar.jsx";
-import CompanionForm from "../home/reserve/companions/FormCompanion.jsx";
+import CompanionForm from "../reservations/companions/FormCompanion.jsx";
 import PayForm from "../payments/FormPayment.jsx";
 import Modals from "../../components/Modals.jsx";
 import Reprogramming from "../../components/Reprogramming.jsx";
@@ -40,7 +40,7 @@ export default function ReservationsPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-11">
+      <main className="col-10">
         <div className="row">
           <fieldset className="col-sm-12 col-md-4">
             <legend>{showPay ? "Pago" : "Acompañante"}</legend>

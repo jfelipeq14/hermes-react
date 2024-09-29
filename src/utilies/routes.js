@@ -12,7 +12,7 @@ import {
   CurrencyDollarIcon,
   RectangleGroupIcon,
   UserCircleIcon,
-} from "@heroicons/react/16/outline";
+} from "@heroicons/react/16/solid";
 
 import DashboardPage from "../pages/dashboard/Index";
 import ProfilePage from "../pages/profile/Index";

@@ -154,7 +154,7 @@ export default function ServicesPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-11">
+      <main className="col-10">
         <div className="row p-2">
           <Form
             noValidate

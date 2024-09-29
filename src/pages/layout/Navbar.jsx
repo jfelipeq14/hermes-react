@@ -33,9 +33,9 @@ export default function Navbar({ children, user, setUser }) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg">
-      <div className="container-fluid">
-        <NavLink to="administrador" className="nav-brand">
+    <nav className="navbar navbar-expand-lg p-0 m-0">
+      <div className="container-fluid rounded p-2 text-light">
+        <NavLink to="/" className="nav-brand">
           <HermesLogo />
         </NavLink>
         <button
@@ -56,7 +56,7 @@ export default function Navbar({ children, user, setUser }) {
               <li className="nav-item d-flex g-3 align-items-center">
                 <NavLink
                   to={{ pathname: "administrator/profile", user: user }}
-                  className="btn btn-outline-dark mx-2"
+                  className="btn btn-dark mx-2"
                 >
                   {user.data.email}
                   <UserCircleIcon width={25} className="mx-2" />
@@ -72,7 +72,7 @@ export default function Navbar({ children, user, setUser }) {
               <li className="nav-item d-flex align-items-center">
                 <button
                   type="button"
-                  className="btn btn-outline-primary mx-1"
+                  className="btn btn-dark mx-1"
                   onClick={toggleLoginModal}
                 >
                   Ingresar

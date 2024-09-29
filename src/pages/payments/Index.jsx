@@ -23,7 +23,7 @@ export default function PaymentsPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-11">
+      <main className="col-10">
         <div className="row p-2">
           <fieldset className="col-sm-12 col-md-6">
             <legend>Pagos</legend>
