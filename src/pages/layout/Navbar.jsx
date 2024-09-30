@@ -34,8 +34,8 @@ export default function Navbar({ children, user, setUser }) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg p-0 m-0">
-      <div className="container-fluid rounded p-2 text-light">
+    <nav className="navbar navbar-expand-lg rounded shadow-sm">
+      <div className="container-fluid">
         <NavLink to="/" className="nav-brand">
           <HermesLogo />
         </NavLink>
@@ -51,36 +51,36 @@ export default function Navbar({ children, user, setUser }) {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav ms-auto">
             {children}
             {user ? (
               <li className="nav-item d-flex g-3 align-items-center">
                 <NavLink
                   to={{ pathname: "administrator/profile", user: user }}
-                  className="btn btn-dark mx-2"
+                  className="btn btn-sm btn-secondary mx-2"
                 >
-                  {user.data.email}
                   <UserCircleIcon width={20} className="mx-2" />
+                  {user.data.idRole === 1 ? "Administrador" : "Cliente"}
                 </NavLink>
                 <button
-                  className="btn btn-outline-danger mx-2"
+                  className="btn btn-sm btn-danger mx-2"
                   onClick={handleLogout}
                 >
-                  <ArrowRightEndOnRectangleIcon width={20} className="me-2" />
+                  <ArrowRightEndOnRectangleIcon width={20} className="mx-2" />
                 </button>
               </li>
             ) : (
               <li className="nav-item d-flex align-items-center">
                 <button
                   type="button"
-                  className="btn btn-dark mx-1"
+                  className="btn btn-sm btn-primary mx-1"
                   onClick={toggleLoginModal}
                 >
                   Ingresar
                 </button>
                 <button
                   type="button"
-                  className="btn btn-outline-secondary mx-1"
+                  className="btn btn-sm btn-secondary mx-1"
                   onClick={toggleRegisterModal}
                 >
                   Registrarse
@@ -90,7 +90,7 @@ export default function Navbar({ children, user, setUser }) {
 
             {openLoginModal && (
               <Modals isOpen={openLoginModal} clickModal={setOpenLoginModal}>
-                <Login setUser={setUser} />
+                <Login setUser={setUser} clickModal={setOpenLoginModal} />
               </Modals>
             )}
 

@@ -85,7 +85,7 @@ export default function FormPayment() {
   return (
     <>
       <section className="buttons justify-content-around">
-        <button className="btn btn-outline-primary">
+        <button className="btn btn-sm btn-primary">
           <CreditCardIcon
             width={80}
             onClick={() => {
@@ -93,7 +93,7 @@ export default function FormPayment() {
             }}
           />
         </button>
-        <button className="btn btn-outline-primary">
+        <button className="btn btn-sm btn-primary">
           <QrCodeIcon
             width={80}
             onClick={() => {

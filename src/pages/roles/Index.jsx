@@ -1,7 +1,8 @@
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
+import { PencilSquareIcon, PlusCircleIcon, TrashIcon } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import FormPermissions from "./FormPermissions";
 import swal from "sweetalert";
+import { NavLink } from "react-router-dom";
 
 export default function RolesPage() {
   const roles = [
@@ -48,14 +49,24 @@ export default function RolesPage() {
         <div className="row">
           <fieldset className="col-sm-12 col-md-6">
             <legend>Roles</legend>
-            <header>
+            <NavLink
+              to={{ pathname: "/reserve" }}
+              state={{ identification: 0 }}
+              className="btn btn-sm btn-primary float-end"
+            >
+              <PlusCircleIcon width={20} />
+              Crear
+            </NavLink>
+            <form className="w-50">
               <input
                 type="search"
+                id="identification"
+                className="form-control form-control-sm"
                 placeholder="Buscar"
-                className="form-control form-control-sm my-2"
+                onChange={(e) => console.log(e.target.value)}
               />
-            </header>
-            <table className="table table-striped">
+            </form>
+            <table className="table table-striped my-2">
               <table className="table table-striped">
                 <thead>
                   <tr>

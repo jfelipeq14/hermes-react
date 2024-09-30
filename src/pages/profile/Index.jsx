@@ -22,18 +22,21 @@ export default function ProfilePage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10   justify-content-center align-items-center">
+      <main className="col-10 justify-content-center align-items-center">
         <div className="row">
-          {isCustomer ? (
-            <CustomerForm
-              user={user}
-              setUser={setUser}
-              customer={customer}
-              setCustomer={setCustomer}
-            />
-          ) : (
-            <UserForm user={user} setUser={setUser} editMode={true} />
-          )}
+          <fieldset className="col-8">
+            <legend>Perfil</legend>
+            {isCustomer ? (
+              <CustomerForm
+                user={user}
+                setUser={setUser}
+                customer={customer}
+                setCustomer={setCustomer}
+              />
+            ) : (
+              <UserForm user={user} setUser={setUser} editMode={true} />
+            )}
+          </fieldset>
         </div>
       </main>
     </div>

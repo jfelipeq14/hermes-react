@@ -45,10 +45,11 @@ export default function Login({ setUser, clickModal }) {
         }
         setUser(userLogin);
         setTokenStorage(userLogin);
+        clickModal();
         if (userLogin.data.idRole === 1) {
-          navigate("/administrator");
+          navigate("/administrator/dashboard");
         } else {
-          navigate("/customer");
+          navigate("/customer/reservations");
         }
       } catch (error) {
         console.error(error);
@@ -66,8 +67,8 @@ export default function Login({ setUser, clickModal }) {
 
   return (
     <>
-      <h1 className="  fs-3 my-5">Ingresar</h1>
-      <div className="container  ">
+      <h1 className="text-center fs-3 my-5">Ingresar</h1>
+      <div className="container text-center">
         <HermesLogo />
       </div>
       <Form
@@ -91,7 +92,6 @@ export default function Login({ setUser, clickModal }) {
           <input
             type="password"
             name="password"
-            placeholder="Mínimo 6 caracteres"
             className="form-control form-control-sm my-2"
             onChange={handleChange}
             required

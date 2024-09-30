@@ -1,4 +1,8 @@
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
+import {
+  PencilSquareIcon,
+  PlusCircleIcon,
+  TrashIcon,
+} from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import UserForm from "./UserForm";
 import { useEffect, useState } from "react";
@@ -41,6 +45,7 @@ export default function UsersPage() {
         state: user.status,
       });
       setEditMode(!editMode);
+      setModalIsOpen(!modalIsOpen);
     }
   };
 
@@ -119,17 +124,30 @@ export default function UsersPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10   justify-content-center align-items-center">
-        <fieldset>
+      <main className="col-10 justify-content-center align-items-center">
+        <fieldset className="container p-2">
           <legend>Usuarios</legend>
-          <header className="my-4">
+          <button
+            className="btn btn-sm btn-primary float-end"
+            onClick={() => {
+              setUser(new Users());
+              setEditMode(false);
+              setModalIsOpen(!modalIsOpen);
+            }}
+          >
+            <PlusCircleIcon width={20} />
+            Crear
+          </button>
+          <form className="w-50">
             <input
               type="search"
-              className="form-control form-control-sm my-2"
+              id="identification"
+              className="form-control form-control-sm"
               placeholder="Buscar"
+              onChange={(e) => console.log(e.target.value)}
             />
-          </header>
-          <table className="table table-striped">
+          </form>
+          <table className="table table-striped my-2">
             <thead>
               <th scope="col">Acciones</th>
               <th scope="col">Identificacion</th>
@@ -178,13 +196,16 @@ export default function UsersPage() {
         </fieldset>
       </main>
       {modalIsOpen && (
-        <Modals isOpen={modalIsOpen} clickModal={setModalIsOpen}>
-          <UserForm
-            user={user}
-            setUser={setUser}
-            editMode={editMode}
-            getUsers={getUsers}
-          />
+        <Modals isOpen={modalIsOpen} clickModal={setModalIsOpen} size="md">
+          <fieldset className="container p-4">
+            <legend>{editMode ? "Editar usuario" : "Crear usuario"}</legend>
+            <UserForm
+              user={user}
+              setUser={setUser}
+              editMode={editMode}
+              getUsers={getUsers}
+            />
+          </fieldset>
         </Modals>
       )}
     </div>

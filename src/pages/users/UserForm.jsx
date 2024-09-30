@@ -85,7 +85,7 @@ export default function UserForm({
       validated={validated}
       onSubmit={handleSubmit}
       onReset={handleReset}
-      className="row p-4"
+      className="row p-1"
     >
       {!customer && (
         <label className="col-12">
@@ -222,10 +222,12 @@ export default function UserForm({
 
       {/* buttons */}
       <div className="buttons my-2">
-        <button type="submit" className="btn btn-outline-primary">
-          Guardar
+        <button type="submit" className="btn btn-sm btn-primary">
+          {
+            editMode ? "Editar" : "Crear"
+          }
         </button>
-        <button type="reset" className="btn btn-outline-danger">
+        <button type="reset" className="btn btn-sm btn-danger">
           Cancelar
         </button>
       </div>

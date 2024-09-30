@@ -11,18 +11,20 @@ export default function FormRegister() {
 
   return (
     <>
-      <h1 className="  fs-3 my-5">Registrarse</h1>
-      <div className="container  ">
+      <h1 className="text-center fs-3 my-5">Registrarse</h1>
+      <div className="container text-center">
         <HermesLogo />
       </div>
 
-      <UserForm
-        user={user}
-        setUser={setUser}
-        editMode={false}
-        customer={true}
-        getUsers={null}
-      />
+      <div className="container p4">
+        <UserForm
+          user={user}
+          setUser={setUser}
+          editMode={false}
+          customer={true}
+          getUsers={null}
+        />
+      </div>
     </>
   );
 }
