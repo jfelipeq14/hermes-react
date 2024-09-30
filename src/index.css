@@ -19,7 +19,7 @@ picture img {
   width: 3rem;
 }
 
-div.card{
+div.card {
   transition: transform 0.3s;
 }
 div.card:hover {

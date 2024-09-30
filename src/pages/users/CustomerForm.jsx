@@ -16,8 +16,6 @@ import swal from "sweetalert";
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
-
-
 //#region models imports
 import { Users } from "../../models/users/users.model";
 import { Customers } from "../../models/reservations/customers.model";
@@ -95,7 +93,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
 
   const handleReset = () => {
     setUser(new Users());
-    setCustomer(new Customers())
+    setCustomer(new Customers());
     setConfirmPassword(null);
     setValidated(false);
   };

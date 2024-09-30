@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3000/auth";
 
-export class AuthService{
+export class AuthService {
   static login = async (credentials) => {
     try {
       const { data } = await axios.post(`${API_URL}/login`, credentials);

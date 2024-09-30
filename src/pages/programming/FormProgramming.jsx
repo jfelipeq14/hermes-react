@@ -18,7 +18,6 @@ export default function FormProgramming() {
   let [minInscription, setMinInscription] = useState("");
   let [maxInscription, setMaxInscription] = useState("");
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPrograming({

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3000/reservations";
 
-export class ReservationsService{
+export class ReservationsService {
   static getAll = async () => {
     try {
       const { data } = await axios.get(`${API_URL}`);

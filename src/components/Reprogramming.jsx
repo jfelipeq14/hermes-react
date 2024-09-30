@@ -3,7 +3,7 @@ import { Customers } from "../models/reservations/customers.model";
 import Calendar from "./Calendar";
 
 // eslint-disable-next-line react/prop-types
-export default function Reprogramming({setModalPaysOpen}) {
+export default function Reprogramming({ setModalPaysOpen }) {
   const [customer, setCustomer] = useState(new Customers());
 
   const handleChangeCustomer = (e) => {
@@ -62,9 +62,14 @@ export default function Reprogramming({setModalPaysOpen}) {
         </fieldset>
       </div>
       <div className="buttons my-2">
-        <button className=" btn btn-sm btn-danger" onClick={()=>{
-          setModalPaysOpen(false)
-        }}>Cancelar</button>
+        <button
+          className=" btn btn-sm btn-danger"
+          onClick={() => {
+            setModalPaysOpen(false);
+          }}
+        >
+          Cancelar
+        </button>
       </div>
     </div>
   );
