@@ -1,14 +1,22 @@
-body{
-  font-family: 'Roboto', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+body {
   background: #e8e8e8;
 }
 
-nav{
-  margin: 0;
-  padding: 0;
+.video-container {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vw * 0.5625);
+  overflow: hidden;
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
 }
 
 .buttons {
@@ -27,7 +35,8 @@ legend {
   border-bottom: 2px solid #000;
 }
 
-picture source, picture img{
+picture source,
+picture img {
   width: 3rem;
 }
 
