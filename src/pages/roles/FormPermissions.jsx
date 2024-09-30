@@ -5,10 +5,10 @@ export default function FormPermissions() {
  // Creamos un arreglo llamado "permissions" que contiene objetos con información sobre permisos
 const permissions = [
   { id_permission: 1, name: "Dashboard", state: true },  // Permiso 1: Dashboard (activo)
-  { id_permission: 2, name: "Gestion de Roles", state: true },  // Permiso 2: Gestión de Roles (activo)
-  { id_permission: 3, name: "Gestion de Servicios", state: true },  // Permiso 3: Gestión de Servicios (activo)
-  { id_permission: 4, name: "Gestion de Usuarios", state: true },  // Permiso 4: Gestión de Usuarios (activo)
-  { id_permission: 5, name: "Gestion de Reservas", state: true },  // Permiso 5: Gestión de Reservas (activo)
+  { id_permission: 2, name: "Roles", state: true },  // Permiso 2: Gestión de Roles (activo)
+  { id_permission: 3, name: "Servicios", state: true },  // Permiso 3: Gestión de Servicios (activo)
+  { id_permission: 4, name: "Usuarios", state: true },  // Permiso 4: Gestión de Usuarios (activo)
+  { id_permission: 5, name: "Reservas", state: true },  // Permiso 5: Gestión de Reservas (activo)
 ];
 
 // Creamos otro arreglo llamado "privilegios" que contiene objetos con información sobre privilegios
