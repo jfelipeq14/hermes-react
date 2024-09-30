@@ -106,7 +106,6 @@ export default function RolesPage() {
                 id="identification"
                 className="form-control form-control-sm"
                 placeholder="Buscar"
-                onChange={(e) => console.log(e.target.value)}
               />
             </form>
             <table className="table table-hover my-2">
