@@ -23,7 +23,7 @@ export default function PaymentsPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10   justify-content-center align-items-center">
         <div className="row p-2">
           <fieldset className="col-sm-12 col-md-6">
             <legend>Pagos</legend>
@@ -36,7 +36,7 @@ export default function PaymentsPage() {
                 <input
                   type="search"
                   id="identification"
-                  className="form-control"
+                  className="form-control form-control-sm my-2"
                   placeholder="Buscar"
                   onChange={(e) => console.log(e.target.value)}
                 />
@@ -62,10 +62,10 @@ export default function PaymentsPage() {
                   <tr key={pay.id_pay}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
-                        <EyeIcon width={25} />
+                        <EyeIcon width={20} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <PencilSquareIcon width={25} />
+                        <PencilSquareIcon width={20} />
                       </button>
                     </td>
                     <td>{pay.id_reservation}</td>

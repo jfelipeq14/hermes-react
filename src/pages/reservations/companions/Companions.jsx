@@ -16,13 +16,13 @@ export default function Companions() {
     <fieldset>
       <legend>Acompañantes</legend>
       <button
-        className="btn btn-primary float-end"
+        className=" btn btn-sm btn-primary float-end"
         onClick={() => {
           setHaveCompanions(!haveCompanions);
           setModalIsOpen(true);
         }}
       >
-        <PlusIcon width={25} />
+        <PlusIcon width={20} />
         Agregar
       </button>
 
@@ -42,7 +42,7 @@ export default function Companions() {
               <td className="d-flex">
                 <button className="btn m-0 p-0">
                   <TrashIcon
-                    width={25}
+                    width={20}
                     onClick={() => {
                       let index = companions.findIndex(
                         (c) => c.identification === companion.identification
@@ -55,7 +55,7 @@ export default function Companions() {
                 </button>
                 <button className="btn m-0 p-0">
                   <PencilSquareIcon
-                    width={25}
+                    width={20}
                     onClick={() => {
                       // Buscar un acompañante por su id
                       let index = companions.findIndex(

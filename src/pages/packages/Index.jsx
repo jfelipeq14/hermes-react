@@ -73,7 +73,7 @@ export default function PackagesPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10   justify-content-center align-items-center">
         <div className="row">
           <fieldset className="col-sm-12 col-md-8">
             <legend>Paquetes</legend>
@@ -82,7 +82,7 @@ export default function PackagesPage() {
                 <input
                   type="text"
                   id="identification"
-                  className="form-control"
+                  className="form-control form-control-sm my-2"
                   placeholder="Buscar"
                   onChange={(e) => console.log(e.target.value)}
                 />
@@ -92,10 +92,10 @@ export default function PackagesPage() {
                   <NavLink
                     to={{ pathname: `package` }}
                     className={
-                      "btn btn-primary d-flex align-items-center justify-content-center gap-2"
+                      " btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-2"
                     }
                   >
-                    <PlusCircleIcon width={25} />
+                    <PlusCircleIcon width={20} />
                     Crear
                   </NavLink>
                 </div>
@@ -117,7 +117,7 @@ export default function PackagesPage() {
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
                         <EyeIcon
-                          width={25}
+                          width={20}
                           onClick={() => {
                             setViewServices(!viewServices);
                           }}
@@ -128,7 +128,7 @@ export default function PackagesPage() {
                         state={{ id: pack.id }}
                         className="btn m-0 p-0"
                       >
-                        <PencilSquareIcon width={25} />
+                        <PencilSquareIcon width={20} />
                       </NavLink>
                       <div className="form-switch d-inline">
                         <input

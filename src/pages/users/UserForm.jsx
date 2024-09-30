@@ -91,7 +91,7 @@ export default function UserForm({
         <label className="col-12">
           Rol:
           <select
-            className="form-select my-2"
+            className="form-select form-select-sm my-2"
             name="idRole"
             value={user.idRole}
             onChange={handleChange}
@@ -114,7 +114,7 @@ export default function UserForm({
         Cedula:
         <div className="d-flex justify-content-between align-items-center my-2">
           <select
-            className="form-select"
+            className="form-select form-select-sm"
             name="documentType"
             value={user.documentType}
             onChange={handleChange}
@@ -127,7 +127,7 @@ export default function UserForm({
           </select>
           <input
             type="text"
-            className="form-control"
+            className="form-control form-control-sm my-2"
             name="identification"
             value={user.identification}
             onChange={handleChange}
@@ -144,7 +144,7 @@ export default function UserForm({
         Nombres:
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="name"
           value={user.name}
           onChange={handleChange}
@@ -160,7 +160,7 @@ export default function UserForm({
         Apellidos:
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="lastName"
           value={user.lastName}
           onChange={handleChange}
@@ -176,7 +176,7 @@ export default function UserForm({
         Correo:
         <input
           type="email"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="email"
           value={user.email}
           onChange={handleChange}
@@ -192,7 +192,7 @@ export default function UserForm({
         Contraseña:
         <input
           type="password"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="password"
           value={user.password}
           onChange={handleChange}
@@ -208,7 +208,7 @@ export default function UserForm({
         Confirm. contraseña:
         <input
           type="password"
-          className="form-control my-2"
+          className="form-control form-control-sm my-2 my-2"
           name="confirmPassword"
           value={confirmPassword}
           onChange={(e) => {
@@ -222,10 +222,12 @@ export default function UserForm({
 
       {/* buttons */}
       <div className="buttons my-2">
-        <button type="submit" className="btn btn-outline-primary">
-          Guardar
+        <button type="submit" className="btn btn-sm btn-primary">
+          {
+            editMode ? "Editar" : "Crear"
+          }
         </button>
-        <button type="reset" className="btn btn-outline-danger">
+        <button type="reset" className="btn btn-sm btn-danger">
           Cancelar
         </button>
       </div>

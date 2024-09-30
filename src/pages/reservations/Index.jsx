@@ -22,7 +22,7 @@ export default function ReservationsPage() {
   const [modalPaysOpen, setModalPaysOpen] = useState(false);
   const [showPay, setShowPay] = useState(false);
   const [reservas, setReservas] = useState([]);
-  
+
   const clickModal = () => {
     setModalPaysOpen(!modalPaysOpen);
   };
@@ -40,7 +40,7 @@ export default function ReservationsPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10   justify-content-center align-items-center">
         <div className="row">
           <fieldset className="col-sm-12 col-md-4">
             <legend>{showPay ? "Pago" : "Acompañante"}</legend>
@@ -48,19 +48,30 @@ export default function ReservationsPage() {
           </fieldset>
           <fieldset className="col-sm-12 col-md-8">
             <legend>Reservas</legend>
-            <header className="buttons">
-              <NavLink
-                to={{ pathname: "/administrator/packages/programming" }}
-                className="btn btn-primary m-2"
-              >
-                <CalendarDateRangeIcon width={25} />
-                Programación
-              </NavLink>
-              <NavLink to={{ pathname: "/" }} className="btn btn-primary m-2">
-                <PlusCircleIcon width={25} />
-                Crear
-              </NavLink>
-            </header>
+            <NavLink
+              to={{ pathname: "/" }}
+              className=" btn btn-sm btn-primary mx-2 float-end"
+            >
+              <PlusCircleIcon width={20} />
+              Crear
+            </NavLink>
+            <NavLink
+              to={{ pathname: "/administrator/packages/programming" }}
+              className=" btn btn-sm btn-primary mx-2 float-end"
+            >
+              <CalendarDateRangeIcon width={20} />
+              Programación
+            </NavLink>
+            <form className="w-50">
+              <input
+                type="search"
+                id="identification"
+                className="form-control form-control-sm"
+                placeholder="Buscar"
+                onChange={(e) => console.log(e.target.value)}
+              />
+            </form>
+            <header className="buttons"></header>
             <table className="table table-striped my-2">
               <thead>
                 <th scope="col">Acciones</th>
@@ -76,7 +87,7 @@ export default function ReservationsPage() {
                   <tr key={reserva.id_reservation}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
-                        <EyeIcon width={25} />
+                        <EyeIcon width={20} />
                       </button>
                       <button
                         className="btn m-0 p-0"
@@ -84,10 +95,10 @@ export default function ReservationsPage() {
                           setShowPay(false);
                         }}
                       >
-                        <UserPlusIcon width={25} />
+                        <UserPlusIcon width={20} />
                       </button>
                       <button className="btn m-0 p-0" onClick={clickModal}>
-                        <CalendarDateRangeIcon width={25} />
+                        <CalendarDateRangeIcon width={20} />
                       </button>
                       <button
                         className="btn m-0 p-0"
@@ -95,10 +106,10 @@ export default function ReservationsPage() {
                           setShowPay(true);
                         }}
                       >
-                        <TicketIcon width={25} />
+                        <TicketIcon width={20} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <NoSymbolIcon width={25} />
+                        <NoSymbolIcon width={20} />
                       </button>
                     </td>
                     <td>{reserva.id_customer}</td>

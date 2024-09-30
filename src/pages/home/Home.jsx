@@ -98,11 +98,13 @@ const packages = [
 export default function Home() {
   return (
     <>
-      <main className="row">
+      <main className="row text-center">
+        <div className="video-container">
+        <video src="" autoPlay loop muted></video>
+
+        </div>
         <section className="col-12 mx-auto my-5">
-          <header className="text-center">
-            <h2 className="fw-bold fs-4">Paquetes</h2>
-          </header>
+          <h2 className="fw-bold fs-4">Paquetes</h2>
           <article className="row g-1 justify-content-center">
             {packages.map((pkg, index) => {
               return (
@@ -120,11 +122,12 @@ export default function Home() {
               );
             })}
           </article>
-          <footer className="text-center">
+          <footer className="container">
             <p>
               Antes de realizar una reserva debes saber que el comprobante se
               sube en la aplicación, pero previamente debes registrarte. Lee
-              nuestros{""}
+              nuestros
+              <br />
               <NavLink to={"/terminos"} className="text-primary">
                 terminos y condiciones
               </NavLink>
@@ -132,9 +135,7 @@ export default function Home() {
           </footer>
         </section>
         <section className="col-md-12 my-5">
-          <header className="text-center">
             <h2 className="fw-bold fs-4">Preguntas</h2>
-          </header>
           <hr />
           {/* crear un detail donde se hagan preguntas y respuestas de una agencia de viajes */}
           <article className="row">
@@ -180,8 +181,8 @@ export default function Home() {
             </fieldset>
           </article>
         </section>
-        <section className="col-12 my-5">
-          <article className="row">
+        <section className="col-12 my-5 text-start p-5">
+          <article className="row p-5">
             <section className="col-md-6 mx-auto">
               <h2 className="fs-4 fw-bold my-5">Información de contacto</h2>
               <p>
@@ -214,7 +215,7 @@ export default function Home() {
                 <strong>Teléfono</strong>: 123456789
               </p>
             </section>
-            <section className="col-md-6 mx-auto text-start">
+            <section className="col-md-6 mx-auto">
               <ul>
                 <li>
                   <NavLink to="/pqrs">PQRS</NavLink>

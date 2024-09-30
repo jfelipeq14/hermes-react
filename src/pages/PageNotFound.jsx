@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 export default function PageNotFound() {
   return (
     <div className="row">
-      <div className="col-12 text-center">
+      <div className="col-12  ">
         <h1>404</h1>
         <h2>La pagina que buscas no se encuentra en el sistema</h2>
         <p>
@@ -11,7 +11,7 @@ export default function PageNotFound() {
         </p>
         <NavLink
           to={{ pathname: "/" }}
-          className="btn btn-primary m-2"
+          className=" btn btn-sm btn-primary m-2"
         >
           Volver al inicio
         </NavLink>

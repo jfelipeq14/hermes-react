@@ -7,7 +7,7 @@ export default function DashboardPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <div className="col-10 text-center justify-content-center align-items-center">
+      <div className="col-10   justify-content-center align-items-center   justify-content-center align-items-center">
         <h1>Dashboard</h1>
         <div className="row">
           <div className="col-sm-12 col-md-6">
@@ -20,7 +20,7 @@ export default function DashboardPage() {
             <div className="mx-auto">
               <div className="row">
                 <div className="col-sm-12 col-md-4">
-                  <div className="text-center">
+                  <div className=" ">
                     <UserIcon width={130} color="silver" />
 
                     <p>Esteban Dido</p>
@@ -35,7 +35,7 @@ export default function DashboardPage() {
                   </div>
                 </div>
                 <div className="col-sm-12 col-md-4">
-                  <div className="text-center">
+                  <div className=" ">
                     <UserIcon width={150} color="gold" />
                     <p>Esteban Dido</p>
                     <div>
@@ -49,7 +49,7 @@ export default function DashboardPage() {
                   </div>
                 </div>
                 <div className="col-sm-12 col-md-4">
-                  <div className="text-center">
+                  <div className=" ">
                     <UserIcon width={120} color="bronze" />
 
                     <p>Esteban Dido</p>

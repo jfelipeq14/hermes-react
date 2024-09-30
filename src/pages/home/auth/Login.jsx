@@ -12,8 +12,7 @@ import swal from "sweetalert";
 
 import { AuthService } from "../../../services/auth.service.js";
 
-
-export default function Login({ setUser }) {
+export default function Login({ setUser, clickModal }) {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -46,10 +45,11 @@ export default function Login({ setUser }) {
         }
         setUser(userLogin);
         setTokenStorage(userLogin);
+        clickModal();
         if (userLogin.data.idRole === 1) {
-          navigate("/administrator");
+          navigate("/administrator/dashboard");
         } else {
-          navigate("/customer");
+          navigate("/customer/reservations");
         }
       } catch (error) {
         console.error(error);
@@ -62,6 +62,7 @@ export default function Login({ setUser }) {
     setEmail("");
     setPassword("");
     setValidated(false);
+    clickModal();
   };
 
   return (
@@ -75,14 +76,14 @@ export default function Login({ setUser }) {
         validated={validated}
         onSubmit={handleSubmit}
         onReset={handleReset}
-        className="row p-2"
+        className="row p-4"
       >
         <label className="col-12">
           Correo electrónico:
           <input
             type="email"
             name="email"
-            className="form-control my-2"
+            className="form-control form-control-sm my-2"
             onChange={handleChange}
           />
         </label>
@@ -91,14 +92,15 @@ export default function Login({ setUser }) {
           <input
             type="password"
             name="password"
-            className="form-control my-2"
+            className="form-control form-control-sm my-2"
             onChange={handleChange}
             required
           />
         </label>
         <div className="buttons justify-content-center">
-          <button className="btn btn-primary" type="submit">Ingresar</button>
-          <button className="btn btn-primary" type="reset">Cancelar</button>
+          <button className=" btn btn-sm btn-primary" type="submit">
+            Ingresar
+          </button>
         </div>
       </Form>
     </>

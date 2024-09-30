@@ -6,7 +6,7 @@ export default function ProgramingPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10   justify-content-center align-items-center">
         <div className="row p-2 ">
           <fieldset className="col-sm-12 col-md-4 ">
             <legend>Formulario</legend>

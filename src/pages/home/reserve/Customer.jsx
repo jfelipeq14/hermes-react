@@ -132,7 +132,7 @@ export default function Customer({
           </label>
           <div className="col-5">
             <select
-              className="form-select"
+              className="form-select form-select-sm"
               name="documentType"
               value={user.documentType}
               onChange={handleChangeUser}
@@ -151,7 +151,7 @@ export default function Customer({
           <div className="col-5">
             <input
               type="text"
-              className="form-control"
+              className="form-control form-control-sm my-2"
               name="identification"
               value={user.identification}
               onChange={handleChangeUser}
@@ -163,7 +163,7 @@ export default function Customer({
           </div>
           <div className="col-2">
             <button className="btn">
-              <MagnifyingGlassIcon width={25} />
+              <MagnifyingGlassIcon width={20} />
             </button>
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function Customer({
         <label htmlFor="name">Nombres:</label>
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="name"
           value={customer.name}
           onChange={handleChangeCustomer}
@@ -188,7 +188,7 @@ export default function Customer({
         <label htmlFor="lastName">Apellidos:</label>
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="lastName"
           value={customer.lastName}
           onChange={handleChangeCustomer}
@@ -206,7 +206,7 @@ export default function Customer({
         <div className="row">
           <div className="col-5">
             <select
-              className="form-select"
+              className="form-select form-select-sm"
               name="phone"
               onChange={handleChangeCustomer}
               required
@@ -222,7 +222,7 @@ export default function Customer({
           <div className="col-7">
             <input
               type="text"
-              className="form-control"
+              className="form-control form-control-sm my-2"
               name="phone"
               value={customer.phone}
               onChange={handleChangeCustomer}
@@ -239,7 +239,7 @@ export default function Customer({
         <label htmlFor="birthDate">Fecha de nacimiento:</label>
         <input
           type="date"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="dateOfBirth"
           value={customer.dateOfBirth}
           onChange={handleChangeCustomer}
@@ -253,7 +253,7 @@ export default function Customer({
         <label htmlFor="age">Edad:</label>
         <input
           type="number"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="age"
           value={customer.age}
           readOnly
@@ -264,7 +264,7 @@ export default function Customer({
         <label htmlFor="email">Correo:</label>
         <input
           type="email"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="email"
           value={user.email}
           onChange={handleChangeUser}
@@ -278,7 +278,7 @@ export default function Customer({
         <label htmlFor="emailConfirmation">Confir. correo:</label>
         <input
           type="email"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="emailConfirmation"
           value={user.email}
           onChange={(e) => {
@@ -297,7 +297,7 @@ export default function Customer({
         <label htmlFor="password">Contraseña:</label>
         <input
           type="password"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="password"
           value={user.password}
           onChange={handleChangeUser}
@@ -310,7 +310,7 @@ export default function Customer({
         <label htmlFor="passwordConfirmation">Confirm. contraseña:</label>
         <input
           type="password"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="passwordConfirmation"
           value={user.password}
           onChange={(e) => {
@@ -337,10 +337,10 @@ export default function Customer({
         />
       </label>
       <div className="buttons my-3">
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className=" btn btn-sm btn-primary">
           Crear
         </button>
-        <button type="reset" className="btn btn-danger">
+        <button type="reset" className=" btn btn-sm btn-danger">
           Cancelar
         </button>
       </div>

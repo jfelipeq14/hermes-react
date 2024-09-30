@@ -22,7 +22,7 @@ export default function Sidebar() {
               key={link.name}
               name={link.name}
               href={link.href}
-              icon={<link.icon width={30} color="white" />}
+              icon={<link.icon width={25} color="" />}
             />
           );
         })}
@@ -36,11 +36,10 @@ export function SidebarItem({ name, href, icon }) {
   return (
     <li className="nav-item">
       <NavLink to={{ pathname: `/${href}` }}>
-      <div className="d-flex align-items-center">
-      <button className="btn">{icon}</button>
-      {name}
-      </div>
-          
+        <div className="d-flex align-items-center">
+          <button className="btn">{icon}</button>
+          <small className="d-none d-lg-block">{name}</small>
+        </div>
       </NavLink>
     </li>
   );

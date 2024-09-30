@@ -121,7 +121,7 @@ export default function FormCompanion({ companions, setCompanions, setHaveCompan
           </label>
           <div className="col-5">
             <select
-              className="form-select"
+              className="form-select form-select-sm"
               name="documentType"
               value={companion.documentType}
               onChange={handleChange}
@@ -138,7 +138,7 @@ export default function FormCompanion({ companions, setCompanions, setHaveCompan
           <div className="col-5">
             <input
               type="text"
-              className="form-control"
+              className="form-control form-control-sm my-2"
               name="identification"
               value={companion.identification}
               onChange={handleChange}
@@ -150,7 +150,7 @@ export default function FormCompanion({ companions, setCompanions, setHaveCompan
           </div>
           <div className="col-2">
             <button className="btn" onClick={onClickSearch}>
-              <MagnifyingGlassIcon width={25} />
+              <MagnifyingGlassIcon width={20} />
             </button>
           </div>
         </div>
@@ -160,7 +160,7 @@ export default function FormCompanion({ companions, setCompanions, setHaveCompan
         <label htmlFor="name">Nombres:</label>
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="name"
           value={companion.name}
           onChange={handleChange}
@@ -175,7 +175,7 @@ export default function FormCompanion({ companions, setCompanions, setHaveCompan
         <label htmlFor="lastName">Apellidos:</label>
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="lastName"
           value={companion.lastName}
           onChange={handleChange}
@@ -193,7 +193,7 @@ export default function FormCompanion({ companions, setCompanions, setHaveCompan
         <div className="row">
           <div className="col-5">
             <select
-              className="form-select"
+              className="form-select form-select-sm"
               name="phone"
               onChange={handleChange}
               required
@@ -209,7 +209,7 @@ export default function FormCompanion({ companions, setCompanions, setHaveCompan
           <div className="col-7">
             <input
               type="text"
-              className="form-control"
+              className="form-control form-control-sm my-2"
               name="phone"
               value={companion.phone}
               onChange={handleChange}
@@ -257,7 +257,7 @@ export default function FormCompanion({ companions, setCompanions, setHaveCompan
           Tipo de sangre:
         </label>
         <select
-          className="form-select"
+          className="form-select form-select-sm"
           name="bloodType"
           value={companion.bloodType}
           onChange={handleChange}
@@ -276,7 +276,7 @@ export default function FormCompanion({ companions, setCompanions, setHaveCompan
         <label htmlFor="eps">EPS:</label>
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="eps"
           value={companion.eps}
           onChange={handleChange}
@@ -288,12 +288,12 @@ export default function FormCompanion({ companions, setCompanions, setHaveCompan
       </div>
       {/* buttons */}
       <div className="buttons my-4">
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className=" btn btn-sm btn-primary">
           Agregar
         </button>
         <button
           type="reset"
-          className="btn btn-danger"
+          className=" btn btn-sm btn-danger"
           onClick={() => {
             setHaveCompanions(false);
           }}

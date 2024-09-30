@@ -113,7 +113,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
       <label className="col-12">
         Identificación:
         <select
-          className="form-select"
+          className="form-select form-select-sm"
           name="documentType"
           value={user.documentType}
           onChange={handleChangeUser}
@@ -128,7 +128,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         </select>
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="identification"
           value={user.identification}
           onChange={handleChangeUser}
@@ -138,7 +138,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         <small className="valid-feedback">Todo bien!</small>
         <small className="invalid-feedback">Campo obligatorio</small>
         <button className="btn">
-          <MagnifyingGlassIcon width={25} />
+          <MagnifyingGlassIcon width={20} />
         </button>
       </label>
 
@@ -147,7 +147,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         Nombres:
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="name"
           value={user.name}
           onChange={handleChangeUser}
@@ -163,7 +163,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         Apellidos:
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="lastName"
           value={user.lastName}
           onChange={handleChangeUser}
@@ -178,7 +178,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
       <label className="col-12">
         Celular:
         <select
-          className="form-select"
+          className="form-select form-select-sm"
           name="phone"
           onChange={handleChangeCustomer}
           required
@@ -190,7 +190,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         </select>
         <input
           type="text"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="phone"
           value={customer.phone}
           onChange={handleChangeCustomer}
@@ -206,7 +206,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         Fecha de nacimiento:
         <input
           type="date"
-          className="form-control my-2"
+          className="form-control form-control-sm my-2 my-2"
           name="dateOfBirth"
           value={customer.dateOfBirth}
           onChange={handleChangeCustomer}
@@ -220,7 +220,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         Edad:
         <input
           type="number"
-          className="form-control my-2"
+          className="form-control form-control-sm my-2 my-2"
           name="age"
           value={customer.age}
           readOnly
@@ -232,7 +232,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         Correo:
         <input
           type="email"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="email"
           value={user.email}
           onChange={handleChangeUser}
@@ -248,7 +248,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         Contraseña:
         <input
           type="password"
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="password"
           value={user.password}
           onChange={handleChangeUser}
@@ -264,7 +264,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         Confirm. contraseña:
         <input
           type="password"
-          className="form-control my-2"
+          className="form-control form-control-sm my-2 my-2"
           name="confirmPassword"
           value={confirmPassword}
           onChange={(e) => {
@@ -278,10 +278,10 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
 
       {/* buttons */}
       <div className="buttons my-4">
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className=" btn btn-sm btn-primary">
           Actualizar
         </button>
-        <button type="reset" className="btn btn-danger">
+        <button type="reset" className=" btn btn-sm btn-danger">
           Cancelar
         </button>
       </div>

@@ -154,7 +154,7 @@ export default function ServicesPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10   justify-content-center align-items-center">
         <div className="row p-2">
           <Form
             noValidate
@@ -166,7 +166,7 @@ export default function ServicesPage() {
               <legend>Servicio</legend>
               <label>Categoría</label>
               <select
-                className="form-select"
+                className="form-select form-select-sm"
                 name="id_categoryService"
                 value={serviceData.id_categoryService}
                 onChange={handleChange}
@@ -184,7 +184,7 @@ export default function ServicesPage() {
               </label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control form-control-sm my-2"
                 name="name"
                 value={serviceData.name}
                 onChange={handleChange}
@@ -202,7 +202,7 @@ export default function ServicesPage() {
               </label>
               <input
                 type="number"
-                className="form-control"
+                className="form-control form-control-sm my-2"
                 name="price"
                 value={serviceData.price}
                 onChange={handleChange}
@@ -215,12 +215,12 @@ export default function ServicesPage() {
               </small>
             </div>
             <div className="buttons">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className=" btn btn-sm btn-primary">
                 Guardar
               </button>
               <button
                 type="reset"
-                className="btn btn-secondary"
+                className=" btn btn-sm btn-secondary"
                 onClick={resetForm}
               >
                 Cancelar
@@ -247,13 +247,13 @@ export default function ServicesPage() {
                         className="btn m-0 p-0"
                         onClick={() => handleEdit(item.id)}
                       >
-                        <PencilSquareIcon width={25} />
+                        <PencilSquareIcon width={20} />
                       </button>
                       <button
                         className="btn m-0 p-0"
                         onClick={() => handleDelete(item.id)}
                       >
-                        <TrashIcon width={25} />
+                        <TrashIcon width={20} />
                       </button>
                       <div className="form-switch d-inline">
                         <input

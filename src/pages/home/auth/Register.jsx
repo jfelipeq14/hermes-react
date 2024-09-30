@@ -16,7 +16,15 @@ export default function FormRegister() {
         <HermesLogo />
       </div>
 
-      <UserForm user={user} setUser={setUser} editMode={false} customer={true} getUsers />
+      <div className="container p4">
+        <UserForm
+          user={user}
+          setUser={setUser}
+          editMode={false}
+          customer={true}
+          getUsers={null}
+        />
+      </div>
     </>
   );
 }
