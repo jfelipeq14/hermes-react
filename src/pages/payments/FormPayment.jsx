@@ -105,7 +105,7 @@ export default function FormPayment() {
       
       {paymentMethod && (
         <div className="container shadow p-3 m-2">
-          <h1 className="text-center text-uppercase">{paymentMethod}</h1>
+          <h1 className="  text-uppercase">{paymentMethod}</h1>
           {paymentMethod === "banco" ? (
             <>
               <p>
@@ -146,7 +146,7 @@ export default function FormPayment() {
           Cliente:
           <input
             type="text"
-            className="form-control"
+            className="form-control form-control-sm my-2"
             name="name"
             value={pay.cliente}
             onChange={handleChange}
@@ -161,7 +161,7 @@ export default function FormPayment() {
           Paquete:
           <input
             type="text"
-            className="form-control"
+            className="form-control form-control-sm my-2"
             name="name"
             value={pay.paquete}
             onChange={handleChange}
@@ -175,7 +175,7 @@ export default function FormPayment() {
           Valor total:
           <input
             type="number"
-            className="form-control"
+            className="form-control form-control-sm my-2"
             name="name"
             value={pay.valorTotal}
             onChange={handleChange}
@@ -186,7 +186,7 @@ export default function FormPayment() {
           Pago minimo:
           <input
             type="number"
-            className="form-control"
+            className="form-control form-control-sm my-2"
             name="pago"
             value={pay.pagoMinimo}
             onChange={handleChange}
@@ -196,7 +196,7 @@ export default function FormPayment() {
         <label className="col-12">
           Comprobante:
           <input
-            className="form-control"
+            className="form-control form-control-sm my-2"
             type="file"
             accept="image/*"
             name="comprobante"
@@ -215,7 +215,7 @@ export default function FormPayment() {
         <label className="col-12">
           Estado:
           <select
-            className="form-select"
+            className="form-select form-select-sm"
             name="estado"
             value={pay.estado}
             onChange={handleChange}
@@ -233,10 +233,10 @@ export default function FormPayment() {
         </label>
         {/* buttons */}
         <div className="buttons my-4">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className=" btn btn-sm btn-primary">
             Pagar
           </button>
-          <button type="reset" className="btn btn-danger">
+          <button type="reset" className=" btn btn-sm btn-danger">
             Cancelar
           </button>
         </div>

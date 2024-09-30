@@ -10,6 +10,7 @@ import { removeTokenStorage } from "../../utilies/authUtils";
 import { AuthService } from "../../services/auth.service.js";
 import Login from "../home/auth/Login";
 import Register from "../home/auth/Register";
+import Modals from "../../components/Modals.jsx";
 
 export default function Navbar({ children, user, setUser }) {
   const navigate = useNavigate();
@@ -59,13 +60,13 @@ export default function Navbar({ children, user, setUser }) {
                   className="btn btn-dark mx-2"
                 >
                   {user.data.email}
-                  <UserCircleIcon width={25} className="mx-2" />
+                  <UserCircleIcon width={20} className="mx-2" />
                 </NavLink>
                 <button
                   className="btn btn-outline-danger mx-2"
                   onClick={handleLogout}
                 >
-                  <ArrowRightEndOnRectangleIcon width={25} className="me-2" />
+                  <ArrowRightEndOnRectangleIcon width={20} className="me-2" />
                 </button>
               </li>
             ) : (
@@ -86,18 +87,21 @@ export default function Navbar({ children, user, setUser }) {
                 </button>
               </li>
             )}
+
             {openLoginModal && (
-              <Login
-                isOpen={openLoginModal}
-                clickModal={toggleLoginModal}
-                setUser={setUser}
-              />
+              <Modals isOpen={openLoginModal} clickModal={setOpenLoginModal}>
+                <Login setUser={setUser} />
+              </Modals>
             )}
+
             {openRegisterModal && (
-              <Register
+              <Modals
                 isOpen={openRegisterModal}
-                clickModal={toggleRegisterModal}
-              />
+                clickModal={setOpenRegisterModal}
+                size="md"
+              >
+                <Register />
+              </Modals>
             )}
           </ul>
         </div>

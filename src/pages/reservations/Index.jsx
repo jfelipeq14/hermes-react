@@ -40,7 +40,7 @@ export default function ReservationsPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10   justify-content-center align-items-center">
         <div className="row">
           <fieldset className="col-sm-12 col-md-4">
             <legend>{showPay ? "Pago" : "Acompañante"}</legend>
@@ -51,13 +51,13 @@ export default function ReservationsPage() {
             <header className="buttons">
               <NavLink
                 to={{ pathname: "/administrator/packages/programming" }}
-                className="btn btn-primary m-2"
+                className=" btn btn-sm btn-primary m-2"
               >
-                <CalendarDateRangeIcon width={25} />
+                <CalendarDateRangeIcon width={20} />
                 Programación
               </NavLink>
-              <NavLink to={{ pathname: "/" }} className="btn btn-primary m-2">
-                <PlusCircleIcon width={25} />
+              <NavLink to={{ pathname: "/" }} className=" btn btn-sm btn-primary m-2">
+                <PlusCircleIcon width={20} />
                 Crear
               </NavLink>
             </header>
@@ -76,7 +76,7 @@ export default function ReservationsPage() {
                   <tr key={reserva.id_reservation}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
-                        <EyeIcon width={25} />
+                        <EyeIcon width={20} />
                       </button>
                       <button
                         className="btn m-0 p-0"
@@ -84,10 +84,10 @@ export default function ReservationsPage() {
                           setShowPay(false);
                         }}
                       >
-                        <UserPlusIcon width={25} />
+                        <UserPlusIcon width={20} />
                       </button>
                       <button className="btn m-0 p-0" onClick={clickModal}>
-                        <CalendarDateRangeIcon width={25} />
+                        <CalendarDateRangeIcon width={20} />
                       </button>
                       <button
                         className="btn m-0 p-0"
@@ -95,10 +95,10 @@ export default function ReservationsPage() {
                           setShowPay(true);
                         }}
                       >
-                        <TicketIcon width={25} />
+                        <TicketIcon width={20} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <NoSymbolIcon width={25} />
+                        <NoSymbolIcon width={20} />
                       </button>
                     </td>
                     <td>{reserva.id_customer}</td>

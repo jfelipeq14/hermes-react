@@ -22,7 +22,7 @@ export default function Sidebar() {
               key={link.name}
               name={link.name}
               href={link.href}
-              icon={<link.icon width={30} color="white" />}
+              icon={<link.icon width={30} color=""/>}
             />
           );
         })}

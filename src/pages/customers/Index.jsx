@@ -79,16 +79,16 @@ export default function CustomersPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10 justify-content-center align-items-center">
         <div className="row">
           <fieldset className="col-sm-12 col-md-7">
             <legend>Clientes</legend>
             <NavLink
               to={{ pathname: "/reserve" }}
               state={{ identification: 0 }}
-              className="btn btn-primary float-end"
+              className=" btn btn-sm btn-primary float-end"
             >
-              <PlusCircleIcon width={25} />
+              <PlusCircleIcon width={20} />
               Crear
             </NavLink>
             <form className="row">
@@ -96,7 +96,7 @@ export default function CustomersPage() {
                 <input
                   type="search"
                   id="identification"
-                  className="form-control"
+                  className="form-control form-control-sm my-2"
                   placeholder="Buscar"
                   onChange={(e) => console.log(e.target.value)}
                 />
@@ -122,7 +122,7 @@ export default function CustomersPage() {
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
                         <EyeIcon
-                          width={25}
+                          width={20}
                           onClick={() => console.log(customer.id_customer)}
                         />
                       </button>
@@ -131,7 +131,7 @@ export default function CustomersPage() {
                         state={{ identification: customer.identification }}
                         className="btn m-0 p-0"
                       >
-                        <PencilSquareIcon width={25} />
+                        <PencilSquareIcon width={20} />
                       </NavLink>
                     </td>
                     <td>{customer.identification}</td>
@@ -149,8 +149,8 @@ export default function CustomersPage() {
           {haveReservations && (
             <fieldset className="col-sm-12 col-md-5 p-5">
               <legend>Reservas del cliente</legend>
-              <NavLink to="/reserve" className="btn btn-primary float-end">
-                <PlusCircleIcon width={25} />
+              <NavLink to="/reserve" className=" btn btn-sm btn-primary float-end">
+                <PlusCircleIcon width={20} />
                 Crear
               </NavLink>
               <table className="table table-striped my-2">
@@ -167,7 +167,7 @@ export default function CustomersPage() {
                       <td className="d-flex">
                         <button className="btn m-0 p-0">
                           <EyeIcon
-                            width={25}
+                            width={20}
                             color={haveReservations ? "blue" : "black"}
                             onClick={() =>
                               setHaveReservations(!haveReservations)
@@ -175,7 +175,7 @@ export default function CustomersPage() {
                           />
                         </button>
                         <button className="btn m-0 p-0">
-                          <PencilSquareIcon width={25} />
+                          <PencilSquareIcon width={20} />
                         </button>
                       </td>
                       <td>{reserve.paquete}</td>

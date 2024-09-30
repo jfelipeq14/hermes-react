@@ -25,7 +25,7 @@ export default function Reprogramming({clickModal}) {
               Identificacion:
               <input
                 type="text"
-                className="form-control"
+                className="form-control form-control-sm my-2"
                 name="identification"
                 value={customer.identification}
                 onChange={handleChangeCustomer}
@@ -39,7 +39,7 @@ export default function Reprogramming({clickModal}) {
               Nombre:
               <input
                 type="text"
-                className="form-control"
+                className="form-control form-control-sm my-2"
                 name="name"
                 value={customer.name}
                 onChange={handleChangeCustomer}
@@ -63,7 +63,7 @@ export default function Reprogramming({clickModal}) {
         </fieldset>
       </div>
       <div className="buttons my-2">
-        <button className="btn btn-danger" onClick={clickModal}>Cancelar</button>
+        <button className=" btn btn-sm btn-danger" onClick={clickModal}>Cancelar</button>
       </div>
     </div>
   );

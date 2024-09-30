@@ -80,7 +80,7 @@ export default function FormProgramming() {
       className="row p-1"
     >
       <label className="col-12">
-        <select className="form-select" name="categoria">
+        <select className="form-select form-select-sm" name="categoria">
           <option value="">Selecciona un Paquete: </option>
           <option value="happy">Happy</option>
         </select>
@@ -91,7 +91,7 @@ export default function FormProgramming() {
         Fecha de ejecución:
         <input
           type="date"
-          className="form-control my-2 my-2"
+          className="form-control form-control-sm my-2 my-2 my-2"
           name="date_execution"
           onChange={handleChange}
           value={programing.date_execution}
@@ -105,7 +105,7 @@ export default function FormProgramming() {
         Fecha Finalización:
         <input
           type="date"
-          className="form-control my-2"
+          className="form-control form-control-sm my-2 my-2"
           name="date_end"
           value={programing.date_end}
           onChange={handleChange}
@@ -121,7 +121,7 @@ export default function FormProgramming() {
         Inicio inscripción:
         <input
           type="date"
-          className="form-control my-2"
+          className="form-control form-control-sm my-2 my-2"
           name="date_start"
           value={programing.date_start}
           onChange={handleChange}
@@ -136,7 +136,7 @@ export default function FormProgramming() {
         Fin inscripción:
         <input
           type="date"
-          className="form-control my-2"
+          className="form-control form-control-sm my-2 my-2"
           name="date_ending"
           value={programing.date_ending}
           onChange={handleChange}
@@ -165,10 +165,10 @@ export default function FormProgramming() {
         </div>
       </div>
       <div className="buttons">
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className=" btn btn-sm btn-primary">
           Crear
         </button>
-        <button type="reset" className="btn btn-secondary">
+        <button type="reset" className=" btn btn-sm btn-secondary">
           Limpiar
         </button>
       </div>

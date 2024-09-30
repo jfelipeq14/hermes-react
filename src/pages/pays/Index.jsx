@@ -35,7 +35,7 @@ export default function PaysPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10   justify-content-center align-items-center">
         <div className="row p-2">
           <fieldset className="col-12">
             <legend>Ventas</legend>
@@ -44,7 +44,7 @@ export default function PaysPage() {
                 <input
                   type="text"
                   id="identification"
-                  className="form-control"
+                  className="form-control form-control-sm my-2"
                   placeholder="Buscar"
                   onChange={(e) => console.log(e.target.value)}
                 />
@@ -67,16 +67,16 @@ export default function PaysPage() {
                   <tr key={sale.email}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
-                        <EyeIcon width={25} />
+                        <EyeIcon width={20} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <UserPlusIcon width={25} />
+                        <UserPlusIcon width={20} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <CalendarDateRangeIcon width={25} />
+                        <CalendarDateRangeIcon width={20} />
                       </button>
                       <button className="btn m-0 p-0">
-                        <TicketIcon width={25} />
+                        <TicketIcon width={20} />
                       </button>
                     </td>
                     <td>{sale.nombresPaquete}</td>

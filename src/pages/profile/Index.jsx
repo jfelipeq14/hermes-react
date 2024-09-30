@@ -22,7 +22,7 @@ export default function ProfilePage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10   justify-content-center align-items-center">
         <div className="row">
           {isCustomer ? (
             <CustomerForm

@@ -100,7 +100,7 @@ export default function Home() {
     <>
       <main className="row">
         <section className="col-12 mx-auto my-5">
-          <header className="text-center">
+          <header className=" ">
             <h2 className="fw-bold fs-4">Paquetes</h2>
           </header>
           <article className="row g-1 justify-content-center">
@@ -120,7 +120,7 @@ export default function Home() {
               );
             })}
           </article>
-          <footer className="text-center">
+          <footer className=" ">
             <p>
               Antes de realizar una reserva debes saber que el comprobante se
               sube en la aplicación, pero previamente debes registrarte. Lee
@@ -132,7 +132,7 @@ export default function Home() {
           </footer>
         </section>
         <section className="col-md-12 my-5">
-          <header className="text-center">
+          <header className=" ">
             <h2 className="fw-bold fs-4">Preguntas</h2>
           </header>
           <hr />

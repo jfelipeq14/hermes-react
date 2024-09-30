@@ -70,7 +70,7 @@ export default function FormPackage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <div className="col-11">
+      <div className="col-10">
         <div className="row">
           <fieldset className="col-sm-12 col-md-6">
             <legend>Paquete</legend>
@@ -85,7 +85,7 @@ export default function FormPackage() {
                 <label htmlFor="name">Nombre:</label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control form-control-sm my-2"
                   name="name"
                   value={pack.name}
                   onChange={handleChangePack}
@@ -100,7 +100,7 @@ export default function FormPackage() {
                 <label htmlFor="destination">Destino:</label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control form-control-sm my-2"
                   name="destination"
                   value={pack.destination}
                   onChange={handleChangePack}
@@ -118,7 +118,7 @@ export default function FormPackage() {
                 <div className="row">
                   <div className="col-12">
                     <input
-                      className="form-control"
+                      className="form-control form-control-sm my-2"
                       type="file"
                       accept="image/*"
                       name="image"
@@ -140,7 +140,7 @@ export default function FormPackage() {
                 <div className="row">
                   <div className="col-6">
                     <select
-                      className="form-select"
+                      className="form-select form-select-sm"
                       name="services"
                       // value={idService}
                       onChange={handleChangeOptions}
@@ -161,7 +161,7 @@ export default function FormPackage() {
                   <div className="col-6">
                     <input
                       type="text"
-                      className="form-control"
+                      className="form-control form-control-sm my-2"
                       name="value"
                       onChange={handleChangePack}
                       readOnly
@@ -173,7 +173,7 @@ export default function FormPackage() {
                   </div>
                   <div className="col-6 my-2">
                     <button
-                      className="btn btn-primary"
+                      className=" btn btn-sm btn-primary"
                       type="button"
                       onClick={onClickService}
                     >
@@ -185,7 +185,7 @@ export default function FormPackage() {
                     <label htmlFor="precio">Precio:</label>
                     <input
                       type="number"
-                      className="form-control"
+                      className="form-control form-control-sm my-2"
                       name="precio"
                       value={pack.precio}
                       onChange={handleChangePack}
@@ -202,7 +202,7 @@ export default function FormPackage() {
                     <label htmlFor="destination">Ingreso:</label>
                     <input
                       type="number"
-                      className="form-control"
+                      className="form-control form-control-sm my-2"
                       name="destination"
                       value={pack.destination}
                       readOnly
@@ -228,10 +228,10 @@ export default function FormPackage() {
                 </div>
               </div>
               <div className="buttons">
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className=" btn btn-sm btn-primary">
                   Crear
                 </button>
-                <button type="reset" className="btn btn-danger">
+                <button type="reset" className=" btn btn-sm btn-danger">
                   Cancelar
                 </button>
               </div>
@@ -242,7 +242,7 @@ export default function FormPackage() {
             <header className="row">
               <div className="col-6">
                 <select
-                  className="form-select"
+                  className="form-select form-select-sm"
                   name="documentType"
                   value={pack.services}
                   onChange={handleChangePack}
@@ -260,10 +260,10 @@ export default function FormPackage() {
                   <NavLink
                     to={{ pathname: `administrator/packages` }}
                     className={
-                      "btn btn-primary d-flex align-items-center justify-content-center gap-2"
+                      " btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-2"
                     }
                   >
-                    <PlusCircleIcon width={25} />
+                    <PlusCircleIcon width={20} />
                     Ver
                   </NavLink>
                 </div>
@@ -283,7 +283,7 @@ export default function FormPackage() {
                       <tr key={service.idService}>
                         <td>
                           <button className="btn">
-                            <TrashIcon width={25} />
+                            <TrashIcon width={20} />
                           </button>
                         </td>
                         <td>{service.nombre}</td>

@@ -119,13 +119,13 @@ export default function UsersPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10   justify-content-center align-items-center">
         <fieldset>
           <legend>Usuarios</legend>
           <header className="my-4">
             <input
               type="search"
-              className="form-control"
+              className="form-control form-control-sm my-2"
               placeholder="Buscar"
             />
           </header>
@@ -143,14 +143,14 @@ export default function UsersPage() {
                   <td className="d-flex">
                     <button className="btn m-0 p-0">
                       <PencilSquareIcon
-                        width={25}
+                        width={20}
                         onClick={handleEditUser}
                         id={user.idUser}
                       />
                     </button>
                     <button className="btn m-0 p-0">
                       <TrashIcon
-                        width={25}
+                        width={20}
                         onClick={handleDeleteUser}
                         id={user.idUser}
                       />

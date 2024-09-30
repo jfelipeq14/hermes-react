@@ -44,7 +44,7 @@ export default function RolesPage() {
   return (
     <div className="row">
       <Sidebar></Sidebar>
-      <main className="col-10">
+      <main className="col-10   justify-content-center align-items-center">
         <div className="row">
           <fieldset className="col-sm-12 col-md-6">
             <legend>Roles</legend>
@@ -52,7 +52,7 @@ export default function RolesPage() {
               <input
                 type="search"
                 placeholder="Buscar"
-                className="form-control"
+                className="form-control form-control-sm my-2"
               />
             </header>
             <table className="table table-striped">
@@ -69,8 +69,8 @@ export default function RolesPage() {
                     <tr key={rol.idRole}>
                       <td className="px-4 py-3">{rol.name}</td>
                       <td className="px-4 py-3" key={rol.idRole}>
-                        <PencilSquareIcon width={25} type="button" />
-                        <TrashIcon width={25} type="button" />
+                        <PencilSquareIcon width={20} type="button" />
+                        <TrashIcon width={20} type="button" />
                         <div className="form-switch d-inline">
                           <input
                             className="form-check-input"

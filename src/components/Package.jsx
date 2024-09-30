@@ -43,12 +43,12 @@ export default function Package({
         {status ? (
           <NavLink
             to={{ pathname: "/reserve" }}
-            className="btn btn-primary m-2"
+            className=" btn btn-sm btn-primary m-2"
           >
             Reservar
           </NavLink>
         ) : (
-          <button className="btn btn-danger m-2" disabled>
+          <button className=" btn btn-sm btn-danger m-2" disabled>
             Agotado
           </button>
         )}

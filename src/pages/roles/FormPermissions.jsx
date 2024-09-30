@@ -126,7 +126,7 @@ const handleChangePrivilege = (permissionId, privilegeId) => (e) => {
       <div className="form-group">
         <label htmlFor="role">Rol:</label>
         <input
-          className="form-control"
+          className="form-control form-control-sm my-2"
           name="name"
           value={role.name}
           onChange={handleChangeRole}
@@ -163,10 +163,10 @@ const handleChangePrivilege = (permissionId, privilegeId) => (e) => {
         </tbody>
       </table>
       <div className="buttons">
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className=" btn btn-sm btn-primary">
           Guardar
         </button>
-        <button type="reset" className="btn btn-danger">
+        <button type="reset" className=" btn btn-sm btn-danger">
           Cancelar
         </button>
       </div>
