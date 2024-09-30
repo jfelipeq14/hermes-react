@@ -5,7 +5,7 @@ import {
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/16/solid";
-import Modals from "../../../../components/Modals";
+import Modals from "../../../components/Modals";
 
 export default function Companions() {
   const [modalIsOpen, setModalIsOpen] = useState(false);

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3000/users";
 
-export class UsersService{
+export class UsersService {
   static getAll = async () => {
     try {
       const { data } = await axios.get(`${API_URL}`);

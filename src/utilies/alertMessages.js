@@ -1,14 +1,12 @@
 export const titles = {
-  roles:
-    {
-      error: "No se pudo realizar la accion",
-      exito: "La accion se realizo correctamente",
-      confirmar: "Confirmar la accion"
-    }
-  ,
+  roles: {
+    error: "No se pudo realizar la accion",
+    exito: "La accion se realizo correctamente",
+    confirmar: "Confirmar la accion",
+  },
   error: "Error",
   correct: "Completado",
-  confirm: "Confirmar"
+  confirm: "Confirmar",
 };
 
 export const messages = {
@@ -17,7 +15,7 @@ export const messages = {
     eliminado: "Rol eliminado exitosamente",
     actualizado: "Rol actualizado exitosamente",
     cambioEstado: "El rol cambio de estado",
-    confirmar: "Confirmar"
+    confirmar: "Confirmar",
   },
   error: {
     emptyFields: "Los campos no pueden estar vacíos",

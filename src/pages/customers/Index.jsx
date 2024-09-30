@@ -116,7 +116,9 @@ export default function CustomersPage() {
                     </button>
                   </td>
                   <td>{customer.user.identification}</td>
-                  <td>{customer.user.name.trim()} {customer.user.lastName.trim()}</td>
+                  <td>
+                    {customer.user.name.trim()} {customer.user.lastName.trim()}
+                  </td>
                   <td>{customer.user.email}</td>
                   <td>{customer.phone}</td>
                   <td>{customer.state ? "Activo" : "Inactivo"}</td>

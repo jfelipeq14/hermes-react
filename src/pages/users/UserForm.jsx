@@ -223,9 +223,7 @@ export default function UserForm({
       {/* buttons */}
       <div className="buttons my-2">
         <button type="submit" className="btn btn-sm btn-primary">
-          {
-            editMode ? "Editar" : "Crear"
-          }
+          {editMode ? "Editar" : "Crear"}
         </button>
         <button type="reset" className="btn btn-sm btn-danger">
           Cancelar

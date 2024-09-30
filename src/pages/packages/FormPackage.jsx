@@ -6,7 +6,6 @@ import Sidebar from "../layout/Sidebar";
 import { Packages } from "../../models/packs/packages.model";
 
 export default function FormPackage() {
-
   const navigate = useNavigate();
   const services = [
     {
@@ -31,9 +30,7 @@ export default function FormPackage() {
   const [servicePackData, setServicePackData] = useState([]);
   let idService = 0;
 
-  useEffect(() => {
-    
-  }, [servicePackData]);
+  useEffect(() => {}, [servicePackData]);
 
   const handleChangePack = (e) => {
     const { name, value, checked, type } = e.target;
@@ -48,8 +45,8 @@ export default function FormPackage() {
     }
 
     packs.push(pack);
-    navigate('/administrator/packages');
-    
+    navigate("/administrator/packages");
+
     setValidated(true);
   };
 
