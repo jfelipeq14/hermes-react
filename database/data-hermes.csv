@@ -13,7 +13,7 @@
 "customers","municipality",NULL,"NO","integer",32,NULL,NULL
 "customers","state",NULL,"NO","boolean",NULL,NULL,NULL
 "customers","identification",NULL,"NO","character varying",30,NULL,NULL
-"customers","id_customer","nextval('customers_id_customer_seq'::regclass)","NO","integer",32,NULL,NULL
+"customers","idCustomer","nextval('customers_idCustomer_seq'::regclass)","NO","integer",32,NULL,NULL
 "customers","documenttype",NULL,"NO","character varying",2,NULL,NULL
 "customers","eps",NULL,"NO","character varying",60,NULL,NULL
 "customers","phone",NULL,"NO","character varying",15,NULL,NULL
@@ -38,8 +38,8 @@
 "packages","status",NULL,"YES","boolean",NULL,NULL,NULL
 "packages","name",NULL,"YES","character varying",60,NULL,NULL
 "pay","price",NULL,"NO","numeric",15,NULL,NULL
-"pay","id_pay","nextval('pay_id_pay_seq'::regclass)","NO","integer",32,NULL,NULL
-"pay","id_reservation",NULL,"NO","integer",32,NULL,NULL
+"pay","idPay","nextval('pay_idPay_seq'::regclass)","NO","integer",32,NULL,NULL
+"pay","idReservation",NULL,"NO","integer",32,NULL,NULL
 "pay","status",NULL,"NO","character",1,NULL,NULL
 "pay","date_pay","CURRENT_DATE","YES","date",NULL,NULL,NULL
 "pay","voucher",NULL,"NO","character varying",255,NULL,NULL
@@ -59,12 +59,12 @@
 "reservations","status",NULL,"NO","character",1,NULL,NULL
 "reservations","priceReservation",NULL,"NO","numeric",15,NULL,NULL
 "reservations","travelCustomer",NULL,"NO","boolean",NULL,NULL,NULL
-"reservations","id_customer",NULL,"NO","integer",32,NULL,NULL
+"reservations","idCustomer",NULL,"NO","integer",32,NULL,NULL
 "reservations","idDetailProgrammingPackage",NULL,"NO","integer",32,NULL,NULL
-"reservations","id_reservation","nextval('reservations_id_reservation_seq'::regclass)","NO","integer",32,NULL,NULL
+"reservations","idReservation","nextval('reservations_idReservation_seq'::regclass)","NO","integer",32,NULL,NULL
 "reserve_companions","id_reserve_companion","nextval('reserve_companions_id_reserve_companion_seq'::regclass)","NO","integer",32,NULL,NULL
 "reserve_companions","sex",NULL,"YES","character",1,NULL,NULL
-"reserve_companions","id_reservation","nextval('reserve_companions_id_reservation_seq'::regclass)","NO","integer",32,NULL,NULL
+"reserve_companions","idReservation","nextval('reserve_companions_idReservation_seq'::regclass)","NO","integer",32,NULL,NULL
 "reserve_companions","lastname",NULL,"YES","character varying",50,NULL,NULL
 "reserve_companions","name",NULL,"YES","character varying",60,NULL,NULL
 "reserve_companions","bloodtype",NULL,"YES","character varying",3,NULL,NULL

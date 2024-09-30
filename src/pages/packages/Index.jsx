@@ -101,7 +101,7 @@ export default function PackagesPage() {
                 </div>
               </div>
             </header>
-            <table className="table table-striped">
+            <table className="table">
               <thead>
                 <th scope="col">Acciones</th>
                 <th scope="col">Nombre</th>
@@ -153,9 +153,9 @@ export default function PackagesPage() {
             </table>
           </fieldset>
           {viewServices && (
-            <fieldset className="col-sm-12 col-md-4">
+            <fieldset className="col-sm-12 col-md-4 py-5">
               <legend>Servicios</legend>
-              <table className="table table-striped my-2">
+              <table className="table my-2">
                 <thead>
                   <th scope="col">Nombre</th>
                   <th scope="col">Valor</th>

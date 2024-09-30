@@ -1,7 +1,7 @@
 export class Pays {
   constructor() {
-    this.id_pay = 0;
-    this.id_reservation = 0;
+    this.idPay = 0;
+    this.idReservation = 0;
     this.date_pay = new Date();
     this.price = 0;
     this.voucher = "";
