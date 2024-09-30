@@ -73,43 +73,38 @@ const packages = [
     ],
     status: true,
   },
-  {
-    id_package: 4,
-    destination: "Medellin",
-    name: "Feria de flores",
-    date: "2025-06-06",
-    price: 1000000,
-    services: [
-      {
-        id: 1,
-        category: "Entretenimiento",
-        name: "Pesca",
-      },
-      {
-        id: 2,
-        category: "Transporte",
-        name: "Lancha",
-      },
-    ],
-    status: true,
-  },
 ];
 
 export default function Home() {
   return (
     <>
-      <main className="row text-center">
-        <section>
-          <video src="/public/videos/bg.mp4" autoPlay loop muted></video>
-          <h1 className="fw-bold fs-1 m-0">Bienvenido a Parche Travels</h1>
-        </section>
+      <main className="row">
+        <section className="col-12 mx-auto text-center top-0">
+          <div className="container-fluid position-absolute my-5 p-5">
+            <h1 className="position-relative fw-bold">
+              Bienvenido a Parche Travels
+            </h1>
+            <div className="container">
+              <p className="lead fs-3">
+                Encuentra paquetes turisticos a los mejores destinos y precios
+                del mercado. No dudes en reservar con nosotros.
+              </p>
+            </div>
+            <button type="button" className="btn btn-sm btn-primary mx-1">
+              Registrarse
+            </button>
+          </div>
 
+          <video src="/public/videos/bg.mp4" autoPlay loop muted></video>
+        </section>
         <section className="col-12 mx-auto my-5">
-          <h2 className="fw-bold fs-4">Paquetes</h2>
-          <article className="row g-1 justify-content-center">
+          <h2 className="fs-1 lead text-center my-5">
+            No te pierdas estas ofertas
+          </h2>
+          <article className="row g-1 justify-content-center align-items-center p-5">
             {packages.map((pkg, index) => {
               return (
-                <div className="col-sm-12 col-md-6 col-lg-3 p-2" key={index}>
+                <div className="col-sm-12 col-md-6 col-lg-4 p-3" key={index}>
                   <Package
                     key={pkg.id_package}
                     destination={pkg.destination}
@@ -123,7 +118,7 @@ export default function Home() {
               );
             })}
           </article>
-          <footer className="container">
+          <footer className="container text-center">
             <p>
               Antes de realizar una reserva debes saber que el comprobante se
               sube en la aplicación, pero previamente debes registrarte. Lee
@@ -135,10 +130,8 @@ export default function Home() {
             </p>
           </footer>
         </section>
-        <section className="col-md-12 my-5">
-          <h2 className="fw-bold fs-4">Preguntas</h2>
-          <hr />
-          {/* crear un detail donde se hagan preguntas y respuestas de una agencia de viajes */}
+        <section className="col-md-12 my-5 p-5">
+          <h2 className="fs-1 lead text-center my-5">Preguntas</h2>
           <article className="row">
             <fieldset className="col-md-3 rounded p-3">
               <legend className="d-flex align-items-center gap-4 fs-5 fw-medium">
