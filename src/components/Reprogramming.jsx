@@ -3,10 +3,8 @@ import { Customers } from "../models/reservations/customers.model";
 import Calendar from "./Calendar";
 
 // eslint-disable-next-line react/prop-types
-export default function Reprogramming({clickModal}) {
-  let formCustomer = new Customers();
-
-  let [customer, setCustomer] = useState(formCustomer);
+export default function Reprogramming({setModalPaysOpen}) {
+  const [customer, setCustomer] = useState(new Customers());
 
   const handleChangeCustomer = (e) => {
     let { name, value, checked, type } = e.target;
@@ -15,6 +13,7 @@ export default function Reprogramming({clickModal}) {
       [name]: type === "checkbox" ? checked : value,
     });
   };
+
   return (
     <div className="container">
       <div className="row">
@@ -63,7 +62,9 @@ export default function Reprogramming({clickModal}) {
         </fieldset>
       </div>
       <div className="buttons my-2">
-        <button className=" btn btn-sm btn-danger" onClick={clickModal}>Cancelar</button>
+        <button className=" btn btn-sm btn-danger" onClick={()=>{
+          setModalPaysOpen(false)
+        }}>Cancelar</button>
       </div>
     </div>
   );

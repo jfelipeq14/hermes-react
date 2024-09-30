@@ -147,7 +147,7 @@ export default function UsersPage() {
               onChange={(e) => console.log(e.target.value)}
             />
           </form>
-          <table className="table table-striped my-2">
+          <table className="table my-2">
             <thead>
               <th scope="col">Acciones</th>
               <th scope="col">Identificacion</th>

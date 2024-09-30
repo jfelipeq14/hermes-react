@@ -229,7 +229,7 @@ export default function ServicesPage() {
           </Form>
           <fieldset className="col-sm-12 col-md-5">
             <legend>Servicios</legend>
-            <table className="table table-striped">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Acciones</th>

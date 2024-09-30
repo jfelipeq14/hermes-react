@@ -1,8 +1,8 @@
 export class Reservations {
   constructor() {
-    this.id_reservation = 0;
+    this.idReservation = 0;
     this.idDetailProgrammingPackage = 0;
-    this.id_customer = 0;
+    this.idCustomer = 0;
     this.dateReservation = new Date();
     this.priceReservation = 0;
     this.numberCompanions = 0;

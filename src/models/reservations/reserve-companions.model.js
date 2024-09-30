@@ -1,7 +1,7 @@
 export class ReserveCompanions {
   constructor() {
     this.id_reserve_companion = 0;
-    this.id_reservation = 0;
+    this.idReservation = 0;
     this.documentType =
       "" ||
       "CC" ||

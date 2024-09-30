@@ -83,8 +83,9 @@ export default function FormPayment() {
     setValidated(false);
   };
   return (
-    <>
-      <section className="buttons justify-content-around">
+    <fieldset className="container p-2">
+      <legend>Pago</legend>
+      <section className="buttons justify-content-center">
         <button className="btn btn-sm btn-primary">
           <CreditCardIcon
             width={80}
@@ -102,7 +103,7 @@ export default function FormPayment() {
           />
         </button>
       </section>
-      
+
       {paymentMethod && (
         <div className="container shadow p-3 m-2">
           <h1 className="  text-uppercase">{paymentMethod}</h1>
@@ -241,6 +242,6 @@ export default function FormPayment() {
           </button>
         </div>
       </Form>
-    </>
+    </fieldset>
   );
 }

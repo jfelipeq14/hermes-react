@@ -50,7 +50,7 @@ export default function PaysPage() {
                 />
               </div>
             </header>
-            <table className="table table-striped">
+            <table className="table">
               <thead>
                 <th scope="col">Acciones</th>
                 <th scope="col">Nombre pack</th>

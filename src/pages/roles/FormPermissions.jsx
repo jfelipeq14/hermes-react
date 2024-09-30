@@ -134,7 +134,7 @@ const handleChangePrivilege = (permissionId, privilegeId) => (e) => {
           required
         />
       </div>
-      <table className="table table-striped">
+      <table className="table">
         <thead>
           <tr>
             <th>Nombre</th>

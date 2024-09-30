@@ -179,7 +179,7 @@ SELECT * FROM detail_programming_packages_service;
 
 DROP TABLE IF EXISTS customers CASCADE;
 CREATE TABLE customers(
-    id_customer SERIAL NOT NULL,
+    idCustomer SERIAL NOT NULL,
     idUser INTEGER NOT NULL,
     name VARCHAR(60) NOT NULL,
     lastName VARCHAR(50) NOT NULL,
@@ -193,7 +193,7 @@ CREATE TABLE customers(
     eps VARCHAR(60) NOT NULL,
     state BOOLEAN NOT NULL,
     
-    CONSTRAINT pk_idCustomer PRIMARY KEY (id_customer),
+    CONSTRAINT pk_idCustomer PRIMARY KEY (idCustomer),
     CONSTRAINT fk_idUser FOREIGN KEY (idUser) REFERENCES users(idUser),
     CONSTRAINT chk_nameCustomer CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_lastNameCustomer CHECK (lastName ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
@@ -209,18 +209,18 @@ SELECT * FROM customers;
 
 DROP TABLE IF EXISTS reservations CASCADE;
 CREATE TABLE reservations(
-    id_reservation SERIAL NOT NULL,
+    idReservation SERIAL NOT NULL,
     idDetailProgrammingPackage INTEGER NOT NULL,
-    id_customer INTEGER NOT NULL,
+    idCustomer INTEGER NOT NULL,
     dateReservation DATE DEFAULT CURRENT_DATE,
     priceReservation DECIMAL(15,2) NOT NULL,
     numberCompanions INTEGER NOT NULL,
     travelCustomer BOOLEAN NOT NULL,
     status CHAR NOT NULL,
     
-    CONSTRAINT pk_idReservation PRIMARY KEY (id_reservation),
+    CONSTRAINT pk_idReservation PRIMARY KEY (idReservation),
     CONSTRAINT fk_idDetailProgrammingPackage FOREIGN KEY (idDetailProgrammingPackage) REFERENCES detail_programming_packages(idDetailProgrammingPackage),
-    CONSTRAINT fk_idCustomer FOREIGN KEY (id_customer) REFERENCES customers(id_customer),
+    CONSTRAINT fk_idCustomer FOREIGN KEY (idCustomer) REFERENCES customers(idCustomer),
     CONSTRAINT chk_priceReservation CHECK (CAST(priceReservation AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$'),
 	--ESTADO DE RESERVA: Pendiente(no pago), Confirmada(pago 50%), Pagada(pago completo), Modificada, Cancelada(retiro cliente), Anulada (dates), En curso y Finalizada
     CONSTRAINT chk_statusReservation CHECK (status ~ '^(N|C|P|M|R|A|E|F)$')
@@ -232,7 +232,7 @@ SELECT * FROM reservations;
 DROP TABLE IF EXISTS reserve_companions CASCADE;
 CREATE TABLE reserve_companions(
     id_reserve_companion SERIAL NOT NULL,
-    id_reservation SERIAL NOT NULL,
+    idReservation SERIAL NOT NULL,
     documentType VARCHAR(5) NOT NULL,
     identification VARCHAR(60) NOT NULL,
     name VARCHAR(60),
@@ -243,7 +243,7 @@ CREATE TABLE reserve_companions(
     eps VARCHAR(60),
     
     CONSTRAINT pk_idReserveCompanion PRIMARY KEY (id_reserve_companion),
-    CONSTRAINT fk_idReservation FOREIGN KEY (id_reservation) REFERENCES reservations(id_reservation),
+    CONSTRAINT fk_idReservation FOREIGN KEY (idReservation) REFERENCES reservations(idReservation),
     CONSTRAINT chk_documentTypeCompanion CHECK (documentType ~ '^(CC|CE|PA|SC|CD|TE|PEP|AS|DU|CCEX|CEEX|PAEX|SCEX|CDEX|TEX|RNEX|PEPEX|ASEX)$'),
     CONSTRAINT chk_identificationCompanion CHECK (identification ~ '^[a-z0-9]{6,}$'),
     CONSTRAINT chk_nameCompanion CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
@@ -257,15 +257,15 @@ SELECT * FROM reserve_companions;
 
 DROP TABLE IF EXISTS pay CASCADE;
 CREATE TABLE pays ( 
-    id_pay SERIAL NOT NULL,
-    id_reservation INTEGER NOT NULL,
+    idPay SERIAL NOT NULL,
+    idReservation INTEGER NOT NULL,
     date_pay DATE DEFAULT CURRENT_DATE,
     price DECIMAL(15,2) NOT NULL,
     voucher VARCHAR(255) NOT NULL,
     status CHAR NOT NULL,
 
-    CONSTRAINT pk_pay PRIMARY KEY (id_pay), 
-    CONSTRAINT fk_reservation FOREIGN KEY (id_reservation) REFERENCES reservations(id_reservation), 
+    CONSTRAINT pk_pay PRIMARY KEY (idPay), 
+    CONSTRAINT fk_reservation FOREIGN KEY (idReservation) REFERENCES reservations(idReservation), 
     CONSTRAINT chk_pricePay CHECK (CAST(price AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$'),
 	-- ESTADOS DE PAGO: REVISAR, PAGO, NO PAGO, ANULADO
 	CONSTRAINT chk_statusReservation CHECK (status ~ '^(R|P|N|A|)$')

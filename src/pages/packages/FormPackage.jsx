@@ -269,7 +269,7 @@ export default function FormPackage() {
                 </div>
               </div>
             </header>
-            <table className="table table-striped">
+            <table className="table">
               <thead>
                 <th scope="col">Accion</th>
                 <th scope="col">Categoria</th>
