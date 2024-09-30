@@ -99,10 +99,11 @@ export default function Home() {
   return (
     <>
       <main className="row text-center">
-        <div className="video-container">
-        <video src="" autoPlay loop muted></video>
+        <section>
+          <video src="/public/videos/bg.mp4" autoPlay loop muted></video>
+          <h1 className="fw-bold fs-1 m-0">Bienvenido a Parche Travels</h1>
+        </section>
 
-        </div>
         <section className="col-12 mx-auto my-5">
           <h2 className="fw-bold fs-4">Paquetes</h2>
           <article className="row g-1 justify-content-center">
@@ -135,7 +136,7 @@ export default function Home() {
           </footer>
         </section>
         <section className="col-md-12 my-5">
-            <h2 className="fw-bold fs-4">Preguntas</h2>
+          <h2 className="fw-bold fs-4">Preguntas</h2>
           <hr />
           {/* crear un detail donde se hagan preguntas y respuestas de una agencia de viajes */}
           <article className="row">
