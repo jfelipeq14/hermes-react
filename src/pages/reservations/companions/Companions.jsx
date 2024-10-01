@@ -13,7 +13,7 @@ export default function Companions() {
   const [companions, setCompanions] = useState([]);
 
   return (
-    <fieldset>
+    <fieldset className="container p-2">
       <legend>Acompañantes</legend>
       <button
         className=" btn btn-sm btn-primary float-end"

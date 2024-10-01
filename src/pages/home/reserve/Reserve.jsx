@@ -23,7 +23,7 @@ export default function ReservePage() {
 
   return (
     <section className="row m-0 p-0">
-      <article className="col-9 p-5">
+      <article className="col-9">
         <MultiStep
           steps={steps}
           prevButton={{

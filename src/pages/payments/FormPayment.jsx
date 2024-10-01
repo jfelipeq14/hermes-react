@@ -216,7 +216,7 @@ export default function FormPayment() {
         <label className="col-12">
           Estado:
           <select
-            className="form-select form-select-sm"
+            className="form-select form-select-sm my-2"
             name="estado"
             value={pay.estado}
             onChange={handleChange}

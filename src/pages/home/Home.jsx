@@ -78,7 +78,7 @@ const packages = [
 export default function Home() {
   return (
     <>
-      <main className="row">
+      <main className="row w-100 h-100">
         <section className="col-12 mx-auto text-center top-0">
           <div className="container-fluid position-absolute my-5 p-5">
             <h1 className="position-relative fw-bold">
@@ -90,17 +90,11 @@ export default function Home() {
                 del mercado. No dudes en reservar con nosotros.
               </p>
             </div>
-            <button type="button" className="btn btn-sm btn-primary mx-1">
-              Registrarse
-            </button>
           </div>
 
           <video src="/public/videos/bg.mp4" autoPlay loop muted></video>
         </section>
-        <section className="col-12 mx-auto my-5">
-          <h2 className="fs-1 lead text-center my-5">
-            No te pierdas estas ofertas
-          </h2>
+        <section className="col-12 mx-auto position-absolute top-50">
           <article className="row g-1 justify-content-center align-items-center p-5">
             {packages.map((pkg, index) => {
               return (
@@ -118,17 +112,6 @@ export default function Home() {
               );
             })}
           </article>
-          <footer className="container text-center">
-            <p>
-              Antes de realizar una reserva debes saber que el comprobante se
-              sube en la aplicación, pero previamente debes registrarte. Lee
-              nuestros
-              <br />
-              <NavLink to={"/terminos"} className="text-primary">
-                terminos y condiciones
-              </NavLink>
-            </p>
-          </footer>
         </section>
         <section className="col-md-12 my-5 p-5">
           <h2 className="fs-1 lead text-center my-5">Preguntas</h2>

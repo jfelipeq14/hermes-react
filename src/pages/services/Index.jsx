@@ -152,7 +152,7 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="row">
+    <div className="row w-100 h-100">
       <Sidebar></Sidebar>
       <main className="col-10   justify-content-center align-items-center">
         <div className="row p-2">
@@ -166,7 +166,7 @@ export default function ServicesPage() {
               <legend>Servicio</legend>
               <label>Categoría</label>
               <select
-                className="form-select form-select-sm"
+                className="form-select form-select-sm my-2"
                 name="id_categoryService"
                 value={serviceData.id_categoryService}
                 onChange={handleChange}

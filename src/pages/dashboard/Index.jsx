@@ -5,11 +5,11 @@ import Sidebar from "../layout/Sidebar";
 
 export default function DashboardPage() {
   return (
-    <div className="row">
+    <div className="row w-100 h-100">
       <Sidebar></Sidebar>
-      <div className="col-10   justify-content-center align-items-center   justify-content-center align-items-center">
-        <h1>Dashboard</h1>
-        <div className="row">
+      <div className="col-10 justify-content-center align-items-center   justify-content-center align-items-center">
+        <fieldset className="row p-2">
+          <legend>Dashboard</legend>
           <div className="col-sm-12 col-md-6">
             <BarsChart />
           </div>
@@ -66,7 +66,7 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
-        </div>
+        </fieldset>
       </div>
     </div>
   );

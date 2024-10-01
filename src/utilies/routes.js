@@ -74,7 +74,7 @@ export const createRoutes = (role) => {
       },
       {
         name: "Programación de paquetes",
-        href: `administrator/packages/programming`,
+        href: `administrator/programming`,
         component: ProgramingPage,
         icon: CalendarIcon,
       },

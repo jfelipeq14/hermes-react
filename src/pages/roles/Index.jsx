@@ -86,7 +86,7 @@ export default function RolesPage() {
   };
 
   return (
-    <div className="row">
+    <div className="row w-100 h-100">
       <Sidebar></Sidebar>
       <main className="col-10 justify-content-center align-items-center">
         <div className="row">

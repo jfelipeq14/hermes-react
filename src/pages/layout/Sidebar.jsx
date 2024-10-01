@@ -14,15 +14,15 @@ export default function Sidebar() {
   }, []);
 
   return (
-    <aside className="col-2">
-      <ul className="nav nav-pills sticky-top d-flex flex-column p-2 bg-body-tertiary rounded border">
+    <aside className="col-2 p-0 m-0 shadow bg-transparent">
+      <ul className="nav nav-pills d-flex flex-column sticky-top p-0 m-0">
         {createRoutes(role).map((link) => {
           return (
             <SidebarItem
               key={link.name}
               name={link.name}
               href={link.href}
-              icon={<link.icon width={25} color="" />}
+              icon={<link.icon width={25} />}
             />
           );
         })}
@@ -35,10 +35,13 @@ export default function Sidebar() {
 export function SidebarItem({ name, href, icon }) {
   return (
     <li className="nav-item">
-      <NavLink to={{ pathname: `/${href}` }}>
+      <NavLink
+        to={{ pathname: `/${href}` }}
+        className="nav-link p-0 m-0 rounded-0"
+      >
         <div className="d-flex align-items-center">
           <button className="btn">{icon}</button>
-          <small className="d-none d-lg-block">{name}</small>
+          <small className="d-none d-lg-block text-start">{name}</small>
         </div>
       </NavLink>
     </li>
