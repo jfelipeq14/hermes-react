@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { EyeIcon, TicketIcon, UserPlusIcon } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import Modals from "../../components/Modals";
