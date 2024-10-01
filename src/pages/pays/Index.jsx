@@ -223,7 +223,7 @@ export default function PaysPage() {
           size="lg"
         >
           <fieldset className="container p-4 ">
-            <legend>Imágenes</legend>
+            <legend>Comprobantes de pago</legend>
             <div className="row">
               <div className="col-6">
                 <img
