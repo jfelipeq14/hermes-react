@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import { Packages } from "../../models/packs/packages.model";
+import Modals from "../../components/Modals";
+import Package from "../../components/Package";
 
 export default function FormPackage() {
   const navigate = useNavigate();
@@ -30,6 +32,29 @@ export default function FormPackage() {
   const [servicePackData, setServicePackData] = useState([]);
   let idService = 0;
 
+  const [total, setTotal] = useState(0);
+  const [open, setOpen] = useState(false);
+  const packdata = {
+    id_package: 1,
+    destination: "Cartagena",
+    name: "Navidad",
+    date: "2021-09-30",
+    price: 1000000,
+    services: [
+      {
+        id: 1,
+        category: "Entretenimiento",
+        name: "Pesca",
+      },
+      {
+        id: 2,
+        category: "Transporte",
+        name: "Lancha",
+      },
+    ],
+    status: true,
+  };
+
   useEffect(() => {}, [servicePackData]);
 
   const handleChangePack = (e) => {
@@ -50,6 +75,13 @@ export default function FormPackage() {
     setValidated(true);
   };
 
+  const handleDeleteService = (index) => {
+    const servicePackDataCopy = [...servicePackData];
+    servicePackDataCopy.splice(index, 1);
+    setServicePackData(servicePackDataCopy);
+    setTotal(total - servicePackData[index].valor);
+  };
+
   const handleChangeOptions = (e) => {
     const index = e.target.options.selectedIndex;
     const serviceFound = servicePackData.find((s) => s.idService === index);
@@ -62,6 +94,7 @@ export default function FormPackage() {
   const onClickService = () => {
     const serviceFound = services.find((s) => s.idService === idService);
     setServicePackData([...servicePackData, serviceFound]);
+    setTotal(total + serviceFound.valor);
   };
 
   return (
@@ -177,9 +210,24 @@ export default function FormPackage() {
                       Cargar
                     </button>
                   </div>
+                  {/* Ganancia */}
+                  <div className="col-12">
+                    <label htmlFor="destination">Precio:</label>
+                    <input
+                      type="number"
+                      className="form-control form-control-sm my-2"
+                      name="total"
+                      value={total}
+                      readOnly
+                    />
+                    <small className="valid-feedback">Todo bien!</small>
+                    <small className="invalid-feedback">
+                      Campo obligatorio
+                    </small>
+                  </div>
                   {/* Precio */}
                   <div className="col-12">
-                    <label htmlFor="precio">Precio:</label>
+                    <label htmlFor="precio">Precio Total:</label>
                     <input
                       type="number"
                       className="form-control form-control-sm my-2"
@@ -188,21 +236,6 @@ export default function FormPackage() {
                       onChange={handleChangePack}
                       pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$"
                       required
-                    />
-                    <small className="valid-feedback">Todo bien!</small>
-                    <small className="invalid-feedback">
-                      Campo obligatorio
-                    </small>
-                  </div>
-                  {/* Ganancia */}
-                  <div className="col-12">
-                    <label htmlFor="destination">Ingreso:</label>
-                    <input
-                      type="number"
-                      className="form-control form-control-sm my-2"
-                      name="destination"
-                      value={pack.destination}
-                      readOnly
                     />
                     <small className="valid-feedback">Todo bien!</small>
                     <small className="invalid-feedback">
@@ -234,38 +267,19 @@ export default function FormPackage() {
               </div>
             </Form>
           </fieldset>
-          <fieldset className="col-sm-12 col-md-6">
-            <legend>Servicios</legend>
-            <header className="row">
-              <div className="col-6">
-                <select
-                  className="form-select form-select-sm my-2"
-                  name="documentType"
-                  value={pack.services}
-                  onChange={handleChangePack}
-                  required
-                >
-                  {packs.map((pack) => (
-                    <option key={pack.id}>{pack.nombre}</option>
-                  ))}
-                </select>
-                <small className="valid-feedback">Todo bien!</small>
-                <small className="invalid-feedback">Campo obligatorio</small>
-              </div>
-              <div className="col-6">
-                <div className="buttons float-end">
-                  <NavLink
-                    to={{ pathname: `administrator/packages` }}
-                    className={
-                      " btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-2"
-                    }
-                  >
-                    <PlusCircleIcon width={20} />
-                    Ver
-                  </NavLink>
-                </div>
-              </div>
-            </header>
+          <fieldset className="col-sm-12 col-md-6 p-5">
+            <legend className="fs-5">Servicios</legend>
+            <div className="buttons float-end">
+              <button
+                className={
+                  " btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-2"
+                }
+                onClick={() => setOpen(!open)}
+              >
+                <PlusCircleIcon width={20} />
+                Ver
+              </button>
+            </div>
             <table className="table">
               <thead>
                 <th scope="col">Accion</th>
@@ -274,13 +288,16 @@ export default function FormPackage() {
                 <th scope="col">Valor</th>
               </thead>
               <tbody>
-                {servicePackData.map((service) => {
+                {servicePackData.map((service, index) => {
                   if (service) {
                     return (
                       <tr key={service.idService}>
                         <td>
                           <button className="btn">
-                            <TrashIcon width={20} />
+                            <TrashIcon
+                              onClick={() => handleDeleteService(index)}
+                              width={20}
+                            />
                           </button>
                         </td>
                         <td>{service.nombre}</td>
@@ -295,6 +312,20 @@ export default function FormPackage() {
           </fieldset>
         </div>
       </div>
+      {open && (
+        <Modals isOpen={open} clickModal={setOpen} size="md">
+          <div className="container p-5">
+            <Package
+              destination={packdata.destination}
+              name={packdata.name}
+              date={packdata.date}
+              price={packdata.price}
+              services={packdata.services}
+              status={packdata.status}
+            />
+          </div>
+        </Modals>
+      )}
     </div>
   );
 }

@@ -1,17 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import swal from "sweetalert";
 
-export default function FormProgramming() {
+export default function FormProgramming({programing, setPrograming}) {
   const [validated, setValidated] = useState(false);
-  const [programing, setPrograming] = useState({
-    title: "Guatape",
-    id_programation: 1,
-    date_start: "",
-    date_end: "",
-    date_execution: "",
-    date_ending: "",
-  });
+  
 
   // fechas
   let [minEnd, setMinEnd] = useState("");
