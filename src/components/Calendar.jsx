@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 
 const events = [
@@ -13,21 +15,29 @@ const events = [
   },
   {
     title: "Guatape",
-    id_programation: 1,
-    start: "2024-08-08",
+    id_programation: 2,
+    start: new Date(),
     date_end: new Date(),
     date_execution: new Date(),
     date_ending: new Date(),
   },
 ];
 
-export default function Calendar() {
+let functionClick
+
+
+
+export default function Calendar({ clicModal }) {
+  functionClick = clicModal
+
   return (
     <FullCalendar
-      plugins={[dayGridPlugin]}
+      plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
       events={events}
       eventContent={renderEventContent}
+      eventClick={clicModal}
+      dateClick={clicModal}
       showNonCurrentDates={false}
       fixedWeekCount={false}
     />
@@ -35,12 +45,14 @@ export default function Calendar() {
 }
 
 // a custom render function
-function renderEventContent(eventInfo) {
+const renderEventContent = (eventInfo) => {
   return (
-    <div className="container w-100 p-0 m-0">
-      <button type="button" className="btn p-0 m-0 fs-6">
-        {eventInfo.event.title}
-      </button>
+    <>
+      <div className="container w-100 p-0 m-0">
+        <button type="button" className="btn p-0 m-0 fs-6" onClick={() => functionClick}>
+          {eventInfo.event.title}
+        </button>
+      </div>
       <button
         className="btn p-0 m-0"
         data-bs-toggle="dropdown"
@@ -65,6 +77,6 @@ function renderEventContent(eventInfo) {
           </a>
         </li>
       </ul>
-    </div>
+    </>
   );
-}
+};

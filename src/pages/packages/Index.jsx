@@ -90,7 +90,7 @@ export default function PackagesPage() {
               <div className="col-6">
                 <div className="buttons float-end">
                   <NavLink
-                    to={{ pathname: `package` }}
+                    to={{ pathname: `/administrator/package` }}
                     className={
                       " btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-2"
                     }
@@ -124,7 +124,7 @@ export default function PackagesPage() {
                         />
                       </button>
                       <NavLink
-                        to={{ pathname: `create` }}
+                        to={{ pathname: `/administrator/package` }}
                         state={{ id: pack.id }}
                         className="btn m-0 p-0"
                       >
