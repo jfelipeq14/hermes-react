@@ -4,7 +4,7 @@ import ProgramingForm from "./FormProgramming";
 
 export default function ProgramingPage() {
   return (
-    <div className="row">
+    <div className="row w-100 h-100">
       <Sidebar></Sidebar>
       <main className="col-10 justify-content-center align-items-center">
         <div className="row p-2 ">

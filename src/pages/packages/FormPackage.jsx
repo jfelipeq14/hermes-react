@@ -65,7 +65,7 @@ export default function FormPackage() {
   };
 
   return (
-    <div className="row">
+    <div className="row w-100 h-100">
       <Sidebar></Sidebar>
       <div className="col-10">
         <div className="row">
@@ -137,7 +137,7 @@ export default function FormPackage() {
                 <div className="row">
                   <div className="col-6">
                     <select
-                      className="form-select form-select-sm"
+                      className="form-select form-select-sm my-2"
                       name="services"
                       // value={idService}
                       onChange={handleChangeOptions}
@@ -239,7 +239,7 @@ export default function FormPackage() {
             <header className="row">
               <div className="col-6">
                 <select
-                  className="form-select form-select-sm"
+                  className="form-select form-select-sm my-2"
                   name="documentType"
                   value={pack.services}
                   onChange={handleChangePack}

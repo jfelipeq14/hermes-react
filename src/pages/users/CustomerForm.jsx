@@ -13,7 +13,6 @@ import { documentTypes } from "../../utilies/documentTypes";
 import { phonePrefixes } from "../../utilies/phonePrefixes";
 
 import swal from "sweetalert";
-import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 //#endregion
 
 //#region models imports
@@ -110,34 +109,37 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
       {/* identificacion */}
       <label className="col-12">
         Identificación:
-        <select
-          className="form-select form-select-sm"
-          name="documentType"
-          value={user.documentType}
-          onChange={handleChangeUser}
-          required
-        >
-          <option value="">Selecciona</option>
-          {documentTypes.map((documentType, index) => (
-            <option key={index} value={documentType}>
-              {documentType}
-            </option>
-          ))}
-        </select>
-        <input
-          type="text"
-          className="form-control form-control-sm my-2"
-          name="identification"
-          value={user.identification}
-          onChange={handleChangeUser}
-          pattern="^[a-z0-9]{6,}$"
-          required
-        />
+        <div className="row">
+          <div className="col-3">
+            <select
+              className="form-select form-select-sm my-2"
+              name="documentType"
+              value={user.documentType}
+              onChange={handleChangeUser}
+              required
+            >
+              <option value="">Selecciona</option>
+              {documentTypes.map((documentType, index) => (
+                <option key={index} value={documentType}>
+                  {documentType}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col-9">
+            <input
+              type="text"
+              className="form-control form-control-sm my-2"
+              name="identification"
+              value={user.identification}
+              onChange={handleChangeUser}
+              pattern="^[a-z0-9]{6,}$"
+              required
+            />
+          </div>
+        </div>
         <small className="valid-feedback">Todo bien!</small>
         <small className="invalid-feedback">Campo obligatorio</small>
-        <button className="btn">
-          <MagnifyingGlassIcon width={20} />
-        </button>
       </label>
 
       {/* nombres */}
@@ -175,26 +177,32 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
       {/* celular: Agregar el prefijo en el input de phone */}
       <label className="col-12">
         Celular:
-        <select
-          className="form-select form-select-sm"
-          name="phone"
-          onChange={handleChangeCustomer}
-          required
-        >
-          <option>Selecciona</option>
-          {phonePrefixes.map((phonePrefix) => (
-            <option key={phonePrefix.country}>{phonePrefix.prefix}</option>
-          ))}
-        </select>
-        <input
-          type="text"
-          className="form-control form-control-sm my-2"
-          name="phone"
-          value={customer.phone}
-          onChange={handleChangeCustomer}
-          pattern="^\+?[0-9]{1,3}[0-9]{7,}$"
-          required
-        />
+        <div className="row">
+          <div className="col-3">
+            <select
+              className="form-select form-select-sm my-2"
+              name="phone"
+              onChange={handleChangeCustomer}
+              required
+            >
+              <option>Selecciona</option>
+              {phonePrefixes.map((phonePrefix) => (
+                <option key={phonePrefix.country}>{phonePrefix.prefix}</option>
+              ))}
+            </select>
+          </div>
+          <div className="col-9">
+            <input
+              type="text"
+              className="form-control form-control-sm my-2"
+              name="phone"
+              value={customer.phone}
+              onChange={handleChangeCustomer}
+              pattern="^\+?[0-9]{1,3}[0-9]{7,}$"
+              required
+            />
+          </div>
+        </div>
         <small className="valid-feedback">Todo bien!</small>
         <small className="invalid-feedback">Campo obligatorio</small>
       </label>
@@ -204,7 +212,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         Fecha de nacimiento:
         <input
           type="date"
-          className="form-control form-control-sm my-2 my-2"
+          className="form-control form-control-sm my-2"
           name="dateOfBirth"
           value={customer.dateOfBirth}
           onChange={handleChangeCustomer}
@@ -218,7 +226,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         Edad:
         <input
           type="number"
-          className="form-control form-control-sm my-2 my-2"
+          className="form-control form-control-sm my-2"
           name="age"
           value={customer.age}
           readOnly
@@ -262,7 +270,7 @@ export default function CustomerForm({ user, setUser, customer, setCustomer }) {
         Confirm. contraseña:
         <input
           type="password"
-          className="form-control form-control-sm my-2 my-2"
+          className="form-control form-control-sm my-2"
           name="confirmPassword"
           value={confirmPassword}
           onChange={(e) => {

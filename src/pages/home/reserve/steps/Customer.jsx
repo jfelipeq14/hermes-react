@@ -121,7 +121,7 @@ export default function Customer() {
             </label>
             <div className="col-5">
               <select
-                className="form-select form-select-sm"
+                className="form-select form-select-sm my-2"
                 name="documentType"
                 value={user.documentType}
                 onChange={handleChangeUser}
@@ -195,7 +195,7 @@ export default function Customer() {
           <div className="row">
             <div className="col-5">
               <select
-                className="form-select form-select-sm"
+                className="form-select form-select-sm my-2"
                 name="phone"
                 onChange={handleChangeCustomer}
                 required

@@ -114,7 +114,7 @@ export default function UserForm({
         Cedula:
         <div className="d-flex justify-content-between align-items-center my-2">
           <select
-            className="form-select form-select-sm"
+            className="form-select form-select-sm my-2"
             name="documentType"
             value={user.documentType}
             onChange={handleChange}
@@ -208,7 +208,7 @@ export default function UserForm({
         Confirm. contraseña:
         <input
           type="password"
-          className="form-control form-control-sm my-2 my-2"
+          className="form-control form-control-sm my-2"
           name="confirmPassword"
           value={confirmPassword}
           onChange={(e) => {

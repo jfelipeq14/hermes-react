@@ -20,7 +20,7 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <div className="row">
+    <div className="row h-100 w-100">
       <Sidebar></Sidebar>
       <main className="col-10 justify-content-center align-items-center">
         <div className="row">

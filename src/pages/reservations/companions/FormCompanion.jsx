@@ -126,7 +126,7 @@ export default function FormCompanion({
             </label>
             <div className="col-5">
               <select
-                className="form-select form-select-sm"
+                className="form-select form-select-sm my-2"
                 name="documentType"
                 value={companion.documentType}
                 onChange={handleChange}
@@ -198,7 +198,7 @@ export default function FormCompanion({
           <div className="row">
             <div className="col-5">
               <select
-                className="form-select form-select-sm"
+                className="form-select form-select-sm my-2"
                 name="phone"
                 onChange={handleChange}
                 required
@@ -264,7 +264,7 @@ export default function FormCompanion({
             Tipo de sangre:
           </label>
           <select
-            className="form-select form-select-sm"
+            className="form-select form-select-sm my-2"
             name="bloodType"
             value={companion.bloodType}
             onChange={handleChange}
