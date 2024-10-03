@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Form } from "react-bootstrap";
 import swal from "sweetalert";
 
-export default function FormProgramming({programing, setPrograming}) {
+export default function FormProgramming({programming, setProgramming}) {
   const [validated, setValidated] = useState(false);
   
 
@@ -14,8 +14,8 @@ export default function FormProgramming({programing, setPrograming}) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setPrograming({
-      ...programing,
+    setProgramming({
+      ...programming,
       [name]: value,
     });
 
@@ -85,9 +85,9 @@ export default function FormProgramming({programing, setPrograming}) {
         <input
           type="date"
           className="form-control form-control-sm my-2 my-2"
-          name="date_execution"
+          name="dateExecute"
           onChange={handleChange}
-          value={programing.date_execution}
+          value={programming.dateExecute}
           required
         />
         <small className="valid-feedback">Todo bien!</small>
@@ -99,8 +99,8 @@ export default function FormProgramming({programing, setPrograming}) {
         <input
           type="date"
           className="form-control form-control-sm my-2"
-          name="date_end"
-          value={programing.date_end}
+          name="dateFinish"
+          value={programming.dateFinish}
           onChange={handleChange}
           min={minEnd}
           required
@@ -115,8 +115,8 @@ export default function FormProgramming({programing, setPrograming}) {
         <input
           type="date"
           className="form-control form-control-sm my-2"
-          name="date_start"
-          value={programing.date_start}
+          name="start"
+          value={programming.start}
           onChange={handleChange}
           min={minInscription}
           required
@@ -130,8 +130,8 @@ export default function FormProgramming({programing, setPrograming}) {
         <input
           type="date"
           className="form-control form-control-sm my-2"
-          name="date_ending"
-          value={programing.date_ending}
+          name="end"
+          value={programming.end}
           onChange={handleChange}
           min={maxInscription}
           required
@@ -144,15 +144,15 @@ export default function FormProgramming({programing, setPrograming}) {
         <label htmlFor="">Estado:</label>
         <div className="row">
           <div className="col-sm-12 col-md-4 my-2">
-            <input type="radio" name="status" value={true} />
+            <input type="radio" name="status" value="A" />
             <span className="mx-2">Activo</span>
           </div>
           <div className="col-sm-12 col-md-4 my-2">
-            <input type="radio" name="status" value={false} />
+            <input type="radio" name="status" value="S" />
             <span className="mx-1">Suspendido</span>
           </div>
           <div className="col-sm-12 col-md-4 my-2">
-            <input type="radio" name="status" value={false} />
+            <input type="radio" name="status" value="C" />
             <span className="mx-2">Cancelado</span>
           </div>
         </div>
