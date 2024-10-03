@@ -1,14 +1,15 @@
-import // PlusCircleIcon,
-// EyeIcon,
-// PencilSquareIcon,
-// TrashIcon,
-"@heroicons/react/16/solid";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import { useState } from "react";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import swal from "sweetalert";
 import { Services } from "../../models/services/services.model";
 import { Form } from "react-bootstrap";
+
+const categoryMap = {
+  1: "Transporte",
+  2: "Alimentación",
+  3: "Entretenimiento"
+};
 
 export default function ServicesPage() {
   const [serviceData, setServiceData] = useState(new Services());
@@ -17,7 +18,8 @@ export default function ServicesPage() {
   const [editMode, setEditMode] = useState(false);
 
   const handleChange = (e) => {
-    setServiceData({ ...serviceData, [e.target.name]: e.target.value });
+    const value = e.target.name === "id_categoryService" ? parseInt(e.target.value) : e.target.value;
+    setServiceData({ ...serviceData, [e.target.name]: value });
   };
 
   const handleCheck = (id, currentState) => {
@@ -77,16 +79,21 @@ export default function ServicesPage() {
       dangerMode: true,
     }).then((confirm) => {
       if (confirm) {
+        const newService = {
+          ...serviceData,
+          categoryName: categoryMap[serviceData.id_categoryService]
+        };
+        
         if (editMode) {
           setServices((prevData) =>
             prevData.map((item) =>
-              item.id === serviceData.id ? serviceData : item
+              item.id === serviceData.id ? newService : item
             )
           );
         } else {
           setServices((prevData) => [
             ...prevData,
-            { ...serviceData, id: Date.now() },
+            { ...newService, id: Date.now() },
           ]);
         }
         swal({
@@ -110,6 +117,7 @@ export default function ServicesPage() {
       }
     });
   };
+
   const resetForm = () => {
     setServiceData({
       id: null,
@@ -154,7 +162,7 @@ export default function ServicesPage() {
   return (
     <div className="row w-100 h-100">
       <Sidebar></Sidebar>
-      <main className="col-10   justify-content-center align-items-center">
+      <main className="col-10 justify-content-center align-items-center">
         <div className="row p-2">
           <Form
             noValidate
@@ -211,16 +219,16 @@ export default function ServicesPage() {
               />
               <small className="valid-feedback">Todo bien!</small>
               <small className="invalid-feedback">
-                Por favor escriba un nombre valido
+                Por favor escriba un valor valido
               </small>
             </div>
             <div className="buttons">
-              <button type="submit" className=" btn btn-sm btn-primary">
+              <button type="submit" className="btn btn-sm btn-primary">
                 Guardar
               </button>
               <button
                 type="reset"
-                className=" btn btn-sm btn-secondary"
+                className="btn btn-sm btn-secondary"
                 onClick={resetForm}
               >
                 Cancelar
@@ -265,7 +273,7 @@ export default function ServicesPage() {
                         />
                       </div>
                     </td>
-                    <td>{item.id_categoryService}</td>
+                    <td>{item.categoryName}</td>
                     <td>{item.name}</td>
                     <td>{item.price}</td>
                     <td>{item.status ? "Habilitado" : "Inhabilitado"}</td>
