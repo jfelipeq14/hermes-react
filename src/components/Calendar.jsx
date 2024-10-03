@@ -7,36 +7,41 @@ import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 const events = [
   {
     title: "Cartagena",
-    id_programation: 1,
-    start: new Date(),
-    date_end: new Date(),
-    date_execution: new Date(),
-    date_ending: new Date(),
+    idProgramming: 1,
+    start: new Date().toISOString().split("T")[0],
+    finish: new Date().toISOString().split("T")[0],
+    dateExecute: new Date().toISOString().split("T")[0],
+    dateFinish: new Date().toISOString().split("T")[0],
+    status: "A",
   },
   {
-    title: "Guatape",
-    id_programation: 2,
-    start: new Date(),
-    date_end: new Date(),
-    date_execution: new Date(),
-    date_ending: new Date(),
+    title: "Santa Marta",
+    idProgramming: 2,
+    start: new Date().toISOString().split("T")[0],
+    finish: new Date().toISOString().split("T")[0],
+    dateExecute: new Date().toISOString().split("T")[0],
+    dateFinish: new Date().toISOString().split("T")[0],
+    status: "S",
+  },
+  {
+    title: "San Andres",
+    idProgramming: 3,
+    start: "2024-10-01",
+    finish: new Date().toISOString().split("T")[0],
+    dateExecute: new Date().toISOString().split("T")[0],
+    dateFinish: new Date().toISOString().split("T")[0],
+    status: "C",
   },
 ];
 
-let functionClick
-
-
-
 export default function Calendar({ clicModal }) {
-  functionClick = clicModal
-
   return (
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
       events={events}
-      eventContent={renderEventContent}
-      eventClick={clicModal}
+      eventContent={(eventInfo) => renderEventContent(eventInfo, clicModal)}
+      eventColor="white"
       dateClick={clicModal}
       showNonCurrentDates={false}
       fixedWeekCount={false}
@@ -45,20 +50,26 @@ export default function Calendar({ clicModal }) {
 }
 
 // a custom render function
-const renderEventContent = (eventInfo) => {
+const renderEventContent = (eventInfo, clicModal) => {
+
+  const colorByStatus = eventInfo.event.extendedProps.status === "A" ? "success" : eventInfo.event.extendedProps.status === "S" ? "warning" : "danger";
+
   return (
-    <>
-      <div className="container w-100 p-0 m-0">
-        <button type="button" className="btn p-0 m-0 fs-6" onClick={() => functionClick}>
-          {eventInfo.event.title}
-        </button>
-      </div>
+    <div className={`container rounded bg-${colorByStatus}`}>
+      <button
+        className={`btn m-0 p-0 fs-6 btn-${colorByStatus}`}
+        onClick={() => {
+          clicModal(eventInfo);
+        }}
+      >
+        {eventInfo.event.title}
+      </button>
       <button
         className="btn p-0 m-0"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        <EllipsisVerticalIcon width={20} className="m-0 p-0" />
+        <EllipsisVerticalIcon width={20} className="m-0 p-0 z-3" />
       </button>
       <ul className="dropdown-menu m-0 p-0">
         <li>
@@ -77,6 +88,6 @@ const renderEventContent = (eventInfo) => {
           </a>
         </li>
       </ul>
-    </>
+    </div>
   );
 };

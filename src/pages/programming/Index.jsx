@@ -1,26 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Calendar from "../../components/Calendar";
 import Sidebar from "../layout/Sidebar";
 import ProgramingForm from "./FormProgramming";
 import Modals from "../../components/Modals";
+import { ProgramationPackages } from "../../models/packs/programation-packages.model";
 
 export default function ProgramingPage() {
-  const [programing, setPrograming] = useState(null);
-
+  const [programming, setProgramming] = useState(new ProgramationPackages());
   const [open, setOpen] = useState(false);
-  const [haveData, setHaveData] = useState(false);
-
-  useEffect(() => {
-    if (programing) {
-      setHaveData(true);
-    }
-  }, [programing]);
-
-  useEffect(() => {
-    if (haveData) {
-      setOpen(true);
-    }
-  }, [haveData]);
 
   return (
     <div className="row w-100 h-100">
@@ -31,12 +18,18 @@ export default function ProgramingPage() {
           <Calendar
             clicModal={(e) => {
               if (!e.event) {
-                setPrograming({ ...programing, date_execution: e.dateStr });
+                setProgramming({ ...programming, start: e.dateStr });
                 setOpen(!open);
               } else {
-                setPrograming(e.event._def.extendedProps);
+                setProgramming({
+                  ...programming,
+                  dateExecute: e.event.extendedProps.start,
+                });
+                setOpen(!open);
               }
             }}
+            programming={programming}
+            setProgramming={setProgramming}
           />
         </fieldset>
       </main>
@@ -46,8 +39,8 @@ export default function ProgramingPage() {
             <fieldset>
               <legend>Formulario</legend>
               <ProgramingForm
-                programing={programing}
-                setPrograming={setPrograming}
+                programming={programming}
+                setProgramming={setProgramming}
               />
             </fieldset>
           </div>
