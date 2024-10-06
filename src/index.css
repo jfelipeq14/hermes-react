@@ -1,4 +1,4 @@
-aside{
+aside {
   max-width: max-content;
   min-height: 100vh;
 }
@@ -17,6 +17,13 @@ legend {
   font-weight: bold;
   padding: 10px 0;
   border-bottom: 2px solid #000;
+}
+
+label:has(input:required)::before,
+label:has(select:required)::before {
+  content: " *";
+  color: red;
+  margin: 0 0.2rem;
 }
 
 picture source,
