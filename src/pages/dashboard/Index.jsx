@@ -6,60 +6,93 @@ import Sidebar from "../layout/Sidebar";
 export default function DashboardPage() {
   return (
     <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
-      <div className="col-10 justify-content-center align-items-center   justify-content-center align-items-center">
-        <fieldset className="row p-2">
+      <Sidebar />
+      <div className="col-10">
+        <fieldset className="row p-2 g-2">
           <legend>Dashboard</legend>
-          <div className="col-sm-12 col-md-6">
-            <BarsChart />
+
+          {/* Gráfico de barras */}
+          <div className="col-sm-12 col-md-6 ">
+            <div className="border border-1 rounded p-3 h-100">
+              <h3 className="text-center mb-3">Venta de paquetes</h3>
+              <div className="container">
+              <BarsChart />
+              </div>
+            </div>
           </div>
-          <div className="col-sm-12 col-md-4 p-5">
-            <PiesChart />
+
+          {/* Gráfico de torta */}
+          <div className="col-sm-12 col-md-6 ">
+            <div
+              className="border border-1 rounded p-3 position-relative"
+              style={{ height: "440px" }}
+            >
+              <h3 className="text-center mb-3">Ventas 2024</h3>
+              <div
+                className="position-absolute w-100 h-100 top-0 start-0 d-flex flex-column justify-content-center"
+                style={{
+                  paddingTop: "2.8rem",
+                  paddingLeft: "1.5rem",
+                  paddingRight: "1.5rem",
+                  paddingBottom: "1.5rem",
+                }}
+              >
+                <div className="h-100 w-100 d-flex align-items-center justify-content-center">
+                  <PiesChart />
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="col-sm-12 col-md-6 p-5 mx-auto">
-            <div className="mx-auto">
-              <div className="row">
-                <div className="col-sm-12 col-md-4">
-                  <div className=" ">
+
+          {/* Top 3 clientes */}
+          <div className="col-12">
+            <div className="border border-1 rounded p-3">
+              <h3 className="text-center ">Top 3 clientes 2024</h3>
+              <div className="row justify-content-center">
+                {/* Cliente Plata */}
+                <div className="col-sm-12 col-md-4 text-center">
+                  <div className="container">
                     <UserIcon width={130} color="silver" />
-
-                    <p>Esteban Dido</p>
+                    <p className="h5 mt-2">Esteban Dido</p>
                     <div>
                       <span>Paquetes totales: </span>
-                      <strong>20</strong>
+                      <strong>10</strong>
                     </div>
                     <div>
                       <span>Total dinero: </span>
-                      <strong>200000000</strong>
+                      <strong>$2,000,000</strong>
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-12 col-md-4">
-                  <div className=" ">
+
+                {/* Cliente Oro */}
+                <div className="col-sm-12 col-md-4 text-center">
+                  <div className="container">
                     <UserIcon width={150} color="gold" />
-                    <p>Esteban Dido</p>
+                    <p className="h5 mt-2">Esteban Quito</p>
                     <div>
                       <span>Paquetes totales: </span>
                       <strong>20</strong>
                     </div>
                     <div>
                       <span>Total dinero: </span>
-                      <strong>200000000</strong>
+                      <strong>$20,000,000</strong>
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-12 col-md-4">
-                  <div className=" ">
-                    <UserIcon width={120} color="bronze" />
 
-                    <p>Esteban Dido</p>
+                {/* Cliente Bronce */}
+                <div className="col-sm-12 col-md-4 text-center">
+                  <div className="container">
+                    <UserIcon width={120} color="#cd7f32" />
+                    <p className="h5 mt-2">Esteban Co</p>
                     <div>
                       <span>Paquetes totales: </span>
-                      <strong>20</strong>
+                      <strong>5</strong>
                     </div>
                     <div>
                       <span>Total dinero: </span>
-                      <strong>200000000</strong>
+                      <strong>$200,000</strong>
                     </div>
                   </div>
                 </div>

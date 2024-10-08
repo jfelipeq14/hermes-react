@@ -2,9 +2,10 @@ import { useState } from "react";
 import { EyeIcon, TicketIcon, UserPlusIcon } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import Modals from "../../components/Modals";
+import swal from 'sweetalert';
 
 export default function PaysPage() {
-  const [detailsModalIsOpen, setDetailsModalIsOpen] = useState(false);
+  const [setDetailsModalIsOpen] = useState(false);
   const [acompanantesModalIsOpen, setAcompanantesModalIsOpen] = useState(false);
   const [imageModalIsOpen, setImageModalIsOpen] = useState(false);
   const [selectedClientIndex, setSelectedClientIndex] = useState(null);
@@ -39,6 +40,7 @@ export default function PaysPage() {
       contacto: "308749327",
       cantidadAcompañantes: 0,
       cantidadPagos: 2,
+      acompanantes: [],
     },
   ];
 
@@ -71,8 +73,17 @@ export default function PaysPage() {
   };
 
   const handleShowAcompanantes = (clientIndex) => {
-    setSelectedClientIndex(clientIndex);
-    setAcompanantesModalIsOpen(true);
+    if (clients[clientIndex].cantidadAcompañantes === 0) {
+      swal({
+        title: "Sin acompañantes",
+        text: "La venta no tiene acompañantes registrados.",
+        icon: "info",
+        dangerMode: false,
+      })
+    } else {
+      setSelectedClientIndex(clientIndex);
+      setAcompanantesModalIsOpen(true);
+    }
   };
 
   const handleShowImages = (clientIndex) => {
@@ -148,74 +159,41 @@ export default function PaysPage() {
           </fieldset>
         </div>
       </main>
-      {detailsModalIsOpen && selectedClientIndex !== null && (
+      {acompanantesModalIsOpen && selectedClientIndex !== null && (
         <Modals
-          isOpen={detailsModalIsOpen}
-          clickModal={setDetailsModalIsOpen}
+          isOpen={acompanantesModalIsOpen}
+          clickModal={setAcompanantesModalIsOpen}
           size="lg"
         >
           <fieldset className="container p-4 ">
-            <legend>Información de la Venta</legend>
+            <legend>Información de Acompañantes</legend>
             <table className="table">
               <thead>
                 <tr>
-                  <th>Cédula</th>
                   <th>Nombre</th>
+                  <th>Cédula</th>
                   <th>Contacto</th>
-                  <th>Cantidad acompañantes</th>
-                  <th>Cantidad Pagos</th>
+                  <th>EPS</th>
+                  <th>Correo</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>{clients[selectedClientIndex].cedula}</td>
-                  <td>{clients[selectedClientIndex].nombre}</td>
-                  <td>{clients[selectedClientIndex].contacto}</td>
-                  <td>{clients[selectedClientIndex].cantidadAcompañantes}</td>
-                  <td>{clients[selectedClientIndex].cantidadPagos}</td>
-                </tr>
+                {clients[selectedClientIndex].acompanantes.map(
+                  (acompanante, index) => (
+                    <tr key={index}>
+                      <td>{acompanante.nombre}</td>
+                      <td>{acompanante.cedula}</td>
+                      <td>{acompanante.contacto}</td>
+                      <td>{acompanante.eps}</td>
+                      <td>{acompanante.correo}</td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
           </fieldset>
         </Modals>
       )}
-      {acompanantesModalIsOpen &&
-        selectedClientIndex !== null &&
-        clients[selectedClientIndex].acompanantes && (
-          <Modals
-            isOpen={acompanantesModalIsOpen}
-            clickModal={setAcompanantesModalIsOpen}
-            size="lg"
-          >
-            <fieldset className="container p-4 ">
-              <legend>Información de Acompañantes</legend>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Cédula</th>
-                    <th>Contacto</th>
-                    <th>EPS</th>
-                    <th>Correo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {clients[selectedClientIndex].acompanantes.map(
-                    (acompanante, index) => (
-                      <tr key={index}>
-                        <td>{acompanante.nombre}</td>
-                        <td>{acompanante.cedula}</td>
-                        <td>{acompanante.contacto}</td>
-                        <td>{acompanante.eps}</td>
-                        <td>{acompanante.correo}</td>
-                      </tr>
-                    )
-                  )}
-                </tbody>
-              </table>
-            </fieldset>
-          </Modals>
-        )}
       {imageModalIsOpen && selectedClientIndex !== null && (
         <Modals
           isOpen={imageModalIsOpen}
