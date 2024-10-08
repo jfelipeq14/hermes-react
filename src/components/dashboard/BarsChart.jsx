@@ -22,7 +22,7 @@ ChartJS.register(
   Filler
 );
 
-var beneficios = [72, 56, 20, 36, 80, 40, 30, -20, 25, 30, 12, 60];
+var paquetes = [12, 3, 2, 4, 2, 18, 22, 2, 3, 3, 1, 8];
 var meses = [
   "Enero",
   "Febrero",
@@ -48,8 +48,8 @@ var misoptions = {
   },
   scales: {
     y: {
-      min: -25,
-      max: 100,
+      min: 0,
+      max: 30,
     },
     x: {
       ticks: { color: "rgba(0, 220, 195)" },
@@ -61,8 +61,8 @@ var midata = {
   labels: meses,
   datasets: [
     {
-      label: "Beneficios",
-      data: beneficios,
+      label: "paquetes",
+      data: paquetes,
       backgroundColor: "rgba(0, 220, 195, 0.5)",
     },
   ],
