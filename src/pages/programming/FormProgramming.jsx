@@ -36,8 +36,8 @@ export default function FormProgramming({programming, setProgramming}) {
       e.stopPropagation();
     } else {
       swal({
-        title: "¿Quieres registrarte esa programación?",
-        text: "Revisa todos los campos antes de enviar el formulario para evitar conflictos",
+        title: "¿Quieres registrar esa programación?",
+        text: "Revisa todos los campos antes de enviar para evitar conflictos",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -45,7 +45,7 @@ export default function FormProgramming({programming, setProgramming}) {
         if (confirm) {
           swal({
             title: "Enviado",
-            text: "Los datos fueron enviados correctamente",
+            text: "Los datos fueron registrados correctamente",
             icon: "success",
             timer: 2000,
             buttons: false,
@@ -53,7 +53,7 @@ export default function FormProgramming({programming, setProgramming}) {
         } else {
           swal({
             title: "Cancelado",
-            text: "Los datos no se han enviado",
+            text: "Los datos no fueron registrados",
             icon: "error",
             timer: 2000,
             buttons: false,
