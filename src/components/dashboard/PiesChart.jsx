@@ -9,10 +9,10 @@ var options = {
 };
 
 var data = {
-  labels: ["Carne", "Jamón", "Dulces", "Turrón", "Vino"],
+  labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo"],
   datasets: [
     {
-      label: "Popularidad en Navidad",
+      label: "Popularidad en el mes",
       data: [35, 20, 20, 15, 10],
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",
