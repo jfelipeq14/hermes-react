@@ -18,7 +18,7 @@ export default function ServicesPage() {
   const [editMode, setEditMode] = useState(false);
 
   const handleChange = (e) => {
-    const value = e.target.name === "id_categoryService" ? parseInt(e.target.value) : e.target.value;
+    const value = e.target.name === "idCategoryService" ? parseInt(e.target.value) : e.target.value;
     setServiceData({ ...serviceData, [e.target.name]: value });
   };
 
@@ -81,7 +81,7 @@ export default function ServicesPage() {
       if (confirm) {
         const newService = {
           ...serviceData,
-          categoryName: categoryMap[serviceData.id_categoryService]
+          categoryName: categoryMap[serviceData.idCategoryService]
         };
         
         if (editMode) {
@@ -121,7 +121,7 @@ export default function ServicesPage() {
   const resetForm = () => {
     setServiceData({
       id: null,
-      id_categoryService: "",
+      idCategoryService: "",
       name: "",
       price: "",
       status: true,
@@ -175,8 +175,8 @@ export default function ServicesPage() {
               <label>Categoría</label>
               <select
                 className="form-select form-select-sm my-2"
-                name="id_categoryService"
-                value={serviceData.id_categoryService}
+                name="idCategoryService"
+                value={serviceData.idCategoryService}
                 onChange={handleChange}
                 required
               >

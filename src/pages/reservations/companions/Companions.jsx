@@ -38,7 +38,7 @@ export default function Companions() {
         </thead>
         <tbody>
           {companions.map((companion) => (
-            <tr key={companion.id_reserve_companion}>
+            <tr key={companion.idReserveCompanion}>
               <td className="d-flex">
                 <button className="btn m-0 p-0">
                   <TrashIcon

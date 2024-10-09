@@ -20,7 +20,7 @@ export default function FormProgramming({programming, setProgramming}) {
     });
 
     // validar valores minimos de las fechas
-    if (name === "date_execution") {
+    if (name === "executionDate") {
       let fecha = new Date(value);
       setMinEnd(fecha.toISOString().split("T")[0]);
       fecha.setDate(fecha.getDate() - 15);

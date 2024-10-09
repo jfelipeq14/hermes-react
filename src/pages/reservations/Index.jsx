@@ -58,13 +58,15 @@ export default function ReservationsPage() {
             <PlusCircleIcon width={20} />
             Crear
           </NavLink>
-          <NavLink
-            to={{ pathname: "/administrator/packages/programming" }}
+          <button
             className=" btn btn-sm btn-primary mx-2 float-end"
+            onClick={() => {
+              setModalReprogrammingOpen(!modalReprogrammingOpen);
+            }}
           >
             <CalendarDateRangeIcon width={20} />
             Programación
-          </NavLink>
+          </button>
           <form className="w-50">
             <input
               type="search"
