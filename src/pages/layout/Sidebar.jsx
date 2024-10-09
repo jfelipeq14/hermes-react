@@ -14,8 +14,8 @@ export default function Sidebar() {
   }, []);
 
   return (
-    <aside className="col-2 p-0 m-0 shadow bg-transparent">
-      <ul className="nav nav-pills d-flex flex-column sticky-top p-0 m-0">
+    <aside className="col-2 p-0 m-0 shadow bg-light z-3">
+      <ul className="nav nav-pills d-flex flex-column p-0 m-0 sticky-top">
         {createRoutes(role).map((link) => {
           return (
             <SidebarItem
