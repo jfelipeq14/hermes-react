@@ -15,7 +15,7 @@ export default function Package({
     <div className="card shadow">
       <div className="card-img-top bg-center">
         <img src="/public/card.jpg" className="card-img-top" alt="destino" />
-        <p className="position-absolute top-0 start-0 p-2 m-2 rounded shadow bg-light">
+        <p className="position-absolute top-0 start-0 p-2 m-2 rounded shadow text-light glass">
           {destination}
         </p>
       </div>

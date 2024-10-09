@@ -21,7 +21,7 @@ legend {
 
 label:has(input:required)::before,
 label:has(select:required)::before {
-  content: " *";
+  content: "*";
   color: red;
   margin: 0 0.2rem;
 }
@@ -34,6 +34,17 @@ picture img {
 div.card {
   transition: transform 0.3s;
 }
+
 div.card:hover {
   transform: scale(1.04);
+}
+
+.modal {
+  backdrop-filter: blur(0.3rem);
+}
+
+.glass{
+  background: #fafafa10;
+  backdrop-filter: blur(0.3rem);
+  -webkit-backdrop-filter: blur(0.3rem);
 }
