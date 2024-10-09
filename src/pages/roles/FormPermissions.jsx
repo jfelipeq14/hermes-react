@@ -4,11 +4,11 @@ import swal from "sweetalert";
 export default function FormPermissions() {
   // Creamos un arreglo llamado "permissions" que contiene objetos con información sobre permisos
   const permissions = [
-    { id_permission: 1, name: "Dashboard", state: true }, // Permiso 1: Dashboard (activo)
-    { id_permission: 2, name: "Roles", state: true }, // Permiso 2: Gestión de Roles (activo)
-    { id_permission: 3, name: "Servicios", state: true }, // Permiso 3: Gestión de Servicios (activo)
-    { id_permission: 4, name: "Usuarios", state: true }, // Permiso 4: Gestión de Usuarios (activo)
-    { id_permission: 5, name: "Reservas", state: true }, // Permiso 5: Gestión de Reservas (activo)
+    { idPermission: 1, name: "Dashboard", state: true }, // Permiso 1: Dashboard (activo)
+    { idPermission: 2, name: "Roles", state: true }, // Permiso 2: Gestión de Roles (activo)
+    { idPermission: 3, name: "Servicios", state: true }, // Permiso 3: Gestión de Servicios (activo)
+    { idPermission: 4, name: "Usuarios", state: true }, // Permiso 4: Gestión de Usuarios (activo)
+    { idPermission: 5, name: "Reservas", state: true }, // Permiso 5: Gestión de Reservas (activo)
   ];
 
   // Creamos otro arreglo llamado "privilegios" que contiene objetos con información sobre privilegios
@@ -110,7 +110,7 @@ export default function FormPermissions() {
     // Actualizamos el estado de los permisos con privilegios
     setPermissionsWithPrivileges((prev) =>
       prev.map((permission) =>
-        permission.id_permission === permissionId
+        permission.idPermission === permissionId
           ? // Si el ID del permiso coincide, actualizamos el privilegio
             {
               ...permission, // Copiamos las propiedades del permiso
@@ -148,7 +148,7 @@ export default function FormPermissions() {
         </thead>
         <tbody>
           {permissionsWithPrivileges.map((permission) => (
-            <tr key={permission.id_permission}>
+            <tr key={permission.idPermission}>
               <td className="px-4 py-3">{permission.name}</td>
               {privilegios.map((privilege) => (
                 <td className="px-4 py-3" key={privilege.idPrivilege}>
@@ -158,7 +158,7 @@ export default function FormPermissions() {
                     checked={!!permission.privileges[privilege.idPrivilege]}
                     value={privilege.idPrivilege}
                     onChange={handleChangePrivilege(
-                      permission.id_permission,
+                      permission.idPermission,
                       privilege.idPrivilege
                     )}
                   />

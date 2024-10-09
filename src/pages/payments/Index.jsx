@@ -11,9 +11,9 @@ export default function PaymentsPage() {
 
   const payments = [
     {
-      idPay: 1,
+      idPayment: 1,
       idReservation: 1,
-      date_pay: formatDate(new Date()),
+      datePayment: formatDate(new Date()),
       price: 80000,
       identification: "8998988855",
       vouchers: [
@@ -59,7 +59,7 @@ export default function PaymentsPage() {
               </thead>
               <tbody>
                 {payments.map((pay) => (
-                  <tr key={pay.idPay}>
+                  <tr key={pay.idPayment}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
                         <EyeIcon
@@ -72,11 +72,16 @@ export default function PaymentsPage() {
                         />
                       </button>
                       <button className="btn m-0 p-0">
-                        <PencilSquareIcon width={20} />
+                        <PencilSquareIcon
+                          width={20}
+                          onClick={() => {
+                            setModalIsOpen(true);
+                          }}
+                        />
                       </button>
                     </td>
                     <td>{pay.idReservation}</td>
-                    <td>{pay.date_pay}</td>
+                    <td>{pay.datePayment}</td>
                     <td>{pay.price}</td>
                     <td>{pay.identification}</td>
                     <td>{pay.status}</td>
@@ -100,10 +105,12 @@ export default function PaymentsPage() {
                       <tr key={voucher.idVoucher}>
                         <td className="d-flex">
                           <button className="btn m-0 p-0">
-                            <EyeIcon width={20} />
-                          </button>
-                          <button className="btn m-0 p-0">
-                            <PencilSquareIcon width={20} />
+                            <PencilSquareIcon
+                              width={20}
+                              onClick={() => {
+                                setModalIsOpen(true);
+                              }}
+                            />
                           </button>
                         </td>
                         <td>{voucher.date}</td>
@@ -118,7 +125,7 @@ export default function PaymentsPage() {
         </div>
 
         {modalIsOpen && (
-          <Modals isOpen={modalIsOpen} clickModal={setModalIsOpen}>
+          <Modals isOpen={modalIsOpen} clickModal={setModalIsOpen} size="md">
             <PayForm />
           </Modals>
         )}

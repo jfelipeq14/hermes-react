@@ -35,7 +35,7 @@ export default function FormPackage() {
   const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
   const packdata = {
-    id_package: 1,
+    idPackage: 1,
     destination: "Cartagena",
     name: "Navidad",
     date: "2021-09-30",
