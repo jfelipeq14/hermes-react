@@ -3,11 +3,11 @@
 
 DROP TABLE IF EXISTS permissions CASCADE;
 CREATE TABLE permissions(
-    id_permission SERIAL NOT NULL,
+    idPermission SERIAL NOT NULL,
     name VARCHAR(60) NOT NULL,
     state BOOLEAN NOT NULL,
 
-    CONSTRAINT pk_idPermission PRIMARY KEY (id_permission),
+    CONSTRAINT pk_idPermission PRIMARY KEY (idPermission),
     CONSTRAINT uc_namePermissions UNIQUE (name),
     CONSTRAINT chk_namePermissions CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$')
 );
@@ -17,10 +17,10 @@ DROP TABLE IF EXISTS privileges CASCADE;
 CREATE TABLE privileges(
     idPrivilege SERIAL NOT NULL,
     name VARCHAR(60) NOT NULL,
-    id_permission INTEGER NOT NULL,
+    idPermission INTEGER NOT NULL,
 
     CONSTRAINT pk_idPrivilege PRIMARY KEY (idPrivilege),
-    CONSTRAINT fk_idPermission FOREIGN KEY (id_permission) REFERENCES permissions(id_permission),
+    CONSTRAINT fk_idPermission FOREIGN KEY (idPermission) REFERENCES permissions(idPermission),
     CONSTRAINT uc_namePrivilege UNIQUE (name),
     CONSTRAINT chk_namePrivileges CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$')
 );
@@ -40,8 +40,8 @@ CREATE TABLE roles(
 );
 SELECT * FROM roles;
 
-DROP TABLE IF EXISTS role_privilege CASCADE;
-CREATE TABLE role_privileges(
+DROP TABLE IF EXISTS rolePrivilege CASCADE;
+CREATE TABLE rolePrivileges(
     idRolePrivilege SERIAL NOT NULL,
     idRole INTEGER NOT NULL,
     idPrivilege INTEGER NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE role_privileges(
     CONSTRAINT fk_idRole FOREIGN KEY (idRole) REFERENCES roles(idRole),
     CONSTRAINT fk_idPrivilege FOREIGN KEY (idPrivilege) REFERENCES privileges(idPrivilege)
 );
-SELECT * FROM role_privilege;
+SELECT * FROM rolePrivilege;
 
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users( 
@@ -58,6 +58,8 @@ CREATE TABLE users(
     idRole INTEGER NOT NULL,
     documentType VARCHAR(5) NOT NULL,
     identification VARCHAR(60) NOT NULL,
+    name VARCHAR(60) NOT NULL,
+    lastName VARCHAR(50) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     state BOOLEAN,
@@ -66,33 +68,35 @@ CREATE TABLE users(
     CONSTRAINT fk_idRoleUser FOREIGN KEY (idRole) REFERENCES roles(idRole),
     CONSTRAINT chk_documentTypeUser CHECK (documentType ~ '^(CC|CE|PA|SC|CD|TE|PEP|AS|DU|CCEX|CEEX|PAEX|SCEX|CDEX|TEX|RNEX|PEPEX|ASEX)$'),
     CONSTRAINT chk_identificationUser CHECK (identification ~ '^[a-z0-9]{6,}$'),
+    CONSTRAINT chk_nameCustomer CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
+    CONSTRAINT chk_lastNameCustomer CHECK (lastName ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_emailUser CHECK (email ~ '^[a-z0-9.!#$%&*+/=?^_`{|}~-]+@[a-z0-9-]+\.[a-z0-9.]{2,}$')
 
 );
 SELECT * FROM users;
 
-DROP TABLE IF EXISTS category_services CASCADE;
-CREATE TABLE category_services(
-    id_categoryService SERIAL NOT NULL,
+DROP TABLE IF EXISTS categoryServices CASCADE;
+CREATE TABLE categoryServices(
+    idCategoryService SERIAL NOT NULL,
     name VARCHAR(60) NOT NULL,
 
-    CONSTRAINT PK_categoryService PRIMARY KEY (id_categoryService),
+    CONSTRAINT PK_categoryService PRIMARY KEY (idCategoryService),
     CONSTRAINT chk_nameCategoryServices CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT UC_nameCategoryService UNIQUE (name)
 );
-SELECT * FROM category_services;
+SELECT * FROM categoryServices;
 
 DROP TABLE IF EXISTS services CASCADE;
 CREATE TABLE services(
-    id_service SERIAL NOT NULL,
-    id_categoryService INTEGER NOT NULL,
+    idService SERIAL NOT NULL,
+    idCategoryService INTEGER NOT NULL,
     name VARCHAR(60) NOT NULL,
     price DECIMAL(15,2) NOT NULL,
     status BOOLEAN NOT NULL,
 
-    CONSTRAINT PK_Service PRIMARY KEY (id_service),
+    CONSTRAINT PK_Service PRIMARY KEY (idService),
     CONSTRAINT UC_nameService UNIQUE (name),
-    CONSTRAINT FK_categoryService FOREIGN KEY (id_categoryService) REFERENCES category_services(id_categoryService),
+    CONSTRAINT FK_categoryService FOREIGN KEY (idCategoryService) REFERENCES categoryServices(idCategoryService),
     CONSTRAINT chk_nameServices CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_priceService CHECK (CAST(price AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
 );
@@ -100,89 +104,91 @@ SELECT * FROM services;
 
 DROP TABLE IF EXISTS packages CASCADE;
 CREATE TABLE  packages (
-    id_package SERIAL NOT NULL,
-    name  VARCHAR (60),
-    destination VARCHAR (60),
-    price DECIMAL (15,2),
-    status  BOOLEAN,
+    idPackage SERIAL NOT NULL,
+    name  VARCHAR (60) NOT NULL,
+    destination VARCHAR (60) NOT NULL,
+    type VARCHAR (60) NOT NULL,
+    level CHAR NOT NULL,
+    price DECIMAL (15,2) NOT NULL,
+    status  BOOLEAN NOT NULL,
     
-    CONSTRAINT pk_packages PRIMARY KEY (id_package),
+    CONSTRAINT pk_packages PRIMARY KEY (idPackage),
     CONSTRAINT chk_namePackage  CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_destinationPackage  CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
+    CONSTRAINT chk_type  CHECK (type ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
+    CONSTRAINT chk_level  CHECK (level ~ '^(B|M|A|N)$'),
     CONSTRAINT chk_pricePackage CHECK  (CAST(price AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
 );
 SELECT * FROM packages;
 
-DROP TABLE IF EXISTS programation_packages CASCADE;
-CREATE TABLE  programation_packages (
-    id_programation  SERIAL NOT NULL,
-    date_start DATE NOT NULL,
-    date_end  DATE NOT NULL,
-    date_execution  DATE NOT NULL,
-    date_ending DATE NOT NULL,
+DROP TABLE IF EXISTS programationPackages CASCADE;
+CREATE TABLE  programationPackages (
+    idProgramation  SERIAL NOT NULL,
+    registrationStartDate DATE NOT NULL,
+    registrationDeadline  DATE NOT NULL,
+    executionDate  DATE NOT NULL,
+    endDateOfExecution DATE NOT NULL,
 
-    CONSTRAINT pk_idProgramation PRIMARY KEY (id_programation),
-    CONSTRAINT chk_dateStart CHECK (date_start >= current_date),
-    CONSTRAINT chk_dateEnd CHECK (date_end >= current_date + interval '7 days'),
-    CONSTRAINT chk_dateExecution CHECK (date_execution >= date_end + interval '5 days'),
-    CONSTRAINT chk_dateEnding CHECK (date_ending >= date_execution)
+    CONSTRAINT pk_idProgramation PRIMARY KEY (idProgramation),
+    CONSTRAINT chk_dateStart CHECK (registrationStartDate >= current_date),
+    CONSTRAINT chk_dateEnd CHECK (registrationDeadline >= current_date + interval '7 days'),
+    CONSTRAINT chk_dateExecution CHECK (executionDate >= registrationDeadline + interval '5 days'),
+    CONSTRAINT chk_dateEnding CHECK (endDateOfExecution >= executionDate)
 
 );
-SELECT * FROM programation_packages; 
+SELECT * FROM programationPackages; 
 
-DROP TABLE IF EXISTS detail_programming_packages CASCADE;
-CREATE TABLE detail_programming_packages (
+DROP TABLE IF EXISTS detailProgrammingPackages CASCADE;
+CREATE TABLE detailProgrammingPackages (
     idDetailProgrammingPackage SERIAL NOT NULL,
-    id_package  INTEGER NOT NULL,
-    id_programation  INTEGER NOT NULL,
-    price_package  DECIMAL (15,2),
+    idPackage  INTEGER NOT NULL,
+    idProgramation  INTEGER NOT NULL,
+    pricePackage  DECIMAL (15,2),
     status  BOOLEAN,
 
     CONSTRAINT pk_detailProgrammingPackages PRIMARY KEY (idDetailProgrammingPackage),
-    CONSTRAINT fk_packages FOREIGN KEY (id_package) REFERENCES packages(id_package),
-    CONSTRAINT fk_programation_packages FOREIGN KEY (id_programation) REFERENCES programation_packages(id_programation),
-    CONSTRAINT chk_pricePackage CHECK (CAST(price_package AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
+    CONSTRAINT fk_packages FOREIGN KEY (idPackage) REFERENCES packages(idPackage),
+    CONSTRAINT fk_programationPackages FOREIGN KEY (idProgramation) REFERENCES programationPackages(idProgramation),
+    CONSTRAINT chk_pricePackage CHECK (CAST(pricePackage AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
 );
-SELECT * FROM detail_programming_packages;
+SELECT * FROM detailProgrammingPackages;
 
-DROP TABLE IF EXISTS detail_package_service CASCADE;
-CREATE TABLE detail_package_service(
-    id_detail_package_service SERIAL NOT NULL,
-    id_package INTEGER NOT NULL,
-    id_service INTEGER NOT NULL,
+DROP TABLE IF EXISTS detailPackageService CASCADE;
+CREATE TABLE detailPackageService(
+    idDetailPackageService SERIAL NOT NULL,
+    idPackage INTEGER NOT NULL,
+    idService INTEGER NOT NULL,
     quantity INTEGER NOT NULL,
     price DECIMAL(15,2),
 
-    CONSTRAINT pk_idDetailPackageService PRIMARY KEY (id_detail_package_service),
-    CONSTRAINT fk_idPackage FOREIGN KEY (id_package) REFERENCES packages(id_package),
-    CONSTRAINT fk_idService FOREIGN KEY (id_service) REFERENCES services(id_service),
+    CONSTRAINT pk_idDetailPackageService PRIMARY KEY (idDetailPackageService),
+    CONSTRAINT fk_idPackage FOREIGN KEY (idPackage) REFERENCES packages(idPackage),
+    CONSTRAINT fk_idService FOREIGN KEY (idService) REFERENCES services(idService),
     CONSTRAINT chk_quantityDetailPackageService CHECK (CAST(quantity AS TEXT) ~ '^[0-9]{2,}$'),
     CONSTRAINT chk_priceDetailPackageService CHECK (CAST(price AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
 );
-SELECT * FROM detail_package_service;
+SELECT * FROM detailPackageService;
 
-DROP TABLE  IF EXISTS  detail_programming_packages_service CASCADE;
-CREATE  TABLE  detail_programming_packages_service (
-    idDetailProgrammingPackage_service SERIAL NOT NULL,
+DROP TABLE  IF EXISTS  detailProgrammingPackages_service CASCADE;
+CREATE  TABLE  detailProgrammingPackages_service (
+    idDetailProgrammingPackageService SERIAL NOT NULL,
     idDetailProgrammingPackage INTEGER NOT NULL,
-    id_detail_package_service INTEGER NOT NULL,
+    idDetailPackageService INTEGER NOT NULL,
     quantity  INTEGER NOT NULL,
-    price_service DECIMAL (15,2),
+    priceService DECIMAL (15,2),
     
-    CONSTRAINT  pk_idDetailProgrammingPackage_service  PRIMARY KEY (idDetailProgrammingPackage_service),
-    CONSTRAINT  fk_idDetailProgrammingPackage FOREIGN KEY (idDetailProgrammingPackage) REFERENCES  detail_programming_packages(idDetailProgrammingPackage),
-    CONSTRAINT fk_id_detail_package_service FOREIGN KEY (id_detail_package_service) REFERENCES detail_package_service(id_detail_package_service),
+    CONSTRAINT  pk_idDetailProgrammingPackageService  PRIMARY KEY (idDetailProgrammingPackageService),
+    CONSTRAINT  fk_idDetailProgrammingPackage FOREIGN KEY (idDetailProgrammingPackage) REFERENCES  detailProgrammingPackages(idDetailProgrammingPackage),
+    CONSTRAINT fk_idDetailPackageService FOREIGN KEY (idDetailPackageService) REFERENCES detailPackageService(idDetailPackageService),
     CONSTRAINT chk_quantityPackageService CHECK (CAST(quantity AS TEXT) ~ '^[0-9]{2,}$'),
-    CONSTRAINT chk_pricePackageService CHECK (CAST(price_service AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
+    CONSTRAINT chk_pricePackageService CHECK (CAST(priceService AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$')
 );
-SELECT * FROM detail_programming_packages_service;
+SELECT * FROM detailProgrammingPackages_service;
 
 DROP TABLE IF EXISTS customers CASCADE;
 CREATE TABLE customers(
     idCustomer SERIAL NOT NULL,
     idUser INTEGER NOT NULL,
-    name VARCHAR(60) NOT NULL,
-    lastName VARCHAR(50) NOT NULL,
     phone VARCHAR(15) NOT NULL,
     address VARCHAR(40) NOT NULL,
     country INTEGER NOT NULL,
@@ -195,8 +201,6 @@ CREATE TABLE customers(
     
     CONSTRAINT pk_idCustomer PRIMARY KEY (idCustomer),
     CONSTRAINT fk_idUser FOREIGN KEY (idUser) REFERENCES users(idUser),
-    CONSTRAINT chk_nameCustomer CHECK (name ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
-    CONSTRAINT chk_lastNameCustomer CHECK (lastName ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
     CONSTRAINT chk_phoneCustomer CHECK (phone ~ '^\+?[0-9]{1,3}[0-9]{7,}$'),
     CONSTRAINT chk_departamentCustomer CHECK (CAST(departament AS TEXT) ~ '^[0-9]$'),
     CONSTRAINT chk_municipalityCustomer CHECK (CAST(municipality AS TEXT) ~ '^[0-9]$'),
@@ -219,7 +223,7 @@ CREATE TABLE reservations(
     status CHAR NOT NULL,
     
     CONSTRAINT pk_idReservation PRIMARY KEY (idReservation),
-    CONSTRAINT fk_idDetailProgrammingPackage FOREIGN KEY (idDetailProgrammingPackage) REFERENCES detail_programming_packages(idDetailProgrammingPackage),
+    CONSTRAINT fk_idDetailProgrammingPackage FOREIGN KEY (idDetailProgrammingPackage) REFERENCES detailProgrammingPackages(idDetailProgrammingPackage),
     CONSTRAINT fk_idCustomer FOREIGN KEY (idCustomer) REFERENCES customers(idCustomer),
     CONSTRAINT chk_priceReservation CHECK (CAST(priceReservation AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$'),
 	--ESTADO DE RESERVA: Pendiente(no pago), Confirmada(pago 50%), Pagada(pago completo), Modificada, Cancelada(retiro cliente), Anulada (dates), En curso y Finalizada
@@ -229,9 +233,9 @@ SELECT * FROM reservations;
 
   
 
-DROP TABLE IF EXISTS reserve_companions CASCADE;
-CREATE TABLE reserve_companions(
-    id_reserve_companion SERIAL NOT NULL,
+DROP TABLE IF EXISTS reserveCompanions CASCADE;
+CREATE TABLE reserveCompanions(
+    idReserveCompanion SERIAL NOT NULL,
     idReservation SERIAL NOT NULL,
     documentType VARCHAR(5) NOT NULL,
     identification VARCHAR(60) NOT NULL,
@@ -242,7 +246,7 @@ CREATE TABLE reserve_companions(
     bloodType VARCHAR(3),
     eps VARCHAR(60),
     
-    CONSTRAINT pk_idReserveCompanion PRIMARY KEY (id_reserve_companion),
+    CONSTRAINT pk_idReserveCompanion PRIMARY KEY (idReserveCompanion),
     CONSTRAINT fk_idReservation FOREIGN KEY (idReservation) REFERENCES reservations(idReservation),
     CONSTRAINT chk_documentTypeCompanion CHECK (documentType ~ '^(CC|CE|PA|SC|CD|TE|PEP|AS|DU|CCEX|CEEX|PAEX|SCEX|CDEX|TEX|RNEX|PEPEX|ASEX)$'),
     CONSTRAINT chk_identificationCompanion CHECK (identification ~ '^[a-z0-9]{6,}$'),
@@ -253,24 +257,24 @@ CREATE TABLE reserve_companions(
     CONSTRAINT chk_bloodTypeCompanion CHECK (bloodType ~ '^(A|B|AB|O)+[+|-]$'),
     CONSTRAINT chk_epsCompanion CHECK (eps ~ '^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)$'),
 );
-SELECT * FROM reserve_companions;
+SELECT * FROM reserveCompanions;
 
-DROP TABLE IF EXISTS pay CASCADE;
-CREATE TABLE pays ( 
-    idPay SERIAL NOT NULL,
+DROP TABLE IF EXISTS payments CASCADE;
+CREATE TABLE payments ( 
+    idPayment SERIAL NOT NULL,
     idReservation INTEGER NOT NULL,
-    date_pay DATE DEFAULT CURRENT_DATE,
+    datePayment DATE DEFAULT CURRENT_DATE,
     price DECIMAL(15,2) NOT NULL,
     voucher VARCHAR(255) NOT NULL,
     status CHAR NOT NULL,
 
-    CONSTRAINT pk_pay PRIMARY KEY (idPay), 
+    CONSTRAINT pk_pay PRIMARY KEY (idPayment), 
     CONSTRAINT fk_reservation FOREIGN KEY (idReservation) REFERENCES reservations(idReservation), 
     CONSTRAINT chk_pricePay CHECK (CAST(price AS TEXT) ~ '^[1-9][0-9]*(\.[0-9]{1,2})?$'),
 	-- ESTADOS DE PAGO: REVISAR, PAGO, NO PAGO, ANULADO
 	CONSTRAINT chk_statusReservation CHECK (status ~ '^(R|P|N|A|)$')
 );
-SELECT * FROM pays;
+SELECT * FROM payments;
 
 -- DICTIONARY OF DATA
 SELECT
