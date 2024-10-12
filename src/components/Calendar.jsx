@@ -5,6 +5,8 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 import Modals from "./Modals";
+import CustomersList from "../pages/programming/CustomersList";
+import { NavLink } from "react-router-dom";
 
 const events = [
   {
@@ -37,12 +39,13 @@ const events = [
 ];
 
 export default function Calendar({ clicModal }) {
+  const [openModalCustomers, setOpenModalCustomers] = useState(false);
   return (
     <FullCalendar
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
       events={events}
-      eventContent={(eventInfo) => RenderEventContent(eventInfo, clicModal)}
+      eventContent={(eventInfo) => RenderEventContent(eventInfo, clicModal,openModalCustomers,setOpenModalCustomers)}
       eventColor="white"
       dateClick={clicModal}
       showNonCurrentDates={false}
@@ -52,15 +55,13 @@ export default function Calendar({ clicModal }) {
 }
 
 // a custom render function
-const RenderEventContent = (eventInfo, clicModal) => {
+const RenderEventContent = (eventInfo, clicModal,openModalCustomers,setOpenModalCustomers) => {
   const colorByStatus =
     eventInfo.event.extendedProps.status === "A"
       ? "success"
       : eventInfo.event.extendedProps.status === "S"
       ? "warning"
       : "danger";
-
-  const [openModal, setOpenModal] = useState(false);
 
   return (
     <div className={`container rounded bg-${colorByStatus}`}>
@@ -84,25 +85,34 @@ const RenderEventContent = (eventInfo, clicModal) => {
           <button
             className="dropdown-item"
             onClick={() => {
-              setOpenModal(!openModal);
+              setOpenModalCustomers(!openModalCustomers);
             }}
           >
             Previsualizar clientes
           </button>
         </li>
         <li>
-          <a className="dropdown-item" href="#">
+        <NavLink
+            to={{ pathname: "/reserve" }}
+             className="dropdown-item"
+          >
             Crear reserva
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a className="dropdown-item" href="#">
-            Editar programación
-          </a>
+        <button
+            className="dropdown-item"
+            onClick={() => {
+              clicModal(eventInfo);
+            }}
+          >
+            Editar Programación
+          </button>
         </li>
       </ul>
-      {openModal && (
-        <Modals isOpen={openModal} clickModal={setOpenModal}>
+      {openModalCustomers && (
+        <Modals isOpen={openModalCustomers} clickModal={setOpenModalCustomers} size="lg">
+          <CustomersList />
         </Modals>
       )}
     </div>
