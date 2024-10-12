@@ -9,7 +9,7 @@ import swal from "sweetalert";
 import { useState } from "react";
 
 export default function PackagesPage() {
-  const packs = [
+  const [packs, setPacks] = useState([
     {
       id: 1,
       nombres: "Cartagena",
@@ -17,7 +17,7 @@ export default function PackagesPage() {
       fechaFinInscripcion: "30/08/2024",
       fechaEjecucion: "10/09/2024",
       valor: 670000,
-      estado: "Activo",
+      estado: true,
     },
     {
       id: 2,
@@ -26,9 +26,9 @@ export default function PackagesPage() {
       fechaFinInscripcion: "20/08/2024",
       fechaEjecucion: "30/08/2024",
       valor: 800000,
-      estado: "Inactivo",
+      estado: false,
     },
-  ];
+  ]);
 
   const services = [
     {
@@ -45,23 +45,36 @@ export default function PackagesPage() {
 
   const [viewServices, setViewServices] = useState(false);
 
-  const handleChange = (e) => {
-    const state = e.target.checked;
+  const handleCheck = (id, currentState) => {
+    const newState = !currentState;
     swal({
-      title: "Cambiar Estado",
-      text: "¿Quieres cambiar el estado de este paquete?",
+      title: "¿Estás seguro?",
+      text: newState
+        ? "Si activas este paquete, podrá ser exhibido a los clientes"
+        : "Si desactivas este paquete, no podrá ser exhibido a los clientes",
       icon: "warning",
       buttons: true,
-      dangerMode: true,
+      dangerMode: !newState,
     }).then((confirm) => {
-      2;
       if (confirm) {
-        e.target.checked = state ? true : false;
+        setPacks((prevData) =>
+          prevData.map((item) =>
+            item.id === id ? { ...item, estado: newState } : item
+          )
+        );
+        swal({
+          title: newState ? "Activado" : "Desactivado",
+          text: newState
+            ? "El paquete ha sido activado y será exhibido a los clientes"
+            : "El paquete ha sido desactivado y no será exhibido a los clientes",
+          icon: newState ? "success" : "info",
+          timer: 2000,
+          buttons: false,
+        });
       } else {
-        e.target.checked = state ? false : true;
         swal({
           title: "Cancelado",
-          text: "Los datos no se han enviado",
+          text: "No se han realizado cambios",
           icon: "error",
           timer: 2000,
           buttons: false,
@@ -103,17 +116,19 @@ export default function PackagesPage() {
             </header>
             <table className="table">
               <thead>
-                <th scope="col">Acciones</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">FechaInscr</th>
-                <th scope="col">FechaFin</th>
-                <th scope="col">FechaEjecu</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Estado</th>
+                <tr>
+                  <th scope="col">Acciones</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">FechaInscr</th>
+                  <th scope="col">FechaFin</th>
+                  <th scope="col">FechaEjecu</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Estado</th>
+                </tr>
               </thead>
               <tbody>
                 {packs.map((pack) => (
-                  <tr key={pack.email}>
+                  <tr key={pack.id}>
                     <td className="d-flex">
                       <button className="btn m-0 p-0">
                         <EyeIcon
@@ -135,9 +150,8 @@ export default function PackagesPage() {
                           className="form-check-input"
                           type="checkbox"
                           role="switch"
-                          name="state"
-                          checked={pack.state}
-                          onChange={handleChange}
+                          checked={pack.estado}
+                          onChange={() => handleCheck(pack.id, pack.estado)}
                         />
                       </div>
                     </td>
@@ -146,7 +160,7 @@ export default function PackagesPage() {
                     <td>{pack.fechaFinInscripcion}</td>
                     <td>{pack.fechaEjecucion}</td>
                     <td>{pack.valor}</td>
-                    <td>{pack.estado}</td>
+                    <td>{pack.estado ? "Activo" : "Inactivo"}</td>
                   </tr>
                 ))}
               </tbody>
@@ -157,13 +171,15 @@ export default function PackagesPage() {
               <legend>Servicios</legend>
               <table className="table my-2">
                 <thead>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Valor</th>
-                  <th scope="col">Cantidad</th>
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Cantidad</th>
+                  </tr>
                 </thead>
                 <tbody>
                   {services.map((service) => (
-                    <tr key={service.paquete}>
+                    <tr key={service.nombre}>
                       <td>{service.nombre}</td>
                       <td>{service.valor}</td>
                       <td>{service.cantidad}</td>
