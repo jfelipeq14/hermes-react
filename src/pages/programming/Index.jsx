@@ -37,7 +37,7 @@ export default function ProgramingPage() {
         <Modals isOpen={open} clickModal={setOpen} size="md">
           <div className="container p-5">
             <fieldset>
-              <legend>Formulario</legend>
+              <legend>Programación</legend>
               <ProgramingForm
                 programming={programming}
                 setProgramming={setProgramming}
