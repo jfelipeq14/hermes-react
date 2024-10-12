@@ -3,6 +3,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { EllipsisVerticalIcon } from "@heroicons/react/16/solid";
+import { useState } from "react";
+import Modals from "./Modals";
 
 const events = [
   {
@@ -40,7 +42,7 @@ export default function Calendar({ clicModal }) {
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
       events={events}
-      eventContent={(eventInfo) => renderEventContent(eventInfo, clicModal)}
+      eventContent={(eventInfo) => RenderEventContent(eventInfo, clicModal)}
       eventColor="white"
       dateClick={clicModal}
       showNonCurrentDates={false}
@@ -50,9 +52,15 @@ export default function Calendar({ clicModal }) {
 }
 
 // a custom render function
-const renderEventContent = (eventInfo, clicModal) => {
+const RenderEventContent = (eventInfo, clicModal) => {
+  const colorByStatus =
+    eventInfo.event.extendedProps.status === "A"
+      ? "success"
+      : eventInfo.event.extendedProps.status === "S"
+      ? "warning"
+      : "danger";
 
-  const colorByStatus = eventInfo.event.extendedProps.status === "A" ? "success" : eventInfo.event.extendedProps.status === "S" ? "warning" : "danger";
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <div className={`container rounded bg-${colorByStatus}`}>
@@ -73,9 +81,14 @@ const renderEventContent = (eventInfo, clicModal) => {
       </button>
       <ul className="dropdown-menu m-0 p-0">
         <li>
-          <a className="dropdown-item" href="#">
+          <button
+            className="dropdown-item"
+            onClick={() => {
+              setOpenModal(!openModal);
+            }}
+          >
             Previsualizar clientes
-          </a>
+          </button>
         </li>
         <li>
           <a className="dropdown-item" href="#">
@@ -88,6 +101,10 @@ const renderEventContent = (eventInfo, clicModal) => {
           </a>
         </li>
       </ul>
+      {openModal && (
+        <Modals isOpen={openModal} clickModal={setOpenModal}>
+        </Modals>
+      )}
     </div>
   );
 };
