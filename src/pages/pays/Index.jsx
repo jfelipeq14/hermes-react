@@ -1,11 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { EyeIcon, TicketIcon, UserPlusIcon } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import Modals from "../../components/Modals";
-import swal from 'sweetalert';
 
 export default function PaysPage() {
-  const [setDetailsModalIsOpen] = useState(false);
+  const [detailsModalIsOpen, setDetailsModalIsOpen] = useState(false);
   const [acompanantesModalIsOpen, setAcompanantesModalIsOpen] = useState(false);
   const [imageModalIsOpen, setImageModalIsOpen] = useState(false);
   const [selectedClientIndex, setSelectedClientIndex] = useState(null);
@@ -40,7 +39,6 @@ export default function PaysPage() {
       contacto: "308749327",
       cantidadAcompañantes: 0,
       cantidadPagos: 2,
-      acompanantes: [],
     },
   ];
 
@@ -73,17 +71,8 @@ export default function PaysPage() {
   };
 
   const handleShowAcompanantes = (clientIndex) => {
-    if (clients[clientIndex].cantidadAcompañantes === 0) {
-      swal({
-        title: "Sin acompañantes",
-        text: "La venta no tiene acompañantes registrados.",
-        icon: "info",
-        dangerMode: false,
-      })
-    } else {
-      setSelectedClientIndex(clientIndex);
-      setAcompanantesModalIsOpen(true);
-    }
+    setSelectedClientIndex(clientIndex);
+    setAcompanantesModalIsOpen(true);
   };
 
   const handleShowImages = (clientIndex) => {
@@ -92,7 +81,7 @@ export default function PaysPage() {
   };
 
   return (
-    <div className="row w-100 h-100">
+    <div className="row">
       <Sidebar />
       <main className="col-10 justify-content-center align-items-center">
         <div className="row p-2">
@@ -159,41 +148,74 @@ export default function PaysPage() {
           </fieldset>
         </div>
       </main>
-      {acompanantesModalIsOpen && selectedClientIndex !== null && (
+      {detailsModalIsOpen && selectedClientIndex !== null && (
         <Modals
-          isOpen={acompanantesModalIsOpen}
-          clickModal={setAcompanantesModalIsOpen}
+          isOpen={detailsModalIsOpen}
+          clickModal={setDetailsModalIsOpen}
           size="lg"
         >
           <fieldset className="container p-4 ">
-            <legend>Información de Acompañantes</legend>
+            <legend>Información de la Venta</legend>
             <table className="table">
               <thead>
                 <tr>
-                  <th>Nombre</th>
                   <th>Cédula</th>
+                  <th>Nombre</th>
                   <th>Contacto</th>
-                  <th>EPS</th>
-                  <th>Correo</th>
+                  <th>Cantidad acompañantes</th>
+                  <th>Cantidad Pagos</th>
                 </tr>
               </thead>
               <tbody>
-                {clients[selectedClientIndex].acompanantes.map(
-                  (acompanante, index) => (
-                    <tr key={index}>
-                      <td>{acompanante.nombre}</td>
-                      <td>{acompanante.cedula}</td>
-                      <td>{acompanante.contacto}</td>
-                      <td>{acompanante.eps}</td>
-                      <td>{acompanante.correo}</td>
-                    </tr>
-                  )
-                )}
+                <tr>
+                  <td>{clients[selectedClientIndex].cedula}</td>
+                  <td>{clients[selectedClientIndex].nombre}</td>
+                  <td>{clients[selectedClientIndex].contacto}</td>
+                  <td>{clients[selectedClientIndex].cantidadAcompañantes}</td>
+                  <td>{clients[selectedClientIndex].cantidadPagos}</td>
+                </tr>
               </tbody>
             </table>
           </fieldset>
         </Modals>
       )}
+      {acompanantesModalIsOpen &&
+        selectedClientIndex !== null &&
+        clients[selectedClientIndex].acompanantes && (
+          <Modals
+            isOpen={acompanantesModalIsOpen}
+            clickModal={setAcompanantesModalIsOpen}
+            size="lg"
+          >
+            <fieldset className="container p-4 ">
+              <legend>Información de Acompañantes</legend>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Contacto</th>
+                    <th>EPS</th>
+                    <th>Correo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {clients[selectedClientIndex].acompanantes.map(
+                    (acompanante, index) => (
+                      <tr key={index}>
+                        <td>{acompanante.nombre}</td>
+                        <td>{acompanante.cedula}</td>
+                        <td>{acompanante.contacto}</td>
+                        <td>{acompanante.eps}</td>
+                        <td>{acompanante.correo}</td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
+            </fieldset>
+          </Modals>
+        )}
       {imageModalIsOpen && selectedClientIndex !== null && (
         <Modals
           isOpen={imageModalIsOpen}
@@ -201,7 +223,7 @@ export default function PaysPage() {
           size="lg"
         >
           <fieldset className="container p-4 ">
-            <legend>Comprobantes de pago</legend>
+            <legend>Imágenes</legend>
             <div className="row">
               <div className="col-6">
                 <img
