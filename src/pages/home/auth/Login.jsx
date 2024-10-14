@@ -12,7 +12,7 @@ import swal from "sweetalert";
 
 import { AuthService } from "../../../services/auth.service.js";
 
-export default function Login({ setUser, clickModal }) {
+export default function Login({ setUser, clickModal, setOpenRecoveryModal }) {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -98,9 +98,15 @@ export default function Login({ setUser, clickModal }) {
           />
         </label>
         <div className="buttons justify-content-center">
-          <button className=" btn btn-sm btn-primary" type="submit">
+          <button className="btn btn-sm btn-primary" type="submit">
             Ingresar
           </button>
+        </div>
+        <div className="text-center">
+          <button className="btn" type="button" onClick={()=>{
+            clickModal()
+            setOpenRecoveryModal(true)
+          }}>¿Ha olvidado su contraseña?</button>
         </div>
       </Form>
     </>

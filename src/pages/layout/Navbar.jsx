@@ -11,12 +11,15 @@ import { AuthService } from "../../services/auth.service.js";
 import Login from "../home/auth/Login";
 import Register from "../home/auth/Register";
 import Modals from "../../components/Modals.jsx";
+import Recover from "../home/auth/Recover.jsx";
 
 export default function Navbar({ children, user, setUser }) {
   const navigate = useNavigate();
 
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
+  const [openRecoveryModal, setOpenRecoveryModal] = useState(false);
+  
 
   const handleLogout = async () => {
     setUser(null);
@@ -34,7 +37,7 @@ export default function Navbar({ children, user, setUser }) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg sticky-top shadow-sm bg-light z-1">
+    <nav className="navbar navbar-expand-lg sticky-top shadow-sm bg-light z-3">
       <div className="container-fluid">
         <NavLink to="/" className="nav-brand">
           <HermesLogo />
@@ -90,7 +93,11 @@ export default function Navbar({ children, user, setUser }) {
 
             {openLoginModal && (
               <Modals isOpen={openLoginModal} clickModal={setOpenLoginModal}>
-                <Login setUser={setUser} clickModal={setOpenLoginModal} />
+                <Login
+                  setUser={setUser}
+                  clickModal={setOpenLoginModal}
+                  setOpenRecoveryModal={setOpenRecoveryModal}
+                />
               </Modals>
             )}
 
@@ -103,6 +110,17 @@ export default function Navbar({ children, user, setUser }) {
                 <Register />
               </Modals>
             )}
+
+            {openRecoveryModal && (
+              <Modals
+                isOpen={openRecoveryModal}
+                clickModal={setOpenRecoveryModal}
+              >
+                <Recover user={user} setUser={setUser} />
+              </Modals>
+            )}
+
+            
           </ul>
         </div>
       </div>
