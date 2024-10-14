@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Form } from "react-bootstrap";
 import HermesLogo from "../../../components/HermesLogo";
 
