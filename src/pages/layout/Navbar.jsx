@@ -37,7 +37,7 @@ export default function Navbar({ children, user, setUser }) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg sticky-top shadow-sm bg-light z-1">
+    <nav className="navbar navbar-expand-lg sticky-top shadow-sm bg-light z-3">
       <div className="container-fluid">
         <NavLink to="/" className="nav-brand">
           <HermesLogo />
