@@ -3,12 +3,11 @@ import Sidebar from "../layout/Sidebar";
 import { useState } from "react";
 import swal from "sweetalert";
 import { Services } from "../../models/services/services.model";
-import { Form } from "react-bootstrap";
 
 const categoryMap = {
   1: "Transporte",
   2: "Alimentación",
-  3: "Entretenimiento"
+  3: "Entretenimiento",
 };
 
 export default function ServicesPage() {
@@ -16,9 +15,13 @@ export default function ServicesPage() {
   const [services, setServices] = useState([]);
   const [validated, setValidated] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleChange = (e) => {
-    const value = e.target.name === "idCategoryService" ? parseInt(e.target.value) : e.target.value;
+    const value =
+      e.target.name === "idCategoryService"
+        ? parseInt(e.target.value)
+        : e.target.value;
     setServiceData({ ...serviceData, [e.target.name]: value });
   };
 
@@ -63,7 +66,7 @@ export default function ServicesPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!e.currentTarget.checkValidity()) {
+    if (!e.target.checkValidity()) {
       e.stopPropagation();
       setValidated(true);
       return;
@@ -81,9 +84,9 @@ export default function ServicesPage() {
       if (confirm) {
         const newService = {
           ...serviceData,
-          categoryName: categoryMap[serviceData.idCategoryService]
+          categoryName: categoryMap[serviceData.idCategoryService],
         };
-        
+
         if (editMode) {
           setServices((prevData) =>
             prevData.map((item) =>
@@ -106,6 +109,7 @@ export default function ServicesPage() {
           buttons: false,
         });
         resetForm();
+        setShowModal(false);
       } else {
         swal({
           title: "Cancelado",
@@ -156,6 +160,7 @@ export default function ServicesPage() {
     if (serviceToEdit) {
       setServiceData(serviceToEdit);
       setEditMode(true);
+      setShowModal(true);
     }
   };
 
@@ -164,79 +169,16 @@ export default function ServicesPage() {
       <Sidebar></Sidebar>
       <main className="col-10 justify-content-center align-items-center">
         <div className="row p-2">
-          <Form
-            noValidate
-            validated={validated}
-            onSubmit={handleSubmit}
-            className="col-sm-12 col-md-6 p-1"
-          >
-            <div className="mb-3">
-              <legend>Servicio</legend>
-              <label>Categoría</label>
-              <select
-                className="form-select form-select-sm my-2"
-                name="idCategoryService"
-                value={serviceData.idCategoryService}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Selecciona una categoría</option>
-                <option value={1}>Transporte</option>
-                <option value={2}>Alimentación</option>
-                <option value={3}>Entretenimiento</option>
-              </select>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="nombre" className="form-label">
-                Nombre
-              </label>
-              <input
-                type="text"
-                className="form-control form-control-sm my-2"
-                name="name"
-                value={serviceData.name}
-                onChange={handleChange}
-                pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)*$"
-                required
-              />
-              <small className="valid-feedback">Todo bien!</small>
-              <small className="invalid-feedback">
-                Por favor escriba un nombre valido
-              </small>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="valor" className="form-label">
-                Valor
-              </label>
-              <input
-                type="number"
-                className="form-control form-control-sm my-2"
-                name="price"
-                value={serviceData.price}
-                onChange={handleChange}
-                pattern="^[1-9][0-9]*(\.[0-9]{1,2})?$"
-                required
-              />
-              <small className="valid-feedback">Todo bien!</small>
-              <small className="invalid-feedback">
-                Por favor escriba un valor valido
-              </small>
-            </div>
-            <div className="buttons">
-              <button type="submit" className="btn btn-sm btn-primary">
-                Guardar
-              </button>
-              <button
-                type="reset"
-                className="btn btn-sm btn-secondary"
-                onClick={resetForm}
-              >
-                Cancelar
-              </button>
-            </div>
-          </Form>
-          <fieldset className="col-sm-12 col-md-5">
+          <fieldset className="col-12">
             <legend>Servicios</legend>
+            <div className="col-12 mb-3">
+              <button
+                className="btn btn-primary"
+                onClick={() => setShowModal(true)}
+              >
+                Agregar Servicio
+              </button>
+            </div>
             <table className="table">
               <thead>
                 <tr>
@@ -283,6 +225,98 @@ export default function ServicesPage() {
             </table>
           </fieldset>
         </div>
+
+        {showModal && (
+          <div
+            className="modal"
+            tabIndex="-1"
+            role="dialog"
+            style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
+            s
+          >
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">
+                    {editMode ? "Editar Servicio" : "Agregar Servicio"}
+                  </h5>
+                </div>
+                <div className="modal-body">
+                  <form
+                    noValidate
+                    className={validated ? "was-validated" : ""}
+                    onSubmit={handleSubmit}
+                  >
+                    <div className="mb-3">
+                      <label>Categoría</label>
+                      <select
+                        className="form-select form-select-sm my-2"
+                        name="idCategoryService"
+                        value={serviceData.idCategoryService}
+                        onChange={handleChange}
+                        required
+                      >
+                        <option value="">Selecciona una categoría</option>
+                        <option value={1}>Transporte</option>
+                        <option value={2}>Alimentación</option>
+                        <option value={3}>Entretenimiento</option>
+                      </select>
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="nombre" className="form-label">
+                        Nombre
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control form-control-sm my-2"
+                        name="name"
+                        value={serviceData.name}
+                        onChange={handleChange}
+                        pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)*$"
+                        required
+                      />
+                      <small className="invalid-feedback">
+                        Por favor escriba un nombre válido
+                      </small>
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="valor" className="form-label">
+                        Valor
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control form-control-sm my-2"
+                        name="price"
+                        value={serviceData.price}
+                        onChange={handleChange}
+                        pattern="^[1-9][0-9]*(\.[0-9]{1,2})?$"
+                        required
+                      />
+                      <small className="invalid-feedback">
+                        Por favor escriba un valor válido
+                      </small>
+                    </div>
+                    <div className="modal-footer">
+                      <button type="submit" className="btn btn-primary">
+                        {editMode ? "Actualizar" : "Guardar"}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={() => {
+                          resetForm();
+                          setShowModal(false);
+                        }}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

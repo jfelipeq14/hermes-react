@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/16/solid";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import Sidebar from "../layout/Sidebar";
 import FormPermissions from "./FormPermissions";
 import swal from "sweetalert";
@@ -92,7 +89,7 @@ export default function RolesPage() {
     <div className="row w-100 h-100">
       <Sidebar />
       <main className="col-10 justify-content-center align-items-center">
-        <div className="row">
+        <div className="row p-2">
           <fieldset className="col-sm-12 col-md-6">
             <legend>Roles</legend>
             <form className="w-50">
@@ -158,17 +155,25 @@ export default function RolesPage() {
       </main>
 
       {showModal && (
-        <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+        <div
+          className="modal"
+          style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
           <div className="modal-dialog modal-lg">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Permisos para {selectedRole?.name}</h5>
-                <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+                <h5 className="modal-title">
+                  Permisos para {selectedRole?.name}
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={handleCloseModal}
+                ></button>
               </div>
               <div className="modal-body">
                 <FormPermissions selectedRole={selectedRole} />
               </div>
-              
             </div>
           </div>
         </div>
