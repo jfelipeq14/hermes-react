@@ -36,8 +36,8 @@ export default function Sidebar() {
 // eslint-disable-next-line react/prop-types
 export function SidebarItem({ name, href, icon }) {
   return (
-    <li className="nav-item">
-      <NavLink to={{ pathname: `/${href}` }} className="nav-link">
+    <li className="nav-item p-0 m-0">
+      <NavLink to={{ pathname: `/${href}` }} className="nav-link p-1 m-0">
         <div className="d-flex align-items-center">
           <button className="btn">{icon}</button>
           <small className="d-none d-lg-block text-start">{name}</small>

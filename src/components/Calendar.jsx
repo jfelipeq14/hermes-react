@@ -64,7 +64,7 @@ const RenderEventContent = (eventInfo, clicModal,openModalCustomers,setOpenModal
       : "danger";
 
   return (
-    <div className={`container rounded bg-${colorByStatus}`}>
+    <div className={`  rounded bg-${colorByStatus}`}>
       <button
         className={`btn m-0 p-0 fs-6 btn-${colorByStatus}`}
         onClick={() => {

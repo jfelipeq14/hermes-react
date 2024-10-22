@@ -1,8 +1,8 @@
 export default function Footer() {
   return (
-    <footer className="container-fluid text-center">
+    <footer className="text-center">
       <p className="fs-5 text-opacity-25">
-        © Copyright 2024. All Rights Reserved.
+        © Copyright 2024. Hermes.
       </p>
     </footer>
   );

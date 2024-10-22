@@ -15,7 +15,7 @@ export default function Reprogramming({ setModalPaysOpen }) {
   };
 
   return (
-    <div className="container">
+    <div className=" ">
       <div className="row">
         <fieldset className="col-12">
           <legend>Cliente</legend>

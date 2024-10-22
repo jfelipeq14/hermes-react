@@ -1,3 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100dvh;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+img,
+video,
+svg {
+  height: auto;
+  max-width: 100%;
+}
+
 .buttons {
   display: flex;
   gap: 10px;
@@ -38,8 +75,20 @@ div.card:hover {
   backdrop-filter: blur(0.3rem);
 }
 
-.glass{
+.glass {
   background: #fafafa10;
   backdrop-filter: blur(0.3rem);
   -webkit-backdrop-filter: blur(0.3rem);
+}
+
+@media (prefers-reduce-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition: none;
+  }
 }

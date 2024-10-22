@@ -66,7 +66,7 @@ const packages = [
 
 export default function Home() {
   return (
-    <div className="container">
+    <div className=" ">
       {/* Banner */}
       <section
         id="home"
@@ -100,7 +100,7 @@ export default function Home() {
         className="col-12 p-5 border-top border-light"
         style={{ backgroundColor: "#eeeeee" }}
       >
-        <div className="container">
+        <div className=" ">
           <h2 className="text-center mb-4">Nuestros Paquetes</h2>
           <div className="row justify-content-center align-items-center">
             {packages.map((pkg, index) => (
@@ -125,7 +125,7 @@ export default function Home() {
         className="col-12 mx-auto p-5 border-bottom border-light"
         style={{ backgroundColor: "#e4e4e4" }}
       >
-        <div className="container">
+        <div className=" ">
           <h2 className="fs-1 lead text-center mb-5">Preguntas Frecuentes</h2>
           <div className="row">
             {[1, 2, 3, 4].map((_, index) => (
@@ -154,7 +154,7 @@ export default function Home() {
         className="col-12 text-start p-5"
         style={{ backgroundColor: "#eeeeee" }}
       >
-        <div className="container">
+        <div className=" ">
           <div className="row p-5">
             <div className="col-md-4 mb-4 border-end border-secondary border-opacity-25">
               <h2 className="fs-4 fw-bold mb-4">Información de contacto</h2>

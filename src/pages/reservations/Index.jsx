@@ -48,7 +48,7 @@ export default function ReservationsPage() {
     <div className="row w-100 h-100">
        
       <main className="col-10 justify-content-center align-items-center">
-        <fieldset className="container p-2">
+        <fieldset className="  p-2">
           <legend>Reservas</legend>
           <NavLink
             to={{ pathname: "/" }}

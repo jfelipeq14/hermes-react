@@ -41,7 +41,7 @@ export default function Recover() {
   return (
     <>
       <h1 className="text-center fs-3 my-5">Recuperar acceso</h1>
-      <div className="container text-center">
+      <div className="  text-center">
         <HermesLogo />
       </div>
       <p className="text-center">

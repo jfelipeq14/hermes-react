@@ -165,7 +165,7 @@ export default function PaysPage() {
           clickModal={setDetailsModalIsOpen}
           size="lg"
         >
-          <fieldset className="container p-4 ">
+          <fieldset className="  p-4 ">
             <legend>Información de la Venta</legend>
             <table className="table">
               <thead>
@@ -198,7 +198,7 @@ export default function PaysPage() {
             clickModal={setAcompanantesModalIsOpen}
             size="lg"
           >
-            <fieldset className="container p-4 ">
+            <fieldset className="  p-4 ">
               <legend>Información de Acompañantes</legend>
               <table className="table">
                 <thead>
@@ -233,7 +233,7 @@ export default function PaysPage() {
           clickModal={setImageModalIsOpen}
           size="lg"
         >
-          <fieldset className="container p-4 ">
+          <fieldset className="  p-4 ">
             <legend>Imágenes</legend>
             <div className="row">
               <div className="col-6">
