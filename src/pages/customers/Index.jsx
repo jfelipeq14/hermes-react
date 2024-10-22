@@ -3,7 +3,6 @@ import {
   PencilSquareIcon,
   PlusCircleIcon,
 } from "@heroicons/react/16/solid";
-import Sidebar from "../layout/Sidebar";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import Modals from "../../components/Modals";
@@ -61,7 +60,7 @@ export default function CustomersPage() {
 
   return (
     <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
+       
       <main className="col-10 justify-content-center align-items-center">
         <fieldset className="container p-2">
           <legend>Clientes</legend>

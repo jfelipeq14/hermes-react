@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Link, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import Home from "./pages/home/Home";
-import Navbar from "./pages/layout/Navbar";
 import PageNotFound from "./pages/PageNotFound";
 
 import { getTokenStorage } from "./utilies/authUtils";
 import { createRoutes } from "./utilies/routes.js";
 import Reserve from "./pages/home/reserve/Reserve.jsx";
+import Layout from "./pages/layout/Layout.jsx";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -37,36 +37,33 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Navbar user={user} setUser={setUser}>
-        <li className="nav-item">
-          <Link to="/" className="nav-link">
-            Inicio
-          </Link>
-        </li>
-      </Navbar>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/reserve" element={<Reserve />} />
-        {user &&
-          role &&
-          routes.map((item) => {
-            return (
-              <>
-                <Route
-                  exact
-                  path={item.href}
-                  element={
-                    <RenderComponent
-                      user={user}
-                      component={<item.component />}
-                    />
-                  }
-                />
-              </>
-            );
-          })}
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+      <Layout user={user} setUser={setUser}>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/reserve" element={<Reserve />} />
+
+          {user &&
+            role &&
+            routes.map((item) => {
+              return (
+                <>
+                  <Route
+                    exact
+                    path={item.href}
+                    element={
+                      <RenderComponent
+                        user={user}
+                        component={<item.component />}
+                      />
+                    }
+                  />
+                </>
+              );
+            })}
+
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 }

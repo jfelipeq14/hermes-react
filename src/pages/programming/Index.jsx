@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Calendar from "../../components/Calendar";
-import Sidebar from "../layout/Sidebar";
+ 
 import ProgramingForm from "./FormProgramming";
 import Modals from "../../components/Modals";
 import { ProgramationPackages } from "../../models/packs/programation-packages.model";
@@ -11,7 +11,7 @@ export default function ProgramingPage() {
 
   return (
     <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
+       
       <main className="col-10 justify-content-center align-items-center">
         <fieldset className="container p-2">
           <legend>Agenda</legend>

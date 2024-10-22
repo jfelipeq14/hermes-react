@@ -1,12 +1,12 @@
 import { UserIcon } from "@heroicons/react/16/solid";
 import BarsChart from "../../components/dashboard/BarsChart";
 import PiesChart from "../../components/dashboard/PiesChart";
-import Sidebar from "../layout/Sidebar";
+ 
 
 export default function DashboardPage() {
   return (
     <div className="row w-100 h-100">
-      <Sidebar />
+       
       <div className="col-10">
         <fieldset className="row p-2 g-2">
           <legend>Dashboard</legend>

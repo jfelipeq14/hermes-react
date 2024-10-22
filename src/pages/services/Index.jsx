@@ -1,5 +1,5 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
-import Sidebar from "../layout/Sidebar";
+ 
 import { useState } from "react";
 import swal from "sweetalert";
 import { Services } from "../../models/services/services.model";
@@ -161,7 +161,7 @@ export default function ServicesPage() {
 
   return (
     <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
+       
       <main className="col-10 justify-content-center align-items-center">
         <div className="row p-2">
           <Form

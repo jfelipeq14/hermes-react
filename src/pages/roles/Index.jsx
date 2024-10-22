@@ -4,7 +4,7 @@ import {
   // PlusCircleIcon,
   TrashIcon,
 } from "@heroicons/react/16/solid";
-import Sidebar from "../layout/Sidebar";
+ 
 import FormPermissions from "./FormPermissions";
 import swal from "sweetalert";
 // import { NavLink } from "react-router-dom";
@@ -87,7 +87,7 @@ export default function RolesPage() {
 
   return (
     <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
+       
       <main className="col-10 justify-content-center align-items-center">
         <div className="row">
           <fieldset className="col-sm-12 col-md-6">
