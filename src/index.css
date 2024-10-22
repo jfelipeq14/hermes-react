@@ -1,8 +1,3 @@
-aside {
-  max-width: max-content;
-  min-height: 100vh;
-}
-
 .buttons {
   display: flex;
   gap: 10px;
@@ -39,7 +34,7 @@ div.card:hover {
   transform: scale(1.04);
 }
 
-.modal {
+.modal && Modal {
   backdrop-filter: blur(0.3rem);
 }
 

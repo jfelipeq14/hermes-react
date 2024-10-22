@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Sidebar from "../layout/Sidebar";
+ 
 import { getTokenStorage } from "../../utilies/authUtils";
 import { Users } from "../../models/users/users.model";
 import UserForm from "../users/UserForm";
@@ -21,7 +21,7 @@ export default function ProfilePage() {
 
   return (
     <div className="row h-100 w-100">
-      <Sidebar></Sidebar>
+       
       <main className="col-10 justify-content-center align-items-center">
         <div className="row">
           <fieldset className="col-8">

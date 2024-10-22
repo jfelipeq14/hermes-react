@@ -9,7 +9,6 @@ import {
   UsersIcon,
 } from "@heroicons/react/16/solid";
 
-import Sidebar from "../layout/Sidebar.jsx";
 import CompanionForm from "../reservations/companions/FormCompanion.jsx";
 import PayForm from "../payments/FormPayment.jsx";
 import Modals from "../../components/Modals.jsx";
@@ -47,7 +46,7 @@ export default function ReservationsPage() {
 
   return (
     <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
+       
       <main className="col-10 justify-content-center align-items-center">
         <fieldset className="container p-2">
           <legend>Reservas</legend>

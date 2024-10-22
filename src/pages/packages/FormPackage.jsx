@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/16/solid";
-import Sidebar from "../layout/Sidebar";
 import { Packages } from "../../models/packs/packages.model";
 import Modals from "../../components/Modals";
 import Package from "../../components/Package";
@@ -99,7 +98,7 @@ export default function FormPackage() {
 
   return (
     <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
+       
       <div className="col-10">
         <div className="row">
           <fieldset className="col-sm-12 col-md-6">

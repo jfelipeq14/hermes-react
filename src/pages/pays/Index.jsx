@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { EyeIcon, TicketIcon, UserPlusIcon } from "@heroicons/react/16/solid";
-import Sidebar from "../layout/Sidebar";
+ 
 import Modals from "../../components/Modals";
+import swal from "sweetalert";
 
 export default function PaysPage() {
   const [detailsModalIsOpen, setDetailsModalIsOpen] = useState(false);
@@ -82,7 +83,7 @@ export default function PaysPage() {
 
   return (
     <div className="row">
-      <Sidebar />
+       
       <main className="col-10 justify-content-center align-items-center">
         <div className="row p-2">
           <fieldset className="col-12">
@@ -125,7 +126,17 @@ export default function PaysPage() {
                         className="btn m-0 p-0"
                         onClick={() => handleShowAcompanantes(sale.clientIndex)}
                       >
-                        <UserPlusIcon width={20} />
+                        <UserPlusIcon width={20} onClick={()=>{
+                          if (clients[sale.clientIndex].cantidadAcompañantes <= 0) {
+                            swal({
+                              title: "No tiene acompañantes",
+                              text: "Selecciona otro pago",
+                              icon: "info",
+                              buttons: false,
+                              timer: 2000,
+                            });
+                          }
+                        }}/>
                       </button>
                       <button
                         className="btn m-0 p-0"

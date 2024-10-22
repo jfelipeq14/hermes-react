@@ -3,7 +3,7 @@ import {
   PlusCircleIcon,
   TrashIcon,
 } from "@heroicons/react/16/solid";
-import Sidebar from "../layout/Sidebar";
+ 
 import UserForm from "./UserForm";
 import { useEffect, useState } from "react";
 
@@ -123,7 +123,7 @@ export default function UsersPage() {
 
   return (
     <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
+       
       <main className="col-10 justify-content-center align-items-center">
         <fieldset className="container p-2">
           <legend>Usuarios</legend>

@@ -3,7 +3,6 @@ import {
   PencilSquareIcon,
   PlusCircleIcon,
 } from "@heroicons/react/16/solid";
-import Sidebar from "../layout/Sidebar";
 import { NavLink } from "react-router-dom";
 import swal from "sweetalert";
 import { useState } from "react";
@@ -85,7 +84,7 @@ export default function PackagesPage() {
 
   return (
     <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
+       
       <main className="col-10   justify-content-center align-items-center">
         <div className="row">
           <fieldset className="col-sm-12 col-md-8">

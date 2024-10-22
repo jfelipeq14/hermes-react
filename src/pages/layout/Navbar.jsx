@@ -19,7 +19,6 @@ export default function Navbar({ children, user, setUser }) {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openRegisterModal, setOpenRegisterModal] = useState(false);
   const [openRecoveryModal, setOpenRecoveryModal] = useState(false);
-  
 
   const handleLogout = async () => {
     setUser(null);
@@ -37,7 +36,7 @@ export default function Navbar({ children, user, setUser }) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg sticky-top shadow-sm bg-light z-3">
+    <nav className="navbar navbar-expand-lg shadow-sm bg-light">
       <div className="container-fluid">
         <NavLink to="/" className="nav-brand">
           <HermesLogo />
@@ -58,19 +57,36 @@ export default function Navbar({ children, user, setUser }) {
             {children}
             {user ? (
               <li className="nav-item d-flex g-3 align-items-center">
-                <NavLink
-                  to={{ pathname: "administrator/profile", user: user }}
-                  className="btn btn-sm btn-secondary mx-2"
-                >
-                  <UserCircleIcon width={20} className="mx-2" />
-                  {user.data.idRole === 1 ? "Administrador" : "Cliente"}
-                </NavLink>
                 <button
-                  className="btn btn-sm btn-danger mx-2"
-                  onClick={handleLogout}
+                  className="btn btn-sm btn-secondary mx-2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
                 >
-                  <ArrowRightEndOnRectangleIcon width={20} className="mx-2" />
+                  {user.data.email}
                 </button>
+                <ul className="dropdown-menu m-0 p-0">
+                  <li>
+                    <NavLink
+                      to={{ pathname: "administrator/profile", user: user }}
+                      className="dropdown-item"
+                    >
+                      <UserCircleIcon width={20} className="mx-2" />
+                      {user.data.idRole === 1 ? "Administrador" : "Cliente"}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <button
+                      className="btn"
+                      onClick={handleLogout}
+                    >
+                      <ArrowRightEndOnRectangleIcon
+                        width={20}
+                        className="mx-2"
+                      />
+                      Cerrar
+                    </button>
+                  </li>
+                </ul>
               </li>
             ) : (
               <li className="nav-item d-flex align-items-center">
@@ -119,8 +135,6 @@ export default function Navbar({ children, user, setUser }) {
                 <Recover user={user} setUser={setUser} />
               </Modals>
             )}
-
-            
           </ul>
         </div>
       </div>

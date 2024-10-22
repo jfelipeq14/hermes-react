@@ -1,0 +1,31 @@
+.grid-area-admin{
+    display: grid;
+    grid-template-columns: 250px 1fr 1fr;
+    grid-template-rows: 60px;
+    min-height: 100vh;
+    min-width: 100vw;
+    grid-template-areas:
+    "header header header"
+    "sidebar content content"
+    "sidebar footer footer"
+}
+
+.grid-area-admin nav{
+    background: #efefef10;
+    grid-area: header;
+}
+
+.grid-area-admin aside{
+    background: #efefef30;
+    grid-area: sidebar;
+}
+
+.grid-area-admin main{
+    background: #efefef50;
+    grid-area: content;
+}
+
+.grid-area-admin footer{
+    background: #efefef70;
+    grid-area: footer;
+}

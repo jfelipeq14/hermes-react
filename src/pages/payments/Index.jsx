@@ -1,5 +1,5 @@
 import { formatDate } from "@fullcalendar/core/index.js";
-import Sidebar from "../layout/Sidebar";
+ 
 import { EyeIcon, PencilSquareIcon } from "@heroicons/react/16/solid";
 import PayForm from "./FormPayment";
 import { useState } from "react";
@@ -34,7 +34,7 @@ export default function PaymentsPage() {
 
   return (
     <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
+       
       <main className="col-10 justify-content-center align-items-center">
         <div className="row">
           <fieldset className="col-sm-12 col-md-8">
