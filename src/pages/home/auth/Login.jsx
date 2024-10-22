@@ -68,7 +68,7 @@ export default function Login({ setUser, clickModal, setOpenRecoveryModal }) {
   return (
     <>
       <h1 className="text-center fs-3 my-5">Ingresar</h1>
-      <div className="container text-center">
+      <div className="  text-center">
         <HermesLogo />
       </div>
       <Form

@@ -15,7 +15,7 @@ export default function DashboardPage() {
           <div className="col-sm-12 col-md-6 ">
             <div className="border border-1 rounded p-3 h-100">
               <h3 className="text-center mb-3">Venta de paquetes</h3>
-              <div className="container">
+              <div className=" ">
               <BarsChart />
               </div>
             </div>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
               <div className="row justify-content-center">
                 {/* Cliente Plata */}
                 <div className="col-sm-12 col-md-4 text-center">
-                  <div className="container">
+                  <div className=" ">
                     <UserIcon width={130} color="silver" />
                     <p className="h5 mt-2">Esteban Dido</p>
                     <div>
@@ -67,7 +67,7 @@ export default function DashboardPage() {
 
                 {/* Cliente Oro */}
                 <div className="col-sm-12 col-md-4 text-center">
-                  <div className="container">
+                  <div className=" ">
                     <UserIcon width={150} color="gold" />
                     <p className="h5 mt-2">Esteban Quito</p>
                     <div>
@@ -83,7 +83,7 @@ export default function DashboardPage() {
 
                 {/* Cliente Bronce */}
                 <div className="col-sm-12 col-md-4 text-center">
-                  <div className="container">
+                  <div className=" ">
                     <UserIcon width={120} color="#cd7f32" />
                     <p className="h5 mt-2">Esteban Co</p>
                     <div>

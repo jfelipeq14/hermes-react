@@ -83,7 +83,7 @@ export default function FormPayment() {
     setValidated(false);
   };
   return (
-    <fieldset className="container p-2">
+    <fieldset className="  p-2">
       <legend>Pago</legend>
       <section className="buttons justify-content-center">
         <button className="btn btn-sm btn-primary">
@@ -105,7 +105,7 @@ export default function FormPayment() {
       </section>
 
       {paymentMethod && (
-        <div className="container shadow p-3 m-2">
+        <div className="  shadow p-3 m-2">
           <h1 className="  text-uppercase">{paymentMethod}</h1>
           {paymentMethod === "banco" ? (
             <>

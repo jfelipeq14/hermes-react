@@ -51,7 +51,7 @@ export default function CustomersList() {
     }
   };
   return (
-    <fieldset className="container p-2">
+    <fieldset className="  p-2">
     <legend>Clientes</legend>
     <button
       className="btn btn-sm btn-primary float-end"

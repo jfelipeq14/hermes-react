@@ -104,7 +104,7 @@ export default function Customer() {
   //#endregion
 
   return (
-    <fieldset className="container p-2">
+    <fieldset className="  p-2">
       <legend>Cliente</legend>
       <Form
         noValidate

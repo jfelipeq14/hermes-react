@@ -56,22 +56,22 @@ export default function Navbar({ children, user, setUser }) {
           <ul className="navbar-nav ms-auto">
             {children}
             {user ? (
-              <li className="nav-item d-flex g-3 align-items-center">
+              <li className="nav-item">
                 <button
-                  className="btn btn-sm btn-secondary mx-2"
+                  className="btn btn-sm btn-secondary"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   {user.data.email}
                 </button>
-                <ul className="dropdown-menu m-0 p-0">
+                <ul className="dropdown-menu">
                   <li>
                     <NavLink
                       to={{ pathname: "administrator/profile", user: user }}
                       className="dropdown-item"
                     >
                       <UserCircleIcon width={20} className="mx-2" />
-                      {user.data.idRole === 1 ? "Administrador" : "Cliente"}
+                      Perfil
                     </NavLink>
                   </li>
                   <li>
@@ -83,7 +83,7 @@ export default function Navbar({ children, user, setUser }) {
                         width={20}
                         className="mx-2"
                       />
-                      Cerrar
+                      Cerrar sesión
                     </button>
                   </li>
                 </ul>

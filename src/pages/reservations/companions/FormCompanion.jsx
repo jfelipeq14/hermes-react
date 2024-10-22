@@ -109,7 +109,7 @@ export default function FormCompanion({
   //#endregion
 
   return (
-    <fieldset className="container p-2">
+    <fieldset className="  p-2">
       <legend>Acompañante</legend>
       <Form
         noValidate

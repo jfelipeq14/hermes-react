@@ -13,7 +13,7 @@ export default function ProgramingPage() {
     <div className="row w-100 h-100">
        
       <main className="col-10 justify-content-center align-items-center">
-        <fieldset className="container p-2">
+        <fieldset className="  p-2">
           <legend>Agenda</legend>
           <Calendar
             clicModal={(e) => {
@@ -35,7 +35,7 @@ export default function ProgramingPage() {
       </main>
       {open && (
         <Modals isOpen={open} clickModal={setOpen} size="md">
-          <div className="container p-5">
+          <div className="  p-5">
             <fieldset>
               <legend>Programación</legend>
               <ProgramingForm

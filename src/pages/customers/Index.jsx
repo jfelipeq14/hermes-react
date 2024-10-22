@@ -62,7 +62,7 @@ export default function CustomersPage() {
     <div className="row w-100 h-100">
        
       <main className="col-10 justify-content-center align-items-center">
-        <fieldset className="container p-2">
+        <fieldset className="  p-2">
           <legend>Clientes</legend>
           <button
             className="btn btn-sm btn-primary float-end"
@@ -128,7 +128,7 @@ export default function CustomersPage() {
         </fieldset>
         {modalIsOpen && (
           <Modals isOpen={modalIsOpen} clickModal={setModalIsOpen} size="md">
-            <fieldset className="container p-4">
+            <fieldset className="  p-4">
               <legend>{editMode ? "Editar cliente" : "Crear cliente"}</legend>
               <CustomerForm
                 user={user}

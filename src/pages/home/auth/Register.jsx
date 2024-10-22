@@ -12,11 +12,11 @@ export default function FormRegister() {
   return (
     <>
       <h1 className="text-center fs-3 my-5">Registrarse</h1>
-      <div className="container text-center">
+      <div className="  text-center">
         <HermesLogo />
       </div>
 
-      <div className="container p4">
+      <div className="  p4">
         <UserForm
           user={user}
           setUser={setUser}

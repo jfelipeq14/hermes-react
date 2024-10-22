@@ -313,7 +313,7 @@ export default function FormPackage() {
       </div>
       {open && (
         <Modals isOpen={open} clickModal={setOpen} size="md">
-          <div className="container p-5">
+          <div className="  p-5">
             <Package
               destination={packdata.destination}
               name={packdata.name}
