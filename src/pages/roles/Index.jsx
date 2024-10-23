@@ -1,13 +1,8 @@
 import { useState } from "react";
-import {
-  PencilSquareIcon,
-  // PlusCircleIcon,
-  TrashIcon,
-} from "@heroicons/react/16/solid";
-
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
+import Sidebar from "../layout/Sidebar";
 import FormPermissions from "./FormPermissions";
 import swal from "sweetalert";
-// import { NavLink } from "react-router-dom";
 
 export default function RolesPage() {
   const [roles, setRoles] = useState([
@@ -24,6 +19,7 @@ export default function RolesPage() {
   ]);
 
   const [selectedRole, setSelectedRole] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const handleChange = (id, currentState) => {
     const newState = !currentState;
@@ -82,84 +78,106 @@ export default function RolesPage() {
 
   const handleRoleClick = (role) => {
     setSelectedRole(role);
-    // Aquí puedes agregar más lógica si es necesario, como cargar permisos específicos del rol
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
-    <div className="row">
-      <fieldset className="col-sm-12 col-md-6">
-        <legend>Roles</legend>
-        {/* <NavLink
-              to={{ pathname: "/reserve" }}
-              state={{ identification: 0 }}
-              className="btn btn-sm btn-primary float-end"
-            >
-              <PlusCircleIcon width={20} />
-              Crear
-            </NavLink> */}
-        <form className="w-50">
-          <input
-            type="search"
-            id="identification"
-            className="form-control form-control-sm"
-            placeholder="Buscar"
-          />
-        </form>
-        <table className="table table-hover my-2">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Acciones</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            {roles.map((rol) => (
-              <tr
-                key={rol.idRole}
-                onClick={() => handleRoleClick(rol)}
-                className={`cursor-pointer ${
-                  selectedRole && selectedRole.idRole === rol.idRole
-                    ? "table-active"
-                    : ""
-                }`}
-              >
-                <td className="px-4 py-3">{rol.name}</td>
-                <td className="px-4 py-3">
-                  <PencilSquareIcon width={20} type="button" className="mx-1" />
-                  <TrashIcon
-                    width={20}
-                    type="button"
-                    className="mx-1"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDelete(rol.idRole);
-                    }}
-                  />
-                  <div className="form-switch d-inline">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      role="switch"
-                      name="state"
-                      checked={rol.state}
-                      onChange={(e) => {
-                        e.stopPropagation();
-                        handleChange(rol.idRole, rol.state);
-                      }}
-                    />
-                  </div>
-                </td>
-                <td>{rol.state ? "Activo" : "Inactivo"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </fieldset>
-      <fieldset className="col-sm-12 col-md-6">
-        <legend>Permisos</legend>
-        <FormPermissions selectedRole={selectedRole} />
-      </fieldset>
+    <div className="row w-100 h-100">
+      <Sidebar />
+      <main className="col-10 justify-content-center align-items-center">
+        <div className="row p-2">
+          <fieldset className="col-sm-12 col-md-6">
+            <legend>Roles</legend>
+            <form className="w-50">
+              <input
+                type="search"
+                id="identification"
+                className="form-control form-control-sm"
+                placeholder="Buscar"
+              />
+            </form>
+            <table className="table table-hover my-2">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Acciones</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {roles.map((rol) => (
+                  <tr
+                    key={rol.idRole}
+                    onClick={() => handleRoleClick(rol)}
+                    className="cursor-pointer"
+                  >
+                    <td className="px-4 py-3">{rol.name}</td>
+                    <td className="px-4 py-3">
+                      <PencilSquareIcon
+                        width={20}
+                        type="button"
+                        className="mx-1"
+                      />
+                      <TrashIcon
+                        width={20}
+                        type="button"
+                        className="mx-1"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(rol.idRole);
+                        }}
+                      />
+                      <div className="form-switch d-inline">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          role="switch"
+                          name="state"
+                          checked={rol.state}
+                          onChange={(e) => {
+                            e.stopPropagation();
+                            handleChange(rol.idRole, rol.state);
+                          }}
+                        />
+                      </div>
+                    </td>
+                    <td>{rol.state ? "Activo" : "Inactivo"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </fieldset>
+        </div>
+      </main>
+
+      {showModal && (
+        <div
+          className="modal"
+          style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
+          <div className="modal-dialog modal-lg">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">
+                  Permisos para {selectedRole?.name}
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={handleCloseModal}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <FormPermissions selectedRole={selectedRole} />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
