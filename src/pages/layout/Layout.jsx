@@ -11,13 +11,17 @@ export default function Layout({ children, user, setUser }) {
         <div className="grid-area-admin">
           <Navbar user={user} setUser={setUser}></Navbar>
           <Sidebar />
-          <main>{children}</main>
+          <main className="container-fluid justify-content-center align-items-center bg-transparent">
+            {children}
+          </main>
           <Footer />
         </div>
       ) : (
         <div className="grid-area-landing">
           <Navbar user={user} setUser={setUser}></Navbar>
-          <main>{children}</main>
+          <main className="container-fluid justify-content-center align-items-center bg-transparent">
+            {children}
+          </main>
         </div>
       )}
     </>

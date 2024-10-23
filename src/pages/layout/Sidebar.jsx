@@ -17,7 +17,7 @@ export default function Sidebar() {
     <aside className="col p-0 m-0 shadow bg-light z-2 overflow-hidden align-top">
       <ul className="nav nav-pills d-flex flex-column">
         {createRoutes(role).map((link) => {
-          if (link.name !== "Perfil") {
+          if (link.name !== "Perfil" && link.name !== "Crear paquetes") {
             return (
               <SidebarItem
                 key={link.name}

@@ -3,7 +3,7 @@ import {
   PlusCircleIcon,
   TrashIcon,
 } from "@heroicons/react/16/solid";
- 
+
 import UserForm from "./UserForm";
 import { useEffect, useState } from "react";
 
@@ -122,79 +122,76 @@ export default function UsersPage() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
-    <div className="row w-100 h-100">
-       
-      <main className="col-10 justify-content-center align-items-center">
-        <fieldset className="  p-2">
-          <legend>Usuarios</legend>
-          <button
-            className="btn btn-sm btn-primary float-end"
-            onClick={() => {
-              setUser(new Users());
-              setEditMode(false);
-              setModalIsOpen(!modalIsOpen);
-            }}
-          >
-            <PlusCircleIcon width={20} />
-            Crear
-          </button>
-          <form className="w-50">
-            <input
-              type="search"
-              id="identification"
-              className="form-control form-control-sm"
-              placeholder="Buscar"
-              onChange={(e) => console.log(e.target.value)}
-            />
-          </form>
-          <table className="table my-2">
-            <thead>
-              <th scope="col">Acciones</th>
-              <th scope="col">Identificacion</th>
-              <th scope="col">Correo</th>
-              <th scope="col">Rol</th>
-              <th scope="col">Estado</th>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user.idUser}>
-                  <td className="d-flex">
-                    <button className="btn m-0 p-0">
-                      <PencilSquareIcon
-                        width={20}
-                        onClick={handleEditUser}
-                        id={user.idUser}
-                      />
-                    </button>
-                    <button className="btn m-0 p-0">
-                      <TrashIcon
-                        width={20}
-                        onClick={handleDeleteUser}
-                        id={user.idUser}
-                      />
-                    </button>
-                    <div className="form-switch d-inline">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        role="switch"
-                        name="state"
-                        id={user.idUser}
-                        checked={user.state}
-                        onChange={handleCheck}
-                      />
-                    </div>
-                  </td>
-                  <td>{user.identification}</td>
-                  <td>{user.email}</td>
-                  <td>{user.idRole}</td>
-                  <td>{user.state ? "Activo" : "Inactivo"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </fieldset>
-      </main>
+    <>
+      <fieldset>
+        <legend>Usuarios</legend>
+        <button
+          className="btn btn-sm btn-primary float-end"
+          onClick={() => {
+            setUser(new Users());
+            setEditMode(false);
+            setModalIsOpen(!modalIsOpen);
+          }}
+        >
+          <PlusCircleIcon width={20} />
+          Crear
+        </button>
+        <form className="w-50">
+          <input
+            type="search"
+            id="identification"
+            className="form-control form-control-sm"
+            placeholder="Buscar"
+            onChange={(e) => console.log(e.target.value)}
+          />
+        </form>
+        <table className="table my-2">
+          <thead>
+            <th scope="col">Acciones</th>
+            <th scope="col">Identificacion</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Estado</th>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.idUser}>
+                <td className="d-flex">
+                  <button className="btn m-0 p-0">
+                    <PencilSquareIcon
+                      width={20}
+                      onClick={handleEditUser}
+                      id={user.idUser}
+                    />
+                  </button>
+                  <button className="btn m-0 p-0">
+                    <TrashIcon
+                      width={20}
+                      onClick={handleDeleteUser}
+                      id={user.idUser}
+                    />
+                  </button>
+                  <div className="form-switch d-inline">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      name="state"
+                      id={user.idUser}
+                      checked={user.state}
+                      onChange={handleCheck}
+                    />
+                  </div>
+                </td>
+                <td>{user.identification}</td>
+                <td>{user.email}</td>
+                <td>{user.idRole}</td>
+                <td>{user.state ? "Activo" : "Inactivo"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </fieldset>
       {modalIsOpen && (
         <Modals isOpen={modalIsOpen} clickModal={setModalIsOpen} size="md">
           <fieldset className="  p-4">
@@ -208,6 +205,6 @@ export default function UsersPage() {
           </fieldset>
         </Modals>
       )}
-    </div>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { EyeIcon, TicketIcon, UserPlusIcon } from "@heroicons/react/16/solid";
- 
+
 import Modals from "../../components/Modals";
 import swal from "sweetalert";
 
@@ -82,52 +82,54 @@ export default function PaysPage() {
   };
 
   return (
-    <div className="row">
-       
-      <main className="col-10 justify-content-center align-items-center">
-        <div className="row p-2">
-          <fieldset className="col-12">
-            <legend>Ventas</legend>
-            <header className="row">
-              <div className="col-6 my-2">
-                <input
-                  type="text"
-                  id="identification"
-                  className="form-control form-control-sm my-2"
-                  placeholder="Buscar"
-                  onChange={(e) => console.log(e.target.value)}
-                />
-              </div>
-            </header>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">Acciones</th>
-                  <th scope="col">Nombre pack</th>
-                  <th scope="col">Valor</th>
-                  <th scope="col">Cantidad</th>
-                  <th scope="col">FechaRes</th>
-                  <th scope="col">FechaEjecu</th>
-                  <th scope="col">Cliente</th>
-                  <th scope="col">Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sales.map((sale) => (
-                  <tr key={sale.id}>
-                    <td className="d-flex">
-                      <button
-                        className="btn m-0 p-0"
-                        onClick={() => handleShowDetails(sale.clientIndex)}
-                      >
-                        <EyeIcon width={20} />
-                      </button>
-                      <button
-                        className="btn m-0 p-0"
-                        onClick={() => handleShowAcompanantes(sale.clientIndex)}
-                      >
-                        <UserPlusIcon width={20} onClick={()=>{
-                          if (clients[sale.clientIndex].cantidadAcompañantes <= 0) {
+    <>
+      <div className="row p-2">
+        <fieldset className="col-12">
+          <legend>Ventas</legend>
+          <header className="row">
+            <div className="col-6 my-2">
+              <input
+                type="text"
+                id="identification"
+                className="form-control form-control-sm my-2"
+                placeholder="Buscar"
+                onChange={(e) => console.log(e.target.value)}
+              />
+            </div>
+          </header>
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Acciones</th>
+                <th scope="col">Nombre pack</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">FechaRes</th>
+                <th scope="col">FechaEjecu</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sales.map((sale) => (
+                <tr key={sale.id}>
+                  <td className="d-flex">
+                    <button
+                      className="btn m-0 p-0"
+                      onClick={() => handleShowDetails(sale.clientIndex)}
+                    >
+                      <EyeIcon width={20} />
+                    </button>
+                    <button
+                      className="btn m-0 p-0"
+                      onClick={() => handleShowAcompanantes(sale.clientIndex)}
+                    >
+                      <UserPlusIcon
+                        width={20}
+                        onClick={() => {
+                          if (
+                            clients[sale.clientIndex].cantidadAcompañantes <= 0
+                          ) {
                             swal({
                               title: "No tiene acompañantes",
                               text: "Selecciona otro pago",
@@ -136,29 +138,29 @@ export default function PaysPage() {
                               timer: 2000,
                             });
                           }
-                        }}/>
-                      </button>
-                      <button
-                        className="btn m-0 p-0"
-                        onClick={() => handleShowImages(sale.clientIndex)}
-                      >
-                        <TicketIcon width={20} />
-                      </button>
-                    </td>
-                    <td>{sale.nombresPaquete}</td>
-                    <td>{sale.valorPaquete}</td>
-                    <td>{sale.cantidad}</td>
-                    <td>{sale.fechaRes}</td>
-                    <td>{sale.fechaEjecucion}</td>
-                    <td>{clients[sale.clientIndex].nombre}</td>
-                    <td>{sale.estado}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </fieldset>
-        </div>
-      </main>
+                        }}
+                      />
+                    </button>
+                    <button
+                      className="btn m-0 p-0"
+                      onClick={() => handleShowImages(sale.clientIndex)}
+                    >
+                      <TicketIcon width={20} />
+                    </button>
+                  </td>
+                  <td>{sale.nombresPaquete}</td>
+                  <td>{sale.valorPaquete}</td>
+                  <td>{sale.cantidad}</td>
+                  <td>{sale.fechaRes}</td>
+                  <td>{sale.fechaEjecucion}</td>
+                  <td>{clients[sale.clientIndex].nombre}</td>
+                  <td>{sale.estado}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </fieldset>
+      </div>
       {detailsModalIsOpen && selectedClientIndex !== null && (
         <Modals
           isOpen={detailsModalIsOpen}
@@ -254,6 +256,6 @@ export default function PaysPage() {
           </fieldset>
         </Modals>
       )}
-    </div>
+    </>
   );
 }

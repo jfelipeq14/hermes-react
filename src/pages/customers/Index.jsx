@@ -59,87 +59,84 @@ export default function CustomersPage() {
   };
 
   return (
-    <div className="row w-100 h-100">
-       
-      <main className="col-10 justify-content-center align-items-center">
-        <fieldset className="  p-2">
-          <legend>Clientes</legend>
-          <button
-            className="btn btn-sm btn-primary float-end"
-            onClick={() => {
-              setUser(new Users());
-              setCustomer(new Customers());
-              setEditMode(false);
-              setModalIsOpen(!modalIsOpen);
-            }}
-          >
-            <PlusCircleIcon width={20} />
-            Crear
-          </button>
-          <form className="w-50">
-            <input
-              type="search"
-              id="identification"
-              className="form-control form-control-sm"
-              placeholder="Buscar"
-              onChange={(e) => console.log(e.target.value)}
-            />
-          </form>
+    <>
+      <fieldset>
+        <legend>Clientes</legend>
+        <button
+          className="btn btn-sm btn-primary float-end"
+          onClick={() => {
+            setUser(new Users());
+            setCustomer(new Customers());
+            setEditMode(false);
+            setModalIsOpen(!modalIsOpen);
+          }}
+        >
+          <PlusCircleIcon width={20} />
+          Crear
+        </button>
+        <form className="w-50">
+          <input
+            type="search"
+            id="identification"
+            className="form-control form-control-sm"
+            placeholder="Buscar"
+            onChange={(e) => console.log(e.target.value)}
+          />
+        </form>
 
-          <table className="table my-2">
-            <thead>
-              <th scope="col">Acciones</th>
-              <th scope="col">Identificacion</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Correo</th>
-              <th scope="col">Celular</th>
-              <th scope="col">Estado</th>
-            </thead>
-            <tbody>
-              {customers.map((customer) => (
-                <tr key={customer.idCustomer}>
-                  <td className="d-flex">
-                    <NavLink
-                      to={{ pathname: "/administrator/reservations" }}
-                      state={{ identification: 0 }}
-                      className="btn m-0 p-0"
-                    >
-                      <EyeIcon width={20} />
-                    </NavLink>
-                    <button className="btn m-0 p-0">
-                      <PencilSquareIcon
-                        width={20}
-                        onClick={handleEditCustomer}
-                        id={customer.idCustomer}
-                      />
-                    </button>
-                  </td>
-                  <td>{customer.user.identification}</td>
-                  <td>
-                    {customer.user.name.trim()} {customer.user.lastName.trim()}
-                  </td>
-                  <td>{customer.user.email}</td>
-                  <td>{customer.phone}</td>
-                  <td>{customer.state ? "Activo" : "Inactivo"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </fieldset>
-        {modalIsOpen && (
-          <Modals isOpen={modalIsOpen} clickModal={setModalIsOpen} size="md">
-            <fieldset className="  p-4">
-              <legend>{editMode ? "Editar cliente" : "Crear cliente"}</legend>
-              <CustomerForm
-                user={user}
-                setUser={setUser}
-                customer={customer}
-                setCustomer={setCustomer}
-              />
-            </fieldset>
-          </Modals>
-        )}
-      </main>
-    </div>
+        <table className="table my-2">
+          <thead>
+            <th scope="col">Acciones</th>
+            <th scope="col">Identificacion</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Celular</th>
+            <th scope="col">Estado</th>
+          </thead>
+          <tbody>
+            {customers.map((customer) => (
+              <tr key={customer.idCustomer}>
+                <td className="d-flex">
+                  <NavLink
+                    to={{ pathname: "/administrator/reservations" }}
+                    state={{ identification: 0 }}
+                    className="btn m-0 p-0"
+                  >
+                    <EyeIcon width={20} />
+                  </NavLink>
+                  <button className="btn m-0 p-0">
+                    <PencilSquareIcon
+                      width={20}
+                      onClick={handleEditCustomer}
+                      id={customer.idCustomer}
+                    />
+                  </button>
+                </td>
+                <td>{customer.user.identification}</td>
+                <td>
+                  {customer.user.name.trim()} {customer.user.lastName.trim()}
+                </td>
+                <td>{customer.user.email}</td>
+                <td>{customer.phone}</td>
+                <td>{customer.state ? "Activo" : "Inactivo"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </fieldset>
+      {modalIsOpen && (
+        <Modals isOpen={modalIsOpen} clickModal={setModalIsOpen} size="md">
+          <fieldset className="  p-4">
+            <legend>{editMode ? "Editar cliente" : "Crear cliente"}</legend>
+            <CustomerForm
+              user={user}
+              setUser={setUser}
+              customer={customer}
+              setCustomer={setCustomer}
+            />
+          </fieldset>
+        </Modals>
+      )}
+    </>
   );
 }
