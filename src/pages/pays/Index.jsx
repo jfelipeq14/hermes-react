@@ -97,7 +97,7 @@ export default function PaysPage() {
               />
             </div>
           </header>
-          <table className="table">
+          <table className="table table-hover">
             <thead>
               <tr>
                 <th scope="col">Acciones</th>
@@ -169,7 +169,7 @@ export default function PaysPage() {
         >
           <fieldset className="  p-4 ">
             <legend>Información de la Venta</legend>
-            <table className="table">
+            <table className="table table-hover">
               <thead>
                 <tr>
                   <th>Cédula</th>
@@ -202,7 +202,7 @@ export default function PaysPage() {
           >
             <fieldset className="  p-4 ">
               <legend>Información de Acompañantes</legend>
-              <table className="table">
+              <table className="table table-hover">
                 <thead>
                   <tr>
                     <th>Nombre</th>

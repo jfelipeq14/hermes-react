@@ -84,7 +84,7 @@ export default function CustomersPage() {
           />
         </form>
 
-        <table className="table my-2">
+        <table className="table table-hover my-2">
           <thead>
             <th scope="col">Acciones</th>
             <th scope="col">Identificacion</th>

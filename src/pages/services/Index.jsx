@@ -237,7 +237,7 @@ export default function ServicesPage() {
       </Form>
       <fieldset className="col-sm-12 col-md-6">
         <legend>Servicios</legend>
-        <table className="table">
+        <table className="table table-hover">
           <thead>
             <tr>
               <th scope="col">Acciones</th>

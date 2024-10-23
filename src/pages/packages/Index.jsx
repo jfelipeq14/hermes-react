@@ -110,7 +110,7 @@ export default function PackagesPage() {
             </div>
           </div>
         </header>
-        <table className="table">
+        <table className="table table-hover">
           <thead>
             <tr>
               <th scope="col">Acciones</th>
@@ -165,7 +165,7 @@ export default function PackagesPage() {
       {viewServices && (
         <fieldset className="col-sm-12 col-md-4 py-5">
           <legend>Servicios</legend>
-          <table className="table my-2">
+          <table className="table table-hover my-2">
             <thead>
               <tr>
                 <th scope="col">Nombre</th>

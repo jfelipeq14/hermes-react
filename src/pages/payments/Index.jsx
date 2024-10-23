@@ -46,7 +46,7 @@ export default function PaymentsPage() {
               onChange={(e) => console.log(e.target.value)}
             />
           </form>
-          <table className="table my-2">
+          <table className="table table-hover my-2">
             <thead>
               <th scope="col">Acciones</th>
               <th scope="col">Paquete</th>
@@ -91,7 +91,7 @@ export default function PaymentsPage() {
         {haveVoucher && (
           <fieldset className="col-sm-12 col-md-4 py-5">
             <legend>Comprobantes</legend>
-            <table className="table my-2">
+            <table className="table table-hover my-2">
               <thead>
                 <th scope="col">Acciones</th>
                 <th scope="col">Fecha</th>

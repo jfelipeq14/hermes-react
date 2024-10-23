@@ -74,7 +74,7 @@ export default function ReservationsPage() {
           />
         </form>
         <header className="buttons"></header>
-        <table className="table my-2">
+        <table className="table table-hover my-2">
           <thead>
             <th scope="col">Acciones</th>
             <th scope="col">Detalle</th>

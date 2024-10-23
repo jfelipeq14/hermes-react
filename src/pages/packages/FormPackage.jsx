@@ -279,7 +279,7 @@ export default function FormPackage() {
                 Ver
               </button>
             </div>
-            <table className="table">
+            <table className="table table-hover">
               <thead>
                 <th scope="col">Accion</th>
                 <th scope="col">Categoria</th>
