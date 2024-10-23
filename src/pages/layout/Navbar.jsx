@@ -56,11 +56,9 @@ export default function Navbar({ children, user, setUser }) {
           <ul className="navbar-nav ms-auto">
             {children}
             {user ? (
-              <li className="nav-item">
+              <li className="nav-item dropdown">
                 <button
-                  className="btn btn-sm btn-secondary"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+                  className="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
                 >
                   {user.data.email}
                 </button>
