@@ -4,7 +4,7 @@ import {
   // PlusCircleIcon,
   TrashIcon,
 } from "@heroicons/react/16/solid";
- 
+
 import FormPermissions from "./FormPermissions";
 import swal from "sweetalert";
 // import { NavLink } from "react-router-dom";
@@ -86,13 +86,10 @@ export default function RolesPage() {
   };
 
   return (
-    <div className="row w-100 h-100">
-       
-      <main className="col-10 justify-content-center align-items-center">
-        <div className="row">
-          <fieldset className="col-sm-12 col-md-6">
-            <legend>Roles</legend>
-            {/* <NavLink
+    <div className="row">
+      <fieldset className="col-sm-12 col-md-6">
+        <legend>Roles</legend>
+        {/* <NavLink
               to={{ pathname: "/reserve" }}
               state={{ identification: 0 }}
               className="btn btn-sm btn-primary float-end"
@@ -100,75 +97,69 @@ export default function RolesPage() {
               <PlusCircleIcon width={20} />
               Crear
             </NavLink> */}
-            <form className="w-50">
-              <input
-                type="search"
-                id="identification"
-                className="form-control form-control-sm"
-                placeholder="Buscar"
-              />
-            </form>
-            <table className="table table-hover my-2">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Acciones</th>
-                  <th>Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {roles.map((rol) => (
-                  <tr
-                    key={rol.idRole}
-                    onClick={() => handleRoleClick(rol)}
-                    className={`cursor-pointer ${
-                      selectedRole && selectedRole.idRole === rol.idRole
-                        ? "table-active"
-                        : ""
-                    }`}
-                  >
-                    <td className="px-4 py-3">{rol.name}</td>
-                    <td className="px-4 py-3">
-                      <PencilSquareIcon
-                        width={20}
-                        type="button"
-                        className="mx-1"
-                      />
-                      <TrashIcon
-                        width={20}
-                        type="button"
-                        className="mx-1"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(rol.idRole);
-                        }}
-                      />
-                      <div className="form-switch d-inline">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          role="switch"
-                          name="state"
-                          checked={rol.state}
-                          onChange={(e) => {
-                            e.stopPropagation();
-                            handleChange(rol.idRole, rol.state);
-                          }}
-                        />
-                      </div>
-                    </td>
-                    <td>{rol.state ? "Activo" : "Inactivo"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </fieldset>
-          <fieldset className="col-sm-12 col-md-6">
-            <legend>Permisos</legend>
-            <FormPermissions selectedRole={selectedRole} />
-          </fieldset>
-        </div>
-      </main>
+        <form className="w-50">
+          <input
+            type="search"
+            id="identification"
+            className="form-control form-control-sm"
+            placeholder="Buscar"
+          />
+        </form>
+        <table className="table table-hover my-2">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Acciones</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {roles.map((rol) => (
+              <tr
+                key={rol.idRole}
+                onClick={() => handleRoleClick(rol)}
+                className={`cursor-pointer ${
+                  selectedRole && selectedRole.idRole === rol.idRole
+                    ? "table-active"
+                    : ""
+                }`}
+              >
+                <td className="px-4 py-3">{rol.name}</td>
+                <td className="px-4 py-3">
+                  <PencilSquareIcon width={20} type="button" className="mx-1" />
+                  <TrashIcon
+                    width={20}
+                    type="button"
+                    className="mx-1"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(rol.idRole);
+                    }}
+                  />
+                  <div className="form-switch d-inline">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      name="state"
+                      checked={rol.state}
+                      onChange={(e) => {
+                        e.stopPropagation();
+                        handleChange(rol.idRole, rol.state);
+                      }}
+                    />
+                  </div>
+                </td>
+                <td>{rol.state ? "Activo" : "Inactivo"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </fieldset>
+      <fieldset className="col-sm-12 col-md-6">
+        <legend>Permisos</legend>
+        <FormPermissions selectedRole={selectedRole} />
+      </fieldset>
     </div>
   );
 }

@@ -137,7 +137,7 @@ export default function FormPermissions() {
           required
         />
       </div>
-      <table className="table">
+      <table className="table table-hover">
         <thead>
           <tr>
             <th>Nombre</th>

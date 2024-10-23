@@ -26,7 +26,7 @@ export default function Companions() {
         Agregar
       </button>
 
-      <table className="table">
+      <table className="table table-hover">
         <thead>
           <th scope="col">Acciones</th>
           <th scope="col">Identificacion</th>
