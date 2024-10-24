@@ -38,9 +38,16 @@ export default function Navbar({ children, user, setUser }) {
   return (
     <nav className="navbar navbar-expand-lg shadow-sm bg-light">
       <div className="container-fluid">
-        <NavLink to="/" className="nav-brand">
-          <HermesLogo />
-        </NavLink>
+        {user.data.idRole === 1 ? (
+          <NavLink to="administrator/dashboard" className="nav-brand">
+            <HermesLogo />
+          </NavLink>
+        ) : (
+          <NavLink to="/" className="nav-brand">
+            <HermesLogo />
+          </NavLink>
+        )}
+
         <button
           className="navbar-toggler"
           type="button"
@@ -58,7 +65,9 @@ export default function Navbar({ children, user, setUser }) {
             {user ? (
               <li className="nav-item dropdown">
                 <button
-                  className="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                  className="btn btn-sm dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
                 >
                   {user.data.email}
                 </button>
@@ -73,10 +82,7 @@ export default function Navbar({ children, user, setUser }) {
                     </NavLink>
                   </li>
                   <li>
-                    <button
-                      className="btn"
-                      onClick={handleLogout}
-                    >
+                    <button className="btn" onClick={handleLogout}>
                       <ArrowRightEndOnRectangleIcon
                         width={20}
                         className="mx-2"

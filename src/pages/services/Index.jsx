@@ -1,5 +1,8 @@
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
-import Sidebar from "../layout/Sidebar";
+import {
+  PencilSquareIcon,
+  PlusCircleIcon,
+  TrashIcon,
+} from "@heroicons/react/16/solid";
 import { useState } from "react";
 import swal from "sweetalert";
 import { Services } from "../../models/services/services.model";
@@ -165,159 +168,162 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="row w-100 h-100">
-      <Sidebar></Sidebar>
-      <main className="col-10 justify-content-center align-items-center">
-        <div className="row p-2">
-          <fieldset className="col-12">
-            <legend>Servicios</legend>
-            <div className="col-12 mb-3">
-              <button
-                className="btn btn-primary"
-                onClick={() => setShowModal(true)}
-              >
-                Agregar Servicio
-              </button>
-            </div>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col">Acciones</th>
-                  <th scope="col">Categoría</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Valor</th>
-                  <th scope="col">Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {services.map((item) => (
-                  <tr key={item.id}>
-                    <td>
-                      <button
-                        className="btn m-0 p-0"
-                        onClick={() => handleEdit(item.id)}
-                      >
-                        <PencilSquareIcon width={20} />
-                      </button>
-                      <button
-                        className="btn m-0 p-0"
-                        onClick={() => handleDelete(item.id)}
-                      >
-                        <TrashIcon width={20} />
-                      </button>
-                      <div className="form-switch d-inline">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          role="switch"
-                          checked={item.status}
-                          onChange={() => handleCheck(item.id, item.status)}
-                        />
-                      </div>
-                    </td>
-                    <td>{item.categoryName}</td>
-                    <td>{item.name}</td>
-                    <td>{item.price}</td>
-                    <td>{item.status ? "Habilitado" : "Inhabilitado"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </fieldset>
-        </div>
-
-        {showModal && (
-          <div
-            className="modal"
-            tabIndex="-1"
-            role="dialog"
-            style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
-            s
-          >
-            <div className="modal-dialog" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">
-                    {editMode ? "Editar Servicio" : "Agregar Servicio"}
-                  </h5>
-                </div>
-                <div className="modal-body">
-                  <form
-                    noValidate
-                    className={validated ? "was-validated" : ""}
-                    onSubmit={handleSubmit}
+    <>
+      <fieldset>
+        <legend>Servicios</legend>
+        <button
+          className="btn btn-sm btn-primary float-end"
+          onClick={() => {
+            setShowModal(!showModal);
+          }}
+        >
+          <PlusCircleIcon width={20} />
+          Crear
+        </button>
+        <form className="w-50">
+          <input
+            type="search"
+            id="identification"
+            className="form-control form-control-sm"
+            placeholder="Buscar"
+            onChange={(e) => console.log(e.target.value)}
+          />
+        </form>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Acciones</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {services.map((item) => (
+              <tr key={item.id}>
+                <td>
+                  <button
+                    className="btn btn-sm m-0 p-0"
+                    onClick={() => handleEdit(item.id)}
                   >
-                    <div className="mb-3">
-                      <label>Categoría</label>
-                      <select
-                        className="form-select form-select-sm my-2"
-                        name="idCategoryService"
-                        value={serviceData.idCategoryService}
-                        onChange={handleChange}
-                        required
-                      >
-                        <option value="">Selecciona una categoría</option>
-                        <option value={1}>Transporte</option>
-                        <option value={2}>Alimentación</option>
-                        <option value={3}>Entretenimiento</option>
-                      </select>
-                    </div>
-                    <div className="mb-3">
-                      <label htmlFor="nombre" className="form-label">
-                        Nombre
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control form-control-sm my-2"
-                        name="name"
-                        value={serviceData.name}
-                        onChange={handleChange}
-                        pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)*$"
-                        required
-                      />
-                      <small className="invalid-feedback">
-                        Por favor escriba un nombre válido
-                      </small>
-                    </div>
-                    <div className="mb-3">
-                      <label htmlFor="valor" className="form-label">
-                        Valor
-                      </label>
-                      <input
-                        type="number"
-                        className="form-control form-control-sm my-2"
-                        name="price"
-                        value={serviceData.price}
-                        onChange={handleChange}
-                        pattern="^[1-9][0-9]*(\.[0-9]{1,2})?$"
-                        required
-                      />
-                      <small className="invalid-feedback">
-                        Por favor escriba un valor válido
-                      </small>
-                    </div>
-                    <div className="modal-footer">
-                      <button type="submit" className="btn btn-primary">
-                        {editMode ? "Actualizar" : "Guardar"}
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-secondary"
-                        onClick={() => {
-                          resetForm();
-                          setShowModal(false);
-                        }}
-                      >
-                        Cancelar
-                      </button>
-                    </div>
-                  </form>
-                </div>
+                    <PencilSquareIcon width={20} />
+                  </button>
+                  <button
+                    className="btn btn-sm m-0 p-0"
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    <TrashIcon width={20} />
+                  </button>
+                  <div className="form-switch d-inline">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      checked={item.status}
+                      onChange={() => handleCheck(item.id, item.status)}
+                    />
+                  </div>
+                </td>
+                <td>{item.categoryName}</td>
+                <td>{item.name}</td>
+                <td>{item.price}</td>
+                <td>{item.status ? "Habilitado" : "Inhabilitado"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </fieldset>
+      {showModal && (
+        <div
+          className="modal"
+          tabIndex="-1"
+          role="dialog"
+          style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">
+                  {editMode ? "Editar Servicio" : "Agregar Servicio"}
+                </h5>
+              </div>
+              <div className="modal-body">
+                <form
+                  noValidate
+                  className={validated ? "was-validated" : ""}
+                  onSubmit={handleSubmit}
+                >
+                  <div className="mb-3">
+                    <label>Categoría</label>
+                    <select
+                      className="form-select form-select-sm my-2"
+                      name="idCategoryService"
+                      value={serviceData.idCategoryService}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Selecciona una categoría</option>
+                      <option value={1}>Transporte</option>
+                      <option value={2}>Alimentación</option>
+                      <option value={3}>Entretenimiento</option>
+                    </select>
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="nombre" className="form-label">
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control form-control-sm my-2"
+                      name="name"
+                      value={serviceData.name}
+                      onChange={handleChange}
+                      pattern="^[A-Z][a-zA-Z]+\s*(?:[a-zA-Z]+\s*)*$"
+                      required
+                    />
+                    <small className="invalid-feedback">
+                      Por favor escriba un nombre válido
+                    </small>
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="valor" className="form-label">
+                      Valor
+                    </label>
+                    <input
+                      type="number"
+                      className="form-control form-control-sm my-2"
+                      name="price"
+                      value={serviceData.price}
+                      onChange={handleChange}
+                      pattern="^[1-9][0-9]*(\.[0-9]{1,2})?$"
+                      required
+                    />
+                    <small className="invalid-feedback">
+                      Por favor escriba un valor válido
+                    </small>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="submit" className="btn btn-sm btn-primary">
+                      {editMode ? "Actualizar" : "Guardar"}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-secondary"
+                      onClick={() => {
+                        resetForm();
+                        setShowModal(false);
+                      }}
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
-        )}
-      </main>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
