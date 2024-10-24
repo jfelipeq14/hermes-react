@@ -1,7 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import swal from "sweetalert";
 
 export default function FormPermissions({ selectedRole }) {
+  useEffect(() => {
+    resetPermissions();
+  }, [selectedRole]);
+
   const permissions = [
     { idPermission: 1, name: "Dashboard", state: true },
     { idPermission: 2, name: "Roles", state: true },
@@ -23,11 +29,7 @@ export default function FormPermissions({ selectedRole }) {
   );
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  useEffect(() => {
-    resetPermissions();
-  }, [selectedRole]);
-
-  const resetPermissions = () => {
+  function resetPermissions() {
     setPermissionsWithPrivileges(
       permissions.map((permission) => ({
         ...permission,
@@ -37,7 +39,7 @@ export default function FormPermissions({ selectedRole }) {
         }, {}),
       }))
     );
-  };
+  }
 
   const handleSave = (e) => {
     e.preventDefault();

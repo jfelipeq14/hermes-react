@@ -66,7 +66,7 @@ const packages = [
 
 export default function Home() {
   return (
-    <div className=" ">
+    <div>
       {/* Banner */}
       <section
         id="home"
